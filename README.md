@@ -97,8 +97,8 @@ I've added links to the bug reports from my GitHub Project in my README.md table
 
 | Bug Description | Bug Report Link                                                                                                               | Bug Type                       |
 | --------------- | ----------------------------------------------------------------------------------------------------------------------------- | ------------------------------ |
-| 🐞 Bug Report:  | Subject: Kaggle Dataset Download 403 Forbidden Error [#12](https://github.com/Blignaut24/BulldozerPriceGenuis-BPG-/issues/12) | 🐞Bug: Authentication Error 🔒 |
-| 🐞 Bug Report:  | Subject: Bug with GitHub file size limits when pushing large CSV files [#13](https://github.com/Blignaut24/BulldozerPriceGenuis-BPG-/issues/13) | 🐞Bug: File Size Limit Error 💾 |
+| 🐞 Bug Report:  | Subject: Kaggle Dataset Download 403 Forbidden Error [#12](https://github.com/Blignaut24/About-BulldozerPriceGenius-_BPG-_v2/issues/2) | 🐞Bug: Authentication Error 🔒 |
+| 🐞 Bug Report:  | Subject: Bug with GitHub file size limits when pushing large CSV files [#13](https://github.com/Blignaut24/About-BulldozerPriceGenius-_BPG-_v2/issues/1)  | 🐞Bug: File Size Limit Error 💾
 
 <p align="right">(<a href="#table-of-content">back to top</a>)</p>
 
