@@ -106,16 +106,16 @@ Here are the main terms you'll encounter in this project:
 # Business Context
  Bulldozer auctions generate significant revenue in the construction and heavy machinery industry. Accurate price predictions are crucial for both buyers and sellers to make informed decisions. A fictional auction company has requested a data practitioner to analyze historical auction data to determine key price factors and develop a prediction system for future auctions.
 
-# Business Requirements
+# Business Requirements 💼
 • [**Business Requirement 1**](https://github.com/Blignaut24/About-BulldozerPriceGenius-_BPG-_v2/issues/10) - The client needs to understand what factors most significantly influence bulldozer auction prices to help optimize their auction strategies and provide better guidance to sellers and buyers.
 
-• **Business Requirement 2** - The client requires a machine learning system that can accurately predict bulldozer prices based on historical auction data, with the ability to scale and adapt as new data becomes available.
+• [**Business Requirement 2**](https://github.com/users/Blignaut24/projects/23/views/2?pane=issue&itemId=97854211&issue=Blignaut24%7CAbout-BulldozerPriceGenius-_BPG-_v2%7C11) - The client requires a machine learning system that can accurately predict bulldozer prices based on historical auction data, with the ability to scale and adapt as new data becomes available.
 
-• **Business Requirement 3** - The client needs the prediction system to be accessible through a user-friendly interface that can be used by both technical and non-technical staff.
+• [**Business Requirement 3**](https://github.com/users/Blignaut24/projects/23/views/2?pane=issue&itemId=97854762&issue=Blignaut24%7CAbout-BulldozerPriceGenius-_BPG-_v2%7C13) - The client needs the prediction system to be accessible through a user-friendly interface that can be used by both technical and non-technical staff.
 
 <p align="right">(<a href="#table-of-content">back to top</a>)</p>
 
-# ML Business Case (10 Key Components)
+# 🧩 ML Business Case (10 Key Components) 
 
 ## 1. What is the business objective requiring a ML solution?
     
@@ -244,7 +244,7 @@ The customer will benefit in several key ways:
 
 <p align="right">(<a href="#table-of-content">back to top</a>)</p>
 
-# Project Hypothesis and Validation
+# 📽️ Project Hypothesis and Validation 
 
 ## Hypothesis
 I hypothesize that machine learning models can accurately predict bulldozer auction prices using historical sales data. The prediction model will analyze key features including:
@@ -276,7 +276,7 @@ Success will be determined by achieving consistent price predictions within acce
 
 <p align="right">(<a href="#table-of-content">back to top</a>)</p>
 
-# The rationale to map the business requirements to the Data Visualizations and ML tasks
+# 🗺️ The rationale to map the business requirements to the Data Visualizations and ML tasks 
 
 
 ### Price Prediction
@@ -316,12 +316,12 @@ When we use all these tools together, we can make smarter decisions about buying
 
 <p align="right">(<a href="#table-of-content">back to top</a>)</p>
 
-# Epics and User Stories
+# 📜 Epics and User Stories
 
 <p align="right">(<a href="#table-of-content">back to top</a>)</p>
 
 
-# Dashboard Design (Streamlit App User Interface)
+# 🎨 Dashboard Design (Streamlit App User Interface)
 Dashboard Component Examples:
 
 **Basic Things to Enter:**
@@ -370,7 +370,7 @@ Remember: We want to make it super easy for people to use!
 
 <p align="right">(<a href="#table-of-content">back to top</a>)</p>
 
-# Tools
+# 🛠️ Tools
 
 ## Main Data Analysis and Machine Learning Libraries
 
@@ -420,8 +420,11 @@ plt.title('Sample Visualization')
 <p align="right">(<a href="#table-of-content">back to top</a>)</p>
 
 # Testing
+
 ## Manual Testing
+
 ## Validation
+
 ## Automated Unit Tests
 
 <p align="right">(<a href="#table-of-content">back to top</a>)</p>
