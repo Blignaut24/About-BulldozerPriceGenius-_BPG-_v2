@@ -63,7 +63,7 @@ In collaboration with Fast Iron, we're revolutionizing the industry by creating 
 
 # Introduction
 
-# Dataset Content
+# Dataset Content 💾
 
 - The project leverages an extensive dataset of historical bulldozer sales information, carefully sourced from [Kaggle's prestigious Bluebook for Bulldozers competition](https://www.kaggle.com/c/bluebook-for-bulldozers/overview).
 - This comprehensive dataset encompasses a wide range of crucial attributes, including detailed model specifications, precise size measurements, accurate sale dates, specific location data, and numerous other relevant parameters.
@@ -71,8 +71,7 @@ In collaboration with Fast Iron, we're revolutionizing the industry by creating 
 
 <p align="right">(<a href="#table-of-content">back to top</a>)</p>
 
-# Project Terms & Jargon
-
+# Project Terms & Jargon 📖
 Here are the main terms you'll encounter in this project:
 
 ## Prediction-Related Terms
@@ -103,7 +102,7 @@ Here are the main terms you'll encounter in this project:
 
 <p align="right">(<a href="#table-of-content">back to top</a>)</p>
 
-# Business Context
+# Business Context 👔
  Bulldozer auctions generate significant revenue in the construction and heavy machinery industry. Accurate price predictions are crucial for both buyers and sellers to make informed decisions. A fictional auction company has requested a data practitioner to analyze historical auction data to determine key price factors and develop a prediction system for future auctions.
 
 # Business Requirements 💼
@@ -115,7 +114,7 @@ Here are the main terms you'll encounter in this project:
 
 <p align="right">(<a href="#table-of-content">back to top</a>)</p>
 
-# 🧩 ML Business Case (10 Key Components) 
+#  ML Business Case (10 Key Components) 🧩 
 
 ## 1. What is the business objective requiring a ML solution?
     
@@ -185,7 +184,7 @@ Project success will be evaluated through three critical metrics:
     
 ## 6. Ethical or Privacy concerns?
     
-  No, there are no ethical or privacy concerns about this data as it is fictitious data from a Kaggle competition. 
+  No, there are no ethical or privacy concerns about this data as it is fictitious data from a [Kaggle competition](https://www.kaggle.com/c/bluebook-for-bulldozers/overview). 
     
 ## 7. What level of prediction performance is needed?
     
@@ -244,7 +243,7 @@ The customer will benefit in several key ways:
 
 <p align="right">(<a href="#table-of-content">back to top</a>)</p>
 
-# 📽️ Project Hypothesis and Validation 
+# Project Hypothesis and Validation 📽️ 
 
 ## Hypothesis
 I hypothesize that machine learning models can accurately predict bulldozer auction prices using historical sales data. The prediction model will analyze key features including:
@@ -276,7 +275,7 @@ Success will be determined by achieving consistent price predictions within acce
 
 <p align="right">(<a href="#table-of-content">back to top</a>)</p>
 
-# 🗺️ The rationale to map the business requirements to the Data Visualizations and ML tasks 
+# The rationale to map the business requirements to the Data Visualizations and ML tasks 🗺️
 
 
 ### Price Prediction
@@ -316,12 +315,12 @@ When we use all these tools together, we can make smarter decisions about buying
 
 <p align="right">(<a href="#table-of-content">back to top</a>)</p>
 
-# 📜 Epics and User Stories
+#  Epics and User Stories 📜
 
 <p align="right">(<a href="#table-of-content">back to top</a>)</p>
 
 
-# 🎨 Dashboard Design (Streamlit App User Interface)
+#  Dashboard Design (Streamlit App User Interface) 🎨
 Dashboard Component Examples:
 
 **Basic Things to Enter:**
@@ -370,7 +369,7 @@ Remember: We want to make it super easy for people to use!
 
 <p align="right">(<a href="#table-of-content">back to top</a>)</p>
 
-# 🛠️ Tools
+# Tools 🛠️
 
 ## Main Data Analysis and Machine Learning Libraries
 
@@ -419,7 +418,7 @@ plt.title('Sample Visualization')
 
 <p align="right">(<a href="#table-of-content">back to top</a>)</p>
 
-# Testing
+# Testing 🧪
 
 ## Manual Testing
 
@@ -453,7 +452,7 @@ I've added links to the bug reports from my GitHub Project in my README.md table
 <p align="right">(<a href="#table-of-content">back to top</a>)</p>
 
 
-# Deployment
+# Deployment 🚢
 
 ## Git LFS Setup Guide
 [**Git LFS (Large File Storage)**](https://git-lfs.com/)  is a Git extension that helps manage large files in your Git repositories. Think of it as a specialized tool that handles files that are too big for regular Git to manage efficiently.
@@ -523,7 +522,7 @@ git push origin main --force
 
 <p align="right">(<a href="#table-of-content">back to top</a>)</p>
 
-# Credits
+# Credits ⭐
 
 ## Content
 - **Dataset Source** : The dataset used in this project is sourced from the  [Kaggle Bluebook for Bulldozers Competition](https://www.kaggle.com/c/bluebook-for-bulldozers/overview). The competition was sponsored by Fast Iron, a leading construction technology solutions provider
@@ -549,7 +548,7 @@ git push origin main --force
 
 <p align="right">(<a href="#table-of-content">back to top</a>)</p>
 
-# Acknowledgements 
+# Acknowledgements 📢
 
 - Thanks to my mentor Mo Shami, for his support and guidance on the execution of the project.
 
