@@ -103,26 +103,144 @@ Here are the main terms you'll encounter in this project:
 
 <p align="right">(<a href="#table-of-content">back to top</a>)</p>
 
-# Business Requirements
+# Business Context
+ Bulldozer auctions generate significant revenue in the construction and heavy machinery industry. Accurate price predictions are crucial for both buyers and sellers to make informed decisions. A fictional auction company has requested a data practitioner to analyze historical auction data to determine key price factors and develop a prediction system for future auctions.
 
-- The system needs to make accurate price predictions for bulldozers at auctions, no matter what the market looks like.
-- As more data comes in, the system should handle it smoothly and be ready to grow bigger in the future.
-- The system should be easy to use for everyone, whether they're tech-savvy or not.
+# Business Requirements
+• [**Business Requirement 1**](https://github.com/Blignaut24/About-BulldozerPriceGenius-_BPG-_v2/issues/10) - The client needs to understand what factors most significantly influence bulldozer auction prices to help optimize their auction strategies and provide better guidance to sellers and buyers.
+
+• **Business Requirement 2** - The client requires a machine learning system that can accurately predict bulldozer prices based on historical auction data, with the ability to scale and adapt as new data becomes available.
+
+• **Business Requirement 3** - The client needs the prediction system to be accessible through a user-friendly interface that can be used by both technical and non-technical staff.
 
 <p align="right">(<a href="#table-of-content">back to top</a>)</p>
 
 # ML Business Case (10 Key Components)
 
-1. **Business Problem:** The current bulldozer auction market suffers from a significant lack of reliable pricing guidance mechanisms, resulting in substantial financial risks for both buyers and sellers.
-2. **Proposed Solution:** BPG implements sophisticated AI algorithms to generate accurate price predictions, enabling more informed and confident decision-making processes.
-3. **Data Sources:** Comprehensive historical sales data obtained from the highly regarded Kaggle's Bluebook for Bulldozers competition.
-4. **ML Model:** Advanced Random Forest Regression model specifically optimized for robust and reliable predictions.
-5. **Evaluation Metric:** Utilizes Root Mean Squared Log Error (RMSLE) for precise measurement of prediction accuracy.
-6. **Success Metrics:** Demonstrable reduction in auction risks, enhanced bidding strategy effectiveness, and maximized financial returns.
-7. **Deployment:** Implemented on Heroku's scalable platform to ensure optimal accessibility and performance.
-8. **Stakeholders:** Encompasses construction companies, equipment dealers, auctioneers, and data scientists.
-9. **Risks:** Careful consideration of data quality assurance, model interpretability challenges, and market fluctuation impacts.
-10. **Cost-Benefit Analysis:** Substantial reduction in financial risks combined with increased profit potential provides clear justification for investment.
+## 1. What is the business objective requiring a ML solution?
+    
+The primary business objective is to develop an AI-powered system that accurately predicts bulldozer auction prices. By analyzing historical sales data and equipment specifications, this solution aims to:
+    
+  - **Key Business Benefits:**
+    - Enable data-driven buying and selling decisions
+    - Optimize auction pricing strategies
+    - Minimize financial risks in transactions
+    
+    Machine learning is essential for this objective due to four critical factors:
+    
+    - **Pattern Complexity:** The system must analyze numerous variables and non-linear relationships that traditional methods cannot handle effectively
+    - **Data Volume:** Processing 400,000+ records requires ML's superior computational efficiency compared to conventional analysis
+    - **Dynamic Learning:** ML algorithms can continuously adapt to new auction data, ensuring sustained accuracy
+    - **Advanced Prediction:** Only machine learning can deliver the high-precision price forecasting needed for this application
+    
+## 2. Can traditional data analysis be used?  
+Traditional data analysis plays a vital role in this project through two main components:
+    
+- **Data Exploration and Understanding**
+  - Analyzing patterns and relationships in the data
+  - Identifying key price influences through statistical analysis
+  - Visualizing relationships between features and prices
+- **Data Preparation and Quality**
+  - Cleaning and standardizing data
+  - Creating meaningful features from raw data
+  - Optimizing data structures for efficiency
+    
+While traditional analysis provides essential insights, it's not enough on its own. Machine learning techniques, particularly Random Forest Regression, are needed to capture complex pricing patterns and make accurate predictions.
+    
+This hybrid approach combines the interpretability of traditional analysis with the predictive power of machine learning.
+    
+## 3. Does the customer need a dashboard or an API endpoint? 
+Based on the business requirements and stakeholder needs, we recommend implementing a comprehensive dashboard solution that offers:
+    
+  - **Interactive Visualization:** A user-friendly interface displaying real-time price predictions, market analytics, and trend analysis
+  - **Data-Driven Insights:** Clear presentation of key pricing factors and market indicators to support strategic decision-making
+  - **Seamless Integration:** Real-time updates of predictions and market data, ensuring users always have access to current information
+  - **Cross-Team Accessibility:** An intuitive interface suitable for both technical and business users, supporting collaborative decision-making
+  - **Automated Reporting:** Streamlined generation and distribution of insights, reducing manual effort and improving operational efficiency
+
+## 4. What does success look like?
+Project success will be evaluated through three critical metrics:
+    
+  ### 1. Model Accuracy
+  - Root Mean Squared Log Error (RMSLE)
+  - Quantifies prediction accuracy against actual sale prices
+  - Success target: RMSLE below 0.25
+    
+  ### 2. Market Performance  
+  - Kaggle Competition Ranking
+  - Top 10% placement on leaderboard
+  - Consistent performance across different market conditions
+    
+  ### 3. Business Impact  
+  - Measurable Value Creation
+  - At least 15% improvement in price prediction accuracy
+  - Demonstrated ROI through reduced pricing discrepancies
+  - Increased user confidence in pricing decisions
+    
+    Success is achieved when our model delivers consistently accurate predictions (verified by RMSLE), maintains competitive performance, and provides clear, actionable insights that enhance business outcomes.
+    
+## 5. Can you break down the project into Epics and User Stories?
+  
+  Yes, the project can be broken down into Epics and User Stories, as proven by this [link](https://github.com/users/Blignaut24/projects/23/views/2).
+    
+## 6. Ethical or Privacy concerns?
+    
+  No, there are no ethical or privacy concerns about this data as it is fictitious data from a Kaggle competition. 
+    
+## 7. What level of prediction performance is needed?
+    
+  For this project, we use Root Mean Squared Log Error (RMSLE) as our key performance metric. Our target is to achieve an RMSLE below 0.25, which would indicate highly accurate price predictions.
+    
+  **Why RMSLE?**
+    
+  We chose RMSLE because it works well with our wide range of bulldozer prices and puts more emphasis on avoiding price underestimation, which is crucial for our business case.
+    
+  **Performance Benchmarks:**
+    
+  - Top 10% of Kaggle competition scores
+  - Consistent accuracy across different price ranges
+  - Minimum 15% improvement over current pricing methods
+    
+  These targets will ensure our model delivers reliable and competitive results while meeting business requirements.
+    
+## 8. What are the project inputs and intended outputs?
+  - **Input Features:**
+    - Equipment specifications (year, model, series)
+    - Sale conditions and location
+    - Technical specifications (engine, hours, condition)
+  - **Model Output:**
+      - Predicted auction price in USD
+      - Confidence intervals for predictions
+    - **Workflow:**
+      - System processes equipment details
+      - Advanced ML algorithm generates price estimate
+## 9. Does the data suggest a particular model?
+  - **Data Characteristics:**
+    - Regression problem with continuous price predictions
+    - Large dataset (400,000+ samples)
+    - Mixed numerical and categorical features
+    - Contains missing values
+  - **Suggested Model: Random Forest Regressor**
+      - Handles mixed data types effectively
+      - Robust against missing values
+      - Performs well on large datasets
+      - Captures complex pricing patterns
+## 10. How will the customer benefit?
+The customer will benefit in several key ways:
+    
+- **Financial Benefits**
+      - More accurate pricing decisions
+      - Reduced risk of over/underpaying
+      - Potential for increased profits
+- **Operational Improvements**
+      - Data-driven decision making
+      - Faster transaction processes
+      - Better market understanding
+- **Market Advantages**
+      - Greater market transparency
+      - More efficient negotiations
+      - Improved buyer-seller confidence 
+
 
 <p align="right">(<a href="#table-of-content">back to top</a>)</p>
 
@@ -198,6 +316,10 @@ When we use all these tools together, we can make smarter decisions about buying
 
 <p align="right">(<a href="#table-of-content">back to top</a>)</p>
 
+# Epics and User Stories
+
+<p align="right">(<a href="#table-of-content">back to top</a>)</p>
+
 
 # Dashboard Design (Streamlit App User Interface)
 Dashboard Component Examples:
@@ -227,6 +349,80 @@ Dashboard Component Examples:
 We'll use simple buttons, drop-down lists, and places to type in numbers. Everything will be neat and easy to find on the screen.
 
 Remember: We want to make it super easy for people to use!
+
+## Page 1
+
+<p align="right">(<a href="#table-of-content">back to top</a>)</p>
+
+## Page 2
+
+<p align="right">(<a href="#table-of-content">back to top</a>)</p>
+
+## Page 3
+
+<p align="right">(<a href="#table-of-content">back to top</a>)</p>
+
+## Page 4
+
+<p align="right">(<a href="#table-of-content">back to top</a>)</p>
+
+## Page 5
+
+<p align="right">(<a href="#table-of-content">back to top</a>)</p>
+
+# Tools
+
+## Main Data Analysis and Machine Learning Libraries
+
+The project utilizes several key Python libraries for data analysis and machine learning:
+
+-  NumPy (numpy==2.2.2): Foundation for numerical computing in Python
+-  Pandas (pandas==2.2.3): Data manipulation and analysis library
+-  Matplotlib (matplotlib==3.10.0): Static data visualization library
+-  Scikit-learn (scikit-learn==1.6.1): Machine learning algorithms and tools
+-  Seaborn (seaborn==0.11.0): Statistical data visualization
+-  Streamlit (streamlit==1.10.0): Web app framework for data applications
+
+Example usage:
+```python
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.ensemble import RandomForestRegressor
+
+# Reading and processing data
+df = pd.read_csv('data.csv')
+
+# Data visualization
+plt.figure(figsize=(10, 6))
+sns.scatterplot(data=df, x='x', y='y')
+plt.title('Sample Visualization')
+```
+<p align="right">(<a href="#table-of-content">back to top</a>)</p>
+
+## Other Technologies
+- **Development Tools**
+    - **VS Code:** Microsoft's code editor for writing and debugging Python code
+    - **Git:** Version control system for tracking code changes and collaboration
+    - **GitHub:** Web platform for hosting and managing Git repositories
+- **Machine Learning Environment**
+    - **Google Colab:** Cloud-based notebook with free GPU access for ML development
+    - **Jupyter Notebooks:** Interactive computing environment for data analysis
+- **Deployment & Documentation**
+    - **Heroku:** Cloud platform for deploying web applications and APIs
+    - **Streamlit:** Framework for creating data-driven web applications
+    - **Notion AI:** AI assistant for documentation improvement
+- **Code Quality**
+    - **PEP 8 Linter:** Tool ensuring Python code follows style guidelines
+
+
+<p align="right">(<a href="#table-of-content">back to top</a>)</p>
+
+# Testing
+## Manual Testing
+## Validation
+## Automated Unit Tests
 
 <p align="right">(<a href="#table-of-content">back to top</a>)</p>
 
@@ -320,39 +516,7 @@ git push origin main --force
 
 <p align="right">(<a href="#table-of-content">back to top</a>)</p>
 
-
-# Main Data Analysis and Machine Learning Libraries
-
-The project utilizes several key Python libraries for data analysis and machine learning:
-
--  NumPy (numpy==2.2.2): Foundation for numerical computing in Python
--  Pandas (pandas==2.2.3): Data manipulation and analysis library
--  Matplotlib (matplotlib==3.10.0): Static data visualization library
--  Scikit-learn (scikit-learn==1.6.1): Machine learning algorithms and tools
--  Seaborn (seaborn==0.11.0): Statistical data visualization
--  Streamlit (streamlit==1.10.0): Web app framework for data applications
-
-Example usage:
-```python
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
-from sklearn.ensemble import RandomForestRegressor
-
-# Reading and processing data
-df = pd.read_csv('data.csv')
-
-# Data visualization
-plt.figure(figsize=(10, 6))
-sns.scatterplot(data=df, x='x', y='y')
-plt.title('Sample Visualization')
-```
-
-
-<p align="right">(<a href="#table-of-content">back to top</a>)</p>
-
-# Tools
+## Forking and Cloning
 
 <p align="right">(<a href="#table-of-content">back to top</a>)</p>
 
@@ -384,7 +548,7 @@ plt.title('Sample Visualization')
 
 # Acknowledgements 
 
-- Thank the people who provided support through this project.
+- Thanks to my mentor Mo Shami, for his support and guidance on the execution of the project.
 
 <p align="right">(<a href="#table-of-content">back to top</a>)</p>
 
