@@ -325,26 +325,30 @@ git push origin main --force
 
 The project utilizes several key Python libraries for data analysis and machine learning:
 
-- `NumPy (numpy==2.2.2)`: A tool for doing math with large sets of numbers quickly
-- `Pandas (pandas==2.2.3)`: A tool for organizing and working with data in tables
-- `Matplotlib (matplotlib==3.10.0)`: A tool for making simple charts and graphs
-- **Altair (altair==4.2.2)**: A tool for making charts you can interact with
+-  NumPy (numpy==2.2.2): Foundation for numerical computing in Python
+-  Pandas (pandas==2.2.3): Data manipulation and analysis library
+-  Matplotlib (matplotlib==3.10.0): Static data visualization library
+-  Scikit-learn (scikit-learn==1.6.1): Machine learning algorithms and tools
+-  Seaborn (seaborn==0.11.0): Statistical data visualization
+-  Streamlit (streamlit==1.10.0): Web app framework for data applications
 
 Example usage:
 ```python
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-import altair as alt
+import seaborn as sns
+from sklearn.ensemble import RandomForestRegressor
 
 # Reading and processing data
 df = pd.read_csv('data.csv')
 
 # Data visualization
 plt.figure(figsize=(10, 6))
-plt.scatter(df['x'], df['y'])
+sns.scatterplot(data=df, x='x', y='y')
 plt.title('Sample Visualization')
 ```
+
 
 <p align="right">(<a href="#table-of-content">back to top</a>)</p>
 
