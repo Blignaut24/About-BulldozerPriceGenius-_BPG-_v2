@@ -128,7 +128,7 @@ Here are the main terms you'll encounter in this project:
 
 # Project Hypothesis and Validation
 
-### Hypothesis
+## Hypothesis
 I hypothesize that machine learning models can accurately predict bulldozer auction prices using historical sales data. The prediction model will analyze key features including:
 - Model specifications
 - Manufacturing year
@@ -143,9 +143,9 @@ I hypothesize that machine learning models can accurately predict bulldozer auct
 - `Test set`: Final evaluation of real-world prediction capability
 
 ### Performance Measurement: How We Measure Success?
-- We use something called **RMSLE** to check how good our predictions are
-- When the **RMSLE** number is smaller, it means our predictions are more accurate
-- We test our model on different sets of data to make sure it works well in all cases
+- We use a measurement called **RMSLE** to check how accurate our predictions are
+- A lower **RMSLE** number means our predictions are better
+- We'll test our system on different types of bulldozers to make sure it works well in all cases
 
 ### Model Evaluation Process
 1. Train multiple ML models
