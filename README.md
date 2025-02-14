@@ -18,50 +18,76 @@ In collaboration with Fast Iron, we're revolutionizing the industry by creating 
 
 # Table of Content
 
+
 - [BulldozerPriceGenuis (BPG)](#bulldozerpricegenuis-bpg)
       - ["**BulldozerPriceGenuis (BPG)**: _Know Your Equipment's Worth, Make Smarter Auction Decisions_](#bulldozerpricegenuis-bpg-know-your-equipments-worth-make-smarter-auction-decisions)
       - [_"Stop leaving money on the table. Let BulldozerPriceGenius transform your uncertain pricing decisions into data-driven success stories."_](#stop-leaving-money-on-the-table-let-bulldozerpricegenius-transform-your-uncertain-pricing-decisions-into-data-driven-success-stories)
 - [Table of Content](#table-of-content)
 - [Introduction](#introduction)
-- [Dataset Content](#dataset-content)
-- [Project Terms \& Jargon](#project-terms--jargon)
+- [Dataset Content 💾](#dataset-content-)
+- [Project Terms \& Jargon 📖](#project-terms--jargon-)
   - [Prediction-Related Terms](#prediction-related-terms)
   - [Data Organization](#data-organization)
   - [Technical Tools](#technical-tools)
   - [File Types](#file-types)
-- [Business Requirements](#business-requirements)
-- [ML Business Case (10 Key Components)](#ml-business-case-10-key-components)
-- [Project Hypothesis and Validation](#project-hypothesis-and-validation)
-    - [Hypothesis](#hypothesis)
+- [Business Context 👔](#business-context-)
+- [Business Requirements 💼](#business-requirements-)
+- [ML Business Case (10 Key Components) 🧩](#ml-business-case-10-key-components-)
+  - [1. What is the business objective requiring a ML solution?](#1-what-is-the-business-objective-requiring-a-ml-solution)
+  - [2. Can traditional data analysis be used?](#2-can-traditional-data-analysis-be-used)
+  - [3. Does the customer need a dashboard or an API endpoint?](#3-does-the-customer-need-a-dashboard-or-an-api-endpoint)
+  - [4. What does success look like?](#4-what-does-success-look-like)
+    - [1. Model Accuracy](#1-model-accuracy)
+    - [2. Market Performance](#2-market-performance)
+    - [3. Business Impact](#3-business-impact)
+  - [5. Can you break down the project into Epics and User Stories?](#5-can-you-break-down-the-project-into-epics-and-user-stories)
+  - [6. Ethical or Privacy concerns?](#6-ethical-or-privacy-concerns)
+  - [7. What level of prediction performance is needed?](#7-what-level-of-prediction-performance-is-needed)
+  - [8. What are the project inputs and intended outputs?](#8-what-are-the-project-inputs-and-intended-outputs)
+  - [9. Does the data suggest a particular model?](#9-does-the-data-suggest-a-particular-model)
+  - [10. How will the customer benefit?](#10-how-will-the-customer-benefit)
+- [Project Hypothesis and Validation 📽️](#project-hypothesis-and-validation-️)
+  - [Hypothesis](#hypothesis)
   - [Validation Approach](#validation-approach)
     - [Data Splitting Strategy](#data-splitting-strategy)
-    - [Performance Measurement](#performance-measurement)
+    - [Performance Measurement: How We Measure Success?](#performance-measurement-how-we-measure-success)
     - [Model Evaluation Process](#model-evaluation-process)
-- [The rationale to map the business requirements to the Data Visualizations and ML tasks](#the-rationale-to-map-the-business-requirements-to-the-data-visualizations-and-ml-tasks)
+- [The rationale to map the business requirements to the Data Visualizations and ML tasks 🗺️](#the-rationale-to-map-the-business-requirements-to-the-data-visualizations-and-ml-tasks-️)
     - [Price Prediction](#price-prediction)
     - [Market Trends](#market-trends)
     - [Smart Pricing](#smart-pricing)
   - [How Our Tools Help Us](#how-our-tools-help-us)
-- [Dashboard Design (Streamlit App User Interface)](#dashboard-design-streamlit-app-user-interface)
+- [Epics and User Stories 📜](#epics-and-user-stories-)
+- [Dashboard Design (Streamlit App User Interface) 🎨](#dashboard-design-streamlit-app-user-interface-)
+  - [Page 1](#page-1)
+  - [Page 2](#page-2)
+  - [Page 3](#page-3)
+  - [Page 4](#page-4)
+  - [Page 5](#page-5)
+- [Tools 🛠️](#tools-️)
+  - [Main Data Analysis and Machine Learning Libraries](#main-data-analysis-and-machine-learning-libraries)
+  - [Other Technologies](#other-technologies)
+- [Testing 🧪](#testing-)
+  - [Manual Testing](#manual-testing)
+  - [Validation](#validation)
+  - [Automated Unit Tests](#automated-unit-tests)
 - [Bug Reports 🐞](#bug-reports-)
   - [Known bugs ❌](#known-bugs-)
   - [Fixed bugs ✅](#fixed-bugs-)
-- [Deployment](#deployment)
+- [Deployment 🚢](#deployment-)
   - [Git LFS Setup Guide](#git-lfs-setup-guide)
     - [Prerequisites](#prerequisites)
     - [Installation](#installation)
     - [For Existing Projects](#for-existing-projects)
     - [Important Notes](#important-notes)
   - [Heroku](#heroku)
-- [Main Data Analysis and Machine Learning Libraries](#main-data-analysis-and-machine-learning-libraries)
-- [Tools](#tools)
-- [Credits](#credits)
+  - [Forking and Cloning](#forking-and-cloning)
+- [Credits ⭐](#credits-)
   - [Content](#content)
   - [Tutorials](#tutorials)
   - [Media](#media)
-- [Acknowledgements](#acknowledgements)
+- [Acknowledgements 📢](#acknowledgements-)
 
-# Introduction
 
 # Dataset Content 💾
 
@@ -104,6 +130,8 @@ Here are the main terms you'll encounter in this project:
 
 # Business Context 👔
  Bulldozer auctions generate significant revenue in the construction and heavy machinery industry. Accurate price predictions are crucial for both buyers and sellers to make informed decisions. A fictional auction company has requested a data practitioner to analyze historical auction data to determine key price factors and develop a prediction system for future auctions.
+
+ <p align="right">(<a href="#table-of-content">back to top</a>)</p>
 
 # Business Requirements 💼
 • [**Business Requirement 1**](https://github.com/Blignaut24/About-BulldozerPriceGenius-_BPG-_v2/issues/10) - The client needs to understand what factors most significantly influence bulldozer auction prices to help optimize their auction strategies and provide better guidance to sellers and buyers.
@@ -351,25 +379,39 @@ Remember: We want to make it super easy for people to use!
 
 ## Page 1
 
-<p align="right">(<a href="#table-of-content">back to top</a>)</p>
 
 ## Page 2
 
-<p align="right">(<a href="#table-of-content">back to top</a>)</p>
+
 
 ## Page 3
 
-<p align="right">(<a href="#table-of-content">back to top</a>)</p>
+
 
 ## Page 4
 
-<p align="right">(<a href="#table-of-content">back to top</a>)</p>
+
 
 ## Page 5
 
 <p align="right">(<a href="#table-of-content">back to top</a>)</p>
 
 # Tools 🛠️
+
+## Languages
+
+This project requires [`Python 3.12.8`](https://www.python.org/downloads/release/python-3128/) or higher. Python 3.12.8 includes several important features and improvements that are utilized in this project:
+
+- Enhanced error messages and debugging capabilities
+- Improved type hinting and annotation features
+- Better performance for data processing tasks
+
+To check your Python version, run:
+
+```bash
+python --version
+```
+
 
 ## Main Data Analysis and Machine Learning Libraries
 
@@ -398,7 +440,17 @@ plt.figure(figsize=(10, 6))
 sns.scatterplot(data=df, x='x', y='y')
 plt.title('Sample Visualization')
 ```
-<p align="right">(<a href="#table-of-content">back to top</a>)</p>
+
+
+## Installation of Packages
+
+To install all required packages for this project, run the following command in your terminal:
+
+```bash
+pip install -r requirements.txt
+```
+
+This command will automatically install all dependencies listed in the requirements.txt file. Make sure you have Python 3.12.8 installed on your system before running this command.
 
 ## Other Technologies
 - **Development Tools**
@@ -420,9 +472,15 @@ plt.title('Sample Visualization')
 
 # Testing 🧪
 
+
+
 ## Manual Testing
 
+
+
 ## Validation
+
+
 
 ## Automated Unit Tests
 
@@ -502,6 +560,8 @@ git push origin main --force
 - All team members must have Git LFS installed
 - Files larger than 100MB require Git LFS
 - Force push is required after migration
+
+<p align="right">(<a href="#table-of-content">back to top</a>)</p>
 
 ## Heroku
 
