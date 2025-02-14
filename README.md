@@ -406,22 +406,52 @@ We'll use simple buttons, drop-down lists, and places to type in numbers. Everyt
 
 Remember: We want to make it super easy for people to use!
 
-## Page 1
 
+## **Page 1: Project Overview**
+Use Case: Provide quick orientation and project context
+- Project summary and objectives
+- Key business requirements
+- Dataset overview
+- Technical prerequisites
+  
+Action: Help users easily see what the project does and what it needs
 
-## Page 2
+## **Page 2: Data Analysis**
+Use Case: Enable data-driven insights
+- Interactive data exploration tools
+- Feature importance visualization
+- Price trend analysis
+- Geographic insights
 
+Action: Users can find out what makes bulldozer prices go up or down
 
+## **Page 3: Model Performance**
+Use Case: Validate model reliability
+- Performance metrics dashboard
+- Accuracy visualization
+- Error distribution analysis
+- Model comparison interface
 
-## Page 3
+Action: Users can easily check how well the system is working and how accurate its predictions are
 
+## **Page 4: Interactive Prediction**
+Use Case: Generate real-time predictions
+- User-friendly input form
+- Real-time price predictions
+- Confidence metrics display
+- Results interpretation guide
+  
+Action: Users can quickly find out what their bulldozer is worth
 
+## **Page 5:Documentation**
+Use Case: Provide technical reference
+- API documentation
+- User guide
+- Known limitations
+- Future roadmap
+  
+Action: Users can easily check a bulldozer's price
 
-## Page 4
-
-
-
-## Page 5
 
 <p align="right">(<a href="#table-of-content">back to top</a>)</p>
 
