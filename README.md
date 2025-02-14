@@ -348,13 +348,13 @@ The project was divided into 5 Epics covering Data Analysis and Machine Learning
 
 ## **Epic 1 - Data Ingestion and Preprocessing**
 
-• **User Story** - As a data scientist, I can ingest the bulldozer sales data from a CSV file so that it's available for analysis and modeling.
+• **User Story** - As a data scientist, I can ingest the bulldozer sales data from a CSV file so that it's available for analysis and modeling. (**Business Requirement 2**)
 
-• **User Story** - As a data scientist, I can create new features from the 'saledate' column to enhance model training capabilities.
+• **User Story** - As a data scientist, I can create new features from the 'saledate' column to enhance model training capabilities. (**Business Requirement 2**)
 
-• **User Story** - As a data scientist, I can handle missing values in the dataset to ensure data quality for modeling.
+• **User Story** - As a data scientist, I can handle missing values in the dataset to ensure data quality for modeling. (**Business Requirement 2**)
 
-• **User Story** - As a data scientist, I can convert categorical string columns to numerical representations for machine learning compatibility.
+• **User Story** - As a data scientist, I can convert categorical string columns to numerical representations for machine learning compatibility. (**Business Requirement 2**)
 
 ## **Epic 2 - Exploratory Data Analysis (EDA)**
 
@@ -368,7 +368,7 @@ The project was divided into 5 Epics covering Data Analysis and Machine Learning
 
 • **User Story** - As a data scientist, I can evaluate model performance to ensure accurate price predictions (**Business Requirement 2**).
 
-• **User Story** - As a data scientist, I can save the trained model for future use and deployment.
+• **User Story** - As a data scientist, I can save the trained model for future use and deployment. (**Business Requirement 2**)
 
 ## **Epic 4 - Dashboard Planning, Designing, and Development**
 • **User Story** - As a data analyst, I can access an interactive prediction page to make real-time price predictions for bulldozers (**Business Requirement 3**).
@@ -383,33 +383,20 @@ The project was divided into 5 Epics covering Data Analysis and Machine Learning
 
 
 #  Dashboard Design (Streamlit App User Interface) 🎨
-Dashboard Component Examples:
+The BulldozerPriceGenius dashboard is structured to serve both technical and non-technical users effectively:
 
-**Basic Things to Enter:**
-- What year the sale happened (pick from a list)
-- Which month it was (pick from a list) 
-- Which state it's in (pick from a list)
-- The machine's ID number (type it in)
-- The model's ID number (type it in)
+**For Non-Technical Users:**
 
-**More Detailed Things:**
-- How many hours the machine has been used (type in a number)
-- How much it's been used (pick Low, Medium or High)
-- What kind of machine it is (pick from a list)
-- Where we got the data from (pick from a list)
-- Who's selling it (type in a number)
-- When it was made (pick from a list)
+- Page 1 (Project Overview): Provides a clear, high-level understanding of the project's purpose and benefits
+- Page 2 (Data Analysis): Offers intuitive visualizations and insights about price influencing factors
+- Page 4 (Interactive Prediction): Features a user-friendly interface for obtaining bulldozer price estimates
 
-**Extra Things You Can Choose:**
-- Pick dates for when it was sold
-- What type of machine it is
-- What kind of wheels it has (2-wheel, 4-wheel, etc.)
-- What kind of cab it has (closed or open)
+**For Technical Users:**
 
-**How We'll Build It:**
-We'll use simple buttons, drop-down lists, and places to type in numbers. Everything will be neat and easy to find on the screen.
+- Page 3 (Model Performance): Details model accuracy metrics, validation results, and performance analysis
+- Page 5 (Documentation): Contains comprehensive technical documentation, including API details, system limitations, and development roadmap
 
-Remember: We want to make it super easy for people to use!
+This structure ensures that users can access information at their preferred technical depth while maintaining the system's overall usability and effectiveness.
 
 
 ## **Page 1: Project Overview**
