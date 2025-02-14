@@ -208,7 +208,7 @@ Project success will be evaluated through three critical metrics:
     
 ## 5. Can you break down the project into Epics and User Stories?
   
-  Yes, the project can be broken down into Epics and User Stories, as proven by this [link](https://github.com/users/Blignaut24/projects/23/views/2).
+  Yes, the project can be broken down into [Epics and User Stories](https://github.com/users/Blignaut24/projects/23/views/2).
     
 ## 6. Ethical or Privacy concerns?
     
@@ -344,6 +344,35 @@ When we use all these tools together, we can make smarter decisions about buying
 <p align="right">(<a href="#table-of-content">back to top</a>)</p>
 
 #  Epics and User Stories 📜
+The project was divided into 5 Epics covering Data Analysis and Machine Learning tasks. User stories were created within each Epic to implement an agile methodology in the [Git project](https://github.com/users/Blignaut24/projects/23/views/1).
+
+## **Epic 1 - Data Ingestion and Preprocessing**
+
+• **User Story** - As a data scientist, I can ingest the bulldozer sales data from a CSV file so that it's available for analysis and modeling.
+
+• **User Story** - As a data scientist, I can create new features from the 'saledate' column to enhance model training capabilities.
+
+• **User Story** - As a data scientist, I can handle missing values in the dataset to ensure data quality for modeling.
+
+• **User Story** - As a data scientist, I can convert categorical string columns to numerical representations for machine learning compatibility.
+
+## **Epic 2 - Exploratory Data Analysis (EDA)**
+
+• **User Story** - As a data scientist, I can visualize the distribution of the SalePrice column to understand the target variable characteristics (**Business Requirement 1**).
+
+• **User Story** - As a data scientist, I can explore sales trends over time to identify patterns and seasonality in the data (**Business Requirement 1**).
+
+## **Epic 3 - Machine Learning Modeling**
+
+• **User Story** - As a data scientist, I can train a Random Forest Regression model to predict bulldozer sale prices (**Business Requirement 2**).
+
+• **User Story** - As a data scientist, I can evaluate model performance to ensure accurate price predictions (**Business Requirement 2**).
+
+• **User Story** - As a data scientist, I can save the trained model for future use and deployment.
+
+## **Epic 4 - Dashboard Planning, Designing, and Development**
+
+## **Epic 5 - Dashboard Deployment and Release**
 
 <p align="right">(<a href="#table-of-content">back to top</a>)</p>
 
