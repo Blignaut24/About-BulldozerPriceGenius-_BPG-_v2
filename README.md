@@ -371,6 +371,11 @@ The project was divided into 5 Epics covering Data Analysis and Machine Learning
 • **User Story** - As a data scientist, I can save the trained model for future use and deployment.
 
 ## **Epic 4 - Dashboard Planning, Designing, and Development**
+• **User Story** - As a data analyst, I can access an interactive prediction page to make real-time price predictions for bulldozers (**Business Requirement 3**).
+
+• **User Story** - As a data analyst, I can input bulldozer specifications through a user-friendly interface to get accurate price estimates (**Business Requirement 3**).
+
+• **User Story** - As a data analyst, I can view confidence metrics for predictions to assess the reliability of the results (**Business Requirement 3**).
 
 ## **Epic 5 - Dashboard Deployment and Release**
 
