@@ -104,7 +104,7 @@ Here are the main terms you'll encounter in this project:
 
 - **Regression**: Making predictions about numbers (like guessing house prices)
 - **Time Series**: Using past information to predict future events (like weather forecasting)
-- **RMSLE**: A way to measure how accurate our predictions are
+- [**RMSLE**](https://www.kaggle.com/code/carlolepelaars/understanding-the-metric-rmsle): A way to measure how accurate our predictions are
 
 ## Data Organization
 
@@ -116,8 +116,8 @@ Here are the main terms you'll encounter in this project:
 ## Technical Tools
 
 - **Datetime**: A way to work with dates and times in Python
-- **EDA**: Looking at data to understand patterns (like making charts and graphs)
-- **Random Forest**: A powerful prediction tool that combines multiple simpler predictions
+- [**Model Driven Data Exploration(EDA)**](https://www.ibm.com/think/topics/exploratory-data-analysis): Looking at data to understand patterns (like making charts and graphs)
+- [**Random Forest**](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestRegressor.html): A powerful prediction tool that combines multiple simpler predictions
 - **NaN**: Stands for "Not a Number" - used when data is missing
 
 ## File Types
@@ -640,16 +640,17 @@ git push origin main --force
 
 
 ## Tutorials
-- **Blog**: The project structure inspired by Daniel Bourke's [A 6-step field guide for building machine learning projects](https://www.mrdbourke.com/a-6-step-field-guide-for-building-machine-learning-projects/)
-- [**Code Institute's Data Analytics Course**](https://learn.codeinstitute.net/courses/course-v1:CodeInstitute+DDA101+2021_T4/courseware/bba260bd5cc14e998b0d7e9b305d50ec/c83c55ea9f6c4e11969591e1b99c6c35/): Provides tutorial lessons for basic project setup - [**Link**](https://learn.codeinstitute.net/courses/course-v1:CodeInstitute+DDA101+2021_T4/courseware/bba260bd5cc14e998b0d7e9b305d50ec/c83c55ea9f6c4e11969591e1b99c6c35/)
+- [**Blog**](https://www.mrdbourke.com/a-6-step-field-guide-for-building-machine-learning-projects/): The project structure inspired by *Daniel Bourke's A 6-step field guide for building machine learning projects*.
+- [**Code Institute's Data Analytics Course**](https://learn.codeinstitute.net/courses/course-v1:CodeInstitute+DDA101+2021_T4/courseware/bba260bd5cc14e998b0d7e9b305d50ec/c83c55ea9f6c4e11969591e1b99c6c35/): Provides tutorial lessons for basic project setup.
 
-- [**RMSLE metric**](https://www.kaggle.com/code/carlolepelaars/understanding-the-metric-rmsle): Explanation based on Carlo Lepelaars' Kaggle kernel on "Understanding Root Mean Squared Logarithmic Error (RMSLE)". - [**Link**](https://www.kaggle.com/code/carlolepelaars/understanding-the-metric-rmsle)
-- **YouTube** [*How to Setup Git LFS for New and Existing Projects (Works With Unity)*](https://www.youtube.com/watch?v=4Ln6iRh_LTo): This project uses Git LFS (Large File Storage) for handling large files. The Git LFS setup and implementation was guided by Max O'Didily's comprehensive tutorial. For detailed setup instructions and best practices, please refer to the Git LFS documentation and resources - [**Link**](https://www.youtube.com/watch?v=4Ln6iRh_LTo)
+- [**RMSLE metric**](https://www.kaggle.com/code/carlolepelaars/understanding-the-metric-rmsle): Explanation based on Carlo Lepelaars' Kaggle kernel on "Understanding Root Mean Squared Logarithmic Error (RMSLE)".
+- [**YouTube**](https://www.youtube.com/watch?v=4Ln6iRh_LTo) *How to Setup Git LFS for New and Existing Projects (Works With Unity)*: This project uses Git LFS (Large File Storage) for handling large files. The Git LFS setup and implementation was guided by Max O'Didily's comprehensive tutorial. For detailed setup instructions and best practices, please refer to the Git LFS documentation and resources in the video.
 <br>**Requirements**
   - Git Bash
   - Git LFS<a href="7"/><a href="8"/>
 <br>
-- [**Random Forest**](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestRegressor.html) : A method that combines many simple prediction models to make better, more accurate predictions -[**Link**](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestRegressor.html)
+- [**Random Forest Regressor:**](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestRegressor.html) The implementation of the Random Forest model was based on the documentation from Scikit-learn's Random Forest Regressor
+- [**Model Driven Data Exploration (EDA)**](https://www.ibm.com/think/topics/exploratory-data-analysis): The methodology for exploratory data analysis was inspired by IBM's article on Model Driven Data Exploration
   
 
 
