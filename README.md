@@ -108,17 +108,24 @@ Here are the main terms you'll encounter in this project:
 
 ## Data Organization
 
-- **Data Dictionary**: A guide that explains what each piece of information means
-- **Target Variable**: What we're trying to predict (in this case, bulldozer prices)
-- **Independent Variables**: The information we use to make predictions (like age or model of bulldozer)
-- **Feature Engineering**: Creating new useful information from existing data
+- **Data Dictionary**: A guide that explains what each piece of information means.
+- **Target Variable**: What we're trying to predict (in this case, bulldozer prices).
+- **Independent Variables**: The information we use to make predictions (like age or model of bulldozer).
+- [**Feature Engineering**](https://www.kaggle.com/learn/feature-engineering): Creating new useful information from existing data.
+- [**Correlation Analysis**](https://www.geeksforgeeks.org/what-is-correlation-analysis/): Studied how different features relate to each other to find which ones are closely connected and overlapping.
+- [**Linear Regression**](https://www.kaggle.com/code/sudhirnl7/linear-regression-tutorial): Is a statistical method that predicts one value based on another by finding the best straight line that fits through all the data points.
 
 ## Technical Tools
 
 - **Datetime**: A way to work with dates and times in Python
-- [**Model Driven Data Exploration(EDA)**](https://www.ibm.com/think/topics/exploratory-data-analysis): Looking at data to understand patterns (like making charts and graphs)
-- [**Random Forest**](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestRegressor.html): A powerful prediction tool that combines multiple simpler predictions
+- [**Model Driven Data Exploration(EDA)**](https://www.ibm.com/think/topics/exploratory-data-analysis): Looking at data to understand patterns (like making charts and graphs).
+- [**Random Forest**](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestRegressor.html): A powerful prediction tool that combines multiple simpler predictions.
 - **NaN**: Stands for "Not a Number" - used when data is missing
+- [**Recursive Feature Elimination (RFE)**](https://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.RFE.html): A feature selection method that recursively removes less important features by training a model (like Random Forest) and ranking features based on their importance scores. It helps identify the most relevant features for prediction.
+- [**Principal Component Analysis (PCA)**](https://www.kaggle.com/code/ryanholbrook/principal-component-analysis): A method that takes complex data and makes it simpler by reducing the number of variables while keeping the most important information. It helps find patterns in data and makes it easier to work with.
+- [**Feature Selection**](https://www.kaggle.com/code/prashant111/comprehensive-guide-on-feature-selection): Used two methods to pick out the most important features for our model: RFE (which removes less useful features one by one) and PCA (which combines features to find the most important patterns in the data).
+- [**Hyperparameter Tuning**](https://www.kaggle.com/code/shreayan98c/hyperparameter-tuning-tutorial): Is the process of finding the best settings for a machine learning model, similar to adjusting the knobs on a radio to get the clearest signal.
+- [**Decision Trees**](https://www.kaggle.com/code/satishgunjal/tutorial-decision-tree): A decision tree is like a flowchart that makes predictions by following a series of yes/no questions about your data, similar to how you might make decisions in a game of "20 Questions".
 
 ## File Types
 
@@ -636,7 +643,7 @@ git push origin main --force
 # Credits ⭐
 
 ## Content
-- **Dataset Source** : The dataset used in this project is sourced from the  [Kaggle Bluebook for Bulldozers Competition](https://www.kaggle.com/c/bluebook-for-bulldozers/overview). The competition was sponsored by Fast Iron, a leading construction technology solutions provider
+- [**Dataset Source**](https://www.kaggle.com/c/bluebook-for-bulldozers/overview) : The dataset used in this project is sourced from the  [*Kaggle Bluebook for Bulldozers Competition*](https://www.kaggle.com/c/bluebook-for-bulldozers/overview). The competition was sponsored by Fast Iron, a leading construction technology solutions provider
 
 
 ## Tutorials
@@ -644,19 +651,27 @@ git push origin main --force
 - [**Code Institute's Data Analytics Course**](https://learn.codeinstitute.net/courses/course-v1:CodeInstitute+DDA101+2021_T4/courseware/bba260bd5cc14e998b0d7e9b305d50ec/c83c55ea9f6c4e11969591e1b99c6c35/): Provides tutorial lessons for basic project setup.
 
 - [**RMSLE metric**](https://www.kaggle.com/code/carlolepelaars/understanding-the-metric-rmsle): Explanation based on Carlo Lepelaars' Kaggle kernel on "Understanding Root Mean Squared Logarithmic Error (RMSLE)".
-- [**YouTube**](https://www.youtube.com/watch?v=4Ln6iRh_LTo) *How to Setup Git LFS for New and Existing Projects (Works With Unity)*: This project uses Git LFS (Large File Storage) for handling large files. The Git LFS setup and implementation was guided by Max O'Didily's comprehensive tutorial. For detailed setup instructions and best practices, please refer to the Git LFS documentation and resources in the video.
+- [**YouTube**](https://www.youtube.com/watch?v=4Ln6iRh_LTo): [*How to Setup Git LFS for New and Existing Projects (Works With Unity)*](https://www.youtube.com/watch?v=4Ln6iRh_LTo): This project uses Git LFS (Large File Storage) for handling large files. The Git LFS setup and implementation was guided by Max O'Didily's comprehensive tutorial. For detailed setup instructions and best practices, please refer to the Git LFS documentation and resources in the video.
 <br>**Requirements**
   - Git Bash
   - Git LFS<a href="7"/><a href="8"/>
 <br>
 - [**Random Forest Regressor:**](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestRegressor.html) The implementation of the Random Forest model was based on the documentation from Scikit-learn's Random Forest Regressor
 - [**Model Driven Data Exploration (EDA)**](https://www.ibm.com/think/topics/exploratory-data-analysis): The methodology for exploratory data analysis was inspired by IBM's article on Model Driven Data Exploration
+- [**Recursive Feature Elimination (RFE)**](https://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.RFE.html): The implementation of RFE was based on the documentation from Scikit-learn's feature selection module.
+- [**The Principal Component Analysis (PCA)**](https://www.kaggle.com/code/ryanholbrook/principal-component-analysis) implementation and methodology was adapted from Ryan Holbrook's Kaggle tutorial on dimensionality reduction techniques.
+- [**Correlation Analysis**](https://www.geeksforgeeks.org/what-is-correlation-analysis/): The correlation analysis section was adapted from GeeksforGeeks article on correlation analysis.
+- [**Feature Selection**](https://www.kaggle.com/code/prashant111/comprehensive-guide-on-feature-selection): The comprehensive guide on feature selection by Prashant Banerjee.
+- [**Hyperparameter Tuning**](https://www.kaggle.com/code/shreayan98c/hyperparameter-tuning-tutorial): The hyperparameter tuning tutorial by Shreayan Chaudhary.
+- [**Feature Engineering**](https://www.kaggle.com/learn/feature-engineering):   The feature engineering tutorial is adapted from a Kaggle tutorial that provides comprehensive guidance on creating and selecting meaningful features for machine learning models.
+- [**Linear Regression**](https://www.kaggle.com/code/sudhirnl7/linear-regression-tutorial): The linear regression tutorial by Sudhir Kumar.
+- [**Decision Trees**](https://www.kaggle.com/code/satishgunjal/tutorial-decision-tree): The decision trees tutorial by Satish Gunjal.
   
 
 
 ## Media
 
-- **Bulldozer image**: Sourced from [Freepik.com](http://Freepik.com) with a free licence.  [Link](http://Freepik.com)
+- [**Bulldozer image**](http://Freepik.com): Sourced from Freepik.com with a free licence. 
 
 <p align="right">(<a href="#table-of-content">back to top</a>)</p>
 
