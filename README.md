@@ -656,7 +656,8 @@ git push origin main --force
   - Git Bash
   - Git LFS<a href="7"/><a href="8"/>
 <br>
-- [**Random Forest Regressor:**](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestRegressor.html) The implementation of the Random Forest model was based on the documentation from Scikit-learn's Random Forest Regressor
+
+- [**Random Forest Regressor**](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestRegressor.html): The implementation of the Random Forest model was based on the documentation from Scikit-learn's Random Forest Regressor
 - [**Model Driven Data Exploration (EDA)**](https://www.ibm.com/think/topics/exploratory-data-analysis): The methodology for exploratory data analysis was inspired by IBM's article on Model Driven Data Exploration
 - [**Recursive Feature Elimination (RFE)**](https://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.RFE.html): The implementation of RFE was based on the documentation from Scikit-learn's feature selection module.
 - [**The Principal Component Analysis (PCA)**](https://www.kaggle.com/code/ryanholbrook/principal-component-analysis) implementation and methodology was adapted from Ryan Holbrook's Kaggle tutorial on dimensionality reduction techniques.
