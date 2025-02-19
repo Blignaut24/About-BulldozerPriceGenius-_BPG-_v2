@@ -593,8 +593,9 @@ git lfs install
 1. Configure files to track (examples):
 
 ```bash
-git lfs track "*.csv"    # Track CSV files
-git lfs track "*.xlsx"   # Track Excel files 
+git lfs track "*.csv"     # Track CSV files
+git lfs track "*.xlsx"    # Track Excel files
+git lfs track "*.pkl"     # Track Pickle files
 ```
 
 1. Save the configuration:
@@ -609,7 +610,7 @@ git commit -m "Configure Git LFS"
 To migrate existing files to LFS:
 
 ```bash
-git lfs migrate import --include="*.*csv*,*.xlsx" --everything
+git lfs migrate import --include="*.csv,*.xlsx,*.pkl" --everything
 git push origin main --force
 ```
 
