@@ -514,7 +514,8 @@ This command will automatically install all dependencies listed in the requireme
 - **Development Tools**
     - **VS Code:** Microsoft's code editor for writing and debugging Python code
     - **Git:** Version control system for tracking code changes and collaboration
-    - **GitHub:** Web platform for hosting and managing Git repositories
+    - **GitHub:** Web platform for hosting and managing Git repositories.
+    - **Git LFS (Large File Storage):** Extension for Git that manages large files by storing them on a remote server while keeping lightweight references in the repository .
 - **Machine Learning Environment**
     - **Google Colab:** Cloud-based notebook with free GPU access for ML development
     - **Jupyter Notebooks:** Interactive computing environment for data analysis
@@ -576,6 +577,17 @@ I've added links to the bug reports from my GitHub Project in my README.md table
 Why do you need it? GitHub has a 100MB file size limit for regular files. Git LFS solves this problem by providing a way to version large files.
 
 Instead of storing these large files directly in your Git repository, Git LFS stores lightweight references and keeps the actual files on a separate server. This makes your repository more manageable and ensures smooth collaboration when working with large files.
+
+> [!NOTE]
+> ### Git LFS Storage Management
+> During the project development, I encountered storage limitations with Git LFS's 1GB free tier. While there were alternatives available to reduce file sizes, such as removing unnecessary large files or using external storage, time constraints led me to purchase additional data packs. This ensured uninterrupted project progress and maintained the integrity of our version control system.
+>
+> For those interested in upgrading Git LFS storage, detailed instructions can be found in the [GitHub Documentation](https://docs.github.com/en/billing/managing-billing-for-your-products/managing-billing-for-git-large-file-storage/upgrading-git-large-file-storage).
+>
+> Alternative storage management strategies include:
+> - Remove unnecessary large files from Git history.
+> - Store large files elsewhere (like cloud storage) and add them to `.gitignore`.
+> - Clean up old LFS objects you no longer need.
 
 ### Prerequisites
 
@@ -668,6 +680,7 @@ git push origin main --force
 - [**Feature Engineering**](https://www.kaggle.com/learn/feature-engineering):   The feature engineering tutorial is adapted from a Kaggle tutorial that provides comprehensive guidance on creating and selecting meaningful features for machine learning models.
 - [**Linear Regression**](https://www.kaggle.com/code/sudhirnl7/linear-regression-tutorial): The linear regression tutorial by Sudhir Kumar.
 - [**Decision Trees**](https://www.kaggle.com/code/satishgunjal/tutorial-decision-tree): The decision trees tutorial by Satish Gunjal.
+- [**Git LFS Storage**](https://docs.github.com/en/billing/managing-billing-for-your-products/managing-billing-for-git-large-file-storage/upgrading-git-large-file-storage): The implementation and management of Git Large File Storage was guided by [GitHub's comprehensive documentation](https://docs.github.com/en/billing/managing-billing-for-your-products/managing-billing-for-git-large-file-storage/upgrading-git-large-file-storage).
   
 
 
