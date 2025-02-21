@@ -126,6 +126,7 @@ Here are the main terms you'll encounter in this project:
 - [**Feature Selection**](https://www.kaggle.com/code/prashant111/comprehensive-guide-on-feature-selection): Used two methods to pick out the most important features for our model: RFE (which removes less useful features one by one) and PCA (which combines features to find the most important patterns in the data).
 - [**Hyperparameter Tuning**](https://www.kaggle.com/code/shreayan98c/hyperparameter-tuning-tutorial): Is the process of finding the best settings for a machine learning model, similar to adjusting the knobs on a radio to get the clearest signal.
 - [**Decision Trees**](https://www.kaggle.com/code/satishgunjal/tutorial-decision-tree): A decision tree is like a flowchart that makes predictions by following a series of yes/no questions about your data, similar to how you might make decisions in a game of "20 Questions".
+- [**Feature Importance**](https://www.kaggle.com/code/raskoshik/feature-importance-how-not-fool-yourself): Helps us understand which characteristics of our data have the strongest influence on predictions, like identifying which parts of a recipe contribute most to its taste.
 
 ## File Types
 
@@ -681,6 +682,7 @@ git push origin main --force
 - [**Linear Regression**](https://www.kaggle.com/code/sudhirnl7/linear-regression-tutorial): The linear regression tutorial by Sudhir Kumar.
 - [**Decision Trees**](https://www.kaggle.com/code/satishgunjal/tutorial-decision-tree): The decision trees tutorial by Satish Gunjal.
 - [**Git LFS Storage**](https://docs.github.com/en/billing/managing-billing-for-your-products/managing-billing-for-git-large-file-storage/upgrading-git-large-file-storage): The implementation and management of Git Large File Storage was guided by [GitHub's comprehensive documentation](https://docs.github.com/en/billing/managing-billing-for-your-products/managing-billing-for-git-large-file-storage/upgrading-git-large-file-storage).
+- [**Feature Importance Analysis**](https://www.kaggle.com/code/raskoshik/feature-importance-how-not-fool-yourself): The methodology for analyzing feature importance was informed by this [comprehensive Kaggle guide](https://www.kaggle.com/code/raskoshik/feature-importance-how-not-fool-yourself).
   
 
 
