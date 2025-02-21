@@ -570,7 +570,7 @@ I've added links to the bug reports from my GitHub Project in my README.md table
 <p align="right">(<a href="#table-of-content">back to top</a>)</p>
 
 
-# Deployment 🚢
+# Setup & Deployment 🚢
 
 ## Git LFS Setup Guide
 [**Git LFS (Large File Storage)**](https://git-lfs.com/)  is a Git extension that helps manage large files in your Git repositories. Think of it as a specialized tool that handles files that are too big for regular Git to manage efficiently.
@@ -632,6 +632,94 @@ git push origin main --force
 - All team members must have Git LFS installed
 - Files larger than 100MB require Git LFS
 - Force push is required after migration
+
+<p align="right">(<a href="#table-of-content">back to top</a>)</p>
+
+## **Setting Up Streamlit**
+
+This guide will help you set up Streamlit for your project. We'll walk through the essential steps using virtual environments and pip based on Streamlit [**documentation**](https://docs.streamlit.io/develop/concepts/multipage-apps/overview).
+
+#### **Prerequisites Checklist**
+
+- ✅ Python (version 3.9-3.13)
+- ✅ Python environment manager (venv)
+- ✅ Package manager (pip)
+- ✅ Code editor (VS Code recommended)
+- ✅ For Mac users only: Xcode command line tools
+
+### **Quick Setup Guide**
+
+##### **1. Create Virtual Environment**
+
+Navigate to your project folder and run:
+
+```bash
+cd myproject
+python -m venv .venv
+
+```
+
+#### **2. Activate Environment**
+
+Use the appropriate command for your system:
+
+```bash
+# Windows Command Prompt
+.venv\Scripts\activate.bat
+
+# Windows PowerShell
+.venv\Scripts\Activate.ps1
+
+# macOS/Linux
+source .venv/bin/activate
+
+```
+
+#### **3. Install Streamlit**
+
+```bash
+pip install streamlit
+
+```
+
+#### **4. Test Installation**
+
+```bash
+streamlit hello
+
+```
+
+### **Creating Your First App**
+
+1. Create a file named `app.py`
+2. Add this simple code:
+
+```python
+import streamlit as st
+
+st.write("Hello world")
+
+```
+
+1. Run your app:
+
+```bash
+streamlit run app.py
+
+```
+
+### **Best Practices**
+
+- Always use a virtual environment for each project.
+- Keep requirements.txt updated with `pip freeze > requirements.txt`.
+- Use `deactivate` when finished working.
+- Add `.venv` to your `.gitignore` file.
+
+### **Troubleshooting Tips**
+
+- If standard commands fail, try using `python -m streamlit run app.py`.
+- Check that your virtual environment is activated (look for (.venv) in terminal).
+- Ensure you're using a supported Python version.
 
 <p align="right">(<a href="#table-of-content">back to top</a>)</p>
 
