@@ -1,24 +1,30 @@
+# Import the Streamlit library which we'll use to create our web app
 import streamlit as st
 
+# Set the main title of the web app
 st.title("BulldozerPriceGenius(BPG)")
 
+# Display the logo/header image
 st.image("static/images/bulldozer_ai-min.webp")
 
+# Add a main header for the overview section
 st.header("Project Overview")
 
+# Add a subtitle that explains the app's purpose in one line
 st.subheader(
     "BulldozerPriceGenius BPG: Know Your Equipment's Worth, Make Smarter Auction Decisions."
 )
 
-st.write(f"Tired of guessing what your bulldozer is worth? BulldozerPriceGenius (BPG) is revolutionizing heavy equipment valuation with cutting-edge AI technology. In partnership with Fast Iron, we're creating the industry's first Kelly Blue Book equivalent for bulldozers, empowering construction companies and dealers to make data-driven decisions that maximize their returns. Say goodbye to uncertainty and hello to precise, market-informed valuations that put you in control of your equipment's true worth.")
+# Brief description of what the app does
+st.write(f"BulldozerPriceGenius helps predict how much bulldozers will sell for at auctions. It uses data from past sales on Kaggle to make accurate price predictions, helping buyers and sellers make better decisions in the construction equipment market.")
 
-# Link to README file, so the users can have access to full project documentation
+# Add a link to documentation for users who want more details
 st.write(
     f"* For additional information, please visit and **read** the "
     f"[Project README file](https://github.com/Blignaut24/About-BulldozerPriceGenius-_BPG-_v2.git)."
 )
 
-# copied from README file - "Business Requirements" section
+# Display the main business goals of the project
 st.subheader(
     f"Business Requirements:"
 )
@@ -29,10 +35,12 @@ st.success(
     f"* 3 - The client needs the prediction system to be accessible through a user-friendly interface that can be used by both technical and non-technical staff.\n"
 )
 
+# Define important terms so users understand the industry language
 st.subheader(
     f"Project Terms & Jargon:"
 )
-# text based on README file - "Dataset Content" section
+
+# List of key terms and their definitions
 st.info(
     f"**Project Terms & Jargon:**\n"
     f"* **AuctioneerID**: The company that conducted the auction sale (different from data source).\n"
@@ -47,15 +55,20 @@ st.info(
     f"* **User**: A person who interacts with the software application - typically auctioneers, buyers, or sellers.\n"
     f"* **Year Made**: The year the bulldozer was manufactured.\n"
 )
+
+# This helps users understand the technical terminology
 st.write(
     f"* For a complete glossary of project terms and jargon, please refer to the Kaggle "
     f"[Data Dictionary file](https://www.kaggle.com/c/bluebook-for-bulldozers/data)."
 )
 
+# Explain where our data comes from and how it's organized
 st.subheader(
     f"Data Set:"
 )
 
+# Description of the dataset and its different parts
+# Shows users what information we're using to make predictions
 st.info(
     f"**Data Set:**\n"
     f"* The project leverages an extensive dataset of historical bulldozer sales information, carefully sourced from Kaggle's prestigious Bluebook for Bulldozers competition.\n"
@@ -66,6 +79,7 @@ st.info(
     f"* **Test.csv**: Sales data from May 1, 2012, to November 2012, used for evaluating the final model. \n"
 )
 
+# Add a link for users who want to learn more about the data
 st.write(
     f"* For more information about the dataset used in this project, please refer to  "
     f"[Blue Book for Bulldozers](https://www.kaggle.com/c/bluebook-for-bulldozers/data)."
