@@ -772,6 +772,8 @@ streamlit run app.py
 - [**Git LFS Storage**](https://docs.github.com/en/billing/managing-billing-for-your-products/managing-billing-for-git-large-file-storage/upgrading-git-large-file-storage): The implementation and management of Git Large File Storage was guided by [GitHub's comprehensive documentation](https://docs.github.com/en/billing/managing-billing-for-your-products/managing-billing-for-git-large-file-storage/upgrading-git-large-file-storage).
 - [**Feature Importance Analysis**](https://www.kaggle.com/code/raskoshik/feature-importance-how-not-fool-yourself): The methodology for analyzing feature importance was informed by this [comprehensive Kaggle guide](https://www.kaggle.com/code/raskoshik/feature-importance-how-not-fool-yourself).
 - **[Streamlit](https://docs.streamlit.io/)**: The Streamlit [documentation](https://docs.streamlit.io/) served as the foundation for building our interactive web application interface.
+- [**Streamlit Installation and Setup**](https://docs.streamlit.io/get-started/installation/command-line): The Streamlit installation and setup instructions were adapted from the official [Streamlit documentation and command-line guide](https://docs.streamlit.io/get-started/installation/command-line), which provides comprehensive guidance for getting started with Streamlit applications.
+- [**Streamlit (Create an App)**](https://docs.streamlit.io/get-started/tutorials/create-an-app) : The structure of this project's Streamlit application draws from the official [**"Create an App" tutorial**](https://docs.streamlit.io/get-started/tutorials/create-an-app)— a detailed guide for developing multi-page data applications.
   
 
 
