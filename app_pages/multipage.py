@@ -12,6 +12,9 @@ class MultiPage:
         })
 
     def run(self):
+<<<<<<< HEAD
         st.title(self.app_name)
+=======
+>>>>>>> 3f1735c2270901361b130d0590ffe3cd686add04
         page = st.sidebar.selectbox('Select a page', self.pages, format_func=lambda page: page['title'])
         page['function']()
