@@ -416,7 +416,7 @@ Use Case: Provide quick orientation and project context
   
 Action: Help users easily see what the project does and what it needs
 
-## **Page 2: Data Analysis**
+## **Page 2: Case Study: Data Analysis and Visualization **
 Use Case: Enable data-driven insights
 - Interactive data exploration tools
 - Feature importance visualization

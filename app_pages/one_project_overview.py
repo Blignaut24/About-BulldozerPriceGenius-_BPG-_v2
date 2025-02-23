@@ -6,9 +6,6 @@ def project_overview_body():
     # Display the logo/header image
     st.image("static/images/bulldozer_ai-min.webp")
 
-    # Add a main header for the overview section
-    st.header("Project Overview")
-
     # Add a subtitle that explains the app's purpose in one line
     st.subheader(
         "BulldozerPriceGenius BPG: Know Your Equipment's Worth, Make Smarter Auction Decisions."
