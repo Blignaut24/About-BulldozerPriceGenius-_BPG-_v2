@@ -2,8 +2,6 @@
 import streamlit as st
 
 def project_overview_body():
-    # Set the main title of the web app
-    st.title("BulldozerPriceGenius(BPG)")
 
     # Display the logo/header image
     st.image("static/images/bulldozer_ai-min.webp")
