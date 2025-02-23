@@ -11,9 +11,6 @@ from app_pages.five_documentation import documentation_body
 # Create an instance of the app
 app = MultiPage(app_name="BulldozerPriceGenius(BPG)")
 
-# Set the title
-st.title("BulldozerPriceGenius(BPG)")
-
 # App pages
 app.add_page("one_project_overview", project_overview_body)
 app.add_page("two_case_study", case_study_body)
