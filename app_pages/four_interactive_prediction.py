@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Import required libraries
 import streamlit as st  # For creating web interface
 import joblib          # For loading ML models
@@ -12,17 +13,38 @@ try:
     st.success("Model loaded successfully.")
 except FileNotFoundError as e:
     st.error(f"Failed to load the model. FileNotFoundError: {e}")
+=======
+import streamlit as st
+import joblib
+import pandas as pd
+from datetime import datetime
+import os
+
+# load pipeline files with error handling
+try:
+    price_model = joblib.load(
+        f"./src/models/randomforest_regressor_best_RMSLE.pkl")
+except KeyError as e:
+    st.error(f"Failed to load the model. KeyError: {e}")
+>>>>>>> c016c02868c32638616fbbb6d268be79ce84ea35
     price_model = None
 except Exception as e:
     st.error(f"An unexpected error occurred while loading the model: {e}")
     price_model = None
 
+<<<<<<< HEAD
 # Try to load the feature dataset
 try:
     prediction_features = pd.read_csv(
         f"./data/processed/TrainAndValid_object_values_as_categories.csv", 
         dtype={'column_name': 'category'})
     st.success("Prediction features loaded successfully.")
+=======
+# load prediction features with error handling
+try:
+    prediction_features = pd.read_csv(
+        f"./data/processed/TrainAndValid_object_values_as_categories.csv", dtype={'column_name': 'category'})
+>>>>>>> c016c02868c32638616fbbb6d268be79ce84ea35
 except FileNotFoundError as e:
     st.error(f"Failed to load prediction features. FileNotFoundError: {e}")
     prediction_features = None
@@ -33,6 +55,7 @@ except Exception as e:
     st.error(f"An unexpected error occurred while loading prediction features: {e}")
     prediction_features = None
 
+<<<<<<< HEAD
 # Main function for the prediction interface
 def interactive_prediction_body():
     st.title("Interactive Prediction")
@@ -89,5 +112,13 @@ def interactive_prediction_body():
             st.error(f"An error occurred during prediction: {e}")
 
 # Entry point of the application
+=======
+# Define the interactive_prediction_body function
+def interactive_prediction_body():
+    st.title("Interactive Prediction")
+    # Add your interactive prediction code here
+
+# Ensure the function is defined before importing
+>>>>>>> c016c02868c32638616fbbb6d268be79ce84ea35
 if __name__ == "__main__":
     interactive_prediction_body()

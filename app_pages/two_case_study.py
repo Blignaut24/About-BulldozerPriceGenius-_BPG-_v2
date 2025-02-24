@@ -5,8 +5,14 @@ import matplotlib.pyplot as plt
 
 # Cache the data loading function to improve performance
 @st.cache_data
-def load_data(csv_file_path):
-    return pd.read_csv(csv_file_path)
+def load_data(csv_file_path, nrows=None):
+    # Specify data types to optimize memory usage
+    dtype = {
+        'SalePrice': 'float32',
+        'saleMonth': 'int8',
+        'state': 'category'
+    }
+    return pd.read_csv(csv_file_path, dtype=dtype, nrows=nrows)
 
 def case_study_body():
     # Display main header 
@@ -29,7 +35,7 @@ def case_study_body():
     
     # Load and display the dataset
     csv_file_path = "src/data_prep/TrainAndValid_object_values_as_categories.csv"
-    df = load_data(csv_file_path)
+    df = load_data(csv_file_path, nrows=10000)  # Load only the first 10,000 rows
     
     # Optional dataframe inspection
     if st.checkbox("Inspect dataframe"):
