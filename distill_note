@@ -1,0 +1,27 @@
+Chronological Steps Taken to Resolve Heroku Deployment Issue
+Timeline of Troubleshooting Steps
+Step 1: Initial Package Cleanup:
+Refer to code snippet EM 1: Help with Python package installation error on Heroku deployment (Heroku Log)
+Removed pywin32 package due to incompatibility with Heroku's Linux servers
+Step 2: Requirements.txt Optimization
+Following tutor advice, removed unnecessary packages
+Kept only packages imported in app.py and app_pages folder
+Created backup of full package list as 'local_requirements.txt'
+Step 3: Version Conflict Resolution
+Refer to code snippet EM 2: Joblib version conflict (Heroku Log)
+Identified joblib version conflict:
+Current version (1.4.2) incompatible with pandas-profiling 3.2.0
+Attempted to install joblib~=1.1.0
+Step 4: Scikit-learn Dependencies
+Refer to code snippet EM 3: joblib conflict scikit-learn (VS Code: Bash Terminal)
+Discovered conflicting requirements:
+Scikit-learn needs joblib 1.2.0+
+Pandas-profiling requires joblib ~=1.1.0
+Step 5: Attempted Solution
+Tried installing older scikit-learn (version 1.0.2)
+Installation failed due to pywin32 dependency
+Refer to code snippet EM 4: Installation Error (VS Code Bash Terminal)
+Current Proposed Solution
+Consider using Python 3.9 or earlier for better compatibility with scikit-learn 1.0.2
+Immediate Action:
+Create a side branch to isolate the Heroku deployment issues, then reset the main branch to its pre-deployment commit while awaiting tutor guidance
