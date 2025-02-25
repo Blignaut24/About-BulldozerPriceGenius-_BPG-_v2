@@ -31,7 +31,7 @@ ipykernel==6.29.5
 ipython==8.32.0
 jedi==0.19.2
 Jinja2==3.1.5
-joblib==1.4.2
+joblib
 jsonschema==4.23.0
 jsonschema-specifications==2024.10.1
 jupyter_client==8.6.3
@@ -52,7 +52,7 @@ networkx==3.4.2
 numpy==2.2.2
 packaging==24.2
 pandas==2.2.3
-pandas-profiling==3.2.0
+pandas-profiling
 parso==0.8.4
 patsy==1.0.1
 phik==0.12.4
