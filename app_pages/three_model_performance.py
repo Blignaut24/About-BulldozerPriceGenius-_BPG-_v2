@@ -1,20 +1,39 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-import joblib
+import matplotlib.pyplot as plt
+from sklearn.metrics import mean_squared_log_error, mean_absolute_error, r2_score
+
 
 def model_performance_body():
-    st.subheader("Model Performance Metrics")
-    
-    # Define the absolute path to load the model
-    bulldozer_price_prediction_model_name = "randomforest_regressor_best_RMSLE.pkl"
-    model_load_path = "C:/Users/blign/Dropbox/1 PROJECT/VS Code Project Respository/About-BulldozerPriceGenius-_BPG-_v2/src/models/" + bulldozer_price_prediction_model_name
+    st.subheader("ML: Model Performance Metrics")
+    st.write(
+        """
+        Welcome to the Model Performance page, where we demonstrate the reliability and accuracy of our bulldozer price prediction system. Our machine learning model, built using RandomForestRegressor on historical auction data, provides transparent performance metrics through industry-standard evaluations. This directly fulfills Business Requirement 2: Creating a reliable price prediction system with the following measurable objectives:
+        """
+    )
+    # Display business objectives in a success box
+    st.success(
+        """
+        **Measurable Objectives:**
+        
+        - **Model Accuracy**: Achieve optimal RMSLE (Root Mean Squared Log Error) scores through systematic training and validation
+        - **Model Improvement**: Implement cross-validation and hyperparameter tuning to enhance prediction accuracy
+        - **Model Comparison**: Compare multiple models to identify the best-performing one for deployment
+        - **Performance Validation**: Demonstrate model reliability through comprehensive metrics including MAE, RMSLE, and R² scores
+        """
+    )
 
-    try:
-        # Load model from file using memory mapping
-        model = joblib.load(model_load_path, mmap_mode='r')
-        st.write(f"Model loaded from: {model_load_path}")
-        st.write(f"joblib version: {joblib.__version__}")
-    except numpy.core._exceptions._ArrayMemoryError as e:
-        st.error(f"Memory error: {e}")
-        st.error("Unable to load the model due to insufficient memory. Please try closing other applications or increasing virtual memory.")
+    st.subheader("**Model Accuracy:**")
+    st.write("TEXT HERE")
+
+    st.subheader("**Model Improvement:**")
+    st.write("TEXT HERE")
+
+    st.subheader("**Model Comparison:**")
+    st.write("TEXT HERE")
+
+    # Add a checkbox to display the PNG image
+    if st.checkbox("Show Model Comparison Chart"):
+        image_path = r"C:\Users\blign\Dropbox\1 PROJECT\VS Code Project Respository\About-BulldozerPriceGenius-_BPG-_v2\data\interim\model_comparison.png"
+        st.image(image_path, caption="Model Comparison", use_container_width=True)
