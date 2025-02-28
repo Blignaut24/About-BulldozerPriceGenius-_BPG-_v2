@@ -1,22 +1,33 @@
+# Import required libraries
 import streamlit as st
-import joblib
+import pandas as pd
+import matplotlib.pyplot as plt
 
-# Load the best model
-bulldozer_price_prediction_model_name = 'path_to_your_model_file.pkl'  # Update with your model file path
-best_model = joblib.load(filename=bulldozer_price_prediction_model_name)
+# Cache the data loading function to improve performance
+@st.cache_data
+def load_data(csv_file_path, nrows=None):
+    # Specify data types to optimize memory usage
+    dtype = {
+        'SalePrice': 'float32',
+        'saleMonth': 'int8',
+        'state': 'category'
+    }
+    return pd.read_csv(csv_file_path, dtype=dtype, nrows=nrows)
 
-# Display the model
-st.write("Model loaded successfully:")
-st.write(best_model)
-
-# Display model attributes
-st.write("Model attributes:")
-st.write(dir(best_model))
-
-# Make a simple prediction (assuming the model has a predict method and you have sample input data)
-sample_input = [[2025, 1000, 3]]  # Replace with appropriate sample input for your model
-if hasattr(best_model, 'predict'):
-    prediction = best_model.predict(sample_input)
-    st.write("Sample prediction for input {}: {}".format(sample_input, prediction))
-else:
-    st.write("The model does not have a predict method.")
+def model_performance_body():
+    # Display main header 
+    st.header("Model Performance: Tracking Bulldozer Price Prediction Accuracy.")
+    
+    # Introduction text explaining the app's purpose
+    st.write(
+        """
+        The BulldozerPriceGenius app helps you see how accurate our price predictions are. This page shows you how well our machine learning model predicts bulldozer auction prices. The project has one main objective base on the project **business requirements**:
+        """
+    )
+    
+    # Display business objectives in a success box
+    st.success(
+        """
+        - **Objective 1**: A user can evaluate model performance metrics to ensure our price predictions are reliable and accurate (**Business Requirement 2**).
+        """
+    )

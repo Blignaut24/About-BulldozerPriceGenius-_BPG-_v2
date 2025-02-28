@@ -28,8 +28,9 @@ def case_study_body():
     # Display business objectives in a success box
     st.success(
         """
-        - **Objective 1**: Analyze the distribution of sale prices to understand how bulldozer values are spread out
+        - **Objective 1**: Analyze the distribution of sale prices to understand how bulldozer values are spread out (**Business Requirement 1**).
         - **Objective 2**: Study sales patterns over time to identify any seasonal trends or recurring patterns in bulldozer pricing
+        (**Business Requirement 1**).
         """
     )
     
