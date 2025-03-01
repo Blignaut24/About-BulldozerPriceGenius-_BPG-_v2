@@ -105,6 +105,9 @@ Here are the main terms you'll encounter in this project:
 - **Regression**: Making predictions about numbers (like guessing house prices).
 - **Time Series**: Using past information to predict future events (like weather forecasting).
 - [**Mean Squared Log Error (RMSLE)**](https://www.kaggle.com/code/carlolepelaars/understanding-the-metric-rmsle): A way to measure how accurate our predictions are.
+- [**Mean Absolute Error (MAE)**](https://www.kaggle.com/discussions/general/413103): A way to measure how accurate our predictions are.
+- [**R² Score (Coefficient of Determination)**](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.r2_score.html): R² Score tells us how well our model predicts prices. It shows how much of the price differences can be explained by the features we used in our model.
+
 
 ## Data Organization
 
@@ -774,6 +777,8 @@ streamlit run app.py
 - **[Streamlit](https://docs.streamlit.io/)**: The Streamlit [documentation](https://docs.streamlit.io/) served as the foundation for building our interactive web application interface.
 - [**Streamlit Installation and Setup**](https://docs.streamlit.io/get-started/installation/command-line): The Streamlit installation and setup instructions were adapted from the official [Streamlit documentation and command-line guide](https://docs.streamlit.io/get-started/installation/command-line), which provides comprehensive guidance for getting started with Streamlit applications.
 - [**Streamlit (Create an App)**](https://docs.streamlit.io/get-started/tutorials/create-an-app) : The structure of this project's Streamlit application draws from the official [**"Create an App" tutorial**](https://docs.streamlit.io/get-started/tutorials/create-an-app)— a detailed guide for developing multi-page data applications.
+- [**Mean Absolute Error (MAE)**](https://www.kaggle.com/discussions/general/413103): The implementation of the Mean Absolute Error metric was based on the documentation from Scikit-learn's metrics module and Kaggle discussions about error metrics in regression problems.
+- [**R² Score (Coefficient of Determination)**](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.r2_score.html): The implementation of the R² Score metric was based on the documentation from Scikit-learn's metrics module for evaluating regression model performance.
   
 
 

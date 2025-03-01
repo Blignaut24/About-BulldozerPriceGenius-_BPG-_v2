@@ -1,9 +1,3 @@
-# ========== MODEL PERFORMANCE MODULE ==========
-# Author: Johann-Jurgens Blignaut
-# Purpose: Displays model performance metrics, explains RMSLE, and compares
-#          different model versions for bulldozer price prediction
-# ==========================================================
-
 # ========== LIBRARY IMPORTS ==========
 import streamlit as st
 import pandas as pd
