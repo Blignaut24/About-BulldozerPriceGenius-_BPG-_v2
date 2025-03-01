@@ -102,9 +102,9 @@ Here are the main terms you'll encounter in this project:
 
 ## Prediction-Related Terms
 
-- **Regression**: Making predictions about numbers (like guessing house prices)
-- **Time Series**: Using past information to predict future events (like weather forecasting)
-- [**RMSLE**](https://www.kaggle.com/code/carlolepelaars/understanding-the-metric-rmsle): A way to measure how accurate our predictions are
+- **Regression**: Making predictions about numbers (like guessing house prices).
+- **Time Series**: Using past information to predict future events (like weather forecasting).
+- [**Mean Squared Log Error (RMSLE)**](https://www.kaggle.com/code/carlolepelaars/understanding-the-metric-rmsle): A way to measure how accurate our predictions are.
 
 ## Data Organization
 
