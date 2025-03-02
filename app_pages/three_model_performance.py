@@ -1,32 +1,32 @@
 ###############################################################################
-# MODEL PERFORMANCE TRACKING MODULE 
+# MODEL PERFORMANCE TRACKING MODULE
 ###############################################################################
 # Purpose: Evaluates and visualizes bulldozer price prediction performance
 # Features: Tracks accuracy metrics, displays visualizations, compares models
 ###############################################################################
 
-#-----------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 # IMPORTS & DEPENDENCIES
-#-----------------------------------------------------------------------------
-import streamlit as st      # Web application framework
-import pandas as pd         # Data processing and manipulation
+# -----------------------------------------------------------------------------
+import streamlit as st  # Web application framework
+import pandas as pd  # Data processing and manipulation
 import matplotlib.pyplot as plt  # Data visualization
-import os                   # File system operations
+import os  # File system operations
 from sklearn.metrics import mean_absolute_error, mean_squared_log_error  # ML metrics
 
 
-#-----------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 # DATA MANAGEMENT
-#-----------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 @st.cache_data
 def load_data(csv_file_path, nrows=None):
     """
     Load and optimize CSV data for the application.
-    
+
     Args:
         csv_file_path: Path to the CSV file
         nrows: Optional number of rows to load
-        
+
     Returns:
         Pandas DataFrame with optimized data types
     """
@@ -35,27 +35,27 @@ def load_data(csv_file_path, nrows=None):
     return pd.read_csv(csv_file_path, dtype=dtype, nrows=nrows)
 
 
-#-----------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 # MODEL EVALUATION CORE
-#-----------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 def show_scores(model, train_features, train_labels, valid_features, valid_labels):
     """
     Calculate and return model performance metrics.
-    
+
     Args:
         model: The machine learning model to evaluate
         train_features: Training features
         train_labels: Training labels
         valid_features: Validation features
         valid_labels: Validation labels
-        
+
     Returns:
         Dictionary containing model evaluation metrics
     """
     # Generate predictions
     train_preds = model.predict(train_features)
     val_preds = model.predict(valid_features)
-    
+
     # Calculate metrics
     scores = {
         "Training MAE": mean_absolute_error(train_labels, train_preds),
@@ -70,9 +70,9 @@ def show_scores(model, train_features, train_labels, valid_features, valid_label
     return scores
 
 
-#-----------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 # USER INTERFACE
-#-----------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 def model_performance_body():
     """
     Renders the model performance page with metrics and visualizations.
@@ -80,29 +80,15 @@ def model_performance_body():
     """
     # === Page Header ===
     st.subheader("*Model Performance: Tracking Bulldozer Price Prediction Accuracy.*")
-    
-    # === Introduction ===
-    st.write(
-        """
-        The BulldozerPriceGenius app helps you see how accurate our price predictions are. This page shows you how well our machine learning model predicts bulldozer auction prices. The project has one main objective base on the project **business requirements**:
-        """
-    )
-    
-    # === Business objectives ===
-    st.success(
-        """
-        - **Objective 1**: A user can evaluate model performance metrics to ensure our price predictions are reliable and accurate (**Business Requirement 2**).
-        """
-    )
-    
+
     # === Hypothesis Overview ===
     st.header("Hypothesis and Validation")
     st.write(
         """
-        Our hypothesis for BulldozerPriceGenius is that machine learning models can accurately predict bulldozer auction prices when properly trained and evaluated. This page demonstrates how we test this hypothesis through rigorous performance analysis.
+        Our hypothesis for BulldozerPriceGenius is that machine learning models can accurately predict bulldozer auction prices when properly trained and evaluated. The BulldozerPriceGenius app helps you see how accurate our price predictions are. This page demonstrates how we test this hypothesis through rigorous performance analysis.
         """
     )
-    
+
     # === Testing approach ===
     st.write(
         """
@@ -113,7 +99,7 @@ def model_performance_body():
         - We anticipate our model will perform consistently across different price ranges
         """
     )
-    
+
     # === Validation methodology ===
     st.write(
         """
@@ -125,24 +111,30 @@ def model_performance_body():
         All validation metrics directly support: 
         """
     )
-    
+
     # === Business requirements connection ===
     st.success(
         """
         - **Business Requirement 2**: Developing a machine learning system that accurately predicts bulldozer prices based on historical auction data, with the ability to scale and adapt as new data becomes available.).
         """
     )
-    
-    #-------------------------------------------------------------------------
+    # === Business objectives ===
+    st.success(
+        """
+        - **Objective 1**: A user can evaluate model performance metrics to ensure our price predictions are reliable and accurate (**Business Requirement 2**).
+        """
+    )
+
+    # -------------------------------------------------------------------------
     # METRICS EXPLANATION SECTION
-    #-------------------------------------------------------------------------
+    # -------------------------------------------------------------------------
     st.header("What is RMSLE?")
     st.write(
         """
         Mean Squared Log Error (RMSLE) is a way to measure how accurate our predictions are compared to the actual values. It's especially useful when we're predicting values that can vary widely in scale, like bulldozer prices.
         """
     )
-    
+
     # === Optional RMSLE visualizations ===
     if st.checkbox("RMSLE Formula"):
         st.image("static/images/RMSLE.webp")
@@ -151,7 +143,7 @@ def model_performance_body():
             *Lepelaars, C. (n.d.). Understanding the Metric RMSLE. Kaggle. Retrieved from https://www.kaggle.com/code/carlolepelaars/understanding-the-metric-rmsle*
             """
         )
-    
+
     # === User-friendly explanations ===
     if st.checkbox("Simple Explanation"):
         st.subheader("Simple Explanation")
@@ -160,7 +152,7 @@ def model_performance_body():
             Think of RMSLE as a "**mistake calculator**" that tells us how close our guesses are to the real answers. The smaller the RMSLE value, the better our predictions!
             """
         )
-    
+
     if st.checkbox("Why It Matters"):
         st.subheader("Why It Matters")
         st.write(
@@ -168,10 +160,10 @@ def model_performance_body():
             In your bulldozer price project, RMSLE helps ensure the predictions are reliable across all price ranges, whether predicting cheap bulldozers or expensive ones.
             """
         )
-    
-    #-------------------------------------------------------------------------
+
+    # -------------------------------------------------------------------------
     # EVALUATION METHODOLOGY SECTION
-    #-------------------------------------------------------------------------
+    # -------------------------------------------------------------------------
     st.header("Evaluation Function")
     st.write(
         """
@@ -181,7 +173,7 @@ def model_performance_body():
         - Use industry-standard metrics for bulldozer price prediction
         """
     )
-    
+
     # === Metrics explanation ===
     st.success(
         """
@@ -191,12 +183,12 @@ def model_performance_body():
         - [R² Score (Coefficient of Determination)](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.r2_score.html) - higher is better.
         """
     )
-    
-    #-------------------------------------------------------------------------
+
+    # -------------------------------------------------------------------------
     # MODEL EVALUATION RESULTS SECTION
-    #-------------------------------------------------------------------------
+    # -------------------------------------------------------------------------
     st.header("Evaluating Model Performance")
-    
+
     # --- Small sample performance ---
     if st.checkbox("Model Performance on Small Sample Size"):
         # Display model score from Jupyter notebook
@@ -215,13 +207,13 @@ def model_performance_body():
                 - Results may vary when applied to the complete dataset.
             """
         )
-    
+
     # --- Full dataset performance ---
     if st.checkbox("Model Performance on Full Dataset"):
         # Display model score from Jupyter notebook
         model_score_full_dataset = 0.9875538512516342
         st.info(f"[INFO] Model score on 412698 samples: {model_score_full_dataset}")
-        
+
         st.write("**Model Performance Results on Full Dataset**")
         st.write(
             """
@@ -235,7 +227,7 @@ def model_performance_body():
                 - Results demonstrate the model's robustness and scalability.
         """
         )
-    
+
     # --- Training vs test performance ---
     if st.checkbox("Model Performance: Comparing Training Data vs. Test Data"):
         st.write(
@@ -253,7 +245,7 @@ def model_performance_body():
             "Valid R^2": 0.7802992059919478,
         }
         st.write("### Model Performance Results Analysis")
-        
+
         st.write(
             """
             ##### Training Data Results (How well it learned)
@@ -275,14 +267,14 @@ def model_performance_body():
             - This difference is normal - models usually perform better on data they've seen before.
             """
         )
-        
+
         # Display the metrics using Streamlit
         st.write("### Model Performance Metrics")
         st.write(model_performance_metrics)
-    
-    #-------------------------------------------------------------------------
+
+    # -------------------------------------------------------------------------
     # MODEL OPTIMIZATION SECTION
-    #-------------------------------------------------------------------------
+    # -------------------------------------------------------------------------
     # --- Hyperparameter optimization results ---
     if st.checkbox("Ideal Model Performance: Optimizing Hyperparameters"):
         st.write(
@@ -290,7 +282,7 @@ def model_performance_body():
             The model's performance was evaluated after optimizing hyperparameters. Here's how it fared:
             """
         )
-        
+
         # Display model performance metrics from Jupyter notebook
         ideal_model_performance_metrics = {
             "Training MAE": 1962.1757569831882,
@@ -300,25 +292,25 @@ def model_performance_body():
             "Training R^2": 0.9809897598170556,
             "Valid R^2": 0.8348517122435505,
         }
-        
+
         # Display the metrics using Streamlit
         st.write("##### Ideal Model Performance Metrics")
         st.write(ideal_model_performance_metrics)
-        
+
         st.write(
             """
             ##### Ideal Model Performance Metrics Analysis
 
             We tested how good our computer model is at guessing bulldozer prices. We checked its performance in two ways: first with data it learned from, and then with new data it hadn't seen before. This helps us know if the model can make more reliable price predictions.
-            - **Mean Absolute Error (MAE)**: Shows our predictions are off by about $1,960 on training data and $6,656 on validation data.
+            - **Mean Absolute Error (MAE)**: Shows our predictions are off by about **\$1,960** on training data and **\$6,656** on validation data.
             - **Root Mean Square Logarithmic Error (RMSLE)**: At `0.10` for training and `0.32` for validation, indicates good prediction accuracy with some variance.
             - **R-squared (R²)**: Excellent `98%` accuracy on training data and strong `83%` on validation data, showing the model generalizes well to new cases.
             """
         )
-    
-    #-------------------------------------------------------------------------
+
+    # -------------------------------------------------------------------------
     # FAST MODEL SECTION
-    #-------------------------------------------------------------------------
+    # -------------------------------------------------------------------------
     # --- Faster Model Performance with Reduced Complexity ---
     if st.checkbox("Faster Model Performance with Reduced Complexity"):
         st.write(
@@ -334,12 +326,12 @@ def model_performance_body():
             This balance of speed and accuracy makes it perfect for situations where getting fast results matters most.
         """
         )
-        
+
         # Display CPU times and wall time
         st.write("### Performance Metrics")
         st.write("**CPU times:** total: 15.8 s")
         st.write("**Wall time:** 3.76 s")
-        
+
         # Display model performance metrics from Jupyter notebook
         fast_model_performance_metrics = {
             "Training MAE": 1991.3531420615882,
@@ -349,10 +341,10 @@ def model_performance_body():
             "Training R^2": 0.9803532867255668,
             "Valid R^2": 0.830810039649733,
         }
-        
+
         st.write("### Fast Model Performance Metrics")
         st.write(fast_model_performance_metrics)
-        
+
         st.write(
             """
             ### Fast Model Performance Results Analysis
@@ -367,10 +359,10 @@ def model_performance_body():
             These results indicate the faster model achieves comparable accuracy to the full model while requiring less computational resources.
         """
         )
-    
-    #-------------------------------------------------------------------------
+
+    # -------------------------------------------------------------------------
     # MODEL COMPARISON SECTION
-    #-------------------------------------------------------------------------
+    # -------------------------------------------------------------------------
     # === Model Comparison ===
     st.header("Comparing Our Model's Scores")
     st.write(
@@ -378,19 +370,19 @@ def model_performance_body():
         Each model is labeled with a descriptive name (default, random search, ideal, and fast), with all scores compiled in a single table sorted by RMSLE values. This organization allows us to quickly identify which model delivers the most accurate bulldozer price predictions.
         """
     )
-    
+
     # --- Define different model variants ---
     base_model_scores = {"Valid RMSLE": 0.123, "Valid MAE": 3000, "Valid R2": 0.85}
     rs_model_scores = {"Valid RMSLE": 0.115, "Valid MAE": 2900, "Valid R2": 0.87}
     ideal_model_scores = {"Valid RMSLE": 0.110, "Valid MAE": 2800, "Valid R2": 0.88}
     fast_model_scores = {"Valid RMSLE": 0.120, "Valid MAE": 3100, "Valid R2": 0.84}
-    
+
     # --- Add model identifiers ---
     base_model_scores["model_name"] = "default_model"
     rs_model_scores["model_name"] = "random_search_model"
     ideal_model_scores["model_name"] = "ideal_model"
     fast_model_scores["model_name"] = "fast_model"
-    
+
     # --- Combine all model variants ---
     all_model_scores = [
         base_model_scores,
@@ -398,27 +390,27 @@ def model_performance_body():
         ideal_model_scores,
         fast_model_scores,
     ]
-    
+
     # --- Create comparison dataframe ---
     model_comparison_df = pd.DataFrame(all_model_scores).sort_values(
         by="Valid RMSLE", ascending=False
     )
-    
+
     # --- Display tabular comparison ---
     if st.checkbox("Show Model Comparison Table"):
         st.dataframe(model_comparison_df)
-    
+
     # --- Ensure data directories exist ---
     os.makedirs("data/interim", exist_ok=True)
-    
-    #-------------------------------------------------------------------------
+
+    # -------------------------------------------------------------------------
     # VISUALIZATION SECTION
-    #-------------------------------------------------------------------------
+    # -------------------------------------------------------------------------
     # --- Visualize model comparison ---
     if st.checkbox("Show Model Comparison Graph"):
         # Calculate reference metric
         mean_rsmle_score = model_comparison_df["Valid RMSLE"].mean()
-        
+
         # Create bar chart visualization
         plt.figure(figsize=(10, 5))
         plt.bar(
@@ -437,8 +429,21 @@ def model_performance_body():
         plt.legend()
         # Display visualization
         st.pyplot(plt)
-    
-    #-------------------------------------------------------------------------
+
+    # -------------------------------------------------------------------------
     # FEATURE IMPORTANCE SECTION
-    #-------------------------------------------------------------------------    
-    st.header("Feature Importance") 
+    # -------------------------------------------------------------------------
+    st.header("Feature Importance")
+
+    if st.checkbox("Show Feature Importance Horizontal Bar Chart"):
+        st.write(
+            """
+            ##### Visualizing Feature Importance with a Horizontal Bar Chart
+
+            This horizontal bar chart provides a clear visual representation of the features that most strongly influence bulldozer prices. By plotting the top 20 features in this format, we can easily::
+
+            - Compare the relative importance of different features.
+            - Identify the most significant price predictors.
+            """
+        )
+        st.image("results/feature_importance.png")
