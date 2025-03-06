@@ -12,7 +12,7 @@ def load_data(csv_file_path, nrows=None):
     return pd.read_csv(csv_file_path, dtype=dtype, nrows=nrows)
 
 
-@st.cache_data_data
+@st.cache_data
 def case_study_body():
     # Display main header
     st.header("Case Study: Bulldozer Price Analysis and Visualization")
