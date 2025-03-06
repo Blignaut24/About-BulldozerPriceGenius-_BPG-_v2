@@ -10,6 +10,13 @@ def load_data(csv_file_path, nrows=None):
     dtype = {"SalePrice": "float32", "saleMonth": "int8", "state": "category"}
     return pd.read_csv(csv_file_path, dtype=dtype, nrows=nrows)
 
+# Define checkboxes outside the cached function
+inspect_dataframe = st.checkbox("Inspect dataframe")
+visualize_hist = st.checkbox("Visualize Sale Price Distribution Histogram")
+visualize_line = st.checkbox("Visualize Median Sale Price by Month")
+visualize_scatter = st.checkbox("Visualize Sale Price against Sale Month")
+visualize_bar = st.checkbox("Visualize Median Sale Price by State")
+
 def case_study_body():
     # Display main header
     st.header("Case Study: Bulldozer Price Analysis and Visualization")
@@ -33,13 +40,6 @@ def case_study_body():
     # Load and display the dataset
     csv_file_path = "src/data_prep/TrainAndValid_object_values_as_categories.csv"
     df = load_data(csv_file_path, nrows=10000)  # Load only the first 10,000 rows
-
-    # Define checkboxes inside the function
-    inspect_dataframe = st.checkbox("Inspect dataframe")
-    visualize_hist = st.checkbox("Visualize Sale Price Distribution Histogram")
-    visualize_line = st.checkbox("Visualize Median Sale Price by Month")
-    visualize_scatter = st.checkbox("Visualize Sale Price against Sale Month")
-    visualize_bar = st.checkbox("Visualize Median Sale Price by State")
 
     # Optional dataframe inspection
     if inspect_dataframe:
