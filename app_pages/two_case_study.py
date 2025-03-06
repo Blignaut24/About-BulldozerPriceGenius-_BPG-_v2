@@ -103,3 +103,9 @@ def case_study_body():
 def some_function():
     # function implementation
     ...
+
+
+@st.cache_data
+def some_cached_function():
+    # function implementation
+    pass
