@@ -12,8 +12,9 @@ def load_data(csv_file_path, nrows=None):
     return pd.read_csv(csv_file_path, dtype=dtype, nrows=nrows)
 
 
-@st.cache_data
-def case_study_body():
+def case_study_body(
+    inspect_df, visualize_hist, visualize_line, visualize_scatter, visualize_bar
+):
     # Display main header
     st.header("Case Study: Bulldozer Price Analysis and Visualization")
 
@@ -38,14 +39,14 @@ def case_study_body():
     df = load_data(csv_file_path, nrows=10000)  # Load only the first 10,000 rows
 
     # Optional dataframe inspection
-    if st.checkbox("Inspect dataframe"):
+    if inspect_df:
         st.dataframe(df)
 
     # SECTION 1: Sale Price Distribution Analysis
     st.subheader("View SalePrice distribution")
     st.write("""[Description of histogram visualization]""")
 
-    if st.checkbox("Visualize Sale Price Distribution Histogram"):
+    if visualize_hist:
         st.write("""[Analysis guidance and business value]""")
         # Create and display histogram
         fig, ax = plt.subplots()
@@ -56,7 +57,7 @@ def case_study_body():
     st.subheader("View Median SalePrice by Month")
     st.write("""[Description of line plot visualization]""")
 
-    if st.checkbox("Visualize Median Sale Price by Month"):
+    if visualize_line:
         # Create and display line plot
         fig, ax = plt.subplots()
         df.groupby(["saleMonth"])["SalePrice"].median().plot(ax=ax)
@@ -67,7 +68,7 @@ def case_study_body():
     # SECTION 3: Price vs Month Scatter Plot
     st.subheader("View SalePrice against SaleMonth (First 10,000 samples)")
 
-    if st.checkbox("Visualize Sale Price against Sale Month"):
+    if visualize_scatter:
         # Create and display scatter plot
         fig, ax = plt.subplots()
         ax.scatter(x=df["saleMonth"][:10000], y=df["SalePrice"][:10000])
@@ -78,7 +79,7 @@ def case_study_body():
     # SECTION 4: Geographic Price Analysis
     st.subheader("View Median SalePrice by State")
 
-    if st.checkbox("Visualize Median Sale Price by State"):
+    if visualize_bar:
         # Calculate median prices
         median_prices_by_state = df.groupby(["state"])["SalePrice"].median()
         median_sale_price = df["SalePrice"].median()
@@ -99,13 +100,14 @@ def case_study_body():
         st.pyplot(fig)
 
 
-@st.cache_data
-def some_function():
-    # function implementation
-    ...
+# Define checkboxes outside the cached function
+inspect_df = st.checkbox("Inspect dataframe")
+visualize_hist = st.checkbox("Visualize Sale Price Distribution Histogram")
+visualize_line = st.checkbox("Visualize Median Sale Price by Month")
+visualize_scatter = st.checkbox("Visualize Sale Price against Sale Month")
+visualize_bar = st.checkbox("Visualize Median Sale Price by State")
 
-
-@st.cache_data
-def some_cached_function():
-    # function implementation
-    pass
+# Call the function with the checkbox states
+case_study_body(
+    inspect_df, visualize_hist, visualize_line, visualize_scatter, visualize_bar
+)
