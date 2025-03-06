@@ -97,3 +97,9 @@ def case_study_body():
         )
         ax.legend()
         st.pyplot(fig)
+
+
+@st.cache_data
+def some_function():
+    # function implementation
+    ...
