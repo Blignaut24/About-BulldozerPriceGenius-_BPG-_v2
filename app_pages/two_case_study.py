@@ -13,7 +13,7 @@ def load_data(csv_file_path, nrows=None):
 
 
 def case_study_body(
-    inspect_df, visualize_hist, visualize_line, visualize_scatter, visualize_bar
+    inspect_dataframe, visualize_hist, visualize_line, visualize_scatter, visualize_bar
 ):
     # Display main header
     st.header("Case Study: Bulldozer Price Analysis and Visualization")
@@ -39,7 +39,7 @@ def case_study_body(
     df = load_data(csv_file_path, nrows=10000)  # Load only the first 10,000 rows
 
     # Optional dataframe inspection
-    if inspect_df:
+    if inspect_dataframe:
         st.dataframe(df)
 
     # SECTION 1: Sale Price Distribution Analysis
@@ -101,7 +101,7 @@ def case_study_body(
 
 
 # Define checkboxes outside the cached function
-inspect_df = st.checkbox("Inspect dataframe")
+inspect_dataframe = st.checkbox("Inspect dataframe")
 visualize_hist = st.checkbox("Visualize Sale Price Distribution Histogram")
 visualize_line = st.checkbox("Visualize Median Sale Price by Month")
 visualize_scatter = st.checkbox("Visualize Sale Price against Sale Month")
@@ -109,5 +109,5 @@ visualize_bar = st.checkbox("Visualize Median Sale Price by State")
 
 # Call the function with the checkbox states
 case_study_body(
-    inspect_df, visualize_hist, visualize_line, visualize_scatter, visualize_bar
+    inspect_dataframe, visualize_hist, visualize_line, visualize_scatter, visualize_bar
 )
