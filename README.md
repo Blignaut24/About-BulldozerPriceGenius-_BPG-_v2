@@ -190,32 +190,21 @@ This hybrid approach combines the interpretability of traditional analysis with 
 ## 3. Does the customer need a dashboard or an API endpoint? 
 Based on the business requirements and stakeholder needs, we recommend implementing a comprehensive dashboard solution that offers:
     
-  - **Interactive Visualization:** A user-friendly interface displaying real-time price predictions, market analytics, and trend analysis
-  - **Data-Driven Insights:** Clear presentation of key pricing factors and market indicators to support strategic decision-making
-  - **Seamless Integration:** Real-time updates of predictions and market data, ensuring users always have access to current information
-  - **Cross-Team Accessibility:** An intuitive interface suitable for both technical and business users, supporting collaborative decision-making
-  - **Automated Reporting:** Streamlined generation and distribution of insights, reducing manual effort and improving operational efficiency
+  - **Interactive Visualization:** - A user-friendly interface that 
+    displays bulldozer listings, which can be filtered by predicted sale prices (in USD) and locations across U.S. states
+  - **Data-Driven Insights:** Clear, intuitive display of key pricing 
+    factors that justify predicted sale prices
+  - **Cross-Team Accessibility:** An intuitive interface suitable for
+    both technical and business users, supporting collaborative decision-making
 
 ## 4. What does success look like?
-Project success will be evaluated through three critical metrics:
-    
-  ### 1. Model Accuracy
-  - Root Mean Squared Log Error (RMSLE)
-  - Quantifies prediction accuracy against actual sale prices
-  - Success target: RMSLE below 0.25
-    
-  ### 2. Market Performance  
-  - Kaggle Competition Ranking
-  - Top 10% placement on leaderboard
-  - Consistent performance across different market conditions
-    
-  ### 3. Business Impact  
-  - Measurable Value Creation
-  - At least 15% improvement in price prediction accuracy
-  - Demonstrated ROI through reduced pricing discrepancies
-  - Increased user confidence in pricing decisions
-    
-    Success is achieved when our model delivers consistently accurate predictions (verified by RMSLE), maintains competitive performance, and provides clear, actionable insights that enhance business outcomes.
+Success metrics for this project include:
+  - Success is measured by achieving accurate price predictions, which 
+    we evaluate using the **Root Mean Squared Log Error (RMSLE)** metric.
+  - **Success target**: RMSLE below 1.0.
+  - Measures how closely predicted prices match actual sale prices 
+    using **Mean Absolute Error (MAE)**.
+  
     
 ## 5. Can you break down the project into Epics and User Stories?
   
@@ -227,19 +216,21 @@ Project success will be evaluated through three critical metrics:
     
 ## 7. What level of prediction performance is needed?
     
-  For this project, we use Root Mean Squared Log Error (RMSLE) as our key performance metric. Our target is to achieve an RMSLE below 0.25, which would indicate highly accurate price predictions.
-    
-  **Why RMSLE?**
-    
+  We use Root Mean Squared Log Error (RMSLE) as our key performance metric, with a target of achieving an RMSLE below 1.00 to ensure highly accurate price predictions. Our secondary metric is Mean Absolute Error (MAE), where we aim to keep the difference between predicted and actual bulldozer prices within $20,000 in the Model's Performance Analysis. 
+
+**Why RMSLE?**
+
   We chose RMSLE because it works well with our wide range of bulldozer prices and puts more emphasis on avoiding price underestimation, which is crucial for our business case.
-    
-  **Performance Benchmarks:**
-    
-  - Top 10% of Kaggle competition scores
-  - Consistent accuracy across different price ranges
-  - Minimum 15% improvement over current pricing methods
-    
-  These targets will ensure our model delivers reliable and competitive results while meeting business requirements.
+
+**Why MAE?**
+
+  Using Mean Absolute Error (MAE) as a secondary metric in BulldozerPriceGenius is beneficial because it shows the average difference between predicted and actual prices in dollar terms. This makes it very intuitive and easy to understand for business stakeholders, as seeing that predictions are within $20,000 of actual prices provides a clear, concrete measure of accuracy that anyone can grasp.
+
+  Additionally, MAE is particularly useful because:
+
+  - It provides a more interpretable measure of error in the actual currency units (USD)
+  - It helps validate the model's practical business value by showing the typical margin of error in dollar terms
+  - It complements the primary RMSLE metric by offering a different perspective on model performance
     
 ## 8. What are the project inputs and intended outputs?
   - **Input Features:**
@@ -284,33 +275,59 @@ The customer will benefit in several key ways:
 
 # Project Hypothesis and Validation 📽️ 
 
-## Hypothesis
-I hypothesize that machine learning models can accurately predict bulldozer auction prices using historical sales data. The prediction model will analyze key features including:
-- Model specifications
-- Manufacturing year
-- Usage metrics
-- Sale location and timing
+## Addressing Business Requirement 1:
+By proving or disproving these hypotheses, the client can gain a deeper understanding of the factors that significantly influence bulldozer auction prices. This knowledge can be applied to:
 
-## Validation Approach
+- **Optimize auction strategies:** Adjust auction timing, location, and marketing based on factors that drive higher prices.
+- **Provide better guidance:** Inform sellers about optimal listing strategies and advise buyers on fair market value estimations.
+- **Enhance transparency:** Provide data-driven insights to both sellers and buyers, improving the overall auction experience.
 
-### Data Splitting Strategy
+### Hypothesis 1: Age and Usage Impact on Bulldozer Pricing
+**Hypothesis:** We believe that two main factors have the biggest impact on bulldozer prices at auctions:
+
+- How old the bulldozer is (when it was made)?
+- How much it has been used (total hours of operation)?
+
+**Why we think this:** When buying used heavy machinery like bulldozers, people usually care most about the machine's age and how much it has been used. We can check this by looking at the relationship between these factors and the selling price.
+
+**Validation**: To check this hypothesis, we will:  
+
+1. Train our machine learning model (Random Forest)
+2. Look at which features are most important for predicting prices
+3. Pay special attention to two main factors:
+    - When the bulldozer was made (`YearMade`)
+    - How many hours it has been used (`MachineHoursCurrentMeter`)
+4. Create bar charts to show how important each factor is in determining the price
+
+### Hypothesis 2: Regional Price Variations Across States
+**Hypothesis:** We believe that bulldozer prices change depending on which state they're sold in. **Why we think this:** Different states have their own local markets, and prices can vary because:
+
+- Some states have more people wanting to buy bulldozers
+- Each state uses bulldozers for different kinds of work
+- States have different economic conditions that affect what buyers can spend
+
+**Validation:** Group sales data by state and analyze the median selling prices for each location. Create visualizations (such as bar graphs or box plots) to identify patterns in bulldozer prices across different states.
+
+## Addressing Business Requirement 2:
+By successfully proving this hypothesis, the client gains confidence in the accuracy, scalability, and adaptability of the machine learning system for predicting bulldozer prices. This system can then be integrated into their auction processes to:
+
+- **Provide accurate price estimations:** Enable informed decision-making for buyers and sellers.
+- **Automate price recommendations:** Streamline the price setting process for auction listings.
+- **Enhance efficiency:** Reduce manual effort and improve operational efficiency in the auction process.
+
+### Hypothesis 3: Model Generalization and Temporal Robustness
+
+**Hypothesis:** We want to make sure our price prediction system works well even with new data. To test this, we'll check if it can accurately predict prices using data collected after we trained the system. **Why this matters:** This shows whether our system can keep making good predictions as we get new bulldozer data over time.
+
+**Validation**: We will evaluate the model's performance using a separate test dataset (like the Kaggle test dataset). By comparing the model's accuracy on both test and validation data, we can determine whether it reliably predicts prices for new, unseen bulldozer data.
+
+**Data Splitting Strategy**
+
 - `Training set`: Model learning
 - `Validation set`: Parameter tuning and performance assessment
 - `Test set`: Final evaluation of real-world prediction capability
 
-### Performance Measurement: How We Measure Success?
-- We use a measurement called **RMSLE** to check how accurate our predictions are
-- A lower **RMSLE** number means our predictions are better
-- We'll test our system on different types of bulldozers to make sure it works well in all cases
 
-### Model Evaluation Process
-1. Train multiple ML models
-2. Compare RMSLE scores
-3. Select best performing model based on validation results
-4. Analyze feature importance for key price drivers
-5. Conduct error analysis to identify improvement areas
-
-Success will be determined by achieving consistent price predictions within acceptable error margins across diverse bulldozer types and market conditions.
 
 <p align="right">(<a href="#table-of-content">back to top</a>)</p>
 
