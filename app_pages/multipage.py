@@ -7,16 +7,12 @@ class MultiPage:
         self.pages = []
 
     def add_page(self, title, func):
-        self.pages.append({
-            "title": title,
-            "function": func
-        })
+        self.pages.append({"title": title, "function": func})
 
     def run(self):
+        st.set_page_config(page_title=self.app_name, page_icon="🚜")
         st.title(self.app_name)
         page = st.sidebar.selectbox(
-            'Select a page',
-            self.pages,
-            format_func=lambda page: page['title']
+            "Select a page", self.pages, format_func=lambda page: page["title"]
         )
-        page['function']()
+        page["function"]()
