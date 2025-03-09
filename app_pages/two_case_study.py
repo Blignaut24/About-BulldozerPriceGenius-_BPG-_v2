@@ -5,14 +5,17 @@ import matplotlib.pyplot as plt
 
 # Cache the data loading function to improve performance
 @st.cache_data
-def load_data(csv_file_path, nrows=None):
+def load_data(nrows=None):
     # Specify data types to optimize memory usage
     dtype = {
         'SalePrice': 'float32',
         'saleMonth': 'int8',
         'state': 'category'
     }
-    return pd.read_csv(csv_file_path, dtype=dtype, nrows=nrows, encoding='utf-8')
+    # Convert Google Drive sharing link to direct download link
+    file_id = "1vB55Lhr46ISb57kWN16ULHyRrUpZHXJr"
+    url = f"https://drive.google.com/uc?id={file_id}"
+    return pd.read_csv(url, dtype=dtype, nrows=nrows, encoding='utf-8')
 
 def case_study_body():
     # Display main header 
@@ -34,9 +37,8 @@ def case_study_body():
         """
     )
     
-    # Load and display the dataset
-    csv_file_path = "src/data_prep/TrainAndValid_object_values_as_categories.csv"
-    df = load_data(csv_file_path, nrows=10000)  # Load only the first 10,000 rows
+    # Load and display the dataset from Google Drive
+    df = load_data(nrows=10000)  # Load only the first 10,000 rows
     
     # Optional dataframe inspection
     if st.checkbox("Inspect dataframe"):
