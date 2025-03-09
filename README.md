@@ -6,11 +6,12 @@
 
 In the complex world of heavy equipment auctions, construction companies and dealers face a persistent challenge: accurately determining the value of their bulldozers. The uncertainty can lead to missed opportunities and financial losses.
 
-Enter BulldozerPriceGenius (BPG), your trusted partner in bulldozer valuation. We've developed an advanced AI-powered system that leverages data analysis to predict auction prices with precision. By analyzing comprehensive datasets from real auctions and considering crucial factors like equipment usage, features, and market conditions, we eliminate the guesswork from pricing.
+Enter BulldozerPriceGenius (BPG), your trusted partner in bulldozer valuation. We've developed an advanced AI-powered system that leverages data analysis to predict auction prices with precision. Our user-friendly interface allows you to browse and filter bulldozer listings across U.S. states, with predicted sale prices in USD. By analyzing comprehensive datasets from real auctions and considering crucial factors like equipment usage, features, location, and market conditions, we eliminate the guesswork from pricing.
 
 In collaboration with Fast Iron, we're revolutionizing the industry by creating the equivalent of a Kelly Blue Book for bulldozers. This means you can now:
 
 - Make confident pricing decisions backed by data
+- Browse and filter listings by location and predicted price
 - Understand your equipment's true market value
 - Optimize your auction strategy for maximum returns
 

@@ -80,9 +80,98 @@ def documentation_body():
         st.markdown(f"- {limitation}")
     
     # --------------------------------------------------------------
-    # SECTION 5: Development Roadmap
+    # SECTION 5: ML Pipeline Steps
     # --------------------------------------------------------------
-    st.subheader("4. Development Roadmap")
+    st.subheader("4. ML Pipeline Steps")
+    
+    st.write("Here's a detailed walkthrough of the Machine Learning (ML) pipeline we used to predict bulldozer sale prices:")
+
+    # Problem Definition
+    st.markdown("**1. Problem Definition:**")
+    st.markdown("""
+    - **Goal:** Predict the future sale price of a bulldozer based on its characteristics and historical sales data.
+    - **Problem Type:** Regression (predicting a continuous value - sale price).
+    - **Specifics:** Time series or forecasting problem (predicting future sales based on past sales).
+    """)
+
+    # Data Collection & Preparation
+    st.markdown("**2. Data Collection & Preparation:**")
+    st.markdown("""
+    - **Data Source:** Kaggle Bluebook for Bulldozers competition dataset (TrainAndValid.csv).
+    - **Data Loading:** Import data into a pandas DataFrame using `pd.read_csv()`.
+    - **Data Cleaning:**
+        - Parsing dates: Convert the 'saledate' column to datetime objects
+        - Sorting data: Sort the DataFrame by 'saledate'
+    - **Feature Engineering:**
+        - Creating new features from 'saledate'
+        - Enhancing predictive power with relevant features
+    """)
+
+    # EDA
+    st.markdown("**3. Exploratory Data Analysis (EDA):**")
+    st.markdown("""
+    - **Data Visualization:** Create plots to understand feature relationships
+        - Example: Scatter plots, histograms, bar charts
+    - **Data Insights:** Gain insights from data to guide modeling decisions
+        - Example: Identifying patterns, trends, and outliers
+    """)
+
+    # Data Preprocessing
+    st.markdown("**4. Data Preprocessing:**")
+    st.markdown("""
+    - **Handling Missing Values:**
+        - Strategies: Imputation, removal of rows/columns
+    - **Feature Transformation:**
+        - Convert categorical features to numerical
+            - Technique: Using pandas categories and `.cat.codes`
+        - Scale numerical features as needed
+    """)
+
+    # Model Selection
+    st.markdown("**5. Model Selection:**")
+    st.markdown("""
+    - **Choosing an Algorithm:**
+        - Considerations: Dataset size, problem type, algorithm characteristics
+        - Example: RandomForestRegressor
+    - **Model Instantiation:** Create instance of chosen model
+    """)
+
+    # Model Training
+    st.markdown("**6. Model Training:**")
+    st.markdown("""
+    - **Splitting Data:** Divide into training and validation sets
+    - **Fitting the Model:**
+        - Train using training data
+        - Provide input features (X) and target variable (y)
+    """)
+
+    # Model Evaluation
+    st.markdown("**7. Model Evaluation:**")
+    st.markdown("""
+    - **Predicting on Validation Set:** Test model performance
+    - **Evaluation Metric:** Calculate RMSLE
+    - **Comparison with Baseline:** Compare with average predictions
+    """)
+
+    # Model Tuning
+    st.markdown("**8. Model Tuning & Optimization:**")
+    st.markdown("""
+    - **Hyperparameter Tuning:**
+        - Techniques: Grid search, randomized search, cross-validation
+    - **Feature Selection:** Identify important features
+    """)
+
+    # Deployment
+    st.markdown("**9. Deployment & Prediction:**")
+    st.markdown("""
+    - **Train on Full Data:** Use combined dataset
+    - **Predict on Test Data:** Make final predictions
+    """)
+
+    # --------------------------------------------------------------
+    # SECTION 6: Development Roadmap
+    # --------------------------------------------------------------
+    st.subheader("5. Development Roadmap")
     
     # Define future development items
     roadmap = [
@@ -97,4 +186,4 @@ def documentation_body():
 
 # Entry point check
 if __name__ == "__main__":
-    main()
+    documentation_body()

@@ -1,0 +1,5 @@
+# .slugignore
+# This file specifies which files and directories should be ignored during the deployment process.
+
+# Ignore the trained RandomForestRegressor model file
+randomforest_regressor_best_RMSLE.pkl
