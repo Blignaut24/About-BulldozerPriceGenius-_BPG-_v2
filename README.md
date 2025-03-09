@@ -145,11 +145,11 @@ Here are the main terms you'll encounter in this project:
  <p align="right">(<a href="#table-of-content">back to top</a>)</p>
 
 # Business Requirements 💼
-• [**Business Requirement 1**](https://github.com/Blignaut24/About-BulldozerPriceGenius-_BPG-_v2/issues/10) - The client needs to understand what factors most significantly influence bulldozer auction prices to help optimize their auction strategies and provide better guidance to sellers and buyers.
+• [**Business Requirement 1**](https://github.com/users/Blignaut24/projects/23/views/2?filterQuery=Business+Requirement&pane=issue&itemId=97853714&issue=Blignaut24%7CAbout-BulldozerPriceGenius-_BPG-_v2%7C10) - The client needs to understand what factors most significantly influence bulldozer auction prices to help optimize their auction strategies and provide better guidance to sellers and buyers.
 
-• [**Business Requirement 2**](https://github.com/users/Blignaut24/projects/23/views/2?pane=issue&itemId=97854211&issue=Blignaut24%7CAbout-BulldozerPriceGenius-_BPG-_v2%7C11) - The client requires a machine learning system that can accurately predict bulldozer prices based on historical auction data, with the ability to scale and adapt as new data becomes available.
+• [**Business Requirement 2**](https://github.com/users/Blignaut24/projects/23/views/2?filterQuery=Business+Requirement&pane=issue&itemId=97854211&issue=Blignaut24%7CAbout-BulldozerPriceGenius-_BPG-_v2%7C11) - The client requires a machine learning system that can accurately predict bulldozer prices based on historical auction data, with the ability to scale and adapt as new data becomes available.
 
-• [**Business Requirement 3**](https://github.com/users/Blignaut24/projects/23/views/2?pane=issue&itemId=97854762&issue=Blignaut24%7CAbout-BulldozerPriceGenius-_BPG-_v2%7C13) - The client needs the prediction system to be accessible through a user-friendly interface that can be used by both technical and non-technical staff.
+• [**Business Requirement 3**](https://github.com/users/Blignaut24/projects/23/views/2?filterQuery=Business+Requirement&pane=issue&itemId=97854418&issue=Blignaut24%7CAbout-BulldozerPriceGenius-_BPG-_v2%7C12) - The client needs the prediction system to be accessible through a user-friendly interface that can be used by both technical and non-technical staff.
 
 <p align="right">(<a href="#table-of-content">back to top</a>)</p>
 
@@ -232,17 +232,27 @@ Success metrics for this project include:
   - It helps validate the model's practical business value by showing the typical margin of error in dollar terms
   - It complements the primary RMSLE metric by offering a different perspective on model performance
     
-## 8. What are the project inputs and intended outputs?
-  - **Input Features:**
-    - Equipment specifications (year, model, series)
-    - Sale conditions and location
-    - Technical specifications (engine, hours, condition)
-  - **Model Output:**
-      - Predicted auction price in USD
-      - Confidence intervals for predictions
-    - **Workflow:**
-      - System processes equipment details
-      - Advanced ML algorithm generates price estimate
+## 8. Project Inputs and Outputs
+
+- **Input Features:**
+  - Equipment specifications (year, model, series)
+  - Sale conditions and location (U.S. states)
+  - Technical specifications (engine, hours, condition)
+
+- **User Interface:**
+  - Interactive visualization dashboard
+  - Filterable listings by location and price range
+  - User-friendly display of bulldozer information
+
+- **Model Output:**
+  - Predicted auction price in USD
+  - Price filtering capabilities
+  - Location-based search across U.S. states
+
+- **Workflow:**
+  - User selects desired filters and parameters
+  - System processes equipment details
+  - Interface displays filtered results with predictions
 ## 9. Does the data suggest a particular model?
   - **Data Characteristics:**
     - Regression problem with continuous price predictions
@@ -333,48 +343,71 @@ By successfully proving this hypothesis, the client gains confidence in the accu
 
 # The rationale to map the business requirements to the Data Visualizations and ML tasks 🗺️
 
+## **Business Requirement 1:** Understand factors influencing bulldozer auction prices.
 
-### Price Prediction
+- **Data Visualizations:**
+    - **Feature Importance Plot:** This chart will show which features are most important in determining bulldozer prices (like age, model type, and how much it's been used). This makes it easy to see what affects the price the most.
+    - **Scatter Plots:** These plots show how features like the sale date relate to bulldozer prices. For example, a scatter plot of sale dates against prices helps visualize price trends over time, with each point representing an individual sale transaction.
 
-- **What We Need**: To accurately tell how much a bulldozer will sell for
-- **How We Do It**: Using a computer program called Random Forest that learns from past sales
-- **Why It Works**: The program looks at lots of old sales data to understand what makes prices go up or down
+- **ML tasks:**
+    - **Feature Engineering:** Creating helpful combinations of existing data (for example, we can combine when a machine was made and how many hours it was used to figure out how old it is). This helps us better understand what affects bulldozer prices.
+    - **Feature Selection:** Choosing which details about the bulldozers are most helpful for predicting prices. We do this by using special tools that tell us which features matter most, like how old the bulldozer is or what brand it is.
+    - **Model Training:** Teaching our computer system to predict bulldozer prices by showing it lots of past sales examples. We use a special method called Random Forest that helps the system learn what makes prices go up or down.
 
-### Market Trends
+**Reasoning:**
 
-- **What We Need**: To understand how bulldozer prices change over time
-- **How We Do It**:
-    - Making charts that show prices over time
-    - Looking at monthly price changes
-    - Using special tools to spot patterns
-- **Why It Works**: This helps us see when prices typically rise and fall during the year
+By visualizing the data and using ML tasks to analyze feature importance and relationships, we can help the client understand the key factors driving bulldozer auction prices. This information can be used to optimize auction strategies and provide better guidance to sellers and buyers.
 
-### Smart Pricing
+## **Business Requirement 2:** Accurate price prediction system using historical data.
 
-- **What We Need**: To set the best possible prices
-- **How We Do It**:
-    - Making maps to show prices in different areas
-    - Finding out what features affect price the most
-    - Creating charts to show price ranges
-- **Why It Works**: This helps us understand what makes prices different in various places
+- **Data Visualizations:**
+    - **Bar Chart with Median Line:** A bar chart with median line visualization displays performance metrics, making it easy to identify which items perform above or below the average benchmark.
+    - **Tables:** Help us organize information neatly and make it easier to spot patterns. For example, a Model Comparison Table shows key performance metrics (RMSLE, R-squared, MAE) for different models side by side, making it simple to compare their effectiveness and select the best algorithm for price prediction.
+- **ML tasks:**
+    - **Model Selection:** Choosing the most appropriate regression model based on the characteristics of the dataset and the desired performance metrics (e.g., RMSLE).
+    - **Model Evaluation:** Assessing the model's performance using metrics such as RMSLE and R-squared to quantify its accuracy and reliability.
+    - **Model Deployment and Monitoring:** Putting the model into real-world use and keeping track of how well it's working, so we can make sure it stays accurate as we get new bulldozer data.
 
-## How Our Tools Help Us
+**Reasoning:**
 
-We use computer programs and charts together to help us understand bulldozer prices better. Here's what they do:
+By using ML tasks to build and evaluate a robust prediction model and visualizing its performance, we can meet the client's requirement for an accurate and scalable price prediction system. This will enable the client to make informed decisions based on data-driven insights.
 
-- They predict prices: Our computer program looks at things like a bulldozer's age, size, and condition to guess how much it might sell for. This helps people make better choices when buying or selling.
-- They show us patterns: Our charts help us see when bulldozer prices go up and down. For instance, we've found that prices are usually higher in January and February.
-- They help with pricing: By knowing what makes bulldozer prices go up or down, we can figure out fair prices. This helps everyone get good deals when buying or selling.
-- They explain the market: We can see which states sell the most bulldozers and what matters most when setting prices. This information helps anyone who works with bulldozers.
+<p align="right">(<a href="#table-of-content">back to top</a>)</p>
 
-When we use all these tools together, we can make smarter decisions about buying and selling bulldozers.
+## ML Business Case 💼
+
+**Business Objective:** Develop an AI-powered system to predict bulldozer auction prices by analyzing historical sales data and equipment specifications.
+
+**Key Benefits:**
+
+- Enable data-driven buying and selling decisions
+- Optimize auction pricing strategies
+- Minimize financial risks in transactions
+
+**Technical Solution:**
+
+- **Random Forest Regression model** to handle mixed data types and missing values
+- Dataset includes 400,000+ records with equipment specifications, sale conditions, and technical details
+
+**Success Metrics:**
+
+- **Primary:** Root Mean Squared Log Error (RMSLE) below `1.0`
+- **Secondary:** Mean Absolute Error (MAE) within `$20,000` of actual prices
+
+**Delivery Method:** Comprehensive dashboard with:
+
+- Interactive visualization interface
+- Data-driven insights display
+- Access for both technical and non-technical users
+
+**Data Privacy:** No ethical or privacy concerns as data is from a public Kaggle competition.
 
 <p align="right">(<a href="#table-of-content">back to top</a>)</p>
 
 #  Epics and User Stories 📜
 The project was divided into 5 Epics covering Data Analysis and Machine Learning tasks. User stories were created within each Epic to implement an agile methodology in the [Git project](https://github.com/users/Blignaut24/projects/23/views/1).
 
-## **Epic 1 - Data Ingestion and Preprocessing**
+## [**Epic 1 - Data Ingestion and Preprocessing**](https://github.com/users/Blignaut24/projects/23/views/2?filterQuery=Epic+1)
 
 • **User Story** - As a data scientist, I can ingest the bulldozer sales data from a CSV file so that it's available for analysis and modeling. (**Business Requirement 2**)
 
@@ -384,13 +417,13 @@ The project was divided into 5 Epics covering Data Analysis and Machine Learning
 
 • **User Story** - As a data scientist, I can convert categorical string columns to numerical representations for machine learning compatibility. (**Business Requirement 2**)
 
-## **Epic 2 - Exploratory Data Analysis (EDA)**
+## [**Epic 2 - Exploratory Data Analysis (EDA)**](https://github.com/users/Blignaut24/projects/23/views/2?filterQuery=Epic+2)
 
 • **User Story** - As a data scientist, I can visualize the distribution of the SalePrice column to understand the target variable characteristics (**Business Requirement 1**).
 
 • **User Story** - As a data scientist, I can explore sales trends over time to identify patterns and seasonality in the data (**Business Requirement 1**).
 
-## **Epic 3 - Machine Learning Modeling**
+## [**Epic 3 - Machine Learning Modeling**](https://github.com/users/Blignaut24/projects/23/views/2?filterQuery=Epic+3%3A+Mac)
 
 • **User Story** - As a data scientist, I can train a Random Forest Regression model to predict bulldozer sale prices (**Business Requirement 2**).
 
@@ -398,14 +431,17 @@ The project was divided into 5 Epics covering Data Analysis and Machine Learning
 
 • **User Story** - As a data scientist, I can save the trained model for future use and deployment. (**Business Requirement 2**)
 
-## **Epic 4 - Dashboard Planning, Designing, and Development**
-• **User Story** - As a data analyst, I can access an interactive prediction page to make real-time price predictions for bulldozers (**Business Requirement 3**).
+## [**Epic 4 - Dashboard Planning, Designing, and Development**](https://github.com/users/Blignaut24/projects/23/views/2?filterQuery=Epic+4+-)
+• **User Story** - As a bulldozer auction participant, I can filter bulldozer listings by price and location so that I can quickly find relevant equipment within my budget and preferred region. (**Business Requirement 3**).
 
-• **User Story** - As a data analyst, I can input bulldozer specifications through a user-friendly interface to get accurate price estimates (**Business Requirement 3**).
 
-• **User Story** - As a data analyst, I can view confidence metrics for predictions to assess the reliability of the results (**Business Requirement 3**).
 
-## **Epic 5 - Dashboard Deployment and Release**
+## [**Epic 5 - Dashboard Deployment and Release**](https://github.com/users/Blignaut24/projects/23/views/2?filterQuery=Epic+5+-)
+- **User Story** - As a user interested in bulldozer pricing
+I can access and interact with the BulldozerPriceGenius dashboard through a Streamlit app deployed on Heroku
+So that I can explore price predictions and market insights without installing any software locally. (**Business Requirement 3**).
+
+- **User Story** - As a technical user, I can follow instructions in the readme to fork the repository and deploy the project for myself.
 
 <p align="right">(<a href="#table-of-content">back to top</a>)</p>
 
@@ -422,7 +458,7 @@ The BulldozerPriceGenius dashboard is structured to serve both technical and non
 **For Technical Users:**
 
 - Page 3 (Model Performance): Details model accuracy metrics, validation results, and performance analysis
-- Page 5 (Documentation): Contains comprehensive technical documentation, including API details, system limitations, and development roadmap
+- Page 5 (Documentation): Contains comprehensive technical documentation, including API details, system limitations, Machine Learning (ML) pipeline and development roadmap
 
 This structure ensures that users can access information at their preferred technical depth while maintaining the system's overall usability and effectiveness.
 
@@ -436,7 +472,7 @@ Use Case: Provide quick orientation and project context
   
 Action: Help users easily see what the project does and what it needs
 
-## **Page 2: Case Study: Data Analysis and Visualization**
+## **Page 2: Case Study**
 Use Case: Enable data-driven insights
 - Interactive data exploration tools
 - Feature importance visualization
@@ -445,29 +481,31 @@ Use Case: Enable data-driven insights
 
 Action: Users can find out what makes bulldozer prices go up or down
 
-## **Page 3: Model Performance**
+## **Page 3: Model  - Project Hypotheses and Validation**
 Use Case: Validate model reliability
 - Performance metrics dashboard
 - Accuracy visualization
-- Error distribution analysis
+- Error analysis
 - Model comparison interface
 
 Action: Users can easily check how well the system is working and how accurate its predictions are
 
 ## **Page 4: Interactive Prediction**
-Use Case: Generate real-time predictions
-- User-friendly input form
-- Real-time price predictions
-- Confidence metrics display
-- Results interpretation guide
-  
-Action: Users can quickly find out what their bulldozer is worth
+Use Case: Interactive Visualization Interface
+
+- Location-based filtering of bulldozer listings across U.S. states
+- Price range filtering in USD
+- Dynamic data visualization
+- User-friendly navigation controls
+
+
+Action: Users can easily explore and analyze bulldozer listings based on location and price preferences
 
 ## **Page 5:Documentation**
 Use Case: Provide technical reference
 - API documentation
 - User guide
-- Known limitations
+- Machine Learning (ML) pipeline
 - Future roadmap
   
 Action: Users can easily check a bulldozer's price
@@ -759,6 +797,37 @@ streamlit run app.py
 <p align="right">(<a href="#table-of-content">back to top</a>)</p>
 
 ## Forking and Cloning
+### **What is Forking and Cloning?**
+
+Forking creates your own copy of [**BulldozerPriceGenius**]( https://github.com/Blignaut24/About-BulldozerPriceGenius-_BPG-_v2.git) on GitHub, while cloning downloads that copy to your local computer.
+
+### **How to Fork a Project**
+
+1. Go to the GitHub project page you want to copy
+2. Look for the "Fork" button in the top-right corner
+3. Click it! GitHub will create your copy of the project
+4. Wait a few seconds while GitHub does its magic
+
+### **How to Clone Your Fork**
+
+1. On your forked project page, find the green "Code" button
+2. Click it and copy the HTTPS link (it should end with .git)
+3. Open Git Bash on your computer (or Terminal if you're using Mac)
+4. Type: `git clone` followed by the link you copied
+5. Press Enter and watch the files download to your computer!
+
+### **Important Tips**
+
+- Make sure you're logged into GitHub before forking
+- Choose a good spot on your computer to clone the project
+
+### **Common Problems and Solutions**
+
+- **Problem:** "Permission denied" messageSolution: Make sure you're logged into GitHub
+- **Problem:** Can't find the fork buttonSolution: Scroll to the top of the page - it's always in the top-right
+- **Problem:** Clone isn't workingSolution: Double-check that you copied the full link correctly
+
+Remember: After cloning, you'll have your very own copy of the project to work on!
 
 <p align="right">(<a href="#table-of-content">back to top</a>)</p>
 
