@@ -464,7 +464,7 @@ The BulldozerPriceGenius dashboard is structured to serve both technical and non
 This structure ensures that users can access information at their preferred technical depth while maintaining the system's overall usability and effectiveness.
 
 
-## **Page 1: Project Overview**
+## **Page 1: Case Study**
 Use Case: Provide quick orientation and project context
 - Project summary and objectives
 - Key business requirements

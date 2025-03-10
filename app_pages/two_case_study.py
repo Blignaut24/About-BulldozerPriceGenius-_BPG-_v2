@@ -8,86 +8,77 @@ import matplotlib.pyplot as plt
 def load_data(nrows=None):
     # Specify data types to optimize memory usage
     dtype = {
-        'SalePrice': 'float32',
-        'saleMonth': 'int8',
+        'saleprice': 'float32',
+        'salemonth': 'int8',
         'state': 'category'
     }
     # Convert Google Drive sharing link to direct download link
     file_id = "1vB55Lhr46ISb57kWN16ULHyRrUpZHXJr"
     url = f"https://drive.google.com/uc?id={file_id}"
-    return pd.read_csv(url, dtype=dtype, nrows=nrows, encoding='utf-8')
+    
+    try:
+        df = pd.read_csv(url, dtype=dtype, nrows=nrows, encoding='utf-8')
+        # Print column names for debugging
+        st.write("Available columns:", list(df.columns))
+        return df
+    except Exception as e:
+        st.error(f"Error loading data: {str(e)}")
+        return None
 
 def case_study_body():
     # Display main header 
     st.header("Case Study: Bulldozer Price Analysis and Visualization")
     
-    # Introduction text explaining the app's purpose
+    # Introduction text
     st.write(
-        """
-        The BulldozerPriceGenius app aims to help users understand the factors that influence bulldozer prices. The project has two main data science objectives under **Business Requirements**:
-        """
-    )
-    
-    # Display business objectives in a success box
-    st.success(
-        """
-        - **Objective 1**: Analyze the distribution of sale prices to understand how bulldozer values are spread out (**Business Requirement 1**).
-        - **Objective 2**: Study sales patterns over time to identify any seasonal trends or recurring patterns in bulldozer pricing
-        (**Business Requirement 1**).
-        """
+        "The BulldozerPriceGenius app aims to help users understand the factors that influence bulldozer prices."
     )
     
     # Load and display the dataset from Google Drive
     df = load_data(nrows=10000)  # Load only the first 10,000 rows
     
-    # Optional dataframe inspection
-    if st.checkbox("Inspect dataframe"):
-        st.dataframe(df)
-    
-    # SECTION 1: Sale Price Distribution Analysis
-    st.subheader("View SalePrice distribution")   
-    if st.checkbox("Visualize Sale Price Distribution Histogram"):
-        # Create and display histogram
-        fig, ax = plt.subplots()
-        df.SalePrice.plot.hist(ax=ax, xlabel="Sale Price ($)")
-        st.pyplot(fig)
-    
-    # SECTION 2: Monthly Price Trends
-    st.subheader("View Median SalePrice by Month")
-    if st.checkbox("Visualize Median Sale Price by Month"):
-        # Create and display line plot
-        fig, ax = plt.subplots()
-        df.groupby(["saleMonth"])["SalePrice"].median().plot(ax=ax)
-        ax.set_xlabel("Month")
-        ax.set_ylabel("Median Sale Price ($)")
-        st.pyplot(fig)
-    
-    # SECTION 3: Price vs Month Scatter Plot
-    st.subheader("View SalePrice against SaleMonth (First 10,000 samples)")
-    
-    if st.checkbox("Visualize Sale Price against Sale Month"):
-        # Create and display scatter plot
-        fig, ax = plt.subplots()
-        ax.scatter(x=df["saleMonth"][:10000], y=df["SalePrice"][:10000])
-        ax.set_xlabel("Sale Month")
-        ax.set_ylabel("Sale Price ($)")
-        st.pyplot(fig)
-    
-    # SECTION 4: Geographic Price Analysis
-    st.subheader("View Median SalePrice by State")
-    
-    if st.checkbox("Visualize Median Sale Price by State"):
-        # Calculate median prices
-        median_prices_by_state = df.groupby(["state"])["SalePrice"].median()
-        median_sale_price = df["SalePrice"].median()
+    if df is not None:
+        # Optional dataframe inspection
+        if st.checkbox("Inspect dataframe"):
+            st.dataframe(df)
         
-        # Create and display bar plot with reference line
-        fig, ax = plt.subplots(figsize=(10, 7))
-        ax.bar(x=median_prices_by_state.index, height=median_prices_by_state.values)
-        ax.set_xlabel("State")
-        ax.set_ylabel("Median Sale Price ($)")
-        plt.xticks(rotation=90, fontsize=7)
-        ax.axhline(y=median_sale_price, color="red", linestyle="--", 
-                  label=f"Median Sale Price: ${median_sale_price:,.0f}")
-        ax.legend()
-        st.pyplot(fig)
+        # SECTION 1: Sale Price Distribution Analysis
+        st.subheader("View Sale Price distribution")   
+        if st.checkbox("Visualize Sale Price Distribution Histogram"):
+            try:
+                fig, ax = plt.subplots()
+                # Try different possible column names
+                if 'SalePrice' in df.columns:
+                    price_col = 'SalePrice'
+                elif 'saleprice' in df.columns:
+                    price_col = 'saleprice'
+                else:
+                    # Find any column containing 'price' (case insensitive)
+                    price_cols = [col for col in df.columns if 'price' in col.lower()]
+                    if price_cols:
+                        price_col = price_cols[0]
+                    else:
+                        st.error("Could not find price column")
+                        return
+                
+                df[price_col].plot.hist(ax=ax)
+                ax.set_xlabel("Sale Price ($)")
+                st.pyplot(fig)
+            except Exception as e:
+                st.error(f"Error creating histogram: {str(e)}")
+        
+        # SECTION 2: Monthly Price Trends
+        st.subheader("View Median Sale Price by Month")
+        if st.checkbox("Visualize Median Sale Price by Month"):
+            try:
+                fig, ax = plt.subplots()
+                month_col = 'saleMonth' if 'saleMonth' in df.columns else 'salemonth'
+                df.groupby([month_col])[price_col].median().plot(ax=ax)
+                ax.set_xlabel("Month")
+                ax.set_ylabel("Median Sale Price ($)")
+                st.pyplot(fig)
+            except Exception as e:
+                st.error(f"Error creating line plot: {str(e)}")
+
+if __name__ == "__main__":
+    case_study_body()
