@@ -149,7 +149,7 @@ def case_study_body():
     # Data privacy information
     st.subheader("Data Privacy")
     st.write(
-        "`No ethical or privacy concerns` as data is from a public Kaggle competition"
+        "**No ethical or privacy concerns** as data is from a public Kaggle competition"
     )
 
     # === ADDITIONAL RESOURCES ===

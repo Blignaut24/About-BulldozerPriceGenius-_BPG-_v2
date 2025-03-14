@@ -11,7 +11,7 @@ class MultiPage:
 
     def run(self):
         st.set_page_config(page_title=self.app_name, page_icon="🚜")
-        st.title(self.app_name)
+        st.title(f"{self.app_name} 🚜")
         page = st.sidebar.selectbox(
             "Select a page", self.pages, format_func=lambda page: page["title"]
         )

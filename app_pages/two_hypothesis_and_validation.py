@@ -1,15 +1,17 @@
 import streamlit as st
 import os
-from pathlib import Path
-import matplotlib.pyplot as plt
-
-
-
-
 
 def hypothesis_and_validation_body():
-    st.image("static/images/bulldozer_ai-min.webp")
+    """
+    Main function to render the Hypothesis & Validation page
+    Displays model performance metrics and validation results
+    """
+    
+    # ===== PAGE HEADER =====
     st.subheader("*Hypothesis and Validation*")
+
+    # ===== INTRODUCTION =====
+    # Display project overview and objectives
     st.markdown(
         """
         The BulldozerPriceGenius app helps you see how accurate our price predictions are. 
@@ -17,25 +19,44 @@ def hypothesis_and_validation_body():
         The project has one main objective based on the project business requirements:
         """
     )
+
+    # Display main objective
     st.success(
         """
         - **Objective 1**: A user can evaluate model performance metrics to ensure our price 
         predictions are reliable and accurate (*Business Requirement 2*)
         """
     )
-    st.write("---")
 
-    st.subheader("What We Are Testing")
+    # ===== NAVIGATION =====
+    # Table of contents
     st.markdown(
         """
-        This section will contain the hypothesis for the Bulldozer Price Genius project.
-        1. **Price Accuracy**: We believe that our model can predict prices within an acceptable margin of error
-        2. **Feature Significance**: We expect certain bulldozer features (age, condition, brand) to have stronger influence on price predictions
-        3. **Model Performance**: Different machine learning models will exhibit varying performance levels in predicting bulldozer prices
+        - [What We Are Testing](#what-we-are-testing)
+        - [How We Validate](#how-we-validate)
+        - [Validation 1: Price Accuracy](#validation-1-price-accuracy)
+        - [Validation 2: Feature Significance](#validation-2-feature-significance)
+        - [Validation 3: Model Performance](#validation-3-model-performance)
         """
     )
     st.write("---")
 
+    # ===== HYPOTHESES =====
+    # Section 1: Project Hypotheses
+    st.subheader("What We Are Testing")
+    st.markdown(
+        """
+        This section will contain the hypothesis for the Bulldozer Price Genius project.
+        1. **Price Accuracy**: We believe that our model can predict prices within an acceptable 
+        margin of error, with an RMSLE score less than 1.0
+        2. **Feature Significance**: We expect these five bulldozer features (year made, product size, sale year, model description, and model ID) to have a stronger influence on price predictions
+        3. **Model Performance**: We predict that different machine learning models will show varying levels of prediction accuracy, but both ideal and fast models will maintain acceptable performance below the target `RMSLE` threshold. 
+        """
+    )
+    st.write("---")
+
+    # ===== VALIDATION METHODOLOGY =====
+    # Section 2: Validation Methods
     st.subheader("How We Validate")
     st.markdown(
         """
@@ -54,17 +75,18 @@ def hypothesis_and_validation_body():
     )
     st.write("---")
 
+    # ===== PRICE ACCURACY VALIDATION =====
+    # Section 3: Price Accuracy Results
     st.header("Validation 1: Price Accuracy")
-
     st.success(
         """
         **Hypothesis 1**: We believe that our model can predict prices within an acceptable 
         margin of error, with an RMSLE score less than `1.0`
         """
     )
-    st.image("results/price_prediction_distribution.png")
+    st.image("results/sale_price.png")
 
-    # Display prediction vs reality
+    # Display price comparison metrics
     st.subheader("Prediction vs Reality")
     col1, col2 = st.columns(2)
     with col1:
@@ -72,7 +94,7 @@ def hypothesis_and_validation_body():
     with col2:
         st.metric("Actual Price", f"${72600:,.2f}")
 
-    # Display error metrics
+    # Show error metrics
     st.subheader("Performance Metrics")
     col1, col2 = st.columns(2)
     with col1:
@@ -80,7 +102,7 @@ def hypothesis_and_validation_body():
     with col2:
         st.metric("RMSLE Score", "0.27")
 
-    # Display analysis
+    # Analysis of results
     st.subheader("Analysis")
     st.write(
         """
@@ -90,20 +112,84 @@ def hypothesis_and_validation_body():
         """
     )
 
+    # Price accuracy conclusions
+    st.subheader("Conclusion")
+    st.write(
+        """
+        Yes, our hypothesis was validated. Our target **RMSLE score** was below `1.0`, and we achieved `0.27` — **significantly exceeding our expectations**. While we've met our goal, we can still work on reducing the `$17,104` average error to make our predictions even more precise. Users can trust the model's price estimates.
+        
+        **What does this mean?**
+        - Our predictions are more accurate than expected
+        - Users can trust our model for pricing guidance
+        - The system is ready for real-world use
+        """
+    )
     st.write("---")
-    st.subheader("Hypothesis 2: Feature Significance")
 
+    # ===== FEATURE SIGNIFICANCE VALIDATION =====
+    # Section 4: Feature Importance Analysis
+    st.header("Validation 2: Feature Significance")
+    st.success(
+        """
+        **Hypothesis 2**: We expect these five bulldozer features (year made, product size, sale year, model description, and model ID) to have a stronger influence on price predictions
+        """
+    )
+    st.image("results/feature_importance.png")
+
+    # Feature importance breakdown
+    st.subheader("Analysis of Top Features")
+    st.write(
+        """
+        **Primary Features:**
+        - **Year Made** (`19.9%`): The most significant factor, with newer bulldozers commanding higher prices
+        - **Product Size** (`15.5%`): Second most important, larger machines typically cost more
+        
+        **Secondary Features:**
+        - **Sale Year** (`7.7%`): Reflects market conditions at time of sale
+        - **Model Description** (`5.7%`): Specific model features impact pricing
+        - **Model ID** (`5.6%`): Different models have varying base prices
+        """
+    )
+
+    # Feature significance conclusions
+    st.subheader("Conclusion")
+    st.write(
+        """
+        Our analysis validates the hypothesis regarding feature importance: bulldozer **age** and **size** together influence approximately `35%` of the price predictions, confirming these as the most significant features.
+        """
+    )
     st.write("---")
-    st.subheader("Hypothesis 3: Model Performance")
 
+    # ===== MODEL PERFORMANCE VALIDATION =====
+    # Section 5: Model Comparison Results
+    st.header("Validation 3: Model Performance")
+    st.success(
+        """
+        **Hypothesis 3**: We predict that different machine learning models will show varying levels of prediction accuracy, but both ideal and fast models will maintain acceptable performance below the target RMSLE threshold. 
+        """
+    )
+    st.image("results/model_comparison.png")
+
+    # Performance analysis conclusions
+    st.subheader("Conclusion")
+    st.write(
+        """
+        Yes, Hypothesis 3 is validated. Our analysis shows distinct variations in model performance, with all models maintaining acceptable RMSLE scores:
+
+        - The **ideal model** achieves the best performance with a `Valid RMSLE` of `0.313` and `Valid R²` of `0.836`
+        - The **fast model** performs similarly well, with a `Valid RMSLE` of `0.318` and `Valid R²` of `0.830`
+        - The **default and random search models** achieve acceptable `RMSLE scores` of `0.358` and `0.349`, respectively     
+
+        **Key findings**:
+
+        - All models maintain `RMSLE scores` well below our target of `1.0`, demonstrating reliable performance
+        - The **ideal and fast models** show exceptional results with negligible differences, making both viable choices based on speed requirements
+        - `High R²` values, particularly in the **ideal and fast models**, demonstrate strong predictive accuracy
+        """
+    )
     st.write("---")
-    st.header("Project Success")
-
-    st.write("---")
-
-    # Call the function to show the prediction plot
-    show_prediction_plot()
 
 
+# ===== MAIN EXECUTION =====
 if __name__ == "__main__":
     hypothesis_and_validation_body()

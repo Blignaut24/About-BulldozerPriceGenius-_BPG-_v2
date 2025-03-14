@@ -9,6 +9,7 @@ from app_pages.two_hypothesis_and_validation import hypothesis_and_validation_bo
 from app_pages.four_interactive_prediction import interactive_prediction_body
 from app_pages.five_documentation import documentation_body
 from app_pages.six_ml_pipeline import ml_pipeline_body
+from app_pages.seven_project_success import project_success_body
 
 # Create an instance of the app
 app = MultiPage(app_name="BulldozerPriceGenius(BPG)")
@@ -20,6 +21,7 @@ app.add_page("two_hypothesis_and_validation", hypothesis_and_validation_body)
 app.add_page("four_interactive_prediction", interactive_prediction_body)
 app.add_page("five_documentation", documentation_body)
 app.add_page("six_ml_pipeline", ml_pipeline_body)
+app.add_page("seven_project_success", project_success_body)
 
 # Run the app
 app.run()
