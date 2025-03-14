@@ -1,9 +1,14 @@
 import streamlit as st
 import os
+from pathlib import Path
 import matplotlib.pyplot as plt
-import numpy as np
+
+
+
+
 
 def hypothesis_and_validation_body():
+    st.image("static/images/bulldozer_ai-min.webp")
     st.subheader("*Hypothesis and Validation*")
     st.markdown(
         """
@@ -49,51 +54,41 @@ def hypothesis_and_validation_body():
     )
     st.write("---")
 
-    st.header("Hypothesis 1: Price Accuracy")
+    st.header("Validation 1: Price Accuracy")
 
-    # Checkbox to display additional content
-    if st.checkbox("Hypothesis 1: Validation"):
-        st.success(
-            """
-            **Hypothesis 1**: We believe that our model can predict prices within an acceptable 
-            margin of error, with an RMSLE score less than `1.0`
-            """
-        )
+    st.success(
+        """
+        **Hypothesis 1**: We believe that our model can predict prices within an acceptable 
+        margin of error, with an RMSLE score less than `1.0`
+        """
+    )
+    st.image("results/price_prediction_distribution.png")
 
-        # Safely display image if it exists
-        image_path = r"C:\Users\blign\Dropbox\1 PROJECT\VS Code Project Respository\About-BulldozerPriceGenius-_BPG-_v2\results\actual_vs_predicted_sale_price.png"
+    # Display prediction vs reality
+    st.subheader("Prediction vs Reality")
+    col1, col2 = st.columns(2)
+    with col1:
+        st.metric("Model Prediction", f"${55495.68:,.2f}")
+    with col2:
+        st.metric("Actual Price", f"${72600:,.2f}")
 
-        if os.path.exists(image_path):
-            st.subheader("Actual vs Predicted Sale Price Visualization")
-            st.image(image_path)
-        else:
-            st.warning("Visualization not available - Image file not found")
+    # Display error metrics
+    st.subheader("Performance Metrics")
+    col1, col2 = st.columns(2)
+    with col1:
+        st.metric("Mean Absolute Error (MAE)", f"${17104:,.2f}")
+    with col2:
+        st.metric("RMSLE Score", "0.27")
 
-        # Display prediction vs reality
-        st.subheader("Prediction vs Reality")
-        col1, col2 = st.columns(2)
-        with col1:
-            st.metric("Model Prediction", f"${55495.68:,.2f}")
-        with col2:
-            st.metric("Actual Price", f"${72600:,.2f}")
-
-        # Display error metrics
-        st.subheader("Performance Metrics")
-        col1, col2 = st.columns(2)
-        with col1:
-            st.metric("Mean Absolute Error (MAE)", f"${17104:,.2f}")
-        with col2:
-            st.metric("RMSLE Score", "0.27")
-
-        # Display analysis
-        st.subheader("Analysis")
-        st.write(
-            """
-            - RMSLE score of 0.27 indicates reasonable model performance
-            - Model provides valuable pricing guidance
-            - Some room for improvement exists
-            """
-        )
+    # Display analysis
+    st.subheader("Analysis")
+    st.write(
+        """
+        - RMSLE score of 0.27 indicates reasonable model performance
+        - Model provides valuable pricing guidance
+        - Some room for improvement exists
+        """
+    )
 
     st.write("---")
     st.subheader("Hypothesis 2: Feature Significance")
@@ -105,6 +100,10 @@ def hypothesis_and_validation_body():
     st.header("Project Success")
 
     st.write("---")
+
+    # Call the function to show the prediction plot
+    show_prediction_plot()
+
 
 if __name__ == "__main__":
     hypothesis_and_validation_body()
