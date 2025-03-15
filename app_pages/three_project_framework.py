@@ -2,6 +2,7 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
+import io
 
 
 def load_data(csv_file_path, nrows=None):
@@ -99,13 +100,21 @@ def project_framework_body():
     csv_file_path = "src/data_prep/TrainAndValid_object_values_as_categories.csv"
     df = load_data(
         csv_file_path, nrows=500
-    )  # Load only the first 500 out of 10,000 rows due to Heroku deployment limits
+    )  # Load only the first 500 out of 10,000 rows
 
     # Optional dataframe inspection
-    if st.checkbox("Inspect dataframe: Raw Data"):
+    if st.checkbox("DataFrame Inspection: Missing Values"):
         st.dataframe(df)
-    
-    
+
+    # Load and display the processed dataset info
+    processed_file_path = "data/processed/TrainAndValid_processed.csv"
+    df_processed = load_data(processed_file_path)
+
+    if st.checkbox("DataFrame Inspection: Data Mixed Types"):
+        buffer = io.StringIO()
+        df_processed.info(buf=buffer)
+        s = buffer.getvalue()
+        st.text(s)
 
     st.write("---")
     st.header("3. Data Preparation")
