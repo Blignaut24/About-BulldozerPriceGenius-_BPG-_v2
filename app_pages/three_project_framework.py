@@ -27,7 +27,6 @@ def project_framework_body():
 
     # ===== NAVIGATION =====
     # Table of contents
-    # FIXME: Broken links
     st.markdown(
         """
     - [1. Business Understanding](#business-understanding)
@@ -116,21 +115,117 @@ def project_framework_body():
         s = buffer.getvalue()
         st.text(s)
 
+    st.subheader("What Each Part Means")
+    if st.checkbox("Main Types of Information"):
+        st.write("The dataset includes these main types of information:")
+        st.info(
+            """
+            - **Basic Details**:
+                - **Sales ID**: Unique number for each sale
+                - **Machine ID**: Unique number for each bulldozer
+                - **Sale Price**: How much the bulldozer sold for (this is what we want to predict)
+            - **Machine Information**:
+                - **Year Made**: When the bulldozer was built
+                - **Usage Hours**: How many hours the machine has been used
+                - **Usage Level**: Low, medium, or high based on hours used
+            - **Sale Details**:
+                - **Sale Date**: When the bulldozer was sold
+                - **State**: Where the sale happened in the USA    
+        """
+        )
+
     st.write("---")
     st.header("3. Data Preparation")
-    st.write("Details about the project framework will be displayed here.")
+
+    # Data Cleaning section
+    st.subheader("Data Cleaning")
+    st.write("Show Data Cleaning Steps")
+    st.write(
+        """
+        1. **Parse Dates**
+            - Convert `'saledate'` from string to datetime
+            - Sort data chronologically
+            
+        2. **Handle Categorical Data**
+            - Convert string columns to category type
+            - Create numerical representations
+            
+        3. **Address Missing Values**
+            - Identify columns with missing data
+            - Apply appropriate imputation strategies
+        """
+    )
+
+    # Feature Engineering section
+    st.subheader("Feature Engineering")
+    st.write("Show Feature Engineering Steps")
+    st.write(
+        """
+        1. **Date-based Features**
+            - Extract year, month, day from saledate
+            - Create day of week and day of year features
+        2. **Categorical Encoding**
+            - One-hot encoding for nominal categories
+            - Label encoding for ordinal categories
+        3. **Derived Features**
+            - Calculate machine age at sale
+            - Create usage intensity metrics
+        """
+    )
+
+    # Data Transformation section
+    st.subheader("Data Transformation")
+    st.write("Show Data Transformation Steps")
+    st.write(
+        """
+        1. **Scaling**
+            - Normalize numerical features
+            - Handle outliers appropriately
+            
+        2. **Final Processing**
+            - Format data for model input
+            - Split into training and validation sets
+            
+        3. **Quality Checks**
+            - Verify data completeness
+            - Validate transformations
+        """
+    )
 
     st.write("---")
     st.header("4. Modeling")
-    st.write("Details about the project framework will be displayed here.")
+    st.write(
+        """
+        *4. Modeling*
+        - Choose model type
+        - Train the model
+        - Test the model
+        """
+    )
 
     st.write("---")
     st.header("5. Evaluation")
     st.write("Details about the project framework will be displayed here.")
+    st.write(
+        """
+        *5. Evaluation*
+        - Did we meet our goals?
+        - Is it good enough?
+        - What could be better?
+        """
+    )
 
     st.write("---")
     st.header("6. Deployment")
     st.write("Details about the project framework will be displayed here.")
+    st.write(
+        """
+        *6. Deployment*
+        - Put model to use
+        - Monitor performance
+        - Make updates as needed
+        """
+    )
 
     st.write("---")
 
