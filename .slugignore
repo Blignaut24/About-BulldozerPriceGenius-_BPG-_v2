@@ -1,1 +1,24 @@
-blue-book-for-bulldozers/
+# .slugignore file
+
+# Exclude a specific folder 
+*.pkl
+
+# Exclude a specific file
+bulldozer_ai-min.webp 
+Data Dictionary.xlsx
+Machine_Appendix.csv
+median_benchmark.csv
+predictions.csv
+random_forest_benchmark_test.csv
+test_predictions.csv
+Test.csv
+Train.7z
+Train.csv
+Train.zip
+TrainAndValid.7z
+TrainAndValid.csv
+TrainAndValid.zip
+Valid.7z
+Valid.csv
+Valid.zip
+ValidSolution.csv

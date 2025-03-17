@@ -5,18 +5,19 @@ import matplotlib.pyplot as plt
 import io
 
 
+# Function to load data from a CSV file
 def load_data(csv_file_path, nrows=None):
-    """
-    Function to load data from a CSV file
-    """
     return pd.read_csv(csv_file_path, nrows=nrows)
 
 
+# Function to load data from a Parquet file
+def load_parquet_data(parquet_file_path, nrows=None):
+    return pd.read_parquet(parquet_file_path)
+
+
+# Main function to render the Project Framework page
 def project_framework_body():
-    """
-    Main function to render the Project Framework page
-    Displays the framework and structure of the project
-    """
+    # Display the project title and description
     st.subheader("*Forecasting Bulldozer Values Using Machine Learning*")
     st.write(
         """
@@ -40,7 +41,7 @@ def project_framework_body():
 
     st.write("---")
 
-    # Add more content as needed
+    # Section 1: Business Understanding
     st.header("1. Business Understanding")
 
     # Core business requirements
@@ -68,6 +69,7 @@ def project_framework_body():
 
     st.write("---")
 
+    # Section 2: Data Understanding
     st.header("2. Data Understanding")
     st.subheader("What Data Do We Have?")
     st.write(
@@ -87,7 +89,7 @@ def project_framework_body():
     - **Good Points:**
         - Large dataset with detailed information
         - Covers multiple years of sales
-        - Contains various machine details details
+        - Contains various machine details
     - **Challenges:**
         - Some missing information in important fields
         - Mixed data types that need cleaning
@@ -103,12 +105,14 @@ def project_framework_body():
 
     # Optional dataframe inspection
     if st.checkbox("DataFrame Inspection: Missing Values"):
+        st.write("Load the first `500` rows from a total of `10,000` rows")
         st.dataframe(df)
 
     # Load and display the processed dataset info
     processed_file_path = "data/processed/TrainAndValid_processed.csv"
     df_processed = load_data(processed_file_path)
 
+    # Optional dataframe inspection for mixed data types
     if st.checkbox("DataFrame Inspection: Data Mixed Types"):
         buffer = io.StringIO()
         df_processed.info(buf=buffer)
@@ -155,7 +159,23 @@ def project_framework_body():
             - Apply appropriate imputation strategies
         """
     )
-
+    # Check missing values in the dataset
+    if st.checkbox("DataFrame Inspection: Identify columns with missing data"):
+        st.info(
+            """
+            **Check missing values**
+            - Displays top **25 columns** with highest number of missing values
+            - Counts total missing values per column using **sum()** function
+            - Sorts results in descending order to highlight columns with most missing data
+            """
+        )
+        parquet_file_path = (
+            "data/processed/TrainAndValid_object_values_as_categories.parquet"
+        )
+        df_tmp = load_parquet_data(parquet_file_path)
+        missing_values = df_tmp.isna().sum().sort_values(ascending=False)[:25]
+        st.write(missing_values)
+    
     # Feature Engineering section
     st.subheader("Feature Engineering")
     st.write("Show Feature Engineering Steps")
@@ -191,6 +211,36 @@ def project_framework_body():
             - Validate transformations
         """
     )
+
+    # Add the new section for displaying a sample from the Parquet file
+    parquet_file_path = "data/processed/TrainAndValid_object_values_as_categories_and_missing_values_filled.parquet"
+    df_tmp = load_parquet_data(parquet_file_path)
+
+    if st.checkbox("Quality Checks: Inspection of Random Sample Rows"):
+        st.info(
+            """
+            **Display Random Sample Rows**
+
+            This code displays 5 randomly selected rows from our DataFrame to:
+
+            - Quickly inspect the data structure and content
+            - Verify data preprocessing steps were successful
+            - Help identify potential patterns or anomalies in the data
+        """
+        )
+        st.write(df_tmp.sample(5))
+
+    # Add the new section for checking total number of missing values
+    if st.checkbox("Quality Checks: Total Number of Missing Values"):
+        total_missing_values = df_tmp.isna().sum().sum()
+        if total_missing_values == 0:
+            st.success(
+                f"Total missing values: {total_missing_values} - Woohoo! Let's build a model!"
+            )
+        else:
+            st.warning(
+                f"Uh ohh... total missing values: {total_missing_values} - Perhaps we might have to retrace our steps to fill the values?"
+            )
 
     st.write("---")
     st.header("4. Modeling")
