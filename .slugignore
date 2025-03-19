@@ -3,8 +3,10 @@
 # Exclude a specific folder 
 *.pkl
 
+# Ignore all Jupyter Notebook files
+*.ipynb
+
 # Exclude a specific file
-01_data_loading.ipynb
 bulldozer_ai-min.webp 
 Data Dictionary.xlsx
 Machine_Appendix.csv
