@@ -3,7 +3,6 @@ from app_pages.multipage import MultiPage
 
 # Load pages scripts
 from app_pages.one_case_study import case_study_body
-
 from app_pages.two_hypothesis_and_validation import hypothesis_and_validation_body
 from app_pages.three_project_framework import project_framework_body
 from app_pages.four_interactive_prediction import interactive_prediction_body

@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import io
 
 
+# ===== HELPER FUNCTIONS =====
 # Function to load data from a CSV file
 def load_data(csv_file_path, nrows=None):
     return pd.read_csv(csv_file_path, nrows=nrows)
@@ -15,8 +16,10 @@ def load_parquet_data(parquet_file_path, nrows=None):
     return pd.read_parquet(parquet_file_path)
 
 
+# ===== MAIN PAGE FUNCTION =====
 # Main function to render the Project Framework page
 def project_framework_body():
+    # ===== PAGE HEADER =====
     # Display the project title and description
     st.subheader("*Forecasting Bulldozer Values Using Machine Learning*")
     st.write(
@@ -27,7 +30,7 @@ def project_framework_body():
     st.image("static/images/BPG_Framework.webp", use_column_width=True)
 
     # ===== NAVIGATION =====
-    # Table of contents
+    # Table of contents for easy navigation
     st.markdown(
         """
         - [1. Business Understanding](#1-business-understanding)
@@ -36,12 +39,11 @@ def project_framework_body():
         - [4. Modeling](#4-modeling)
         - [5. Evaluation](#5-evaluation)
         - [6. Deployment](#6-deployment)
-        """   
+        """
     )
-    
     st.write("---")
 
-    # Section 1: Business Understanding
+    # ===== SECTION 1: BUSINESS UNDERSTANDING =====
     st.header("1. Business Understanding")
 
     # Core business requirements
@@ -55,7 +57,7 @@ def project_framework_body():
         """
     )
 
-    # Business Requirements with checkboxes
+    # Optional: Display detailed business requirements
     if st.checkbox("Show Business Requirements"):
         st.success(
             """
@@ -66,11 +68,12 @@ def project_framework_body():
             **Business Requirement 3**: The client needs the prediction system to be accessible through a user-friendly interface that can be used by both technical and non-technical staff.
             """
         )
-
     st.write("---")
 
-    # Section 2: Data Understanding
+    # ===== SECTION 2: DATA UNDERSTANDING =====
     st.header("2. Data Understanding")
+
+    # Overview of available data
     st.subheader("What Data Do We Have?")
     st.write(
         """
@@ -80,45 +83,44 @@ def project_framework_body():
         - **Test data**: Sales from `May to November 2012`
         """
     )
+
+    # Data quality check
     st.subheader("Data Quality Check")
     st.write(
         """
         The dataset has over `400,000` entries (bulldozer sales records). 
         Here's what we found:
 
-    - **Good Points:**
-        - Large dataset with detailed information
-        - Covers multiple years of sales
-        - Contains various machine details
-    - **Challenges:**
-        - Some missing information in important fields
-        - Mixed data types that need cleaning
-        - Dates need to be converted to the right format
-    """
+        - **Good Points:**
+            - Large dataset with detailed information
+            - Covers multiple years of sales
+            - Contains various machine details
+        - **Challenges:**
+            - Some missing information in important fields
+            - Mixed data types that need cleaning
+            - Dates need to be converted to the right format
+        """
     )
 
     # Load and display the dataset
     csv_file_path = "src/data_prep/TrainAndValid_object_values_as_categories.csv"
-    df = load_data(
-        csv_file_path, nrows=500
-    )  # Load only the first 500 out of 10,000 rows
+    df = load_data(csv_file_path, nrows=500)  # Load only the first 500 rows
 
-    # Optional dataframe inspection
+    # Optional: Inspect missing values in the dataset
     if st.checkbox("DataFrame Inspection: Missing Values"):
         st.write("Load the first `500` rows from a total of `10,000` rows")
         st.dataframe(df)
 
-    # Load and display the processed dataset info
+    # Optional: Inspect processed dataset for mixed data types
     processed_file_path = "data/processed/TrainAndValid_processed.csv"
     df_processed = load_data(processed_file_path)
-
-    # Optional dataframe inspection for mixed data types
     if st.checkbox("DataFrame Inspection: Data Mixed Types"):
         buffer = io.StringIO()
         df_processed.info(buf=buffer)
         s = buffer.getvalue()
         st.text(s)
 
+    # Explanation of dataset structure
     st.subheader("What Each Part Means")
     if st.checkbox("Main Types of Information"):
         st.write("The dataset includes these main types of information:")
@@ -135,15 +137,15 @@ def project_framework_body():
             - **Sale Details**:
                 - **Sale Date**: When the bulldozer was sold
                 - **State**: Where the sale happened in the USA    
-        """
+            """
         )
-
     st.write("---")
+
+    # ===== SECTION 3: DATA PREPARATION =====
     st.header("3. Data Preparation")
 
-    # Data Cleaning section
+    # Data cleaning steps
     st.subheader("Data Cleaning")
-    st.write("Show Data Cleaning Steps")
     st.write(
         """
         1. **Parse Dates**
@@ -159,26 +161,18 @@ def project_framework_body():
             - Apply appropriate imputation strategies
         """
     )
-    # Check missing values in the dataset
+
+    # Optional: Check missing values in the dataset
     if st.checkbox("DataFrame Inspection: Identify columns with missing data"):
-        st.info(
-            """
-            **Check missing values**
-            - Displays top **25 columns** with highest number of missing values
-            - Counts total missing values per column using **sum()** function
-            - Sorts results in descending order to highlight columns with most missing data
-            """
-        )
         parquet_file_path = (
             "data/processed/TrainAndValid_object_values_as_categories.parquet"
         )
         df_tmp = load_parquet_data(parquet_file_path)
         missing_values = df_tmp.isna().sum().sort_values(ascending=False)[:25]
         st.write(missing_values)
-    
-    # Feature Engineering section
+
+    # Feature engineering steps
     st.subheader("Feature Engineering")
-    st.write("Show Feature Engineering Steps")
     st.write(
         """
         1. **Date-based Features**
@@ -193,9 +187,8 @@ def project_framework_body():
         """
     )
 
-    # Data Transformation section
+    # Data transformation steps
     st.subheader("Data Transformation")
-    st.write("Show Data Transformation Steps")
     st.write(
         """
         1. **Scaling**
@@ -212,25 +205,13 @@ def project_framework_body():
         """
     )
 
-    # Add the new section for displaying a sample from the Parquet file
+    # Optional: Inspect random sample rows
     parquet_file_path = "data/processed/TrainAndValid_object_values_as_categories_and_missing_values_filled.parquet"
     df_tmp = load_parquet_data(parquet_file_path)
-
     if st.checkbox("Quality Checks: Inspection of Random Sample Rows"):
-        st.info(
-            """
-            **Display Random Sample Rows**
-
-            This code displays 5 randomly selected rows from our DataFrame to:
-
-            - Quickly inspect the data structure and content
-            - Verify data preprocessing steps were successful
-            - Help identify potential patterns or anomalies in the data
-        """
-        )
         st.write(df_tmp.sample(5))
 
-    # Add the new section for checking total number of missing values
+    # Optional: Check total number of missing values
     if st.checkbox("Quality Checks: Total Number of Missing Values"):
         total_missing_values = df_tmp.isna().sum().sum()
         if total_missing_values == 0:
@@ -239,10 +220,12 @@ def project_framework_body():
             )
         else:
             st.warning(
-                f"Uh ohh... total missing values: {total_missing_values} - Perhaps we might have to retrace our steps to fill the values?"
+                f"Uh oh... total missing values: {total_missing_values} - Consider retracing steps to fill the values."
             )
 
     st.write("---")
+
+    # ===== SECTION 4: MODELING =====
     st.header("4. Modeling")
     st.write(
         """
@@ -252,10 +235,10 @@ def project_framework_body():
         - Test the model
         """
     )
-
     st.write("---")
+
+    # ===== SECTION 5: EVALUATION =====
     st.header("5. Evaluation")
-    st.write("Details about the project framework will be displayed here.")
     st.write(
         """
         *5. Evaluation*
@@ -264,10 +247,10 @@ def project_framework_body():
         - What could be better?
         """
     )
-
     st.write("---")
+
+    # ===== SECTION 6: DEPLOYMENT =====
     st.header("6. Deployment")
-    st.write("Details about the project framework will be displayed here.")
     st.write(
         """
         *6. Deployment*
@@ -276,7 +259,6 @@ def project_framework_body():
         - Make updates as needed
         """
     )
-
     st.write("---")
 
 
