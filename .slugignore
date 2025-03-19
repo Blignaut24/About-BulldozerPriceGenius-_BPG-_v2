@@ -25,3 +25,6 @@ Valid.7z
 Valid.csv
 Valid.zip
 ValidSolution.csv
+
+# Exclude the bluebook-for-bulldozers folder
+data/raw/bluebook-for-bulldozers/
