@@ -169,28 +169,27 @@ def hypothesis_and_validation_body():
         **Hypothesis 3**: We predict that different machine learning models will show varying levels of prediction accuracy, but both ideal and fast models will maintain acceptable performance below the target RMSLE threshold.
         """
     )
-    st.image("results/model_comparison.webp")    st.image("results/model_comparison.webp")
+    st.image("results/model_comparison.webp")
 
-    # Performance analysis conclusions    # Performance analysis conclusions
+    # Performance analysis conclusions
     st.subheader("Conclusion")
     st.write(
         """
-        Yes, Hypothesis 3 is validated. Our analysis shows distinct variations in model performance, with all models maintaining acceptable RMSLE scores:, Hypothesis 3 is validated. Our analysis shows distinct variations in model performance, with all models maintaining acceptable RMSLE scores:
+        Yes, Hypothesis 3 is validated. Our analysis shows distinct variations in model performance, with all models maintaining acceptable RMSLE scores:
 
-        - The **ideal model** achieves the best performance with a `Valid RMSLE` of `0.313` and `Valid R²` of `0.836`.        - The **ideal model** achieves the best performance with a `Valid RMSLE` of `0.313` and `Valid R²` of `0.836`.
+        - The **ideal model** achieves the best performance with a `Valid RMSLE` of `0.313` and `Valid R²` of `0.836`.
         - The **fast model** performs similarly well, with a `Valid RMSLE` of `0.318` and `Valid R²` of `0.830`.
-        - The **default and random search models** achieve acceptable `RMSLE scores` of `0.358` and `0.349`, respectively.     spectively.     
+        - The **default and random search models** achieve acceptable `RMSLE scores` of `0.358` and `0.349`, respectively.
 
-        **Key findings**:        **Key findings**:
-
-        - All models maintain `RMSLE scores` well below our target of `1.0`, demonstrating reliable performance.        - All models maintain `RMSLE scores` well below our target of `1.0`, demonstrating reliable performance.
-        - The **ideal and fast models** show exceptional results with negligible differences, making both viable choices based on speed requirements.e choices based on speed requirements.
+        **Key findings**:
+        - All models maintain `RMSLE scores` well below our target of `1.0`, demonstrating reliable performance.
+        - The **ideal and fast models** show exceptional results with negligible differences, making both viable choices based on speed requirements.
         - `High R²` values, particularly in the **ideal and fast models**, demonstrate strong predictive accuracy.
         """
     )
-    st.write("---")t.write("---")
+    st.write("---")
 
 
-# ===== MAIN EXECUTION =====# ===== MAIN EXECUTION =====
+# ===== MAIN EXECUTION =====
 if __name__ == "__main__":
-    hypothesis_and_validation_body()ion_body()
+    hypothesis_and_validation_body()
