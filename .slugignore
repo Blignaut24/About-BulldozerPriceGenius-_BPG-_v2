@@ -3,9 +3,6 @@
 # Exclude a specific folder 
 *.pkl
 
-# Ignore all Jupyter Notebook files
-*.ipynb
-
 # Exclude a specific file
 bulldozer_ai-min.webp 
 Data Dictionary.xlsx
@@ -26,5 +23,3 @@ Valid.csv
 Valid.zip
 ValidSolution.csv
 
-# Exclude the bluebook-for-bulldozers folder
-data/raw/bluebook-for-bulldozers/
