@@ -229,24 +229,68 @@ def project_framework_body():
     st.header("4. Modeling")
     st.write(
         """
-        *4. Modeling*
-        - Choose model type
-        - Train the model
-        - Test the model
+        This section focuses on selecting, training, and testing a suitable machine learning model to predict bulldozer sale prices.
+        """
+    )
+    st.subheader("""
+                Choose Model Type
+                """)
+    st.markdown("""
+                - **Model Selection:** We picked the `Random Forest` model because it has worked well for similar projects before and is known to handle this type of data well.
+                - **Choosing the Right Tool:** Given that we have a lot of data (over 100,000 examples) and need to predict prices, we looked at two main options:
+                    - `SGD Regressor`: A simple math model that learns by looking at one example at a time.
+                    - `Random Forest`: A more advanced model that uses multiple decision trees to make better predictions.
+                - **Final Choice:** We went with the Random Forest model because it has a good track record with similar projects and usually gives reliable results across many different types of data.
+                """)
+    st.subheader("""
+                Train the Model
+                """)
+    st.markdown("""
+                **Data Preparation**: Before we can train our model, we need to prepare our data properly:
+                """)
+    st.markdown("""
+                    - **Convert to Numeric**: First, we need to turn all text data into numbers that our computer can understand. We do this by putting similar items into categories and giving each category a number.ber.ber.
+                """)
+    st.markdown("""
+                    - **Handling Missing Values**: Next, we look at any missing information in our data. When we find gaps, we either fill them in with reasonable values or use special techniques to work around them.hem.hem.
+                        
+                """)
+    st.markdown("""
+                **Training Process**: The RandomForestRegressor is trained using the preprocessed data. 
+                """)
+    st.markdown("""
+                **Hyperparameter Tuning:** Parameters like the number of trees in the Random Forest can be optimized for better performance.
+                """)
+    st.subheader("""
+                Test the Model
+                """)
+    st.markdown(
+        """
+        - **Evaluation Metric**: We use the Root Mean Squared Log Error (RMSLE) as our evaluation metric, which aligns with the Kaggle competition and sets a target accuracy goal of under 1 RMSLE.
+        """
+    )
+    st.markdown(
+        """
+        - **Validation Set**: Allows for assessment of the model's generalization performance on unseen data.
+        
+        """
+    )
+    st.markdown(
+        """
+        - **Performance Comparison**: The RMSLE obtained would be compared against the Kaggle leaderboard to benchmark the model's effectiveness.
+        """
+    )
+    st.markdown(
+        """
+        - **Further Testing**: After we test our model on the validation data, we'll do one final test using a separate set of data we've kept aside. This helps us better understand how well our model will work in real-life situations.
+        
         """
     )
     st.write("---")
 
     # ===== SECTION 5: EVALUATION =====
     st.header("5. Evaluation")
-    st.write(
-        """
-        *5. Evaluation*
-        - Did we meet our goals?
-        - Is it good enough?
-        - What could be better?
-        """
-    )
+    
     st.write("---")
 
     # ===== SECTION 6: DEPLOYMENT =====
