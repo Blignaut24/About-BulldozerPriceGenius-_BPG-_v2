@@ -3,6 +3,9 @@
 # Exclude a specific folder 
 *.pkl
 
+# Include the specific file by negating the exclusion
+!src/models/randomforest_regressor_best_RMSLE.pkl
+
 # Exclude a specific file
 bulldozer_ai-min.webp 
 Data Dictionary.xlsx

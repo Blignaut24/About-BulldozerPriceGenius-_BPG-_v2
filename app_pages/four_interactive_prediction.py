@@ -46,9 +46,6 @@ def interactive_prediction_body():
         )
         return data
 
-    # Set dashboard title
-    st.title("Bulldozer Price Prediction")
-
     # Load the dataset
     data = load_data()
 

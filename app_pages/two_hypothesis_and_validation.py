@@ -120,9 +120,9 @@ def hypothesis_and_validation_body():
         Yes, our hypothesis was validated. Our target **RMSLE score** was below `1.0`, and we achieved `0.27` — **significantly exceeding our expectations**. While we've met our goal, we can still work on reducing the `$17,104` average error to make our predictions even more precise. Users can trust the model's price estimates.
         
         **What does this mean?**
-        - Our predictions are more accurate than expected..
-        - Users can trust our model for pricing guidance..
-        - The system is ready for real-world use..
+        - Our predictions are more accurate than expected.
+        - Users can trust our model for pricing guidance.
+        - The system is ready for real-world use.
         """
     )
     st.write("---")

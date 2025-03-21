@@ -113,7 +113,9 @@ def project_framework_body():
 
     # Optional: Inspect processed dataset for mixed data types
     processed_file_path = "data/processed/TrainAndValid_processed.csv"
-    df_processed = load_data(processed_file_path)
+    df_processed = load_data(
+        processed_file_path, nrows=500
+    )  # Limit the number of rows loaded to avoid memory issues
     if st.checkbox("DataFrame Inspection: Data Mixed Types"):
         buffer = io.StringIO()
         df_processed.info(buf=buffer)
@@ -232,38 +234,56 @@ def project_framework_body():
         This section focuses on selecting, training, and testing a suitable machine learning model to predict bulldozer sale prices.
         """
     )
-    st.subheader("""
+    st.subheader(
+        """
                 Choose Model Type
-                """)
-    st.markdown("""
+                """
+    )
+    st.markdown(
+        """
                 - **Model Selection:** We picked the `Random Forest` model because it has worked well for similar projects before and is known to handle this type of data well.
                 - **Choosing the Right Tool:** Given that we have a lot of data (over 100,000 examples) and need to predict prices, we looked at two main options:
                     - `SGD Regressor`: A simple math model that learns by looking at one example at a time.
                     - `Random Forest`: A more advanced model that uses multiple decision trees to make better predictions.
                 - **Final Choice:** We went with the Random Forest model because it has a good track record with similar projects and usually gives reliable results across many different types of data.
-                """)
-    st.subheader("""
+                """
+    )
+    st.subheader(
+        """
                 Train the Model
-                """)
-    st.markdown("""
+                """
+    )
+    st.markdown(
+        """
                 **Data Preparation**: Before we can train our model, we need to prepare our data properly:
-                """)
-    st.markdown("""
+                """
+    )
+    st.markdown(
+        """
                     - **Convert to Numeric**: First, we need to turn all text data into numbers that our computer can understand. We do this by putting similar items into categories and giving each category a number.ber.ber.
-                """)
-    st.markdown("""
+                """
+    )
+    st.markdown(
+        """
                     - **Handling Missing Values**: Next, we look at any missing information in our data. When we find gaps, we either fill them in with reasonable values or use special techniques to work around them.hem.hem.
                         
-                """)
-    st.markdown("""
+                """
+    )
+    st.markdown(
+        """
                 **Training Process**: The RandomForestRegressor is trained using the preprocessed data. 
-                """)
-    st.markdown("""
+                """
+    )
+    st.markdown(
+        """
                 **Hyperparameter Tuning:** Parameters like the number of trees in the Random Forest can be optimized for better performance.
-                """)
-    st.subheader("""
+                """
+    )
+    st.subheader(
+        """
                 Test the Model
-                """)
+                """
+    )
     st.markdown(
         """
         - **Evaluation Metric**: We use the Root Mean Squared Log Error (RMSLE) as our evaluation metric, which aligns with the Kaggle competition and sets a target accuracy goal of under 1 RMSLE.
@@ -290,7 +310,167 @@ def project_framework_body():
 
     # ===== SECTION 5: EVALUATION =====
     st.header("5. Evaluation")
+    st.subheader(
+        """
+                Did We Meet Our Goals?
+                """
+    )
+    st.write("**Business Requirement 1:**")
+    st.markdown(
+        """
+        - **Goal Achievement:** The client needs to understand what factors most significantly influence bulldozer auction prices to help optimize their auction strategies and provide better guidance to sellers and buyers.
+        - **Achievement Status:** Yes, this goal was successfully achieved. The Random Forest model provided clear insights into the top 20 feature importance values for Best RanddomForestRegressor Model.
+        """
+    )
+
+    if st.checkbox("Inspection: Feature Importance"):
+        st.image("results/feature_importance.webp")
+
+    # Define the DataFrame
+    data = {
+        "Feature": [
+            "Year Made",
+            "Product Size",
+            "Sale Year",
+            "Model Description",
+            "Model ID",
+        ],
+        "Importance": [19.9, 15.5, 7.7, 5.7, 5.6],  # Numeric values for percentages
+    }
+    df = pd.DataFrame(data)
+
+    # Add a checkbox to display the pie chart
+    if st.checkbox("Inspection: Top 5 Feature Importance Pie Chart"):
+        # Create a pie chart
+        fig, ax = plt.subplots()
+        ax.pie(
+            df["Importance"],
+            labels=df["Feature"],
+            autopct="%1.1f%%",
+            startangle=90,
+            colors=plt.cm.Paired.colors,
+        )
+        ax.axis("equal")  # Equal aspect ratio ensures the pie chart is circular.
+
+        # Display the pie chart in Streamlit
+        st.pyplot(fig)
+        st.subheader("**Analysis of Top Features**")
+        st.markdown(
+            """
+                    **Primary Features:**
+                    - **Year Made** (`19.9%`): The most significant factor, with newer bulldozers commanding higher prices..
+                    - **Product Size** (`15.5%`): Second most important, larger machines typically cost more..
+
+                    **Secondary Features:**
+                    - **Sale Year** (`7.7%`): Reflects market conditions at time of sale..
+                    - **Model Description** (`5.7%`): Specific model features impact pricing..
+                    - **Model ID** (`5.6%`): Different models have varying base prices..
+                    """
+        )
+
+    st.write("**Business Requirement 2:**")
+    st.markdown(
+        """
+        - **Goal Achievement:** The project aims to predict bulldozer sale prices based on their characteristics and historical data. Success is measured using the **Root Mean Squared Log Error (RMSLE)**, with a target benchmark of achieving a score below `1.0`.
+        - **Achievement Status:** The project successfully achieved its goal with an impressive RMSLE score of `0.27`, significantly outperforming the target benchmark of `1.0`.
+        """
+    )
+
+    # Add a checkbox to display the output
+    if st.checkbox("Inspection: Prediction vs Reality Analysis"):
+        # Display the image
+        st.image("results/sale_price.webp")
+
+        # Display price comparison metrics
+        st.subheader("Prediction vs Reality")
+        col1, col2 = st.columns(2)
+        with col1:
+            st.metric("Model Prediction", f"${55495.68:,.2f}")
+        with col2:
+            st.metric("Actual Price", f"${72600:,.2f}")
+
+        # Show error metrics
+        st.subheader("Performance Metrics")
+        col1, col2 = st.columns(2)
+        with col1:
+            st.metric("Mean Absolute Error (MAE)", f"${17104:,.2f}")
+        with col2:
+            st.metric("RMSLE Score", "0.27")
+
+        # Analysis of results
+        st.subheader("Analysis")
+        st.write(
+            """
+            - RMSLE score of `0.27` indicates reasonable model performance.
+            - Model provides valuable pricing guidance.
+            - Some room for improvement exists.
+            """
+        )
+
+        # Price accuracy conclusions
+        st.subheader("Conclusion")
+        st.write(
+            """
+            Yes, our hypothesis was validated. Our target **RMSLE score** was below `1.0`, and we achieved `0.27` — **significantly exceeding our expectations**. While we've met our goal, we can still work on reducing the `$17,104` average error to make our predictions even more precise. Users can trust the model's price estimates.
+            
+            **What does this mean?**
+            - Our predictions are more accurate than expected.
+            - Users can trust our model for pricing guidance.
+            - The system is ready for real-world use.
+            """
+        )
+
+    st.write("**Business Requirement 3:**")
+    st.markdown(
+        """
+        - **Goal Achievement:** The user needs the prediction system to be accessible through a user-friendly interface that can be used by both technical and non-technical staff.
+        - **Achievement Status:** Yes, this goal was achieved through the development of an intuitive dashboard that allows users to filter bulldozer entries by price range and U.S. state location.
+        """
+    )
+    # Add a checkbox to display the image
+    if st.checkbox("Inspection: Interactive Dashboard Image"):
+        st.image("static/images/interactive_dashboard.webp", use_column_width=True)
+        st.write(
+            """
+                The dashboard shows a filtered list of bulldozers based on price and location. For example, you can see bulldozers in California priced between `$28,771` and `$109,516`. The dashboard is easy to use - it has a simple menu on the left side where anyone can quickly search and filter bulldozers, whether they're tech-savvy or not. 
+                 """
+        )
+
+    st.subheader(
+        """
+                Is It Good Enough?
+                """
+    )
+    st.markdown(
+        """
+        - **Stakeholder Requirements:** The app exceeded its target requirement of achieving an RMSLE score below `1.0`. In the context of the Kaggle Competition leaderboard, which included 428 entries, our model achieved an RMSLE score of `0.27`—ranking 69th overall. For comparison, the top score in the competition was `0.22909`.
+        """
+    )
+
+    # Add a checkbox to display the Kaggle leaderboard image
+    if st.checkbox("Inspection: Kaggle Leaderboard"):
+        st.image("static/images/kaggle_leaderboard.webp", use_column_width=True)
+        st.write(
+        "[*Kaggle Leaderboard*](https://www.kaggle.com/c/bluebook-for-bulldozers/leaderboard)"
+    )
+
+    st.markdown(
+        """
+        - **Cost-Benefit Analysis:** Since the data is several years old, further improvements to the app's accuracy would offer limited value without more recent data. With current data and additional development time, the model's prediction accuracy could improve significantly, potentially advancing our position on the Kaggle Leaderboard and increasing its value to the customer.
+        """
+    )
+    st.subheader(
+        """
+                What Are The Areas for Possible Improvement?
+                """
+    )
+    st.markdown("""
+                - **Data Cleaning:** We found some missing information in our data. We could improve our results by either filling in these gaps with estimated values or using special tools that work well with incomplete data.
+                - **Adding Better Data Features:** We only used basic time-related information in our analysis. We could make our predictions better by combining existing data in new ways or adding more relevant information about bulldozers.
+                - **Trying Different Tools:** We used a tool called Random Forest for our predictions. We could test other tools like CatBoost or XGBoost to see if they work better for our needs.
+                """)
     
+
     st.write("---")
 
     # ===== SECTION 6: DEPLOYMENT =====
