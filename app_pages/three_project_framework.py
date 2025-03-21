@@ -39,6 +39,7 @@ def project_framework_body():
         - [4. Modeling](#4-modeling)
         - [5. Evaluation](#5-evaluation)
         - [6. Deployment](#6-deployment)
+        - [Conclusion](#conclusion)
         """
     )
     st.write("---")
@@ -465,7 +466,7 @@ def project_framework_body():
                 """
     )
     st.markdown("""
-                - **Data Cleaning:** We found some missing information in our data. We could improve our results by either filling in these gaps with estimated values or using special tools that work well with incomplete data.
+                - **Data Cleaning:** We found some missing information in our data. We could improve our results by using special tools that work well with incomplete data.
                 - **Adding Better Data Features:** We only used basic time-related information in our analysis. We could make our predictions better by combining existing data in new ways or adding more relevant information about bulldozers.
                 - **Trying Different Tools:** We used a tool called Random Forest for our predictions. We could test other tools like CatBoost or XGBoost to see if they work better for our needs.
                 """)
@@ -477,12 +478,16 @@ def project_framework_body():
     st.header("6. Deployment")
     st.write(
         """
-        *6. Deployment*
-        - Put model to use
-        - Monitor performance
-        - Make updates as needed
+        The application is deployed and hosted on both [Streamlit](https://streamlit.io/) Cloud and [Heroku](https://www.heroku.com/?utm_source=google&utm_medium=paid_search&utm_campaign=emea_heraw&utm_content=general-branded-search-rsa&utm_term=heroku&utm_source_platform=GoogleAds&gad_source=1&gclid=CjwKCAjwnPS-BhBxEiwAZjMF0s32zmesSen1_nAdsUsoJls9kZQ89I_Rn-alHDSfSWniSlB03TYbfxoCCF8QAvD_BwE) platforms
         """
     )
+    st.write("---")
+    
+    # ===== SECTION 7: Conclusion of Successful Project =====
+    st.header("Conclusion")
+    st.write("""
+             The BulldozerPriceGenius project has **successfully fulfilled all three business requirements**, demonstrating its effectiveness through the validation results presented in this app. By leveraging a Random Forest regression model, the project achieved an impressive RMSLE score of `0.27`, surpassing the target threshold of `1.0`. The model's feature importance analysis highlighted key factors influencing bulldozer prices, providing valuable insights for auction strategies. The user-friendly interface and interactive dashboard ensure accessibility for both technical and non-technical users, meeting the client's requirements. The project's performance on the Kaggle leaderboard further validates its success, ranking 69th out of 428 entries. While the model's accuracy could be further improved with additional data and feature enhancements, the current results demonstrate the system's readiness for real-world deployment and usage. The project's success underscores the value of data-driven insights in optimizing auction strategies and providing accurate price predictions for bulldozers.
+             """)
     st.write("---")
 
 
