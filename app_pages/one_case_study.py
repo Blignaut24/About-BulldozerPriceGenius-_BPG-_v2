@@ -39,7 +39,7 @@ def case_study_body():
         """
         **Business Requirement 1**: The client needs to understand what factors most significantly influence bulldozer auction prices to help optimize their auction strategies and provide better guidance to sellers and buyers.
         
-        **Business Requirement 2**: The client requires a machine learning system that can accurately predict bulldozer prices based on historical auction data, with the ability to scale and adapt as new data becomes available.
+        **Business Requirement 2**: The client requires a machine learning system that can accurately predict bulldozer prices based on historical auction data with an Root Mean Squared Log Error (RMSLE)  score of below 1. 
         
         **Business Requirement 3**: The client needs the prediction system to be accessible through a user-friendly interface that can be used by both technical and non-technical staff.
         """

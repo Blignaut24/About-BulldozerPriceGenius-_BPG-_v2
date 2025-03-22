@@ -69,9 +69,7 @@ def hypothesis_and_validation_body():
     )
     st.info(
         """ 
-        **Business Requirement 2** - developing a machine learning system that accurately predicts 
-        bulldozer prices based on historical auction data, with the ability to scale and adapt 
-        as new data becomes available.
+        **Business Requirement 2** - The client requires a machine learning system that can accurately predict bulldozer prices based on historical auction data with a Root Mean Squared Log Error (RMSLE) score of below 1.0.
         """
     )
     st.write("---")
@@ -117,7 +115,7 @@ def hypothesis_and_validation_body():
     st.subheader("Conclusion")
     st.write(
         """
-        Yes, our hypothesis was validated. Our target **RMSLE score** was below `1.0`, and we achieved `0.27` — **significantly exceeding our expectations**. While we've met our goal, we can still work on reducing the `$17,104` average error to make our predictions even more precise. Users can trust the model's price estimates.
+        Yes, our hypothesis was validated. Our target **RMSLE** score was below `1.0`, and we achieved `0.27` — significantly exceeding our expectations. While we've met our goal, we can further improve by reducing the **Mean Absolute Error (MAE)** from the current `$17,104` average error, though we have already achieved our secondary success metric of staying below `$20,000` error price limit. Users can confidently rely on the model's price estimates.
         
         **What does this mean?**
         - Our predictions are more accurate than expected.

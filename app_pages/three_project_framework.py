@@ -64,11 +64,39 @@ def project_framework_body():
             """
             **Business Requirement 1**: The client needs to understand what factors most significantly influence bulldozer auction prices to help optimize their auction strategies and provide better guidance to sellers and buyers.
         
-            **Business Requirement 2**: The client requires a machine learning system that can accurately predict bulldozer prices based on historical auction data, with the ability to scale and adapt as new data becomes available.
+            **Business Requirement 2**: The client requires a machine learning system that can accurately predict bulldozer prices based on historical auction data with a Root Mean Squared Log Error (RMSLE) score of below 1.0.
         
             **Business Requirement 3**: The client needs the prediction system to be accessible through a user-friendly interface that can be used by both technical and non-technical staff.
             """
         )
+
+    st.subheader(
+        "Here's a breakdown of how different stakeholders will be impacted by BulldozerPriceGenius:"
+    )
+    st.markdown(
+        """
+    **Buyers**:
+    - Make more informed purchasing decisions by understanding fair market values
+    - Filter and browse listings across U.S. states based on location and predicted prices
+    - Reduce risk of overpaying for equipment
+
+    **Sellers**:
+    - Price bulldozers more accurately for auctions
+    - Optimize timing and strategy for selling equipment
+    - Avoid leaving money on the table through data-driven pricing
+
+    **Auctioneers (Fast Iron)**:
+    - Create a standardized pricing reference similar to Kelly Blue Book for bulldozers
+    - Increase market transparency and efficiency
+    - Improve buyer and seller confidence in auction processes
+
+    **App Owner and Developers**:
+    - Establish a valuable market position by providing essential pricing intelligence
+    - Build trust through accurate predictions using comprehensive auction data analysis
+    - Create recurring value through continuous model updates and market insights
+                
+                """
+    )
     st.write("---")
 
     # ===== SECTION 2: DATA UNDERSTANDING =====
@@ -335,8 +363,16 @@ def project_framework_body():
             "Sale Year",
             "Model Description",
             "Model ID",
+            "Other Features",
         ],
-        "Importance": [19.9, 15.5, 7.7, 5.7, 5.6],  # Numeric values for percentages
+        "Importance": [
+            19.9,
+            15.5,
+            7.7,
+            5.7,
+            5.6,
+            45.6,
+        ],  # Numeric values for percentages
     }
     df = pd.DataFrame(data)
 
@@ -452,8 +488,8 @@ def project_framework_body():
     if st.checkbox("Inspection: Kaggle Leaderboard"):
         st.image("static/images/kaggle_leaderboard.webp", use_column_width=True)
         st.write(
-        "[*Kaggle Leaderboard*](https://www.kaggle.com/c/bluebook-for-bulldozers/leaderboard)"
-    )
+            "[*Kaggle Leaderboard*](https://www.kaggle.com/c/bluebook-for-bulldozers/leaderboard)"
+        )
 
     st.markdown(
         """
@@ -465,12 +501,13 @@ def project_framework_body():
                 What Are The Areas for Possible Improvement?
                 """
     )
-    st.markdown("""
+    st.markdown(
+        """
                 - **Data Cleaning:** We found some missing information in our data. We could improve our results by using special tools that work well with incomplete data.
                 - **Adding Better Data Features:** We only used basic time-related information in our analysis. We could make our predictions better by combining existing data in new ways or adding more relevant information about bulldozers.
                 - **Trying Different Tools:** We used a tool called Random Forest for our predictions. We could test other tools like CatBoost or XGBoost to see if they work better for our needs.
-                """)
-    
+                """
+    )
 
     st.write("---")
 
@@ -482,12 +519,29 @@ def project_framework_body():
         """
     )
     st.write("---")
-    
-    # ===== SECTION 7: Conclusion of Successful Project =====
+
+    # ===== SECTION 7: Conclusion =====
     st.header("Conclusion")
-    st.write("""
-             The BulldozerPriceGenius project has **successfully fulfilled all three business requirements**, demonstrating its effectiveness through the validation results presented in this app. By leveraging a Random Forest regression model, the project achieved an impressive RMSLE score of `0.27`, surpassing the target threshold of `1.0`. The model's feature importance analysis highlighted key factors influencing bulldozer prices, providing valuable insights for auction strategies. The user-friendly interface and interactive dashboard ensure accessibility for both technical and non-technical users, meeting the client's requirements. The project's performance on the Kaggle leaderboard further validates its success, ranking 69th out of 428 entries. While the model's accuracy could be further improved with additional data and feature enhancements, the current results demonstrate the system's readiness for real-world deployment and usage. The project's success underscores the value of data-driven insights in optimizing auction strategies and providing accurate price predictions for bulldozers.
-             """)
+    st.write("**Data Project Success Fundamentals**")
+    st.write(
+        """
+             **Project Success Overview**
+
+            The BulldozerPriceGenius project has successfully met all three business requirements, as demonstrated by the validation results on this page and the previous Hypothesis and Validation page. The project's success is attributed to the following key factors:
+
+            **Model Performance**
+
+            Using a Random Forest regression model, the project achieved its primary success metric with an RMSLE score of `0.27`, surpassing the target threshold of `1.0`. The secondary target of **Mean Absolute Error (MAE)** within `$20,000` of actual prices was also met, achieving an average error of `$17,104`.
+
+            **Business Impact**
+
+            The model's feature importance analysis revealed key factors influencing bulldozer prices, providing valuable insights for auction strategies. A user-friendly interface and interactive dashboard ensure accessibility for all users, meeting client requirements.
+
+            **Validation and Future Potential**
+
+            The project's ranking of `69th` out of `428` entries on the **Kaggle leaderboard** further validates its success. While model accuracy could be improved with additional data and feature enhancements, current results show the system is ready for real-world deployment. The project demonstrates the value of data-driven insights in optimizing auction strategies and providing accurate bulldozer price predictions.
+             """
+    )
     st.write("---")
 
 

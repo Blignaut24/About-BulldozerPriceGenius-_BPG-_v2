@@ -148,7 +148,7 @@ Here are the main terms you'll encounter in this project:
 # Business Requirements 💼
 • [**Business Requirement 1**](https://github.com/users/Blignaut24/projects/23/views/2?filterQuery=Business+Requirement&pane=issue&itemId=97853714&issue=Blignaut24%7CAbout-BulldozerPriceGenius-_BPG-_v2%7C10) - The client needs to understand what factors most significantly influence bulldozer auction prices to help optimize their auction strategies and provide better guidance to sellers and buyers.
 
-• [**Business Requirement 2**](https://github.com/users/Blignaut24/projects/23/views/2?filterQuery=Business+Requirement&pane=issue&itemId=97854211&issue=Blignaut24%7CAbout-BulldozerPriceGenius-_BPG-_v2%7C11) - The client requires a machine learning system that can accurately predict bulldozer prices based on historical auction data, with the ability to scale and adapt as new data becomes available.
+• [**Business Requirement 2**](https://github.com/users/Blignaut24/projects/23/views/2?filterQuery=Business+Requirement&pane=issue&itemId=97854211&issue=Blignaut24%7CAbout-BulldozerPriceGenius-_BPG-_v2%7C11) - The client requires a machine learning system that can accurately predict bulldozer prices based on historical auction data with a **Root Mean Squared Log Error (RMSLE)** score of below `1`.
 
 • [**Business Requirement 3**](https://github.com/users/Blignaut24/projects/23/views/2?filterQuery=Business+Requirement&pane=issue&itemId=97854418&issue=Blignaut24%7CAbout-BulldozerPriceGenius-_BPG-_v2%7C12) - The client needs the prediction system to be accessible through a user-friendly interface that can be used by both technical and non-technical staff.
 
@@ -347,7 +347,7 @@ By successfully proving this hypothesis, the client gains confidence in the accu
 ## **Business Requirement 1:** Understand factors influencing bulldozer auction prices.
 
 - **Data Visualizations:**
-    - **Feature Importance Plot:** This chart will show which features are most important in determining bulldozer prices (like age, model type, and how much it's been used). This makes it easy to see what affects the price the most.
+    - **Feature Importance Bar Chart:** This chart will show which features are most important in determining bulldozer prices (like year made, etc.) — this makes it easy to see what affects the price the most.
     - **Scatter Plots:** These plots show how features like the sale date relate to bulldozer prices. For example, a scatter plot of sale dates against prices helps visualize price trends over time, with each point representing an individual sale transaction.
 
 - **ML tasks:**
