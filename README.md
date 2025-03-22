@@ -452,15 +452,15 @@ The BulldozerPriceGenius dashboard is structured to serve both technical and non
 
 **For Non-Technical Users:**
 
-- Page 1 (Case Study): Provide comprehensive overview of BulldozerPriceGenius project and its business context
-- Page 4 (Interactive Prediction): Interactive Dashboard for Bulldozer Price Analysis
+- **Page 1 (Case Study)**: Provide comprehensive overview of BulldozerPriceGenius project and its business context
+- **Page 4 (Interactive Prediction)**: Interactive Dashboard for Bulldozer Price Analysis
 
 **For Technical Users:**
 
-- Page 2 (Hypothesis And Validation):  Validate model performance and provide data-driven insights about bulldozer price predictions
-- Page 3 (Project Framework): Guide users through the complete data mining process lifecycle for the BulldozerPriceGenius project
-- Page 5 (Documentation): Provide comprehensive technical documentation for BulldozerPriceGenius project
-- Page 6 (ML Pipeline): Detailed explanation of the machine learning pipeline for BulldozerPriceGenius
+- **Page 2 (Hypothesis And Validation)**:  Validate model performance and provide data-driven insights about bulldozer price predictions
+- **Page 3 (Project Framework)**: Guide users through the complete data mining process lifecycle for the BulldozerPriceGenius project
+- **Page 5 (Documentation**): Provide comprehensive technical documentation for BulldozerPriceGenius project
+- **Page 6 (ML Pipeline)**: Detailed explanation of the machine learning pipeline for BulldozerPriceGenius
 
 This structure ensures that users can access information at their preferred technical depth while maintaining the system's overall usability and effectiveness.
 
@@ -481,7 +481,7 @@ Use Case: Provide comprehensive overview of BulldozerPriceGenius project and its
     - Success metrics including RMSLE and MAE targets
     - Comprehensive dataset overview with training/validation splits
 
-Action: Users can quickly understand the project's scope, requirements, and technical framework through an organized, interactive interface
+**Action**: Users can quickly understand the project's scope, requirements, and technical framework through an organized, interactive interface
 
 ## **Page 2: Hypothesis & Validation**
 Use Case: Validate model performance and provide data-driven insights about bulldozer price predictions
@@ -498,7 +498,7 @@ Use Case: Validate model performance and provide data-driven insights about bull
     - Comparison of different model types
     - Detailed performance metrics including R² values
 
-Action: Users can evaluate model reliability, understand key price factors, and verify prediction accuracy through interactive visualizations and detailed performance metrics
+**Action**: Users can evaluate model reliability, understand key price factors, and verify prediction accuracy through interactive visualizations and detailed performance metrics
 
 ## **Page 3: Project Framework**
 Use Case: Guide users through the complete data mining process lifecycle for the BulldozerPriceGenius project
@@ -520,7 +520,7 @@ Use Case: Guide users through the complete data mining process lifecycle for the
     - Platform implementation on Streamlit Cloud and Heroku
     - Interactive interface for technical and non-technical users
 
-Action: Users can navigate through each phase of the data mining process, understand the methodologies used, and access detailed technical documentation with interactive checkboxes for deeper inspection of specific components.
+**Action**: Users can navigate through each phase of the data mining process, understand the methodologies used, and access detailed technical documentation with interactive checkboxes for deeper inspection of specific components.
 
 ## **Page 4: Interactive Prediction**
 Use Case: Interactive Dashboard for Bulldozer Price Analysis
@@ -537,7 +537,7 @@ Use Case: Interactive Dashboard for Bulldozer Price Analysis
     - State-specific information when filtered
     - Organized data presentation with SalePrice and state columns prioritized
 
-Action: Users can interactively explore bulldozer listings by adjusting price ranges and selecting specific states, with results displayed in an organized table format.
+**Action**: Users can interactively explore bulldozer listings by adjusting price ranges and selecting specific states, with results displayed in an organized table format.
 
 ## **Page 5: Documentation**
 Use Case: Provide comprehensive technical documentation for BulldozerPriceGenius project
@@ -552,7 +552,7 @@ Use Case: Provide comprehensive technical documentation for BulldozerPriceGenius
     - Detailed coverage of technical constraints and performance boundaries
     - Comprehensive development roadmap for future improvements
 
-Action: Users can access detailed technical documentation, system architecture details, and understand project limitations and future development plans
+**Action:** Users can access detailed technical documentation, system architecture details, and understand project limitations and future development plans
 
 ## **Page 6: ML Pipeline**
 Use Case: Detailed explanation of the machine learning pipeline for BulldozerPriceGenius
@@ -567,7 +567,7 @@ Use Case: Detailed explanation of the machine learning pipeline for BulldozerPri
     - Evaluation metrics and R-squared explanations
     - Model performance metrics and success criteria
 
-Action: Users can understand the complete machine learning workflow, from data processing to model deployment, and how the system predicts bulldozer prices
+**Action**: Users can understand the complete machine learning workflow, from data processing to model deployment, and how the system predicts bulldozer prices
 
 
 <p align="right">(<a href="#table-of-content">back to top</a>)</p>
@@ -652,7 +652,136 @@ This command will automatically install all dependencies listed in the requireme
 
 
 ## Manual Testing
+**User Story Testing**
 
+- The dashboard was tested manually to check if it meets user requirements.
+- Since Jupyter notebooks required each function to work in sequence, we skipped manual testing of user stories as it wasn't necessary.
+
+### 1. Case Study
+*As a **non-technical user**, I want to access the comprehensive project overview so that I can understand the business context without needing technical expertise.*
+| Feature | Action | Expected Result | Actual Result |
+|---------|---------|----------------|---------------|
+|Case study page|Navigate to the case study page using the left sidebar dropdown menu|Page is displayed, can move between  pages|Functions as expected|
+| Case study page | Viewing case study page | Page is displayed, can move between sections on page | Functions as expected |
+| Content links | Click to navigate to the section | Displays selected content | Functions as expected |
+| Checkbox show glossary | Click the checkbox | When clicked, displays the expected content | Functions as expected |
+| External Link to Data Dictionary File | Click the external link | When clicked, opens in a new browser tab | Functions as expected |
+| External Link to Blue Book for Bulldozers | Click the external link | When clicked, opens in a new browser tab | Functions as expected |
+| External Link to Project README file | Click the external link | When clicked, opens in a new browser tab | Functions as expected |
+|
+ ### 2. Hypothesis & Validation
+ *As a **technical user** I want to validate the model's performance and accuracy
+so that I can verify the model's reliability and understand the key factors driving bulldozer price predictions through detailed metrics and visualizations.*
+
+*ACCEPTANCE CRITERIA:*
+
+- *Must be able to review model validation results showing an RMSLE score of `0.27`
+- *Must be able to analyze feature importance, particularly focusing on key factors like year made (`19.9%`) and product size (`15.5%`)*
+- *Must be able to compare different model types and examine performance metrics including R² values*
+- *Must be able to evaluate model predictions against actual price comparisons*
+
+| Feature | Action | Expected Result | Actual Result |
+|---------|---------|-----------------|---------------|
+|Hypothesis and validation page|Navigate to the hypothesis and validation page using the left sidebar dropdown menu|Page is displayed, can move between  pages|Functions as expected|
+| Hypothesis and validation page | Viewing hypothesis and validation page | Page is displayed, can move between sections on page | Functions as expected |
+| Content links | Viewing case study page | Displays selected content | Functions as expected |
+| Display Image: Actual vs. Predicted Sale Price | No action needed | Display image correctly and can be enlarged | Functions as expected |
+| Display Image: Top 20 Feature Importance Values | No action needed | Display image correctly and can be enlarged | Functions as expected |
+| Display Image: Validation RMSLE | No action needed | Display image correctly and can be enlarged | Functions as expected |
+|
+
+
+
+ ### 3. Project Framework
+ *As a **technical user** I want to understand and validate the CRISP-DM workflow implementation so that I can verify the complete data mining lifecycle is properly implemented for the BulldozerPriceGenius project*
+
+*ACCEPTANCE CRITERIA:*
+
+- *Must be able to review core business requirements and project objectives with RMSLE target below `1.0`*
+- *Must be able to verify data understanding and preparation steps including:*
+    - *Dataset overview with a sample of 500 from 400,000+ records*
+    - *Data cleaning procedures*
+    - *Feature engineering processes*
+- *Must be able to validate modeling and evaluation results:*
+    - *Random Forest implementation*
+    - *RMSLE score of `0.27`*
+    - *Feature importance analysis*
+- *Must be able to confirm deployment configuration on Streamlit Cloud and Heroku with appropriate technical and non-technical user interfaces*
+
+
+| Feature | Action | Expected Result | Actual Result |
+|---------|---------|-----------------|---------------|
+|Project framework page|Navigate to the project framework page using the left sidebar dropdown menu|Page is displayed, can move between  pages|Functions as expected|
+| Display Image: BPG Project Overview Framework | No action needed | Display image correctly and can be enlarged | Functions as expected |
+| Project framework page | Viewing project framework page | Page is displayed, can move between sections on page | Functions as expected |
+| Content links | Viewing case study page | Displays selected content | Functions as expected |
+| Checkbox show business requirements | Click the checkbox | Upon clicking, the expected content appears | Functions as expected |
+| External Link to Kaggle | Click the external link | Opens in a new browser tab and displays the website | Functions as expected |
+| Checkbox DataFrame Inspection: Missing Values | Click the checkbox | Upon clicking, the expected content appears | Functions as expected |
+| Checkbox DataFrame Inspection: Data Mixed Types | Click the checkbox | Upon clicking, the expected content appears | Functions as expected |
+| Checkbox Main Types of Information | Click the checkbox | Upon clicking, the expected content appears | Functions as expected |
+| Checkbox DataFrame Inspection: Identify columns with missing data | Click the checkbox | Upon clicking, the expected content appears | Functions as expected |
+| Checkbox Quality Checks: Inspection of Random Sample Rows | Click the checkbox | Upon clicking, the expected content appears | Functions as expected |
+| Checkbox Quality Checks: Total Number of Missing Values | Click the checkbox | Upon clicking, the expected content appears | Functions as expected |
+| Checkbox Inspection: Feature Importance | Click the checkbox | Upon clicking, the expected content appears | Functions as expected |
+| Checkbox Inspection: Top 5 Feature Importance Pie Chart | Click the checkbox | Upon clicking, the expected content appears | Functions as expected |
+| Checkbox Inspection: Prediction vs Reality Analysis | Click the checkbox | Upon clicking, the expected content appears | Functions as expected |
+| Checkbox Inspection: Interactive Dashboard Image | Click the checkbox | Upon clicking, the expected content appears | Functions as expected |
+| Checkbox Inspection: Kaggle Dashboard | Click the checkbox | Upon clicking, the expected content appears | Functions as expected |
+|
+
+ ### 4. Interactive Prediction
+*As a **non-technical** user I want to explore and filter bulldozer listings interactively
+so that I can easily analyze bulldozer prices based on different criteria*
+
+*ACCEPTANCE CRITERIA:*
+
+- *Must be able to adjust price ranges using a slider control between $0 - $142,000*
+- *Must be able to select specific states using a dropdown menu*
+- *Must be able to see:*
+    - *Clear price range headers with selected filter values*
+    - *State-specific information when a state is selected*
+    - *An organized table showing SalePrice and state information*
+- *Must see data updates dynamically based on selected filters*
+
+| Feature | Action | Expected Result | Actual Result |
+|---------|---------|-----------------|---------------|
+| Interactive prediction page | Navigate to the Interactive Prediction page using the left sidebar dropdown menu | Page is displayed, can move between pages | Functions as expected |
+| Price Range Slider ($) | Adjust the price range slider between $0 and $142,000 | Displays filtered results with clear price range headers showing the selected filter values and a corresponding results table | Functions as expected |
+| Select state dropdown input | Select a U.S. state from the dropdown menu, or choose "All States" or "Unspecified" | Display filtered results with state-specific information prominently shown at the top of the results table when a state is selected | Functions as expected |
+| Search using all two filters | Adjust the price range slider and select a state from the dropdown menu | Clear headers showing the selected price range filters, state-specific details for the chosen state, and an organized table displaying SalePrice and state information | Functions as expected |
+|
+ ### 5. Documentation
+ *As a **technical user** I want to thoroughly review the technical documentation so that I can understand the system architecture, implementation details, and future development plans*
+
+*ACCEPTANCE CRITERIA:*
+
+- *Must be able to access and verify complete API reference documentation*
+- *Must be able to review system architecture details including:*
+    - *Data processing components*
+    - *ML core implementation*
+    - *API layer structure*
+    - *UI components*
+- *Must be able to examine detailed library documentation for key technologies (pandas, NumPy, matplotlib, scikit-learn)*
+- *Must be able to review:*
+    - *Technical constraints and performance boundaries*
+    - *Development roadmap for future improvements*
+
+ ### 6. ML Pipeline
+ *As a **technical user** I want to understand and validate the machine learning pipeline implementation so tdhat I can verify the complete workflow from data processing to model deployment is properly implemented*
+
+*ACCEPTANCE CRITERIA:*
+
+- *Must be able to review and validate:*
+    - *Problem definition documentation and project goals*
+    - *Data collection methodology and preparation procedures*
+    - *Exploratory data analysis processes and visualization outputs*
+    - *Model training procedures and evaluation methodology*
+- *Must be able to verify technical implementation of:*
+    - *Overfitting prevention mechanisms*
+    - *Evaluation metrics including R-squared calculations*
+    - *Model performance metrics against defined success criteria*
+- *Must be able to trace the complete workflow from initial data processing through to final model deployment*
 
 
 ## Validation
