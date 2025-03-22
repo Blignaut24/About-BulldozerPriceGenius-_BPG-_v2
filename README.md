@@ -668,7 +668,7 @@ This command will automatically install all dependencies listed in the requireme
 | External Link to Data Dictionary File | Click the external link | When clicked, opens in a new browser tab | Functions as expected |
 | External Link to Blue Book for Bulldozers | Click the external link | When clicked, opens in a new browser tab | Functions as expected |
 | External Link to Project README file | Click the external link | When clicked, opens in a new browser tab | Functions as expected |
-|
+
  ### 2. Hypothesis & Validation
  *As a **technical user** I want to validate the model's performance and accuracy
 so that I can verify the model's reliability and understand the key factors driving bulldozer price predictions through detailed metrics and visualizations.*
@@ -688,7 +688,7 @@ so that I can verify the model's reliability and understand the key factors driv
 | Display Image: Actual vs. Predicted Sale Price | No action needed | Display image correctly and can be enlarged | Functions as expected |
 | Display Image: Top 20 Feature Importance Values | No action needed | Display image correctly and can be enlarged | Functions as expected |
 | Display Image: Validation RMSLE | No action needed | Display image correctly and can be enlarged | Functions as expected |
-|
+
 
 
 
@@ -728,7 +728,7 @@ so that I can verify the model's reliability and understand the key factors driv
 | Checkbox Inspection: Prediction vs Reality Analysis | Click the checkbox | Upon clicking, the expected content appears | Functions as expected |
 | Checkbox Inspection: Interactive Dashboard Image | Click the checkbox | Upon clicking, the expected content appears | Functions as expected |
 | Checkbox Inspection: Kaggle Dashboard | Click the checkbox | Upon clicking, the expected content appears | Functions as expected |
-|
+
 
  ### 4. Interactive Prediction
 *As a **non-technical** user I want to explore and filter bulldozer listings interactively
@@ -750,7 +750,7 @@ so that I can easily analyze bulldozer prices based on different criteria*
 | Price Range Slider ($) | Adjust the price range slider between $0 and $142,000 | Displays filtered results with clear price range headers showing the selected filter values and a corresponding results table | Functions as expected |
 | Select state dropdown input | Select a U.S. state from the dropdown menu, or choose "All States" or "Unspecified" | Display filtered results with state-specific information prominently shown at the top of the results table when a state is selected | Functions as expected |
 | Search using all two filters | Adjust the price range slider and select a state from the dropdown menu | Clear headers showing the selected price range filters, state-specific details for the chosen state, and an organized table displaying SalePrice and state information | Functions as expected |
-|
+
  ### 5. Documentation
  *As a **technical user** I want to thoroughly review the technical documentation so that I can understand the system architecture, implementation details, and future development plans*
 
@@ -767,6 +767,12 @@ so that I can easily analyze bulldozer prices based on different criteria*
     - *Technical constraints and performance boundaries*
     - *Development roadmap for future improvements*
 
+| Feature | Action | Expected Result | Actual Result |
+|---------|---------|-----------------|---------------|
+| Documentation page | Navigate to the documentation page | Page is displayed, can move between pages | Functions as expected |
+| Documentation page | Viewing documentation page | Page is displayed, can move between sections on page | Functions as expected |
+| Content links | Viewing case study page | Displays selected content | Functions as expected |
+
  ### 6. ML Pipeline
  *As a **technical user** I want to understand and validate the machine learning pipeline implementation so tdhat I can verify the complete workflow from data processing to model deployment is properly implemented*
 
@@ -782,6 +788,14 @@ so that I can easily analyze bulldozer prices based on different criteria*
     - *Evaluation metrics including R-squared calculations*
     - *Model performance metrics against defined success criteria*
 - *Must be able to trace the complete workflow from initial data processing through to final model deployment*
+
+| Feature | Action | Expected Result | Actual Result |
+|---------|---------|-----------------|---------------|
+| ML Pipeline page | Navigate to the ML Pipeline page | Page is displayed, can move between pages | Functions as expected |
+| ML Pipeline page | Viewing ML pipeline page | Page is displayed, can move between sections on page | Functions as expected |
+| Content links | Viewing case study page | Displays selected content | Functions as expected |
+| Checkbox Inspection: Sale Price Distribution | Click the checkbox | Upon clicking, the expected content appears | Functions as expected |
+| Checkbox Inspection: Median Sale Price Monthly | Click the checkbox | Upon clicking, the expected content appears | Functions as expected |
 
 
 ## Validation

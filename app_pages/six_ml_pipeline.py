@@ -5,7 +5,7 @@ def ml_pipeline_body():
     """Development of the ML Pipeline"""
 
     # === HEADER SECTION ===
-    st.subheader("*ML Pipeline*")
+    st.subheader("ML Pipeline")
 
     # === INTRODUCTION ===
     # Overview of ML pipeline concept
@@ -293,10 +293,10 @@ def ml_pipeline_body():
         - Top Predictors:
             - Year Made (`19.9%` influence)
             - Product Size (`15.5%` influence)
-            - Combined explain 35.4% of price variations
+            - Combined explain `35.4%` of price variations
 
-        **Business Impact**
-        The model has successfully met all business requirements, providing reliable price predictions that enable stakeholders to make informed decisions in the bulldozer auction market.
+        **Business Impact:**
+        - The model has successfully met all business requirements, providing reliable price predictions that enable stakeholders to make informed decisions in the bulldozer auction market.
         """
     )
     st.write("---")
