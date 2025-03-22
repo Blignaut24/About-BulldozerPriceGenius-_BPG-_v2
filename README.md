@@ -452,64 +452,122 @@ The BulldozerPriceGenius dashboard is structured to serve both technical and non
 
 **For Non-Technical Users:**
 
-- Page 1 (Project Overview): Provides a clear, high-level understanding of the project's purpose and benefits
-- Page 2 (Data Analysis): Offers intuitive visualizations and insights about price influencing factors
-- Page 4 (Interactive Prediction): Features a user-friendly interface for obtaining bulldozer price estimates
+- Page 1 (Case Study): Provide comprehensive overview of BulldozerPriceGenius project and its business context
+- Page 4 (Interactive Prediction): Interactive Dashboard for Bulldozer Price Analysis
 
 **For Technical Users:**
 
-- Page 3 (Model Performance): Details model accuracy metrics, validation results, and performance analysis
-- Page 5 (Documentation): Contains comprehensive technical documentation, including API details, system limitations, Machine Learning (ML) pipeline and development roadmap
+- Page 2 (Hypothesis And Validation):  Validate model performance and provide data-driven insights about bulldozer price predictions
+- Page 3 (Project Framework): Guide users through the complete data mining process lifecycle for the BulldozerPriceGenius project
+- Page 5 (Documentation): Provide comprehensive technical documentation for BulldozerPriceGenius project
+- Page 6 (ML Pipeline): Detailed explanation of the machine learning pipeline for BulldozerPriceGenius
 
 This structure ensures that users can access information at their preferred technical depth while maintaining the system's overall usability and effectiveness.
 
 
 ## **Page 1: Case Study**
-Use Case: Provide quick orientation and project context
-- Project summary and objectives
-- Key business requirements
-- Dataset overview
-- Technical prerequisites
-  
-Action: Help users easily see what the project does and what it needs
+Use Case: Provide comprehensive overview of BulldozerPriceGenius project and its business context
 
-## **Page 2: Case Study**
-Use Case: Enable data-driven insights
-- Interactive data exploration tools
-- Feature importance visualization
-- Price trend analysis
-- Geographic insights
+**Key Components:**
 
-Action: Users can find out what makes bulldozer prices go up or down
+- Project Overview
+    - Clear value proposition for equipment auction pricing
+    - Interactive navigation menu with key sections
+- Business Focus
+    - AI-powered system for predicting bulldozer auction prices
+    - Three core business requirements covering price factors, prediction accuracy, and user accessibility
+- Technical Implementation
+    - Detailed project terminology and glossary
+    - Success metrics including RMSLE and MAE targets
+    - Comprehensive dataset overview with training/validation splits
 
-## **Page 3: Model  - Project Hypotheses and Validation**
-Use Case: Validate model reliability
-- Performance metrics dashboard
-- Accuracy visualization
-- Error analysis
-- Model comparison interface
+Action: Users can quickly understand the project's scope, requirements, and technical framework through an organized, interactive interface
 
-Action: Users can easily check how well the system is working and how accurate its predictions are
+## **Page 2: Hypothesis & Validation**
+Use Case: Validate model performance and provide data-driven insights about bulldozer price predictions
+
+**Key Components:**
+
+- Model Validation Results
+    - Price accuracy assessment with RMSLE score of 0.27
+    - Model prediction vs actual price comparisons
+- Feature Analysis
+    - Top features influencing prices including year made (19.9%) and product size (15.5%)
+    - Comprehensive breakdown of feature importance
+- Model Performance Metrics
+    - Comparison of different model types
+    - Detailed performance metrics including R² values
+
+Action: Users can evaluate model reliability, understand key price factors, and verify prediction accuracy through interactive visualizations and detailed performance metrics
+
+## **Page 3: Project Framework**
+Use Case: Guide users through the complete data mining process lifecycle for the BulldozerPriceGenius project
+
+**Key Components:**
+
+- Business Understanding
+    - Core business requirements and stakeholder impact analysis
+    - Detailed breakdown of project objectives with RMSLE target below 1.0
+- Data Understanding & Preparation
+    - Comprehensive dataset overview with 400,000+ sales records
+    - Data cleaning and transformation procedures
+    - Feature engineering and quality checks
+- Modeling & Evaluation
+    - Random Forest model implementation and training
+    - Performance metrics with RMSLE score of 0.27
+    - Feature importance analysis showing Year Made (19.9%) as top factor
+- Deployment
+    - Platform implementation on Streamlit Cloud and Heroku
+    - Interactive interface for technical and non-technical users
+
+Action: Users can navigate through each phase of the data mining process, understand the methodologies used, and access detailed technical documentation with interactive checkboxes for deeper inspection of specific components.
 
 ## **Page 4: Interactive Prediction**
-Use Case: Interactive Visualization Interface
+Use Case: Interactive Dashboard for Bulldozer Price Analysis
 
-- Location-based filtering of bulldozer listings across U.S. states
-- Price range filtering in USD
-- Dynamic data visualization
-- User-friendly navigation controls
+- Data Loading & Memory Optimization
+    - Efficient data loading with cached functionality
+    - Optimized memory usage through specific data type assignments
+- Interactive Filtering Capabilities
+    - Price range selection with slider control ($0 - $142,000)
+    - State-based filtering with dropdown menu
+    - Dynamic data updates based on user selections
+- Display Features
+    - Clear price range headers showing selected filter values
+    - State-specific information when filtered
+    - Organized data presentation with SalePrice and state columns prioritized
 
+Action: Users can interactively explore bulldozer listings by adjusting price ranges and selecting specific states, with results displayed in an organized table format.
 
-Action: Users can easily explore and analyze bulldozer listings based on location and price preferences
+## **Page 5: Documentation**
+Use Case: Provide comprehensive technical documentation for BulldozerPriceGenius project
 
-## **Page 5:Documentation**
-Use Case: Provide technical reference
-- API documentation
-- User guide
-- Machine Learning (ML) pipeline
-- Future roadmap
-  
-Action: Users can easily check a bulldozer's price
+- Technical Documentation Overview
+    - Complete API reference for technical users
+    - System architecture details
+- Key Components
+    - Detailed library documentation (pandas, NumPy, matplotlib, scikit-learn)
+    - Modular system architecture including data processing, ML core, API layer, and UI components
+- System Limitations & Future Development
+    - Detailed coverage of technical constraints and performance boundaries
+    - Comprehensive development roadmap for future improvements
+
+Action: Users can access detailed technical documentation, system architecture details, and understand project limitations and future development plans
+
+## **Page 6: ML Pipeline**
+Use Case: Detailed explanation of the machine learning pipeline for BulldozerPriceGenius
+
+- Key Components
+    - Problem definition and goals
+    - Data collection and preparation steps
+    - Exploratory data analysis with visualizations
+    - Model training and evaluation process
+- Technical Details
+    - Overfitting prevention strategies
+    - Evaluation metrics and R-squared explanations
+    - Model performance metrics and success criteria
+
+Action: Users can understand the complete machine learning workflow, from data processing to model deployment, and how the system predicts bulldozer prices
 
 
 <p align="right">(<a href="#table-of-content">back to top</a>)</p>
