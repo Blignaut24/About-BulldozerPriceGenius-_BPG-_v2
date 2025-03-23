@@ -6,7 +6,6 @@ def documentation_body():
     Renders the complete technical documentation interface for BulldozerPriceGenius.
     Includes sections on API details, system architecture, limitations, and roadmap.
     """
-    
     st.write("---")
 
     # --------------------------------------------------------------

@@ -15,7 +15,7 @@ def ml_pipeline_body():
     st.markdown(
         """
         - [ML Pipeline Steps](#ml-pipeline-steps)
-        - [Overfitting Prevention in the Current Implementation](#overfitting-prevention-in-the-current-implementation) 
+        - [Overfitting Prevention in the Current Implementation](#overfitting-prevention-in-the-current-implementation)
         - [Why Confusion Matrices Do not Apply Here](#why-confusion-matrices-do-not-apply-here)
             - [What We Use Instead](#what-we-use-instead)
         - [Understanding R-squared in BulldozerPriceGenius](#understanding-r-squared-in-bulldozerpricegenius)

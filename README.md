@@ -799,10 +799,15 @@ so that I can easily analyze bulldozer prices based on different criteria*
 
 
 ## Validation
+We checked the code quality using [CodeInstitute's PEP8 Linter tool](https://pep8ci.herokuapp.com/). This tool looked at all the files in both the app_pages, src folders, and root directory to make sure they follow good coding standards.
+
+- Some long text lines in the dashboard code were flagged as too long by the tool, but we decided this was okay.
+- We kept these longer lines because they didn't make the code harder to read or affect how well it works.
 
 
 
 ## Automated Unit Tests
+No automated unit tests have been carried out at this time.
 
 <p align="right">(<a href="#table-of-content">back to top</a>)</p>
 

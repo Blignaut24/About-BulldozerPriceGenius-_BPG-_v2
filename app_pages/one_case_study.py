@@ -38,9 +38,9 @@ def case_study_body():
     st.success(
         """
         **Business Requirement 1**: The client needs to understand what factors most significantly influence bulldozer auction prices to help optimize their auction strategies and provide better guidance to sellers and buyers.
-        
-        **Business Requirement 2**: The client requires a machine learning system that can accurately predict bulldozer prices based on historical auction data with an Root Mean Squared Log Error (RMSLE)  score of below 1. 
-        
+
+        **Business Requirement 2**: The client requires a machine learning system that can accurately predict bulldozer prices based on historical auction data with an Root Mean Squared Log Error (RMSLE)  score of below 1.
+
         **Business Requirement 3**: The client needs the prediction system to be accessible through a user-friendly interface that can be used by both technical and non-technical staff.
         """
     )
@@ -53,7 +53,7 @@ def case_study_body():
         """
         - Enable data-driven buying and selling decisions
         - Optimize auction pricing strategies
-        - Minimize financial risks in transactions 
+        - Minimize financial risks in transactions
         """
     )
     st.write("---")
@@ -65,25 +65,15 @@ def case_study_body():
         st.info(
             """
             • **AuctioneerID**: The company that conducted the auction sale (different from data source)
-            
             • **Bluebook**: A pricing guide used in the heavy equipment industry that provides estimated values for machinery like bulldozers. Similar to Kelley Blue Book for cars
-            
             • **Data Source**: Where the sale information came from (some sources provide more detailed information than others)
-            
             • **MachineID**: A unique number for each bulldozer (note: one bulldozer can be sold multiple times)
-            
             • **Machine Hours**: How many hours the bulldozer has been used when sold (if recorded)
-            
             • **ModelID**: A unique number that identifies the specific model of bulldozer
-            
             • **Sale Date**: When the bulldozer was sold
-            
             • **Sale Price**: How much the bulldozer sold for in US dollars
-            
             • **Usage Band**: How much the bulldozer has been used compared to similar models (low, medium, or high)
-            
             • **User**: A person who interacts with the software application - typically auctioneers, buyers, or sellers
-            
             • **Year Made**: The year the bulldozer was manufactured
             """
         )
@@ -159,3 +149,5 @@ def case_study_body():
         "[*Project README file*](https://github.com/Blignaut24/About-BulldozerPriceGenius-_BPG-_v2.git)."
     )
     st.write("---")
+
+# Add a blank newline at the end of the file
