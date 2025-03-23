@@ -80,7 +80,7 @@ def interactive_prediction_body():
 
     # Display price range header
     st.subheader(
-        f"Bulldozers within Price Range USA Dollars: ${price_range[0]:,} - ${price_range[1]:,}"
+        f"Bulldozers within Price Range USA Dollars: {int(price_range[0]):,} - {int(price_range[1]):,}"
     )
 
     # Display state selection if specific state is selected
