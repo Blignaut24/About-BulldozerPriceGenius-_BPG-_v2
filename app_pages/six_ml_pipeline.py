@@ -74,7 +74,7 @@ def ml_pipeline_body():
         st.image(
             "results/sale_price_distribution.webp",
             caption="Sale Price Distribution",
-            use_column_width=True,
+            use_container_width=True,  # Updated parameter
         )
         st.subheader("Histogram: Price Distribution")
         st.markdown(
@@ -94,7 +94,7 @@ def ml_pipeline_body():
         st.image(
             "results/median_saleprice_monthly.webp",
             caption="Median Sale Price Monthly",
-            use_column_width=True,
+            use_container_width=True,  # Updated parameter
         )
 
         st.subheader("Visualizing Monthly Price Trends")
