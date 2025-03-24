@@ -133,7 +133,7 @@ def project_framework_body():
 
     # Optional: Inspect missing values in the dataset
     if st.checkbox("DataFrame Inspection: Missing Values"):
-        st.write("Load the first `500` rows from a total of `10,000` rows")
+        st.write("View the first `500` entries from a total of `10,000`")
         st.dataframe(df)
 
     # Optional: Inspect processed dataset for mixed data types
@@ -142,6 +142,7 @@ def project_framework_body():
         processed_file_path, nrows=500
     )  # Limit the number of rows loaded to avoid memory issues
     if st.checkbox("DataFrame Inspection: Data Mixed Types"):
+        st.write("This indicates that several columns contain mixed data types, where a single column might have both strings and integers, for example.")
         buffer = io.StringIO()
         df_processed.info(buf=buffer)
         s = buffer.getvalue()
@@ -189,6 +190,7 @@ def project_framework_body():
 
     # Optional: Check missing values in the dataset
     if st.checkbox("DataFrame Inspection: Identify columns with missing data"):
+        st.write("This calculates the total missing values per column efficiently, rather than checking rows one by one.")
         parquet_file_path = (
             "data/processed/TrainAndValid_object_values_as_categories.parquet"
         )
@@ -233,19 +235,6 @@ def project_framework_body():
     df_tmp = load_parquet_data(parquet_file_path)
     if st.checkbox("Quality Checks: Inspection of Random Sample Rows"):
         st.write(df_tmp.sample(5))
-
-    # Optional: Check total number of missing values
-    if st.checkbox("Quality Checks: Total Number of Missing Values"):
-        total_missing_values = df_tmp.isna().sum().sum()
-        if total_missing_values == 0:
-            st.success(
-                f"Total missing values: {total_missing_values} - Woohoo! Let's build a model!"
-            )
-        else:
-            st.warning(
-                f"Uh oh... total missing values: {total_missing_values} - Consider retracing steps to fill the values."
-            )
-
     st.write("---")
 
     # ===== SECTION 4: MODELING =====
@@ -438,11 +427,11 @@ def project_framework_body():
     )
     # Add a checkbox to display the image
     if st.checkbox("Inspection: Interactive Dashboard Image"):
-        st.image("static/images/interactive_dashboard.webp", use_column_width=True)
+        st.image("static/images/interactive_dashboard.webp", use_container_width=True)
     st.write(
         """
         The dashboard shows a filtered list of bulldozers based on price and location.
-        For example, you can see bulldozers in California priced between `$28,771` and `$109516`. The dashboard is easy to use - it has a simple menu on the left side where anyone can quickly search and filter bulldozers, whether they're tech-savvy or not.
+        For example, you can see bulldozers in California priced between `$28,771` and `$109516`.
         """
     )
 

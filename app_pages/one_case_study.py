@@ -139,14 +139,14 @@ def case_study_body():
     # Data privacy information
     st.subheader("Data Privacy")
     st.write(
-        "**No ethical or privacy concerns** as data is from a public Kaggle competition"
+        "**No ethical or privacy concerns** as data is from a public Kaggle competition."
     )
 
     # === ADDITIONAL RESOURCES ===
     # Reference documentation
     st.write(
         "*For additional information, please visit and read the* "
-        "[*Project README file*](https://github.com/Blignaut24/About-BulldozerPriceGenius-_BPG-_v2.git)."
+        "[*README file*](https://github.com/Blignaut24/About-BulldozerPriceGenius-_BPG-_v2.git)."
     )
     st.write("---")
 
