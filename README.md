@@ -284,60 +284,46 @@ The customer will benefit in several key ways:
 
 <p align="right">(<a href="#table-of-content">back to top</a>)</p>
 
-# Project Hypothesis and Validation 📽️ 
+# Project Hypothesis and Validation 📽️
 
-## Addressing Business Requirement 1:
-By proving or disproving these hypotheses, the client can gain a deeper understanding of the factors that significantly influence bulldozer auction prices. This knowledge can be applied to:
+The BulldozerPriceGenius project tests key hypotheses about price prediction accuracy and model performance. Our validation approach is designed to ensure reliable results that meet business requirements.
 
-- **Optimize auction strategies:** Adjust auction timing, location, and marketing based on factors that drive higher prices.
-- **Provide better guidance:** Inform sellers about optimal listing strategies and advise buyers on fair market value estimations.
-- **Enhance transparency:** Provide data-driven insights to both sellers and buyers, improving the overall auction experience.
+## Hypothesis
 
-### Hypothesis 1: Age and Usage Impact on Bulldozer Pricing
-**Hypothesis:** We believe that two main factors have the biggest impact on bulldozer prices at auctions:
+### Price Accuracy
+- Our model can predict bulldozer prices with an RMSLE score below 1.0
+  - We evaluate this through comparison of predicted vs actual prices
+  - Success metric: RMSLE < 1.0 and MAE < $20,000
 
-- How old the bulldozer is (when it was made)?
-- How much it has been used (total hours of operation)?
+### Feature Importance
+- Key factors influencing price predictions
+  - Year made, product size, and usage hours are expected to be top predictors
+  - We analyze feature importance scores to validate this
 
-**Why we think this:** When buying used heavy machinery like bulldozers, people usually care most about the machine's age and how much it has been used. We can check this by looking at the relationship between these factors and the selling price.
+### Model Performance
+- Different ML models will maintain acceptable accuracy
+  - Test multiple model configurations while keeping RMSLE below target
+  - Compare speed vs accuracy tradeoffs
 
-**Validation**: To check this hypothesis, we will:  
+## Validation Approach
 
-1. Train our machine learning model (Random Forest)
-2. Look at which features are most important for predicting prices
-3. Pay special attention to two main factors:
-    - When the bulldozer was made (`YearMade`)
-    - How many hours it has been used (`MachineHoursCurrentMeter`)
-4. Create bar charts to show how important each factor is in determining the price
+### Data Splitting Strategy
+To ensure reliable validation:
+- Training set (60%): For model learning
+- Validation set (20%): For parameter tuning
+- Test set (20%): For final performance evaluation
 
-### Hypothesis 2: Regional Price Variations Across States
-**Hypothesis:** We believe that bulldozer prices change depending on which state they're sold in. **Why we think this:** Different states have their own local markets, and prices can vary because:
+### Performance Measurement
+We use multiple metrics to assess model performance:
+- RMSLE: Primary metric for prediction accuracy
+- MAE: Secondary metric in dollar terms
+- R² Score: To measure explained variance
 
-- Some states have more people wanting to buy bulldozers
-- Each state uses bulldozers for different kinds of work
-- States have different economic conditions that affect what buyers can spend
-
-**Validation:** Group sales data by state and analyze the median selling prices for each location. Create visualizations (such as bar graphs or box plots) to identify patterns in bulldozer prices across different states.
-
-## Addressing Business Requirement 2:
-By successfully proving this hypothesis, the client gains confidence in the accuracy, scalability, and adaptability of the machine learning system for predicting bulldozer prices. This system can then be integrated into their auction processes to:
-
-- **Provide accurate price estimations:** Enable informed decision-making for buyers and sellers.
-- **Automate price recommendations:** Streamline the price setting process for auction listings.
-- **Enhance efficiency:** Reduce manual effort and improve operational efficiency in the auction process.
-
-### Hypothesis 3: Model Generalization and Temporal Robustness
-
-**Hypothesis:** We want to make sure our price prediction system works well even with new data. To test this, we'll check if it can accurately predict prices using data collected after we trained the system. **Why this matters:** This shows whether our system can keep making good predictions as we get new bulldozer data over time.
-
-**Validation**: We will evaluate the model's performance using a separate test dataset (like the Kaggle test dataset). By comparing the model's accuracy on both test and validation data, we can determine whether it reliably predicts prices for new, unseen bulldozer data.
-
-**Data Splitting Strategy**
-
-- `Training set`: Model learning
-- `Validation set`: Parameter tuning and performance assessment
-- `Test set`: Final evaluation of real-world prediction capability
-
+### Model Evaluation Process
+Our thorough evaluation includes:
+- Training multiple model variants
+- Cross-validation for robust results
+- Feature importance analysis
 
 
 <p align="right">(<a href="#table-of-content">back to top</a>)</p>
@@ -819,9 +805,14 @@ I've added links to the bug reports from my GitHub Project in my README.md table
 
 **Known bugs** are issues in the code that still need to be fixed. These include problems that have been identified but require further investigation, resources, or future updates to resolve.
 
-| Bug Description | Bug Report Link | Bug Type |
-| --------------- | --------------- | -------- | --- |
-|                 |                 |          |     |
+| Bug Description | Bug Report Link                                                                                                               | Bug Type                       |
+| --------------- | ----------------------------------------------------------------------------------------------------------------------------- | ------------------------------ |
+| 🐞 Bug Report:  | Pandas-Profiling Error Due to Package Compatibility Conflict [#19](https://github.com/Blignaut24/About-BulldozerPriceGenius-_BPG-_v2/issues/19) | 🐞Bug: Package Dependency Conflict 🔒 |
+
+### 🛠️ Workaround
+Generated the data that the client/user would normally get from a pandas-profiling report by using separation of concerns. Wrote individual code snippets to generate outputs that provide similar information to pandas-profiling.
+
+Since pandas-profiling is not currently working, correlation and PPS studies cannot be generated, and data relationships cannot be visualized through relevant variables and correlations. These visualizations will be shown through alternative methods.
 
 ## Fixed bugs ✅
 
