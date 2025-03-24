@@ -26,3 +26,7 @@ Valid.csv
 Valid.zip
 ValidSolution.csv
 
+matplotlib/
+scikit-learn/
+tqdm/
+
