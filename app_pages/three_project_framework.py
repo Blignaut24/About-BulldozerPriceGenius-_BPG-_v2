@@ -427,7 +427,7 @@ def project_framework_body():
     )
     # Add a checkbox to display the image
     if st.checkbox("Inspection: Interactive Dashboard Image"):
-        st.image("static/images/interactive_dashboard.webp", use_container_width=True)
+        st.image("static/images/interactive_dashboard.webp", width=None)
     st.write(
         """
         The dashboard shows a filtered list of bulldozers based on price and location.
