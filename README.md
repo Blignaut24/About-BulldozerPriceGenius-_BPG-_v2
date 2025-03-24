@@ -4,6 +4,8 @@
 
 <img src="static/images/bulldozer_ai-min.webp" width="40%" style="display: block; margin: 0 auto;">
 
+**App live link**: [**BulldozerPriceGenius (BPG)**](https://bulldozerpricegenius-707a4e3cbb84.herokuapp.com/)
+
 In the complex world of heavy equipment auctions, construction companies and dealers face a persistent challenge: accurately determining the value of their bulldozers. The uncertainty can lead to missed opportunities and financial losses.
 
 Enter BulldozerPriceGenius (BPG), your trusted partner in bulldozer valuation. We've developed an advanced AI-powered system that leverages data analysis to predict auction prices with precision. Our user-friendly interface allows you to browse and filter bulldozer listings across U.S. states, with predicted sale prices in USD. By analyzing comprehensive datasets from real auctions and considering crucial factors like equipment usage, features, location, and market conditions, we eliminate the guesswork from pricing.
@@ -981,7 +983,7 @@ streamlit run app.py
 
 ## Heroku
 
-- The App live link is: https://YOUR_APP_NAME.herokuapp.com/
+- The App live link is: [BulldozerPriceGenius (BPG)](https://bulldozerpricegenius-707a4e3cbb84.herokuapp.com/)
 - Set the runtime.txt Python version to a [Heroku-24](https://devcenter.heroku.com/articles/python-support#supported-runtimes) stack currently supported version.
 - The project was deployed to Heroku using the following steps.
 

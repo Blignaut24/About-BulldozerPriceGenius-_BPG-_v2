@@ -26,7 +26,7 @@ def project_framework_body():
         The **BulldozerPriceGenius (BPG)** project helps users predict bulldozer sale prices using machine learning. By analyzing historical sales data through a **time series regression model**, the app delivers accurate, data-driven valuations. Below is a diagram overview of the BPG project, and this page focuses on the **Cross Industry Standard Process for Data Mining (CRISP-DM)** workflow.
         """
     )
-    st.image("static/images/BPG_Framework.webp", use_container_width=True)
+    st.image("static/images/BPG_Framework.webp", width=None)
 
     # ===== NAVIGATION =====
     # Table of contents for easy navigation
