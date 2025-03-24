@@ -72,9 +72,7 @@ def ml_pipeline_body():
     # Add a checkbox to display the sale price distribution image
     if st.checkbox("Inspection: Sale Price Distribution"):
         st.image(
-            "results/sale_price_distribution.webp",
-            caption="Sale Price Distribution",
-            use_container_width=True,  # Updated parameter
+            "results/sale_price_distribution.webp", caption="Sale Price Distribution"
         )
         st.subheader("Histogram: Price Distribution")
         st.markdown(
@@ -85,18 +83,15 @@ def ml_pipeline_body():
             - The most common price ranges
             - Whether there are more low-priced or high-priced bulldozers
             - Any unusual prices that might need special attention
-                    """
+            """
         )
         st.write("---")
 
     # Add a checkbox to display the median sale price monthly image
     if st.checkbox("Inspection: Median Sale Price Monthly"):
         st.image(
-            "results/median_saleprice_monthly.webp",
-            caption="Median Sale Price Monthly",
-            use_container_width=True,  # Updated parameter
+            "results/median_saleprice_monthly.webp", caption="Median Sale Price Monthly"
         )
-
         st.subheader("Visualizing Monthly Price Trends")
         st.markdown(
             """
@@ -104,7 +99,7 @@ def ml_pipeline_body():
             - Identify seasonal pricing patterns
             - Spot months with typically higher or lower prices
             - Help buyers and sellers make more informed decisions
-                    """
+            """
         )
         st.write("---")
 
