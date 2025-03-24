@@ -61,21 +61,22 @@ def case_study_body():
     # === TECHNICAL DOCUMENTATION ===
     # Project terminology and definitions
     st.subheader("Project Terms:")
-    if st.checkbox("Show `Project Terms` Glossary"):
-        st.info(
+    if st.checkbox("Show Glossary"):
+        st.markdown(
             """
-            • **AuctioneerID**: The company that conducted the auction sale (different from data source)
-            • **Bluebook**: A pricing guide used in the heavy equipment industry that provides estimated values for machinery like bulldozers. Similar to Kelley Blue Book for cars
-            • **Data Source**: Where the sale information came from (some sources provide more detailed information than others)
-            • **MachineID**: A unique number for each bulldozer (note: one bulldozer can be sold multiple times)
-            • **Machine Hours**: How many hours the bulldozer has been used when sold (if recorded)
-            • **ModelID**: A unique number that identifies the specific model of bulldozer
-            • **Sale Date**: When the bulldozer was sold
-            • **Sale Price**: How much the bulldozer sold for in US dollars
-            • **Usage Band**: How much the bulldozer has been used compared to similar models (low, medium, or high)
-            • **User**: A person who interacts with the software application - typically auctioneers, buyers, or sellers
-            • **Year Made**: The year the bulldozer was manufactured
-            """
+            - **AuctioneerID**: The company that conducted the auction sale (different from data source)  
+            - **Bluebook**: A pricing guide used in the heavy equipment industry that provides estimated values for machinery like bulldozers. Similar to Kelley Blue Book for cars  
+            - **Data Source**: Where the sale information came from (some sources provide more detailed information than others)  
+            - **MachineID**: A unique number for each bulldozer (note: one bulldozer can be sold multiple times)  
+            - **Machine Hours**: How many hours the bulldozer has been used when sold (if recorded)  
+            - **ModelID**: A unique number that identifies the specific model of bulldozer  
+            - **Sale Date**: When the bulldozer was sold  
+            - **Sale Price**: How much the bulldozer sold for in US dollars  
+            - **Usage Band**: How much the bulldozer has been used compared to similar models (low, medium, or high)  
+            - **User**: A person who interacts with the software application - typically auctioneers, buyers, or sellers  
+            - **Year Made**: The year the bulldozer was manufactured  
+            """,
+            unsafe_allow_html=True,
         )
 
     # External reference link
@@ -149,5 +150,6 @@ def case_study_body():
         "[*README file*](https://github.com/Blignaut24/About-BulldozerPriceGenius-_BPG-_v2.git)."
     )
     st.write("---")
+
 
 # Add a blank newline at the end of the file

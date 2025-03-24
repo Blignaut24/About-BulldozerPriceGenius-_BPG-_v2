@@ -792,10 +792,24 @@ We checked the code quality using [CodeInstitute's PEP8 Linter tool](https://pep
 - Some long text lines in the dashboard code were flagged as too long by the tool, but we decided this was okay.
 - We kept these longer lines because they didn't make the code harder to read or affect how well it works.
 
-
-
 ## Automated Unit Tests
 No automated unit tests have been carried out at this time.
+
+## Device Compatibility
+
+### Testing Results
+
+Over three days, we conducted twice-daily tests of the app across various devices—laptops, tablets, and phones. While the app remained stable with no crashes, we observed variations in performance speed.
+
+### Performance Issues
+
+The app may experience slow performance and timeout after 30 seconds for two reasons: memory usage exceeds our basic Heroku plan's limits (426 MB versus the 300-500 MB limit), and the eco Heroku plan automatically shuts down apps that require more than 30 seconds to initialize.
+
+### Current Solutions
+
+We've tried making the app smaller by removing unnecessary files and limiting what we install, but it's slightly to large for the Heroku eco plan. While upgrading our Heroku plan would help, it's financially not feasible at the time.
+
+
 
 <p align="right">(<a href="#table-of-content">back to top</a>)</p>
 
@@ -810,11 +824,6 @@ I've added links to the bug reports from my GitHub Project in my README.md table
 | Bug Description | Bug Report Link                                                                                                               | Bug Type                       |
 | --------------- | ----------------------------------------------------------------------------------------------------------------------------- | ------------------------------ |
 | 🐞 Bug Report:  | Pandas-Profiling Error Due to Package Compatibility Conflict [#19](https://github.com/Blignaut24/About-BulldozerPriceGenius-_BPG-_v2/issues/19) | 🐞Bug: Package Dependency Conflict 🔒 |
-
-### 🛠️ Workaround
-Generated the data that the client/user would normally get from a pandas-profiling report by using separation of concerns. Wrote individual code snippets to generate outputs that provide similar information to pandas-profiling.
-
-Since pandas-profiling is not currently working, correlation and PPS studies cannot be generated, and data relationships cannot be visualized through relevant variables and correlations. These visualizations will be shown through alternative methods.
 
 ## Fixed bugs ✅
 
