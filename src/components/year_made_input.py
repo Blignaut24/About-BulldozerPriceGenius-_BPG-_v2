@@ -123,13 +123,14 @@ class YearMadeProcessor:
                 return np.array([1995], dtype=np.int64)  # Safe default based on data analysis
 
 
-def validate_year_made(year_input: str) -> Tuple[bool, Optional[int], Optional[str]]:
+def validate_year_made(year_input: str, sale_year: Optional[int] = None) -> Tuple[bool, Optional[int], Optional[str]]:
     """
     Validate YearMade input from user with comprehensive error checking.
-    
+
     Args:
         year_input: Raw input string from user
-        
+        sale_year: Optional sale year for logical validation
+
     Returns:
         Tuple of (is_valid, parsed_value, error_message)
     """
@@ -155,9 +156,18 @@ def validate_year_made(year_input: str) -> Tuple[bool, Optional[int], Optional[s
         if int_value > 2014:
             return False, None, "Only years between 1971-2014 are accepted for YearMade input. Please enter a year within this range for accurate predictions."
 
+        # Check logical relationship with sale year if provided
+        if sale_year and int_value > sale_year:
+            years_diff = int_value - sale_year
+            return False, None, (
+                f"YearMade ({int_value}) cannot be after Sale Year ({sale_year}). "
+                f"Equipment cannot be sold {years_diff} year{'s' if years_diff > 1 else ''} "
+                f"before it was manufactured. Please enter a year {sale_year} or earlier."
+            )
+
         # All years within 1971-2014 are valid with no warnings
         warning_message = None
-        
+
         return True, int_value, warning_message
         
     except ValueError:
@@ -166,10 +176,13 @@ def validate_year_made(year_input: str) -> Tuple[bool, Optional[int], Optional[s
         return False, None, f"Unexpected error validating YearMade: {str(e)}"
 
 
-def create_year_made_input() -> Optional[int]:
+def create_year_made_input(sale_year: Optional[int] = None) -> Optional[int]:
     """
     Create a Streamlit input field for YearMade with validation and help text.
-    
+
+    Args:
+        sale_year: Optional sale year for logical validation
+
     Returns:
         Validated YearMade integer or None if invalid
     """
@@ -212,7 +225,7 @@ def create_year_made_input() -> Optional[int]:
     
     # Validate input if provided
     if year_input:
-        is_valid, parsed_value, message = validate_year_made(year_input)
+        is_valid, parsed_value, message = validate_year_made(year_input, sale_year)
         
         if is_valid:
             if message and message.startswith("⚠️"):

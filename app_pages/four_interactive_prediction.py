@@ -4,7 +4,6 @@ import numpy as np
 import sys
 import os
 import pickle
-from datetime import datetime
 import warnings
 warnings.filterwarnings('ignore')
 
@@ -29,6 +28,30 @@ try:
     SKLEARN_AVAILABLE = True
 except ImportError:
     SKLEARN_AVAILABLE = False
+
+
+def validate_year_logic(year_made: int, sale_year: int) -> tuple[bool, str]:
+    """
+    Validate the logical relationship between YearMade and SaleYear.
+
+    Args:
+        year_made: Year the bulldozer was manufactured
+        sale_year: Year the bulldozer was sold
+
+    Returns:
+        Tuple of (is_valid, error_message)
+    """
+    if year_made and sale_year and year_made > sale_year:
+        years_diff = year_made - sale_year
+        return False, (
+            f"🚫 **Logical Error**: Year Made ({year_made}) cannot be after Sale Year ({sale_year}). "
+            f"This would mean the bulldozer was sold {years_diff} year{'s' if years_diff > 1 else ''} "
+            f"before it was manufactured, which is impossible.\n\n"
+            f"**Please fix by:**\n"
+            f"• Changing Year Made to {sale_year} or earlier, OR\n"
+            f"• Changing Sale Year to {year_made} or later"
+        )
+    return True, ""
 
 
 def interactive_prediction_body():
@@ -338,10 +361,19 @@ def interactive_prediction_body():
             sale_year = st.number_input(
                 "Sale Year (Optional)",
                 min_value=1989,
-                max_value=2012,
+                max_value=2015,
                 value=2006,
-                help="🔵 OPTIONAL: Year when the bulldozer was sold. Default: 2006 (typical market year)"
+                help="🔵 OPTIONAL: Sale year (1989-2015). Must be >= YearMade."
             )
+
+            # Real-time validation display for year logic
+            if selected_year_made and sale_year:
+                year_logic_valid, year_logic_error = validate_year_logic(selected_year_made, sale_year)
+                if not year_logic_valid:
+                    st.error(f"⚠️ **Date Logic Issue**\n\n{year_logic_error}")
+                else:
+                    equipment_age = sale_year - selected_year_made
+                    st.success(f"✅ Valid: {equipment_age}-year-old equipment at sale time")
 
         with col_sale2:
             sale_day_of_year = st.number_input(
@@ -410,9 +442,14 @@ def interactive_prediction_body():
     if sale_year and sale_year < 1989:
         sale_year = 1989
         st.info("ℹ️ Sale Year adjusted to minimum value (1989)")
-    elif sale_year and sale_year > 2012:
-        sale_year = 2012
-        st.info("ℹ️ Sale Year adjusted to maximum value (2012)")
+    elif sale_year and sale_year > 2015:
+        sale_year = 2015
+        st.info("ℹ️ Sale Year adjusted to maximum value (2015)")
+
+    # CRITICAL LOGICAL VALIDATION: YearMade cannot be after SaleYear
+    year_logic_valid, year_logic_error = validate_year_logic(selected_year_made, sale_year)
+    if not year_logic_valid:
+        validation_errors.append(year_logic_error)
 
     if sale_day_of_year and sale_day_of_year < 1:
         sale_day_of_year = 1
@@ -773,13 +810,15 @@ def display_prediction_results(result, product_size=None, sale_year=None):
         )
 
     with col3:
-        # Calculate depreciation info
-        current_year = datetime.now().year
-        age = current_year - result.get('year_made', 2000)
+        # Calculate equipment age at time of sale
+        year_made = result.get('year_made', 2000)
+        # Use sale_year parameter if provided, otherwise use default of 2006
+        sale_year_for_age = sale_year if sale_year is not None else 2006
+        age_at_sale = sale_year_for_age - year_made
         st.metric(
-            "Equipment Age",
-            f"{age} years",
-            help="Age of the bulldozer"
+            "Equipment Age at Sale",
+            f"{age_at_sale} years",
+            help="Age of the bulldozer at the time of sale"
         )
 
     # Additional insights
