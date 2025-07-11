@@ -803,10 +803,26 @@ def display_prediction_results(result, product_size=None, sale_year=None):
         )
 
     with col2:
+        # Format price range with shorter display and full details in help
+        lower = result['confidence_lower']
+        upper = result['confidence_upper']
+
+        # Create shorter display format
+        def format_price_short(price):
+            if price >= 1000000:
+                return f"${price/1000000:.1f}M"
+            elif price >= 1000:
+                return f"${price/1000:.0f}K"
+            else:
+                return f"${price:,.0f}"
+
+        short_range = f"{format_price_short(lower)} - {format_price_short(upper)}"
+        full_range = f"${lower:,.0f} - ${upper:,.0f}"
+
         st.metric(
             "Price Range",
-            f"${result['confidence_lower']:,.0f} - ${result['confidence_upper']:,.0f}",
-            help="Estimated price range (±15%)"
+            short_range,
+            help=f"Estimated price range: {full_range} (±15%)"
         )
 
     with col3:

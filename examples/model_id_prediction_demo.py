@@ -168,10 +168,26 @@ def main():
                 st.metric("Prediction Confidence", f"{confidence:.1%}")
             
             with col2b:
-                # Show price range
+                # Show price range with better formatting
                 price_range = predicted_price * 0.15  # ±15% range
-                st.metric("Estimated Range", 
-                         f"${predicted_price - price_range:,.0f} - ${predicted_price + price_range:,.0f}")
+                lower = predicted_price - price_range
+                upper = predicted_price + price_range
+
+                # Create shorter display format
+                def format_price_short(price):
+                    if price >= 1000000:
+                        return f"${price/1000000:.1f}M"
+                    elif price >= 1000:
+                        return f"${price/1000:.0f}K"
+                    else:
+                        return f"${price:,.0f}"
+
+                short_range = f"{format_price_short(lower)} - {format_price_short(upper)}"
+                full_range = f"${lower:,.0f} - ${upper:,.0f}"
+
+                st.metric("Estimated Range",
+                         short_range,
+                         help=f"Full range: {full_range} (±15%)")
     
     # Show technical details section
     if model_id is not None:
