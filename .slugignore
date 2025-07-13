@@ -1,13 +1,67 @@
-# .slugignore file
+# .slugignore file for Heroku deployment
 
-# Exclude a specific folder 
+# Development and testing files
+*.pyc
+__pycache__/
+.pytest_cache/
+.coverage
+
+# SECURITY: Sensitive files and credentials
+.env
+.env.*
+env.py
+*.key
+*.pem
+*.p12
+*.pfx
+*api_key*
+*secret*
+*password*
+*token*
+.streamlit/secrets.toml
+secrets.toml
+config.ini
+credentials.json
+kaggle.json
+cloudinary_python.txt
+
+# SECURITY: Development environments (contain sensitive data)
+.venv/
+venv/
+env/
+myenv/
+ENV/
+env.bak/
+venv.bak/
+
+# Documentation and examples
+*.md
+README*
+docs/
+examples/
+jupyter_notebooks/
+tests/
+
+# SECURITY: Development tools (may contain sensitive data)
+.git/
+.gitignore
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# SECURITY: Specific sensitive files found in audit
+.vscode/uptime.sh
+.vscode/heroku_config.sh
+
+# Model files (exclude all except the main one)
 *.pkl
-
-# Include the specific file by negating the exclusion
+# Include the specific model file by negating the exclusion
 !src/models/randomforest_regressor_best_RMSLE.pkl
 
-# Exclude a specific file
-bulldozer_ai-min.webp 
+# Large data files and training data
+bulldozer_ai-min.webp
 Data Dictionary.xlsx
 Machine_Appendix.csv
 median_benchmark.csv
@@ -26,7 +80,42 @@ Valid.csv
 Valid.zip
 ValidSolution.csv
 
+# Raw and interim data (keep only processed data)
+data/raw/
+data/interim/
+
+# Test files
+test_*.py
+*_test.py
+demo_*.py
+simple_test.py
+test_enhanced_system.py
+test_current_model.py
+
+# Local configuration
+local_requirements.txt
+.streamlit/secrets.toml
+
+# Package directories that might be accidentally included
 matplotlib/
 scikit-learn/
 tqdm/
+pandas/
+numpy/
+
+# Windows specific
+Thumbs.db
+*.lnk
+
+# macOS specific
+.DS_Store
+
+# Temporary files
+*.tmp
+*.temp
+*.log
+
+# Git files
+.git/
+.gitattributes
 

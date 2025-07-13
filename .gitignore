@@ -1,10 +1,85 @@
+# Core system files
 core.Microsoft*
 core.mongo*
 core.python*
-env.py
 __pycache__/
 *.py[cod]
+*.pyc
+*.pyo
+*.pyd
+.Python
 node_modules/
 .github/
+
+# Sensitive files and credentials
+env.py
+.env
+.env.local
+.env.production
+.env.staging
 cloudinary_python.txt
 kaggle.json
+*.key
+*.pem
+*.p12
+*.pfx
+
+# API Keys and Secrets
+*api_key*
+*secret*
+*password*
+*token*
+.streamlit/secrets.toml
+secrets.toml
+config.ini
+credentials.json
+
+# Development environments
+.venv/
+venv/
+env/
+myenv/
+ENV/
+env.bak/
+venv.bak/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Local configuration
+.streamlit/config.toml
+local_settings.py
+local_config.py
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Log files
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+.pytest_cache/
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Heroku specific
+.env.heroku
