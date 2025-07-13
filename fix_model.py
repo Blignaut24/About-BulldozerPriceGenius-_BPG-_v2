@@ -19,23 +19,25 @@ warnings.filterwarnings('ignore')
 def load_and_prepare_data():
     """Load and prepare the training data"""
     print("📊 Loading training data...")
-    
+
     # Try parquet first, then CSV
     parquet_path = "src/data_prep/TrainAndValid_object_values_as_categories_and_missing_values_filled.parquet"
     csv_path = "src/data_prep/TrainAndValid_object_values_as_categories.csv"
-    
+
     if os.path.exists(parquet_path):
         print(f"✅ Loading from parquet: {parquet_path}")
         data = pd.read_parquet(parquet_path)
     elif os.path.exists(csv_path):
         print(f"✅ Loading from CSV: {csv_path}")
-        data = pd.read_csv(csv_path)
+        # Load a reasonable sample for training to avoid memory issues
+        data = pd.read_csv(csv_path, nrows=50000)  # Use first 50k rows for training
+        print(f"ℹ️ Using sample of 50,000 rows for training")
     else:
         raise FileNotFoundError("No training data found!")
-    
+
     print(f"📈 Data shape: {data.shape}")
     print(f"📋 Columns: {list(data.columns)}")
-    
+
     return data
 
 def prepare_features_and_target(data):

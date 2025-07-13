@@ -18,6 +18,18 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 from sklearn.impute import SimpleImputer
+
+# Streamlit compatibility layer
+def get_expander(label, expanded=False):
+    """Get the appropriate expander function based on Streamlit version"""
+    if hasattr(st, 'expander'):
+        return st.expander(label, expanded=expanded)
+    elif hasattr(st, 'beta_expander'):
+        return st.beta_expander(label, expanded=expanded)
+    else:
+        # Fallback for very old versions - just use a container
+        st.markdown(f"**{label}**")
+        return st.container()
 from typing import Optional, Tuple, Union
 import logging
 
@@ -190,7 +202,7 @@ def create_year_made_input(sale_year: Optional[int] = None) -> Optional[int]:
     st.subheader("📅 YearMade Input")
     
     # Add help information explaining importance
-    with st.expander("ℹ️ About YearMade - Most Important Feature", expanded=False):
+    with get_expander("ℹ️ About YearMade - Most Important Feature", expanded=False):
         st.markdown("""
         **Why YearMade is the Most Important Feature for Price Prediction:**
         
@@ -217,8 +229,7 @@ def create_year_made_input(sale_year: Optional[int] = None) -> Optional[int]:
     
     # Create the input field
     year_input = st.text_input(
-        label="Enter Year Made (1971-2014)",
-        placeholder="e.g., 1995, 2005, 2010",
+        label="Enter Year Made (1971-2014) - e.g., 1995, 2005, 2010",
         help="Enter the year the bulldozer was manufactured (1971-2014 only). This is the most important factor in price prediction.",
         key="year_made_input"
     )
