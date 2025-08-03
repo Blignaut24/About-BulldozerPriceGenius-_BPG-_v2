@@ -1,5 +1,6 @@
 import streamlit as st
 import os
+from .streamlit_compatibility import get_metric
 
 
 def hypothesis_and_validation_body():
@@ -96,17 +97,17 @@ def hypothesis_and_validation_body():
     st.subheader("Prediction vs Reality")
     col1, col2 = st.columns(2)
     with col1:
-        st.metric("Model Prediction", f"${55495.68:,.2f}")
+        get_metric("Model Prediction", f"${55495.68:,.2f}")
     with col2:
-        st.metric("Actual Price", f"${72600:,.2f}")
+        get_metric("Actual Price", f"${72600:,.2f}")
 
     # Display error metrics
     st.subheader("Performance Metrics")
     col1, col2 = st.columns(2)
     with col1:
-        st.metric("Mean Absolute Error (MAE)", f"${17104:,.2f}")
+        get_metric("Mean Absolute Error (MAE)", f"${17104:,.2f}")
     with col2:
-        st.metric("RMSLE Score", "0.27")
+        get_metric("RMSLE Score", "0.27")
 
     # Analysis summary
     st.subheader("Analysis")

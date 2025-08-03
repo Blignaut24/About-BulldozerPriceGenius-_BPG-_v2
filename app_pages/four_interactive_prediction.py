@@ -7,6 +7,9 @@ import pickle
 import warnings
 warnings.filterwarnings('ignore')
 
+# Import compatibility functions from shared module
+from .streamlit_compatibility import get_metric, get_columns, get_expander
+
 # Streamlit compatibility layer
 def get_expander(label, expanded=False):
     """Get the appropriate expander function based on Streamlit version"""
@@ -32,6 +35,24 @@ def get_columns(num_cols):
             st.markdown(f"**Column {i+1}:**")
             containers.append(st.container())
         return containers
+
+def get_metric(label, value, help=None):
+    """Get the appropriate metric function based on Streamlit version"""
+    if hasattr(st, 'metric'):
+        if help:
+            st.metric(label, value, help=help)
+        else:
+            st.metric(label, value)
+    else:
+        # Fallback for older versions - use markdown
+        if help:
+            st.markdown(f"**{label}:** {value}")
+            if hasattr(st, 'caption'):
+                st.caption(help)
+            else:
+                st.markdown(f"*{help}*")
+        else:
+            st.markdown(f"**{label}:** {value}")
 
 # Add src to path for component imports
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'src'))
@@ -608,7 +629,7 @@ def interactive_prediction_body():
         else:
             button_text = "🤖 Get ML Prediction"
 
-        if st.button(button_text, use_container_width=True):
+        if st.button(button_text):
             with st.spinner("Generating prediction..."):
                 try:
                     # Route to appropriate prediction method
@@ -1253,7 +1274,7 @@ def display_prediction_results(result, product_size=None, sale_year=None, approa
     with col1:
         confidence_level = confidence / 100.0
         confidence_color = "🟢" if confidence_level > 0.8 else "🟡" if confidence_level > 0.65 else "🟠"
-        st.metric(
+        get_metric(
             f"{confidence_color} Confidence Level",
             f"{confidence}%",
             help=f"Prediction confidence based on {method_name.lower()} analysis"
@@ -1283,7 +1304,7 @@ def display_prediction_results(result, product_size=None, sale_year=None, approa
         full_range = f"${lower:,.0f} - ${upper:,.0f}"
         range_percent = ((upper - lower) / (2 * predicted_price)) * 100
 
-        st.metric(
+        get_metric(
             "📊 Price Range",
             short_range,
             help=f"Estimated range: {full_range} (±{range_percent:.1f}%)"
@@ -1296,7 +1317,7 @@ def display_prediction_results(result, product_size=None, sale_year=None, approa
         age_at_sale = sale_year_for_age - year_made
 
         age_icon = "🆕" if age_at_sale <= 3 else "⚡" if age_at_sale <= 8 else "🔧" if age_at_sale <= 15 else "🏛️"
-        st.metric(
+        get_metric(
             f"{age_icon} Equipment Age",
             f"{age_at_sale} years",
             help="Age of the bulldozer at the time of sale"
@@ -1307,19 +1328,19 @@ def display_prediction_results(result, product_size=None, sale_year=None, approa
         if prediction_method == 'intelligent_fallback':
             regional_factor = result.get('regional_factor', 1.0)
             regional_impact = "📈" if regional_factor > 1.05 else "📉" if regional_factor < 0.95 else "➡️"
-            st.metric(
+            get_metric(
                 f"{regional_impact} Regional Factor",
                 f"{regional_factor:.2f}x",
                 help=f"Market adjustment for {result.get('state_used', 'selected region')}"
             )
         elif prediction_method == 'model':
-            st.metric(
+            get_metric(
                 "🎯 ML Accuracy",
                 "85-90%",
                 help="Expected accuracy range for machine learning predictions"
             )
         else:
-            st.metric(
+            get_metric(
                 "📈 Method",
                 "Statistical",
                 help="Basic statistical estimation method"
