@@ -88,78 +88,63 @@ def interactive_prediction_body():
 
     @st.cache(allow_output_mutation=True)
     def load_trained_model():
-        """Load the trained RandomForest model with enhanced error handling"""
+        """Load the trained RandomForest model with preprocessing components"""
         model_path = "src/models/randomforest_regressor_best_RMSLE.pkl"
+        preprocessing_path = "src/models/preprocessing_components.pkl"
 
-        # Try multiple loading methods since the model might have been saved with joblib or pickle
-        loading_methods = [
-            ("joblib", lambda path: __import__('joblib').load(path)),
-            ("pickle", lambda path: pickle.load(open(path, 'rb')))
-        ]
+        try:
+            # Load the main model
+            model = pickle.load(open(model_path, 'rb'))
 
-        for method_name, load_func in loading_methods:
-            try:
-                model = load_func(model_path)
+            # Check if the loaded object has a predict method
+            if hasattr(model, 'predict'):
+                st.success("✅ Advanced ML Model loaded successfully!")
 
-                # Check if the loaded object has a predict method
-                if hasattr(model, 'predict'):
-                    st.success(f"✅ Model loaded successfully using {method_name}!")
-                    return model, None
-                else:
-                    # The file contains something else (like numpy array of trees)
-                    if isinstance(model, np.ndarray):
-                        error_msg = (
-                            f"🔍 **What we found:** The file contains a numpy array with {model.shape[0]} elements, "
-                            f"not a complete trained model.\n\n"
-                            f"🎓 **Simple explanation:** Think of this like getting a box of calculator parts "
-                            f"instead of a working calculator! The file has the 'ingredients' of a model "
-                            f"(individual trees/components) but not the complete 'recipe' (trained model) "
-                            f"that can make predictions.\n\n"
-                            f"🔧 **What happens next:** Don't worry! The app will automatically use a "
-                            f"backup prediction system based on bulldozer market data and depreciation curves."
-                        )
-                    else:
-                        error_msg = (
-                            f"🔍 **What we found:** The file contains {type(model)} instead of a trained model.\n\n"
-                            f"🎓 **Simple explanation:** We expected a 'smart calculator' that can predict prices, "
-                            f"but got something else instead.\n\n"
-                            f"🔧 **What happens next:** The app will use a backup prediction system."
-                        )
-                    return None, error_msg
-
-            except ImportError as e:
-                if method_name == "joblib":
-                    continue  # Try next method if joblib is not available
+                # Try to load preprocessing components
+                try:
+                    preprocessing_data = pickle.load(open(preprocessing_path, 'rb'))
+                    st.info("✅ Preprocessing components loaded successfully!")
+                    return model, preprocessing_data, None
+                except Exception as e:
+                    st.warning(f"⚠️ Could not load preprocessing components: {e}")
+                    st.info("🔄 Model will use basic preprocessing")
+                    return model, None, None
+            else:
+                # The file contains something else (like numpy array of trees)
+                if isinstance(model, np.ndarray):
+                    error_msg = (
+                        f"🔍 **What we found:** The file contains a numpy array with {model.shape[0]} elements, "
+                        f"not a complete trained model.\n\n"
+                        f"🎓 **Simple explanation:** Think of this like getting a box of calculator parts "
+                        f"instead of a working calculator! The file has the 'ingredients' of a model "
+                        f"(individual trees/components) but not the complete 'recipe' (trained model) "
+                        f"that can make predictions.\n\n"
+                        f"🔧 **What happens next:** Don't worry! The app will automatically use a "
+                        f"backup prediction system based on bulldozer market data and depreciation curves."
+                    )
                 else:
                     error_msg = (
-                        f"⚠️ **Import error:** {str(e)}\n\n"
+                        f"🔍 **What we found:** The file contains {type(model)} instead of a trained model.\n\n"
+                        f"🎓 **Simple explanation:** We expected a 'smart calculator' that can predict prices, "
+                        f"but got something else instead.\n\n"
                         f"🔧 **What happens next:** The app will use a backup prediction system."
                     )
-                    return None, error_msg
-            except FileNotFoundError:
-                error_msg = (
-                    f"📁 **File not found:** The model file doesn't exist at the expected location.\n\n"
-                    f"🎓 **Simple explanation:** It's like looking for a book in the library but "
-                    f"finding an empty shelf.\n\n"
-                    f"🔧 **What happens next:** The app will use a backup prediction system."
-                )
-                return None, error_msg
-            except Exception as e:
-                if method_name == loading_methods[-1][0]:  # Last method
-                    error_msg = (
-                        f"⚠️ **Unexpected error:** {str(e)}\n\n"
-                        f"🔧 **What happens next:** The app will use a backup prediction system."
-                    )
-                    return None, error_msg
-                else:
-                    continue  # Try next loading method
+                return None, None, error_msg
 
-        # If we get here, all methods failed
-        error_msg = (
-            f"⚠️ **All loading methods failed**\n\n"
-            f"🔧 **What happens next:** The app will use a backup prediction system."
-        )
-        return None, error_msg
+        except FileNotFoundError:
+            error_msg = (
+                f"📁 **File not found:** The model file doesn't exist at the expected location.\n\n"
+                f"🎓 **Simple explanation:** It's like looking for a book in the library but "
+                f"finding an empty shelf.\n\n"
+                f"🔧 **What happens next:** The app will use a backup prediction system."
+            )
+            return None, None, error_msg
+        except Exception as e:
+            error_msg = (
+                f"⚠️ **Unexpected error:** {str(e)}\n\n"
+                f"🔧 **What happens next:** The app will use a backup prediction system."
+            )
+            return None, None, error_msg
 
     @st.cache(allow_output_mutation=True)
     def load_sample_data_for_categories():
@@ -196,7 +181,7 @@ def interactive_prediction_body():
         }
 
     # Load model and check availability
-    model, model_error = load_trained_model()
+    model, preprocessing_data, model_error = load_trained_model()
 
     # Main page header
     st.title("🚜 Bulldozer Price Prediction")
@@ -593,7 +578,7 @@ def interactive_prediction_body():
     can_predict = len(critical_errors) == 0
 
     if can_predict:
-        if st.button("🔮 Predict Price", type="primary", use_container_width=True):
+        if st.button("🔮 Predict Price", use_container_width=True):
             with st.spinner("Generating prediction..."):
                 try:
                     # Prepare input data for prediction
@@ -959,57 +944,128 @@ def make_prediction(model, year_made, model_id, product_size, state, enclosure,
         )
 
     try:
-        # Get feature mappings
-        mappings = create_feature_mappings()
+        # Load the training data to get the exact column structure
+        try:
+            training_data = pd.read_parquet('src/data_prep/TrainAndValid_object_values_as_categories_and_missing_values_filled.parquet').head(1)
+            expected_columns = [col for col in training_data.columns if col != 'SalePrice']  # Exclude target
 
-        # Create a feature vector with 103 features to match training data
-        # Initialize with zeros
-        features = np.zeros(103)
+            # Create input data frame with the same structure as training data
+            input_data = pd.DataFrame(columns=expected_columns)
 
-        # Set the main features we know about (based on column positions from data exploration)
-        features[0] = 1139246  # SalesID (dummy value)
-        # features[1] is SalePrice (target, not used for prediction)
-        features[2] = 999999   # MachineID (dummy value)
-        features[3] = model_id  # ModelID
-        features[4] = 121      # datasource (dummy value)
-        features[5] = 3        # auctioneerID (dummy value)
-        features[6] = year_made  # YearMade
-        features[7] = 5000     # MachineHoursCurrentMeter (default value)
-        features[8] = 2        # UsageBand (default value)
+            # Add a single row with our input values
+            input_row = {}
 
-        # Map categorical features to their encoded values
-        features[14] = mappings['ProductSize'].get(product_size, 1)  # ProductSize
+            # Set the main features
+            input_row['SalesID'] = 1139246  # Dummy value
+            input_row['MachineID'] = 999999  # Dummy value
+            input_row['ModelID'] = model_id
+            input_row['datasource'] = 121  # Dummy value
+            input_row['auctioneerID'] = 3  # Dummy value
+            input_row['YearMade'] = year_made
+            input_row['MachineHoursCurrentMeter'] = 5000  # Default value
+            input_row['UsageBand'] = 'Medium'  # Default value
+            input_row['fiModelDesc'] = 'Unknown'  # Default value
+            input_row['fiBaseModel'] = fi_base_model
+            input_row['fiSecondaryDesc'] = 'Unknown'  # Default value
+            input_row['fiModelSeries'] = 'Unknown'  # Default value
+            input_row['fiModelDescriptor'] = 'Unknown'  # Default value
+            input_row['ProductSize'] = product_size
+            input_row['fiProductClassDesc'] = 'Unknown'  # Default value
+            input_row['state'] = state if state != "All States" else "California"
+            input_row['ProductGroup'] = 'Track Type Tractor Dozers'  # Default value
+            input_row['ProductGroupDesc'] = 'Track Type Tractor Dozers'  # Default value
+            input_row['Drive_System'] = 'Unknown'  # Default value
+            input_row['Enclosure'] = enclosure
+            input_row['Forks'] = 'None or Unspecified'  # Default value
+            input_row['Pad_Type'] = 'None or Unspecified'  # Default value
+            input_row['Ride_Control'] = 'None or Unspecified'  # Default value
+            input_row['Stick'] = 'None or Unspecified'  # Default value
+            input_row['Transmission'] = 'Standard'  # Default value
+            input_row['Turbocharged'] = 'None or Unspecified'  # Default value
+            input_row['Blade_Extension'] = 'None or Unspecified'  # Default value
+            input_row['Blade_Width'] = 'None or Unspecified'  # Default value
+            input_row['Enclosure_Type'] = 'None or Unspecified'  # Default value
+            input_row['Engine_Horsepower'] = 200  # Default value
+            input_row['Hydraulics'] = hydraulics
+            input_row['Pushblock'] = 'None or Unspecified'  # Default value
+            input_row['Ripper'] = 'None or Unspecified'  # Default value
+            input_row['Scarifier'] = 'None or Unspecified'  # Default value
+            input_row['Tip_Control'] = 'None or Unspecified'  # Default value
+            input_row['Tire_Size'] = tire_size
+            input_row['Coupler'] = 'None or Unspecified'  # Default value
+            input_row['Coupler_System'] = coupler_system
+            input_row['Grouser_Tracks'] = grouser_tracks
+            input_row['Hydraulics_Flow'] = hydraulics_flow
+            input_row['Track_Type'] = 'Steel'  # Default value
+            input_row['Undercarriage_Pad_Width'] = 'None or Unspecified'  # Default value
+            input_row['Stick_Length'] = 'None or Unspecified'  # Default value
+            input_row['Thumb'] = 'None or Unspecified'  # Default value
+            input_row['Pattern_Changer'] = 'None or Unspecified'  # Default value
+            input_row['Grouser_Type'] = 'Double'  # Default value
+            input_row['Backhoe_Mounting'] = 'None or Unspecified'  # Default value
+            input_row['Blade_Type'] = 'Straight'  # Default value
+            input_row['Travel_Controls'] = 'None or Unspecified'  # Default value
+            input_row['Differential_Type'] = 'Standard'  # Default value
+            input_row['Steering_Controls'] = 'Conventional'  # Default value
+            input_row['saleYear'] = sale_year
+            input_row['saleMonth'] = 6  # Default to June
+            input_row['saleDay'] = 15  # Default to 15th
+            input_row['saleDayofweek'] = 3  # Default to Wednesday
+            input_row['saleDayofyear'] = sale_day_of_year
 
-        # Handle "All States" option by using a representative average state value
-        if state == "All States":
-            features[16] = 25  # Use middle value representing average across all states
-        else:
-            features[16] = mappings['state'].get(state, 5)  # state
+            # Set all missing indicator columns to 0 (not missing)
+            for col in expected_columns:
+                if col.endswith('_is_missing'):
+                    input_row[col] = 0
+                elif col not in input_row:
+                    # Set any remaining columns to default values
+                    input_row[col] = 0 if training_data[col].dtype in ['int64', 'float64'] else 'Unknown'
 
-        features[20] = mappings['Enclosure'].get(enclosure, 1)  # Enclosure
-        features[10] = mappings['fiBaseModel'].get(fi_base_model, 1)  # fiBaseModel
-        features[38] = mappings['Coupler_System'].get(coupler_system, 0)  # Coupler_System
-        features[36] = mappings['Tire_Size'].get(tire_size, 0)  # Tire_Size
-        features[40] = mappings['Hydraulics_Flow'].get(hydraulics_flow, 1)  # Hydraulics_Flow
-        features[39] = mappings['Grouser_Tracks'].get(grouser_tracks, 0)  # Grouser_Tracks
-        features[31] = mappings['Hydraulics'].get(hydraulics, 1)  # Hydraulics
+            # Create the dataframe with the single row
+            input_data = pd.DataFrame([input_row], columns=expected_columns)
 
-        # Sale date features
-        features[52] = sale_year  # saleYear
-        features[53] = 6  # saleMonth (default to June)
-        features[54] = 15  # saleDay (default to 15th)
-        features[55] = 3  # saleDayofweek (default to Wednesday)
-        features[56] = sale_day_of_year  # saleDayofyear
+        except Exception as e:
+            st.error(f"Could not load training data structure: {e}")
+            return {'success': False, 'error': f'Data structure error: {e}'}
 
-        # Set missing value indicators to 0 (not missing)
-        for i in range(57, 103):
-            features[i] = 0
+        # Load preprocessing components if available
+        try:
+            preprocessing_data = pickle.load(open("src/models/preprocessing_components.pkl", 'rb'))
+            label_encoders = preprocessing_data['label_encoders']
+            imputer = preprocessing_data['imputer']
 
-        # Reshape for prediction
-        features = features.reshape(1, -1)
+            # Apply the same preprocessing as during training
+            input_encoded = input_data.copy()
+
+            # Encode categorical features using the saved encoders
+            for column in input_data.columns:
+                if column in label_encoders and input_data[column].dtype == 'object':
+                    le = label_encoders[column]
+                    # Handle unseen categories by using the most frequent category
+                    try:
+                        input_encoded[column] = le.transform(input_data[column].astype(str))
+                    except ValueError:
+                        # If category not seen during training, use the first category
+                        input_encoded[column] = [0]
+
+            # Apply imputation
+            input_final = pd.DataFrame(
+                imputer.transform(input_encoded),
+                columns=input_encoded.columns
+            )
+
+        except Exception as e:
+            # If preprocessing fails, use simple encoding
+            st.warning(f"Using basic preprocessing: {e}")
+            input_final = input_data.copy()
+
+            # Simple encoding for categorical columns
+            for column in input_final.columns:
+                if input_final[column].dtype == 'object':
+                    input_final[column] = pd.Categorical(input_final[column]).codes + 1
 
         # Make prediction
-        predicted_price = model.predict(features)[0]
+        predicted_price = model.predict(input_final)[0]
 
         # Calculate confidence interval
         confidence_range = predicted_price * 0.12  # ±12%

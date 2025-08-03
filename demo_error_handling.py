@@ -91,7 +91,7 @@ def main():
         with col3:
             state = st.selectbox("State", ["California", "Texas", "Florida", "All States"], index=0)
         
-        if st.button("🔮 Get Backup Prediction", type="primary"):
+        if st.button("🔮 Get Backup Prediction"):
             # Simple fallback calculation
             size_base_prices = {
                 'Large': 180000, 'Medium': 120000, 'Small': 80000, 
