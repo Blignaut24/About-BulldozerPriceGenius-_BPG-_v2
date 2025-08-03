@@ -83,8 +83,92 @@ def validate_year_logic(year_made, sale_year):
 def interactive_prediction_body():
     """
     Main function to handle the interactive bulldozer price prediction.
-    Allows users to input feature values and receive predicted prices.
+    Allows users to choose between different prediction approaches and input feature values.
     """
+
+    # Page header
+    st.title("🚜 Interactive Bulldozer Price Prediction")
+    st.markdown("""
+    Get accurate price estimates for bulldozers using our advanced prediction system.
+    Choose the approach that best fits your needs and data availability.
+    """)
+
+    # Prediction approach selection
+    st.header("🎯 Choose Your Prediction Approach")
+
+    prediction_approach = st.radio(
+        "Select the prediction method you'd like to use:",
+        options=[
+            "🤖 Advanced ML Model (Recommended)",
+            "🧠 Intelligent Fallback System",
+            "📊 Basic Statistical Estimation"
+        ],
+        help="Each approach has different accuracy levels and input requirements"
+    )
+
+    # Display approach descriptions
+    if prediction_approach == "🤖 Advanced ML Model (Recommended)":
+        st.markdown("""
+        <div style="
+            background: linear-gradient(90deg, #e8f5e8 0%, #c8e6c9 100%);
+            border-left: 5px solid #4caf50;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+        ">
+            <h4 style="color: #2e7d32; margin: 0 0 10px 0;">
+                🤖 Advanced Machine Learning Model
+            </h4>
+            <p style="margin: 0; color: #424242;">
+                <strong>Accuracy:</strong> 85-90% (Highest precision available)<br>
+                <strong>Training Data:</strong> 400,000+ real bulldozer sales<br>
+                <strong>Method:</strong> Random Forest algorithm with advanced preprocessing<br>
+                <strong>Best For:</strong> Most accurate predictions when you have detailed specifications
+            </p>
+        </div>
+        """, unsafe_allow_html=True)
+
+    elif prediction_approach == "🧠 Intelligent Fallback System":
+        st.markdown("""
+        <div style="
+            background: linear-gradient(90deg, #e3f2fd 0%, #bbdefb 100%);
+            border-left: 5px solid #1976d2;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+        ">
+            <h4 style="color: #1976d2; margin: 0 0 10px 0;">
+                🧠 Intelligent Fallback System
+            </h4>
+            <p style="margin: 0; color: #424242;">
+                <strong>Accuracy:</strong> 70-80% (Professional grade estimation)<br>
+                <strong>Method:</strong> Multi-factor analysis with market data and depreciation curves<br>
+                <strong>Features:</strong> Regional adjustments, manufacturer scoring, economic factors<br>
+                <strong>Best For:</strong> Reliable estimates when ML model is unavailable or you have limited data
+            </p>
+        </div>
+        """, unsafe_allow_html=True)
+
+    else:  # Basic Statistical
+        st.markdown("""
+        <div style="
+            background: linear-gradient(90deg, #fff3e0 0%, #ffe0b2 100%);
+            border-left: 5px solid #ff9800;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+        ">
+            <h4 style="color: #f57c00; margin: 0 0 10px 0;">
+                📊 Basic Statistical Estimation
+            </h4>
+            <p style="margin: 0; color: #424242;">
+                <strong>Accuracy:</strong> 60-70% (Good for quick estimates)<br>
+                <strong>Method:</strong> Simple depreciation curves and size-based pricing<br>
+                <strong>Requirements:</strong> Minimal inputs (Year, Size, State)<br>
+                <strong>Best For:</strong> Quick ballpark estimates when you only know basic information
+            </p>
+        </div>
+        """, unsafe_allow_html=True)
 
     @st.cache(allow_output_mutation=True)
     def load_trained_model():
@@ -180,120 +264,26 @@ def interactive_prediction_body():
             'Hydraulics': ['Standard', '2 Valve', '3 Valve', '4 Valve', 'Auxiliary']
         }
 
-    # Load model and check availability
+    # This section was removed - the new UX starts with approach selection
+    # Old notification sections removed - now using approach selection UX
+
+    # Load model and get categorical options
     model, preprocessing_data, model_error = load_trained_model()
-
-    # Main page header
-    st.title("🚜 Bulldozer Price Prediction")
-    st.write("Enter bulldozer specifications below to get an estimated sale price.")
-
-    # Enhanced notification system for prediction method
-    if model_error:
-        # Create a prominent notification banner
-        st.markdown("""
-        <div style="
-            background: linear-gradient(90deg, #e3f2fd 0%, #bbdefb 100%);
-            border-left: 5px solid #2196f3;
-            padding: 15px;
-            border-radius: 8px;
-            margin: 10px 0;
-        ">
-            <h4 style="color: #1976d2; margin: 0 0 10px 0;">
-                🧠 Intelligent Fallback System Active
-            </h4>
-            <p style="margin: 0; color: #424242;">
-                <strong>Current Status:</strong> Using advanced statistical prediction algorithms<br>
-                <strong>Accuracy:</strong> 70-80% (Professional grade estimation)<br>
-                <strong>Method:</strong> Multi-factor analysis with market data
-            </p>
-        </div>
-        """, unsafe_allow_html=True)
-
-        # Detailed technical information in expandable section
-        with get_expander("🔍 **Technical Details: Why we're using the Intelligent Fallback System**", expanded=False):
-            st.markdown(model_error)
-            st.markdown("""
-            ### 🎯 **Intelligent Fallback System Features:**
-
-            - **Multi-phase depreciation modeling** based on equipment age and usage patterns
-            - **Regional market analysis** with state-specific pricing adjustments
-            - **Manufacturer reputation scoring** for brand value assessment
-            - **Economic cycle adjustments** accounting for market conditions
-            - **Feature-based valuation** for equipment specifications
-            - **Confidence interval calculation** for prediction reliability
-
-            ### 📊 **Accuracy Comparison:**
-            - **Machine Learning Model:** 85-90% accuracy (when available)
-            - **Intelligent Fallback:** 70-80% accuracy (current system)
-            - **Basic Statistical:** 60-70% accuracy (simple methods)
-            """)
-
-        # Show model recovery options
-        with get_expander("🔧 **Model Recovery Options**", expanded=False):
-            st.markdown("""
-            ### 🛠️ **How to Restore ML Model (Optional):**
-
-            **Option 1: Automatic Fix (Recommended)**
-            ```bash
-            python fix_model.py
-            ```
-            Then refresh this page to see "✅ Advanced ML Model Active"
-
-            **Option 2: Manual Diagnosis**
-            1. Check if model file exists and is properly formatted
-            2. Verify sklearn/joblib compatibility
-            3. Retrain model if necessary
-
-            **Option 3: Continue with Current System**
-            - The Intelligent Fallback System provides professional-grade estimates
-            - No action needed - predictions will work reliably
-            - Consider this system for production use in model-unavailable scenarios
-            """)
-
-    if model is None:
-        if not model_error:  # Fallback for other model loading issues
-            st.markdown("""
-            <div style="
-                background: linear-gradient(90deg, #fff3e0 0%, #ffe0b2 100%);
-                border-left: 5px solid #ff9800;
-                padding: 15px;
-                border-radius: 8px;
-                margin: 10px 0;
-            ">
-                <h4 style="color: #f57c00; margin: 0 0 10px 0;">
-                    ⚠️ Backup Prediction System
-                </h4>
-                <p style="margin: 0; color: #424242;">
-                    ML model unavailable - using statistical estimation for predictions
-                </p>
-            </div>
-            """, unsafe_allow_html=True)
-    else:
-        # Success notification for ML model
-        st.markdown("""
-        <div style="
-            background: linear-gradient(90deg, #e8f5e8 0%, #c8e6c9 100%);
-            border-left: 5px solid #4caf50;
-            padding: 15px;
-            border-radius: 8px;
-            margin: 10px 0;
-        ">
-            <h4 style="color: #2e7d32; margin: 0 0 10px 0;">
-                🤖 Advanced ML Model Active
-            </h4>
-            <p style="margin: 0; color: #424242;">
-                <strong>Status:</strong> Machine Learning model loaded successfully<br>
-                <strong>Accuracy:</strong> 85-90% (Highest precision available)<br>
-                <strong>Method:</strong> Random Forest with 400,000+ training samples
-            </p>
-        </div>
-        """, unsafe_allow_html=True)
-
-    # Get categorical options
     categorical_options = get_categorical_options()
 
-    # Create input form
-    st.header("� Enter Bulldozer Specifications")
+    # Create input form based on selected approach
+    st.header("📝 Enter Bulldozer Information")
+
+    # Show different input requirements based on approach
+    if prediction_approach == "📊 Basic Statistical Estimation":
+        st.info("💡 **Minimal inputs required** - Just 3 basic pieces of information for a quick estimate!")
+        required_inputs = ["Year Made", "Product Size", "State"]
+    elif prediction_approach == "🧠 Intelligent Fallback System":
+        st.info("💡 **Moderate inputs recommended** - A few more details will improve accuracy significantly!")
+        required_inputs = ["Year Made", "Product Size", "State", "Enclosure", "Base Model"]
+    else:  # ML Model
+        st.info("💡 **Detailed inputs available** - More information = higher accuracy with our ML model!")
+        required_inputs = ["Year Made", "Model ID", "Product Size", "State", "Enclosure", "Base Model"]
 
     # Help section for users who don't know what to select
     with get_expander("❓ Don't know what to select? Click here for help!", expanded=False):
@@ -322,14 +312,14 @@ def interactive_prediction_body():
            - All optional fields have helpful tooltips - hover over the (?) icons
         """)
 
-    # Required inputs section
-    st.subheader("🔴 Required Information")
-    st.info("💡 **Only these 2 fields are required for a basic prediction!** All other fields are optional and will use smart defaults if not specified.")
+    # Dynamic input sections based on prediction approach
+    st.subheader("� Required Information")
 
+    # Always required: Year Made and Product Size
     col1, col2 = get_columns(2)
 
     with col1:
-        # YearMade input (REQUIRED)
+        # YearMade input (ALWAYS REQUIRED)
         if YEARMADE_COMPONENT_AVAILABLE:
             selected_year_made = create_year_made_input()
         else:
@@ -342,7 +332,7 @@ def interactive_prediction_body():
             )
 
     with col2:
-        # ProductSize (REQUIRED)
+        # ProductSize (ALWAYS REQUIRED)
         product_size = st.selectbox(
             "⭐ Product Size (Required)",
             options=categorical_options['ProductSize'],
@@ -350,18 +340,59 @@ def interactive_prediction_body():
             help="🔴 REQUIRED: Size category of the bulldozer. Determines the general price range and capabilities."
         )
 
-    # Optional inputs section
-    st.subheader("🔵 Optional Information")
-    st.info("💡 **These fields are optional.** Leave them as default if you're unsure - the system will use intelligent defaults based on common bulldozer configurations.")
+    # State (Required for all approaches)
+    state_options = ["All States"] + categorical_options['state']
+    state = st.selectbox(
+        "⭐ State (Required)",
+        options=state_options,
+        index=0,
+        help="🔴 REQUIRED: State where the bulldozer is being sold. Affects regional pricing."
+    )
 
-    # Basic Optional Settings (without nested expander to avoid conflicts)
-    st.write("**🔧 Basic Optional Settings**")
-    col3, col4 = get_columns(2)
+    # Conditional inputs based on prediction approach
+    selected_model_id = None
+    enclosure = "EROPS"
+    fi_base_model = "D6"
+    coupler_system = "None or Unspecified"
+    tire_size = "None or Unspecified"
+    hydraulics_flow = "Standard"
+    grouser_tracks = "None or Unspecified"
+    hydraulics = "2 Valve"
 
-    with col3:
-        # ModelID input (OPTIONAL) - Use simple input to avoid nested expander issue
+    if prediction_approach == "📊 Basic Statistical Estimation":
+        st.subheader("✅ Ready for Basic Estimation!")
+        st.success("You've provided all the information needed for a basic statistical estimate.")
+
+    elif prediction_approach == "🧠 Intelligent Fallback System":
+        st.subheader("🔧 Additional Information (Recommended)")
+        st.info("💡 **Adding these details will improve accuracy for the Intelligent Fallback System**")
+
+        col3, col4 = get_columns(2)
+
+        with col3:
+            # Enclosure
+            enclosure = st.selectbox(
+                "Enclosure Type",
+                options=categorical_options['Enclosure'],
+                index=0,
+                help="Type of operator protection system. EROPS is most common."
+            )
+
+        with col4:
+            # Base Model
+            fi_base_model = st.selectbox(
+                "Base Model",
+                options=categorical_options['fiBaseModel'],
+                index=0,
+                help="Base model designation of the bulldozer."
+            )
+
+    else:  # Advanced ML Model
+        st.subheader("🔧 Detailed Specifications (Optional)")
+        st.info("💡 **More details = higher accuracy with our ML model!** All fields are optional.")
+
+        # Model ID for ML approach
         if MODELID_COMPONENT_AVAILABLE:
-            # Don't use the component since it has nested expanders
             selected_model_id = st.number_input(
                 "Model ID (Optional)",
                 min_value=1,
@@ -378,53 +409,44 @@ def interactive_prediction_body():
                 help="🔵 OPTIONAL: Unique identifier for the bulldozer model. Default value represents a common model."
             )
 
-    with col4:
-        # State (OPTIONAL)
-        state_options = ["All States"] + categorical_options['state']
-        state = st.selectbox(
-            "State (Optional)",
-            options=state_options,
-            index=0,  # Default to "All States"
-            help="🔵 OPTIONAL: State where the bulldozer is being sold. 'All States' uses average pricing across all US states."
-        )
+        # Additional ML model inputs
+        with get_expander("⚙️ Advanced Technical Specifications (Optional)", expanded=False):
+            st.info("🔵 **All technical specifications are optional.** More details = higher accuracy!")
 
-    with get_expander("⚙️ Advanced Technical Specifications (Optional)", expanded=False):
-        st.info("🔵 **All technical specifications are optional.** If you don't know these details, the system will use common defaults that work well for most bulldozers.")
+            col_tech1, col_tech2 = get_columns(2)
 
-        col_tech1, col_tech2 = get_columns(2)
+            with col_tech1:
+                # Enclosure
+                enclosure = st.selectbox(
+                    "Enclosure (Optional)",
+                    options=categorical_options['Enclosure'],
+                    index=0,
+                    help="🔵 OPTIONAL: Type of operator protection system. Default: EROPS (most common)"
+                )
 
-        with col_tech1:
-            # Enclosure
-            enclosure = st.selectbox(
-                "Enclosure (Optional)",
-                options=categorical_options['Enclosure'],
-                index=0,
-                help="🔵 OPTIONAL: Type of operator protection system. Default: EROPS (most common)"
-            )
+                # Base Model
+                fi_base_model = st.selectbox(
+                    "Base Model (Optional)",
+                    options=categorical_options['fiBaseModel'],
+                    index=0,
+                    help="🔵 OPTIONAL: Base model designation. Default: D6 (common model)"
+                )
 
-            # Base Model
-            fi_base_model = st.selectbox(
-                "Base Model (Optional)",
-                options=categorical_options['fiBaseModel'],
-                index=0,
-                help="🔵 OPTIONAL: Base model designation. Default: D6 (common model)"
-            )
+                # Coupler System
+                coupler_system = st.selectbox(
+                    "Coupler System (Optional)",
+                    options=categorical_options['Coupler_System'],
+                    index=0,
+                    help="🔵 OPTIONAL: Type of attachment coupling system. Default: None or Unspecified"
+                )
 
-            # Coupler System
-            coupler_system = st.selectbox(
-                "Coupler System (Optional)",
-                options=categorical_options['Coupler_System'],
-                index=0,
-                help="🔵 OPTIONAL: Type of attachment coupling system. Default: None or Unspecified"
-            )
-
-            # Tire Size
-            tire_size = st.selectbox(
-                "Tire Size (Optional)",
-                options=categorical_options['Tire_Size'],
-                index=0,
-                help="🔵 OPTIONAL: Tire size specification. Default: None or Unspecified"
-            )
+                # Tire Size
+                tire_size = st.selectbox(
+                    "Tire Size (Optional)",
+                    options=categorical_options['Tire_Size'],
+                    index=0,
+                    help="🔵 OPTIONAL: Tire size specification. Default: None or Unspecified"
+                )
 
         with col_tech2:
             # Hydraulics Flow
@@ -578,12 +600,44 @@ def interactive_prediction_body():
     can_predict = len(critical_errors) == 0
 
     if can_predict:
-        if st.button("🔮 Predict Price", use_container_width=True):
+        # Dynamic button text based on approach
+        if prediction_approach == "📊 Basic Statistical Estimation":
+            button_text = "� Get Basic Estimate"
+        elif prediction_approach == "🧠 Intelligent Fallback System":
+            button_text = "🧠 Get Intelligent Prediction"
+        else:
+            button_text = "🤖 Get ML Prediction"
+
+        if st.button(button_text, use_container_width=True):
             with st.spinner("Generating prediction..."):
                 try:
-                    # Prepare input data for prediction
-                    prediction_result = make_prediction(
-                        model=model,
+                    # Route to appropriate prediction method
+                    if prediction_approach == "📊 Basic Statistical Estimation":
+                        prediction_result = make_prediction_basic_statistical(
+                            year_made=selected_year_made,
+                            product_size=product_size,
+                            state=state,
+                            sale_year=2012  # Default sale year
+                        )
+                    elif prediction_approach == "🧠 Intelligent Fallback System":
+                        prediction_result = make_prediction_fallback(
+                            year_made=selected_year_made,
+                            model_id=selected_model_id or 4605,
+                            product_size=product_size,
+                            state=state,
+                            enclosure=enclosure,
+                            fi_base_model=fi_base_model,
+                            coupler_system=coupler_system,
+                            tire_size=tire_size,
+                            hydraulics_flow=hydraulics_flow,
+                            grouser_tracks=grouser_tracks,
+                            hydraulics=hydraulics,
+                            sale_year=2012,
+                            sale_day_of_year=180
+                        )
+                    else:  # ML Model approach
+                        prediction_result = make_prediction(
+                            model=model,
                         year_made=selected_year_made,
                         model_id=selected_model_id,
                         product_size=product_size,
@@ -600,7 +654,7 @@ def interactive_prediction_body():
                     )
 
                     if prediction_result['success']:
-                        display_prediction_results(prediction_result, product_size, sale_year)
+                        display_prediction_results(prediction_result, product_size, 2012, prediction_approach)
                     else:
                         st.error(f"❌ Prediction failed: {prediction_result['error']}")
                         st.info("This might be due to unusual input combinations. Try adjusting your inputs.")
@@ -655,6 +709,73 @@ def create_feature_mappings():
             'Standard': 1, '2 Valve': 2, '3 Valve': 3, '4 Valve': 4, 'Auxiliary': 5
         }
     }
+
+
+def make_prediction_basic_statistical(year_made, product_size, state, sale_year=2012):
+    """
+    Basic Statistical Prediction System
+    Simple depreciation-based estimation using minimal inputs.
+    """
+    try:
+        # Base prices by product size (2012 market values)
+        size_base_prices = {
+            'Large': 180000,
+            'Medium': 120000,
+            'Small': 80000,
+            'Compact': 60000,
+            'Mini': 40000
+        }
+
+        # Get base price
+        base_price = size_base_prices.get(product_size, 100000)
+
+        # Calculate age and depreciation
+        age = sale_year - year_made
+
+        # Simple depreciation: 10% per year for first 10 years, 5% after
+        if age <= 10:
+            depreciation_factor = (1 - 0.10) ** age
+        else:
+            depreciation_factor = (1 - 0.10) ** 10 * (1 - 0.05) ** (age - 10)
+
+        # Apply depreciation
+        depreciated_price = base_price * depreciation_factor
+
+        # State adjustments (simple regional multipliers)
+        state_multipliers = {
+            'California': 1.15, 'Texas': 1.10, 'Florida': 1.05,
+            'New York': 1.12, 'Illinois': 1.08, 'Pennsylvania': 1.06,
+            'Ohio': 1.04, 'Georgia': 1.03, 'North Carolina': 1.02,
+            'All States': 1.0
+        }
+
+        state_multiplier = state_multipliers.get(state, 1.0)
+        final_price = depreciated_price * state_multiplier
+
+        # Add some realistic variance (±5%)
+        import random
+        variance = random.uniform(0.95, 1.05)
+        final_price *= variance
+
+        return {
+            'success': True,
+            'predicted_price': final_price,
+            'confidence': 65,  # Lower confidence for basic method
+            'method': 'Basic Statistical Estimation',
+            'details': {
+                'base_price': base_price,
+                'age': age,
+                'depreciation_factor': depreciation_factor,
+                'state_multiplier': state_multiplier,
+                'accuracy_range': '60-70%'
+            }
+        }
+
+    except Exception as e:
+        return {
+            'success': False,
+            'error': f"Basic statistical prediction failed: {str(e)}"
+        }
 
 
 def make_prediction_fallback(year_made, model_id, product_size, state, enclosure,
@@ -1090,33 +1211,38 @@ def make_prediction(model, year_made, model_id, product_size, state, enclosure,
         )
 
 
-def display_prediction_results(result, product_size=None, sale_year=None):
+def display_prediction_results(result, product_size=None, sale_year=None, approach=None):
     """Display the prediction results with enhanced method-specific formatting"""
     predicted_price = result['predicted_price']
     prediction_method = result.get('method', 'unknown')
+    confidence = result.get('confidence', 75)
 
-    # Method-specific header styling
-    if prediction_method == 'model':
-        header_style = "background: linear-gradient(90deg, #e8f5e8, #c8e6c9); color: #2e7d32; border-left: 5px solid #4caf50;"
-        method_icon = "🤖"
-        method_name = "Machine Learning Model"
-    elif prediction_method == 'intelligent_fallback':
-        header_style = "background: linear-gradient(90deg, #e3f2fd, #bbdefb); color: #1976d2; border-left: 5px solid #2196f3;"
-        method_icon = "🧠"
+    # Method-specific header styling based on approach
+    if approach == "📊 Basic Statistical Estimation":
+        header_color = "#ff9800"
+        bg_color = "#fff3e0"
+        icon = "📊"
+        method_name = "Basic Statistical Estimation"
+    elif approach == "🧠 Intelligent Fallback System":
+        header_color = "#1976d2"
+        bg_color = "#e3f2fd"
+        icon = "🧠"
         method_name = "Intelligent Fallback System"
-    else:
-        header_style = "background: linear-gradient(90deg, #fff3e0, #ffe0b2); color: #f57c00; border-left: 5px solid #ff9800;"
-        method_icon = "📊"
-        method_name = "Statistical Estimation"
-
+    else:  # ML Model
+        header_color = "#2e7d32"
+        bg_color = "#e8f5e8"
+        icon = "🤖"
+        method_name = "Advanced ML Model"
     # Enhanced prediction display with method indicator
+    header_style = f"background: linear-gradient(90deg, {bg_color}, {bg_color}); color: {header_color}; border-left: 5px solid {header_color};"
+
     st.markdown(f"""
     <div style="{header_style} padding: 20px; border-radius: 10px; margin: 15px 0;">
         <h2 style="margin: 0 0 10px 0; font-size: 24px;">
-            {method_icon} Predicted Sale Price: ${predicted_price:,.2f}
+            {icon} Predicted Sale Price: ${predicted_price:,.2f}
         </h2>
         <p style="margin: 0; font-size: 14px; opacity: 0.8;">
-            Generated by: {method_name}
+            Generated by: {method_name} • Confidence: {confidence}%
         </p>
     </div>
     """, unsafe_allow_html=True)
@@ -1125,17 +1251,24 @@ def display_prediction_results(result, product_size=None, sale_year=None):
     col1, col2, col3, col4 = get_columns(4)
 
     with col1:
-        confidence_color = "🟢" if result['confidence_level'] > 0.8 else "🟡" if result['confidence_level'] > 0.65 else "🟠"
+        confidence_level = confidence / 100.0
+        confidence_color = "🟢" if confidence_level > 0.8 else "🟡" if confidence_level > 0.65 else "🟠"
         st.metric(
             f"{confidence_color} Confidence Level",
-            f"{result['confidence_level']:.0%}",
+            f"{confidence}%",
             help=f"Prediction confidence based on {method_name.lower()} analysis"
         )
 
     with col2:
-        # Format price range with shorter display and full details in help
-        lower = result['confidence_lower']
-        upper = result['confidence_upper']
+        # Format price range - handle different result formats
+        if 'confidence_lower' in result and 'confidence_upper' in result:
+            lower = result['confidence_lower']
+            upper = result['confidence_upper']
+        else:
+            # Create estimated range based on confidence
+            margin = predicted_price * (1 - confidence_level) * 0.5
+            lower = predicted_price - margin
+            upper = predicted_price + margin
 
         # Create shorter display format
         def format_price_short(price):
