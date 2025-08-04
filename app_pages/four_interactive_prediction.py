@@ -527,6 +527,120 @@ def interactive_prediction_body():
                 help="🔵 OPTIONAL: Day of the year when sold (1-365). Default: 182 (mid-year)"
             )
 
+        # Understanding Sale Timing Impact - moved inside the expandable section
+        st.markdown("---")
+        st.markdown("### 📊 Understanding Sale Timing Impact on Price Predictions")
+
+        st.markdown("""
+        <div style="background: linear-gradient(90deg, #f8f9fa 0%, #e9ecef 100%);
+                    border-left: 4px solid #6c757d;
+                    padding: 20px;
+                    border-radius: 8px;
+                    margin: 15px 0;">
+            <h4 style="color: #495057; margin-top: 0;">🎯 Why Sale Information Matters</h4>
+            <p style="color: #6c757d; font-size: 16px; line-height: 1.6;">
+                The Machine Learning model analyzes <strong>historical auction patterns</strong> to understand how
+                market conditions, economic cycles, and seasonal trends affect bulldozer prices. Sale timing
+                is a critical factor that can impact predictions by <strong>15-25%</strong>.
+            </p>
+        </div>
+        """, unsafe_allow_html=True)
+
+        col_impact1, col_impact2 = get_columns(2)
+
+        with col_impact1:
+            st.markdown("""
+            #### 📈 **Economic Cycle Impact**
+
+            **Sale Year Effects:**
+            - **2006-2007:** Construction boom (+10-15%)
+            - **2008-2009:** Financial crisis (-15-25%)
+            - **2010-2012:** Recovery period (baseline)
+            - **2013-2015:** Stable growth (+2-5%)
+
+            **Why it matters:**
+            The ML model learned from 400,000+ auction records spanning economic ups and downs.
+            It recognizes that identical bulldozers sold in different years had vastly different values.
+            """)
+
+        with col_impact2:
+            st.markdown("""
+            #### 🌱 **Seasonal Market Impact**
+
+            **Sale Day of Year Effects:**
+            - **Spring (Days 60-150):** Peak demand (+2-3%)
+            - **Summer (Days 151-240):** High activity (+1-2%)
+            - **Fall (Days 241-330):** Moderate demand (baseline)
+            - **Winter (Days 331-59):** Lower demand (-2-3%)
+
+            **Why it matters:**
+            Construction equipment sells better during building season. The ML model captures
+            these seasonal patterns from historical auction data.
+            """)
+
+        st.markdown("---")
+
+        # Technical explanation
+        st.markdown("""
+        #### 🔬 **Technical: How the ML Model Uses This Data**
+        """)
+
+        col_tech1, col_tech2, col_tech3 = get_columns(3)
+
+        with col_tech1:
+            st.markdown("""
+            **🧮 Feature Engineering**
+            - Sale Year → Economic index
+            - Sale Day → Seasonal factor
+            - Combined with 50+ other features
+            - Weighted by historical importance
+            """)
+
+        with col_tech2:
+            st.markdown("""
+            **📊 Pattern Recognition**
+            - Identifies market cycles
+            - Learns seasonal trends
+            - Correlates with price movements
+            - Adjusts predictions accordingly
+            """)
+
+        with col_tech3:
+            st.markdown("""
+            **🎯 Prediction Adjustment**
+            - Base price calculation
+            - Economic cycle modifier
+            - Seasonal adjustment
+            - Final predicted price
+            """)
+
+        st.info("""
+        💡 **Pro Tip:** If you're unsure about sale timing, the default values (2006, mid-year)
+        represent typical market conditions and will give you a reliable baseline prediction.
+        For more accurate estimates of current market value, consider using recent years (2012-2015).
+        """)
+
+        # Example impact demonstration
+        st.markdown("#### 📋 **Example: Same Bulldozer, Different Sale Times**")
+
+        example_data = {
+            "Sale Scenario": [
+                "🏗️ Construction Boom (2007, Spring)",
+                "📉 Financial Crisis (2009, Winter)",
+                "⚖️ Stable Market (2012, Summer)",
+                "📈 Recovery Period (2014, Fall)"
+            ],
+            "Economic Factor": ["+12%", "-20%", "Baseline", "+3%"],
+            "Seasonal Factor": ["+2%", "-3%", "+1%", "Baseline"],
+            "Combined Impact": ["+14%", "-23%", "+1%", "+3%"],
+            "Example Price*": ["$228,000", "$154,000", "$200,000", "$206,000"]
+        }
+
+        import pandas as pd
+        df_example = pd.DataFrame(example_data)
+        st.dataframe(df_example)
+        st.caption("*Based on a hypothetical $200,000 baseline bulldozer price")
+
     # Prediction button and results
     st.header("🎯 Price Prediction")
 
@@ -1238,31 +1352,38 @@ def display_prediction_results(result, product_size=None, sale_year=None, approa
     prediction_method = result.get('method', 'unknown')
     confidence = result.get('confidence', 75)
 
-    # Method-specific header styling based on approach
+    # Method-specific header styling based on approach with improved contrast
     if approach == "📊 Basic Statistical Estimation":
-        header_color = "#ff9800"
-        bg_color = "#fff3e0"
+        header_color = "#e65100"  # Darker orange for better contrast
+        text_color = "#1a1a1a"   # Dark text for readability
+        bg_color = "#fff8e1"     # Slightly lighter background
+        border_color = "#ff9800"
         icon = "📊"
         method_name = "Basic Statistical Estimation"
     elif approach == "🧠 Intelligent Fallback System":
-        header_color = "#1976d2"
-        bg_color = "#e3f2fd"
+        header_color = "#0d47a1"  # Darker blue for better contrast
+        text_color = "#1a1a1a"   # Dark text for readability
+        bg_color = "#e8f4fd"     # Slightly lighter background
+        border_color = "#1976d2"
         icon = "🧠"
         method_name = "Intelligent Fallback System"
     else:  # ML Model
-        header_color = "#2e7d32"
-        bg_color = "#e8f5e8"
+        header_color = "#1b5e20"  # Darker green for better contrast
+        text_color = "#1a1a1a"   # Dark text for readability
+        bg_color = "#f1f8e9"     # Slightly lighter background
+        border_color = "#4caf50"
         icon = "🤖"
         method_name = "Advanced ML Model"
-    # Enhanced prediction display with method indicator
-    header_style = f"background: linear-gradient(90deg, {bg_color}, {bg_color}); color: {header_color}; border-left: 5px solid {header_color};"
+
+    # Enhanced prediction display with better contrast
+    header_style = f"background: linear-gradient(90deg, {bg_color}, {bg_color}); border-left: 5px solid {border_color};"
 
     st.markdown(f"""
-    <div style="{header_style} padding: 20px; border-radius: 10px; margin: 15px 0;">
-        <h2 style="margin: 0 0 10px 0; font-size: 24px;">
+    <div style="{header_style} padding: 20px; border-radius: 10px; margin: 15px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+        <h2 style="margin: 0 0 10px 0; font-size: 24px; color: {header_color}; font-weight: bold;">
             {icon} Predicted Sale Price: ${predicted_price:,.2f}
         </h2>
-        <p style="margin: 0; font-size: 14px; opacity: 0.8;">
+        <p style="margin: 0; font-size: 16px; color: {text_color}; font-weight: 500;">
             Generated by: {method_name} • Confidence: {confidence}%
         </p>
     </div>

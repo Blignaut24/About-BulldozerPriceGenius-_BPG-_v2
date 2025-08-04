@@ -217,6 +217,38 @@ def has_feature(feature_name):
     return hasattr(st, feature_name)
 
 
+def get_dataframe(data, width=None, height=None):
+    """
+    Get the appropriate dataframe function based on Streamlit version
+
+    Args:
+        data: DataFrame or data to display
+        width: Width parameter (ignored in older versions)
+        height: Height parameter (ignored in older versions)
+
+    Returns:
+        Displayed dataframe
+    """
+    # Check if use_container_width is supported
+    try:
+        # Try with use_container_width first
+        if width == 'container' and hasattr(st.dataframe, '__code__'):
+            # Check if use_container_width parameter exists
+            import inspect
+            sig = inspect.signature(st.dataframe)
+            if 'use_container_width' in sig.parameters:
+                return st.dataframe(data, use_container_width=True)
+    except:
+        pass
+
+    # Fallback to basic dataframe without width parameter
+    dataframe_args = {'data': data}
+    if height is not None:
+        dataframe_args['height'] = height
+
+    return st.dataframe(**dataframe_args)
+
+
 def get_compatibility_info():
     """Get information about Streamlit compatibility"""
     return {
