@@ -385,28 +385,81 @@ def interactive_prediction_body():
         st.success("You've provided all the information needed for a basic statistical estimate.")
 
     elif prediction_approach == "🧠 Intelligent Fallback System":
-        st.subheader("🔧 Additional Information (Recommended)")
-        st.info("💡 **Adding these details will improve accuracy for the Intelligent Fallback System**")
+        st.subheader("🔧 Detailed Specifications (Optional)")
+        st.info("💡 **More details = higher accuracy with the Intelligent Fallback System!** All fields are optional.")
 
-        col3, col4 = get_columns(2)
+        # Model ID for Fallback approach
+        selected_model_id = st.number_input(
+            "Model ID (Optional)",
+            min_value=1,
+            max_value=100000,
+            value=4605,
+            help="🔵 OPTIONAL: Unique identifier for the bulldozer model. Default value represents a common model."
+        )
 
-        with col3:
-            # Enclosure
-            enclosure = st.selectbox(
-                "Enclosure Type",
-                options=categorical_options['Enclosure'],
-                index=0,
-                help="Type of operator protection system. EROPS is most common."
-            )
+        # Additional Fallback system inputs
+        with get_expander("⚙️ Advanced Technical Specifications (Optional)", expanded=False):
+            st.info("🔵 **All technical specifications are optional.** More details = higher accuracy!")
 
-        with col4:
-            # Base Model
-            fi_base_model = st.selectbox(
-                "Base Model",
-                options=categorical_options['fiBaseModel'],
-                index=0,
-                help="Base model designation of the bulldozer."
-            )
+            col_tech1, col_tech2 = get_columns(2)
+
+            with col_tech1:
+                # Enclosure
+                enclosure = st.selectbox(
+                    "Enclosure (Optional)",
+                    options=categorical_options['Enclosure'],
+                    index=0,
+                    help="🔵 OPTIONAL: Type of operator protection system. Default: EROPS (most common)"
+                )
+
+                # Base Model
+                fi_base_model = st.selectbox(
+                    "Base Model (Optional)",
+                    options=categorical_options['fiBaseModel'],
+                    index=0,
+                    help="🔵 OPTIONAL: Base model designation. Default: D6 (common model)"
+                )
+
+                # Coupler System
+                coupler_system = st.selectbox(
+                    "Coupler System (Optional)",
+                    options=categorical_options['Coupler_System'],
+                    index=0,
+                    help="🔵 OPTIONAL: Type of attachment coupling system. Default: None or Unspecified"
+                )
+
+                # Tire Size
+                tire_size = st.selectbox(
+                    "Tire Size (Optional)",
+                    options=categorical_options['Tire_Size'],
+                    index=0,
+                    help="🔵 OPTIONAL: Tire size specification. Default: None or Unspecified"
+                )
+
+            with col_tech2:
+                # Hydraulics Flow
+                hydraulics_flow = st.selectbox(
+                    "Hydraulics Flow (Optional)",
+                    options=categorical_options['Hydraulics_Flow'],
+                    index=0,
+                    help="🔵 OPTIONAL: Hydraulic flow capacity. Default: Standard"
+                )
+
+                # Grouser Tracks
+                grouser_tracks = st.selectbox(
+                    "Grouser Tracks (Optional)",
+                    options=categorical_options['Grouser_Tracks'],
+                    index=0,
+                    help="🔵 OPTIONAL: Track grouser configuration. Default: None or Unspecified"
+                )
+
+                # Hydraulics
+                hydraulics = st.selectbox(
+                    "Hydraulics (Optional)",
+                    options=categorical_options['Hydraulics'],
+                    index=0,
+                    help="🔵 OPTIONAL: Hydraulic system configuration. Default: Standard"
+                )
 
     else:  # Advanced ML Model
         st.subheader("🔧 Detailed Specifications (Optional)")
