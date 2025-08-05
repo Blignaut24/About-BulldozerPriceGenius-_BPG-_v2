@@ -114,18 +114,12 @@ def interactive_prediction_body():
     Choose the approach that best fits your needs and data availability.
     """)
 
-    # Prediction approach selection
-    st.header("🎯 Choose Your Prediction Approach")
+    # Prediction approach - ML Model only
+    st.header("🎯 Advanced ML Model Prediction")
+    st.info("🤖 **Using our most accurate machine learning model** for bulldozer price predictions with 85-90% confidence levels.")
 
-    prediction_approach = st.radio(
-        "Select the prediction method you'd like to use:",
-        options=[
-            "🤖 Advanced ML Model (Recommended)",
-            "🧠 Intelligent Fallback System",
-            "📊 Basic Statistical Estimation"
-        ],
-        help="Each approach has different accuracy levels and input requirements"
-    )
+    # Set prediction approach to ML Model (no user selection needed)
+    prediction_approach = "🤖 Advanced ML Model (Recommended)"
 
     # Display approach descriptions
     if prediction_approach == "🤖 Advanced ML Model (Recommended)":
@@ -149,47 +143,7 @@ def interactive_prediction_body():
         </div>
         """, unsafe_allow_html=True)
 
-    elif prediction_approach == "🧠 Intelligent Fallback System":
-        st.markdown("""
-        <div style="
-            background: linear-gradient(90deg, #e3f2fd 0%, #bbdefb 100%);
-            border-left: 5px solid #1976d2;
-            padding: 15px;
-            border-radius: 8px;
-            margin: 10px 0;
-        ">
-            <h4 style="color: #1976d2; margin: 0 0 10px 0;">
-                🧠 Intelligent Fallback System
-            </h4>
-            <p style="margin: 0; color: #424242;">
-                <strong>Accuracy:</strong> 70-80% (Professional grade estimation)<br>
-                <strong>Method:</strong> Multi-factor analysis with market data and depreciation curves<br>
-                <strong>Features:</strong> Regional adjustments, manufacturer scoring, economic factors<br>
-                <strong>Best For:</strong> Reliable estimates when ML model is unavailable or you have limited data
-            </p>
-        </div>
-        """, unsafe_allow_html=True)
 
-    else:  # Basic Statistical
-        st.markdown("""
-        <div style="
-            background: linear-gradient(90deg, #fff3e0 0%, #ffe0b2 100%);
-            border-left: 5px solid #ff9800;
-            padding: 15px;
-            border-radius: 8px;
-            margin: 10px 0;
-        ">
-            <h4 style="color: #f57c00; margin: 0 0 10px 0;">
-                📊 Basic Statistical Estimation
-            </h4>
-            <p style="margin: 0; color: #424242;">
-                <strong>Accuracy:</strong> 60-70% (Good for quick estimates)<br>
-                <strong>Method:</strong> Simple depreciation curves and size-based pricing<br>
-                <strong>Requirements:</strong> Minimal inputs (Year, Size, State)<br>
-                <strong>Best For:</strong> Quick ballpark estimates when you only know basic information
-            </p>
-        </div>
-        """, unsafe_allow_html=True)
 
     @st.cache(allow_output_mutation=True)
     def load_trained_model():
@@ -295,16 +249,9 @@ def interactive_prediction_body():
     # Create input form based on selected approach
     st.header("📝 Enter Bulldozer Information")
 
-    # Show different input requirements based on approach
-    if prediction_approach == "📊 Basic Statistical Estimation":
-        st.info("💡 **Minimal inputs required** - Just 3 basic pieces of information for a quick estimate!")
-        required_inputs = ["Year Made", "Product Size", "State"]
-    elif prediction_approach == "🧠 Intelligent Fallback System":
-        st.info("💡 **Moderate inputs recommended** - A few more details will improve accuracy significantly!")
-        required_inputs = ["Year Made", "Product Size", "State", "Enclosure", "Base Model"]
-    else:  # ML Model
-        st.info("💡 **Detailed inputs available** - More information = higher accuracy with our ML model!")
-        required_inputs = ["Year Made", "Model ID", "Product Size", "State", "Enclosure", "Base Model"]
+    # Show input requirements for ML Model
+    st.info("💡 **Detailed inputs available** - More information = higher accuracy with our ML model!")
+    required_inputs = ["Year Made", "Model ID", "Product Size", "State", "Enclosure", "Base Model"]
 
     # Help section for users who don't know what to select
     with get_expander("❓ Don't know what to select? Click here for help!", expanded=False):
@@ -370,25 +317,21 @@ def interactive_prediction_body():
         help="🔴 REQUIRED: State where the bulldozer is being sold. Affects regional pricing."
     )
 
-    # Conditional inputs based on prediction approach
-    selected_model_id = None
-    enclosure = "EROPS"
-    fi_base_model = "D6"
-    coupler_system = "None or Unspecified"
-    tire_size = "None or Unspecified"
-    hydraulics_flow = "Standard"
-    grouser_tracks = "None or Unspecified"
-    hydraulics = "2 Valve"
+    # ML Model inputs - simplified to single approach
+    st.header("� Enter Bulldozer Information")
+    st.subheader("🔧 Detailed Specifications (Optional)")
+    st.info("💡 **More details = higher accuracy with our ML model!** All fields are optional.")
 
-    if prediction_approach == "📊 Basic Statistical Estimation":
-        st.subheader("✅ Ready for Basic Estimation!")
-        st.success("You've provided all the information needed for a basic statistical estimate.")
-
-    elif prediction_approach == "🧠 Intelligent Fallback System":
-        st.subheader("🔧 Detailed Specifications (Optional)")
-        st.info("💡 **More details = higher accuracy with the Intelligent Fallback System!** All fields are optional.")
-
-        # Model ID for Fallback approach
+    # Model ID for ML approach
+    if MODELID_COMPONENT_AVAILABLE:
+        selected_model_id = st.number_input(
+            "Model ID (Optional)",
+            min_value=1,
+            max_value=100000,
+            value=4605,
+            help="🔵 OPTIONAL: Unique identifier for the bulldozer model. Default value represents a common model."
+        )
+    else:
         selected_model_id = st.number_input(
             "Model ID (Optional)",
             min_value=1,
@@ -397,99 +340,13 @@ def interactive_prediction_body():
             help="🔵 OPTIONAL: Unique identifier for the bulldozer model. Default value represents a common model."
         )
 
-        # Additional Fallback system inputs
-        with get_expander("⚙️ Advanced Technical Specifications (Optional)", expanded=False):
-            st.info("🔵 **All technical specifications are optional.** More details = higher accuracy!")
+    # Additional ML model inputs
+    with get_expander("⚙️ Advanced Technical Specifications (Optional)", expanded=False):
+        st.info("🔵 **All technical specifications are optional.** More details = higher accuracy!")
 
-            col_tech1, col_tech2 = get_columns(2)
+        col_tech1, col_tech2 = get_columns(2)
 
-            with col_tech1:
-                # Enclosure
-                enclosure = st.selectbox(
-                    "Enclosure (Optional)",
-                    options=categorical_options['Enclosure'],
-                    index=0,
-                    help="🔵 OPTIONAL: Type of operator protection system. Default: EROPS (most common)"
-                )
-
-                # Base Model
-                fi_base_model = st.selectbox(
-                    "Base Model (Optional)",
-                    options=categorical_options['fiBaseModel'],
-                    index=0,
-                    help="🔵 OPTIONAL: Base model designation. Default: D6 (common model)"
-                )
-
-                # Coupler System
-                coupler_system = st.selectbox(
-                    "Coupler System (Optional)",
-                    options=categorical_options['Coupler_System'],
-                    index=0,
-                    help="🔵 OPTIONAL: Type of attachment coupling system. Default: None or Unspecified"
-                )
-
-                # Tire Size
-                tire_size = st.selectbox(
-                    "Tire Size (Optional)",
-                    options=categorical_options['Tire_Size'],
-                    index=0,
-                    help="🔵 OPTIONAL: Tire size specification. Default: None or Unspecified"
-                )
-
-            with col_tech2:
-                # Hydraulics Flow
-                hydraulics_flow = st.selectbox(
-                    "Hydraulics Flow (Optional)",
-                    options=categorical_options['Hydraulics_Flow'],
-                    index=0,
-                    help="🔵 OPTIONAL: Hydraulic flow capacity. Default: Standard"
-                )
-
-                # Grouser Tracks
-                grouser_tracks = st.selectbox(
-                    "Grouser Tracks (Optional)",
-                    options=categorical_options['Grouser_Tracks'],
-                    index=0,
-                    help="🔵 OPTIONAL: Track grouser configuration. Default: None or Unspecified"
-                )
-
-                # Hydraulics
-                hydraulics = st.selectbox(
-                    "Hydraulics (Optional)",
-                    options=categorical_options['Hydraulics'],
-                    index=0,
-                    help="🔵 OPTIONAL: Hydraulic system configuration. Default: Standard"
-                )
-
-    else:  # Advanced ML Model
-        st.subheader("🔧 Detailed Specifications (Optional)")
-        st.info("💡 **More details = higher accuracy with our ML model!** All fields are optional.")
-
-        # Model ID for ML approach
-        if MODELID_COMPONENT_AVAILABLE:
-            selected_model_id = st.number_input(
-                "Model ID (Optional)",
-                min_value=1,
-                max_value=100000,
-                value=4605,
-                help="🔵 OPTIONAL: Unique identifier for the bulldozer model. Default value represents a common model."
-            )
-        else:
-            selected_model_id = st.number_input(
-                "Model ID (Optional)",
-                min_value=1,
-                max_value=100000,
-                value=4605,
-                help="🔵 OPTIONAL: Unique identifier for the bulldozer model. Default value represents a common model."
-            )
-
-        # Additional ML model inputs
-        with get_expander("⚙️ Advanced Technical Specifications (Optional)", expanded=False):
-            st.info("🔵 **All technical specifications are optional.** More details = higher accuracy!")
-
-            col_tech1, col_tech2 = get_columns(2)
-
-            with col_tech1:
+        with col_tech1:
                 # Enclosure
                 enclosure = st.selectbox(
                     "Enclosure (Optional)",
@@ -788,44 +645,28 @@ def interactive_prediction_body():
     can_predict = len(critical_errors) == 0
 
     if can_predict:
-        # Dynamic button text based on approach
-        if prediction_approach == "📊 Basic Statistical Estimation":
-            button_text = "� Get Basic Estimate"
-        elif prediction_approach == "🧠 Intelligent Fallback System":
-            button_text = "🧠 Get Intelligent Prediction"
-        else:
-            button_text = "🤖 Get ML Prediction"
+        # ML Model prediction button
+        button_text = "🤖 Get ML Prediction"
 
         if st.button(button_text):
-            with st.spinner("Generating prediction..."):
+            with st.spinner("Generating ML prediction..."):
                 try:
-                    # Route to appropriate prediction method
-                    if prediction_approach == "📊 Basic Statistical Estimation":
-                        prediction_result = make_prediction_basic_statistical(
-                            year_made=selected_year_made,
-                            product_size=product_size,
-                            state=state,
-                            sale_year=2012  # Default sale year
-                        )
-                    elif prediction_approach == "🧠 Intelligent Fallback System":
-                        prediction_result = make_prediction_fallback(
-                            year_made=selected_year_made,
-                            model_id=selected_model_id or 4605,
-                            product_size=product_size,
-                            state=state,
-                            enclosure=enclosure,
-                            fi_base_model=fi_base_model,
-                            coupler_system=coupler_system,
-                            tire_size=tire_size,
-                            hydraulics_flow=hydraulics_flow,
-                            grouser_tracks=grouser_tracks,
-                            hydraulics=hydraulics,
-                            sale_year=2012,
-                            sale_day_of_year=180
-                        )
-                    else:  # ML Model approach
-                        prediction_result = make_prediction(
-                            model=model,
+                    # Check if model is available
+                    if model is None:
+                        st.error("❌ **ML Model Unavailable**")
+                        st.error("The machine learning model could not be loaded. This may be due to:")
+                        st.error("• Model file not found or corrupted")
+                        st.error("• Insufficient system resources")
+                        st.error("• Network connectivity issues")
+                        st.info("💡 **What you can do:**")
+                        st.info("• Refresh the page and try again")
+                        st.info("• Check your internet connection")
+                        st.info("• Contact support if the problem persists")
+                        return
+
+                    # Use ML Model approach only
+                    prediction_result = make_prediction(
+                        model=model,
                         year_made=selected_year_made,
                         model_id=selected_model_id,
                         product_size=product_size,
@@ -842,14 +683,26 @@ def interactive_prediction_body():
                     )
 
                     if prediction_result['success']:
-                        display_prediction_results(prediction_result, product_size, 2012, prediction_approach)
+                        display_prediction_results(prediction_result, product_size, sale_year, prediction_approach)
                     else:
-                        st.error(f"❌ Prediction failed: {prediction_result['error']}")
-                        st.info("This might be due to unusual input combinations. Try adjusting your inputs.")
+                        st.error(f"❌ **ML Prediction Failed**")
+                        st.error(f"Error details: {prediction_result['error']}")
+                        st.info("💡 **Possible causes:**")
+                        st.info("• Invalid input data combination")
+                        st.info("• Model processing error")
+                        st.info("• Data preprocessing issue")
+                        st.info("💡 **What you can do:**")
+                        st.info("• Check your input values for accuracy")
+                        st.info("• Try different input combinations")
+                        st.info("• Refresh the page and try again")
 
                 except Exception as e:
-                    st.error(f"❌ An error occurred during prediction: {str(e)}")
-                    st.info("Please check your inputs and try again. If the problem persists, contact support.")
+                    st.error(f"❌ **System Error During Prediction**")
+                    st.error(f"Technical details: {str(e)}")
+                    st.info("💡 **What you can do:**")
+                    st.info("• Refresh the page and try again")
+                    st.info("• Check your input values")
+                    st.info("• Contact support if the problem persists")
 
 
 def create_feature_mappings():
