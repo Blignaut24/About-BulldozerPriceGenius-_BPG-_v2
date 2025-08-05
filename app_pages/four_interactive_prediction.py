@@ -1350,7 +1350,18 @@ def display_prediction_results(result, product_size=None, sale_year=None, approa
     """Display the prediction results with enhanced method-specific formatting"""
     predicted_price = result['predicted_price']
     prediction_method = result.get('method', 'unknown')
-    confidence = result.get('confidence', 75)
+
+    # Extract confidence correctly from different result formats
+    if 'confidence_level' in result:
+        # ML model and fallback system use confidence_level (as decimal)
+        confidence_decimal = result['confidence_level']
+        confidence = int(confidence_decimal * 100) if confidence_decimal <= 1.0 else int(confidence_decimal)
+    elif 'confidence' in result:
+        # Basic statistical uses confidence (as integer percentage)
+        confidence = result['confidence']
+    else:
+        # Fallback default
+        confidence = 75
 
     # Method-specific header styling based on approach with improved contrast
     if approach == "📊 Basic Statistical Estimation":
