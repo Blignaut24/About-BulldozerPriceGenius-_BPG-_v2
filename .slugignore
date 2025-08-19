@@ -90,11 +90,8 @@ __pycache__/
 *.so
 
 # Model files (EXTERNAL STORAGE: Large model stored on Google Drive)
-*.pkl
-# EXCLUDE large model file - now loaded from Google Drive
+# EXCLUDE only the large model file - now loaded from Google Drive
 src/models/randomforest_regressor_best_RMSLE.pkl
-# INCLUDE small preprocessing components file
-!src/models/preprocessing_components.pkl
 
 # Large data files
 *.csv
