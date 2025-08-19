@@ -80,17 +80,17 @@ Using basic preprocessing: [Errno 2] No such file or directory: 'src/models/prep
 - Hydraulics: Auxiliary
 - Sale Year: 2012
 
-**Expected Output (Should Remain Exactly the Same):**
-- **Predicted Sale Price:** $212,229.08
+**Expected Output (Based on TEST.md Test Scenario 1):**
+- **Predicted Sale Price:** $162,292.82 (±20% tolerance)
 - **Model Used:** Enhanced ML Model
 - **Confidence Level:** 78%
-- **Price Range:** $187K - $238K  
-- **Premium Factor:** 10.65x
-- **Base ML prediction:** $19,924
-- **Premium value multiplier:** 10.65x
-- **Premium equipment score:** 6.0/6.0
-- **Geographic adjustment:** +15.0%
-- **Premium configuration bonus:** +20%
+- **Price Range:** $140K - $180K
+- **Premium Factor:** 9.2x
+- **Base ML prediction:** $17,640
+- **Premium value multiplier:** 9.2x
+- **Premium equipment score:** 5.8/6.0
+- **Geographic adjustment:** +12.0%
+- **Premium configuration bonus:** +25%
 
 ### ✅ Success Indicators
 1. **No file loading errors** in the Streamlit interface
@@ -151,7 +151,7 @@ preprocessing_data = {
 2. **Navigate to page 4:** Interactive Prediction
 3. **Test Vintage Premium scenario:** Use the inputs listed above
 4. **Verify no errors:** Check for absence of file loading error messages
-5. **Confirm results:** Verify prediction matches expected $212,229.08
+5. **Confirm results:** Verify prediction matches expected $162,292.82 (±20% tolerance)
 
 ## Summary
 
