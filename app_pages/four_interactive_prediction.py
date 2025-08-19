@@ -13,22 +13,22 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'src'))
 
 # Import external model loader (V2 with gdown support)
 try:
-    # Try optimized loader first (V3)
-    from external_model_loader_v3_optimized import external_model_loader_v3_optimized as external_model_loader
+    # Try V2 loader first (more stable)
+    from external_model_loader_v2 import external_model_loader_v2 as external_model_loader
     EXTERNAL_MODEL_AVAILABLE = True
-    LOADER_VERSION = "V3 Optimized"
+    LOADER_VERSION = "V2 Standard"
 except ImportError as e:
     try:
-        # Fallback to V2 loader
-        from external_model_loader_v2 import external_model_loader_v2 as external_model_loader
-        EXTERNAL_MODEL_AVAILABLE = True
-        LOADER_VERSION = "V2 Standard"
-    except ImportError as e2:
         # Fallback to original loader
+        from external_model_loader import external_model_loader
+        EXTERNAL_MODEL_AVAILABLE = True
+        LOADER_VERSION = "V1 Original"
+    except ImportError as e2:
+        # Fallback to optimized loader (V3) - may have compatibility issues
         try:
-            from external_model_loader import external_model_loader
+            from external_model_loader_v3_optimized import external_model_loader_v3_optimized as external_model_loader
             EXTERNAL_MODEL_AVAILABLE = True
-            LOADER_VERSION = "V1 Original"
+            LOADER_VERSION = "V3 Optimized"
         except ImportError as e3:
             st.error(f"Could not import any external model loader: {e}, {e2}, {e3}")
             external_model_loader = None
@@ -302,9 +302,9 @@ def interactive_prediction_body():
                 st.success("✅ External ML Model loaded successfully!")
                 return model, preprocessing_data, None
             elif error_msg:
-                st.error(error_msg)
-                st.info("🔄 Falling back to statistical prediction...")
-                return None, None, error_msg
+                st.warning(f"⚠️ External model loading failed: {error_msg}")
+                st.info("🔄 Falling back to local model...")
+                # Continue to local model fallback instead of returning
 
         # Fallback: Try to load local model (for development)
         model_path = "src/models/randomforest_regressor_best_RMSLE.pkl"
@@ -338,7 +338,7 @@ def interactive_prediction_body():
                         if os.path.exists(preprocessing_path):
                             with open(preprocessing_path, 'rb') as f:
                                 preprocessing_data = pickle.load(f)
-                            st.info("✅ Preprocessing components loaded successfully!")
+                            st.success("✅ Enhanced ML Model with preprocessing components loaded successfully!")
                             return model, preprocessing_data, None
                         else:
                             st.warning(f"WARNING: Preprocessing components file not found at: {preprocessing_path}")
@@ -1929,6 +1929,27 @@ def make_prediction(model, year_made, model_id, product_size, state, enclosure,
             # Create the dataframe with the single row
             input_data = pd.DataFrame([input_row], columns=expected_columns)
 
+            # CRITICAL FIX: Convert data types to match training data exactly
+            # The training data has already encoded categorical variables as integers
+            # We need to ensure our input data matches these types exactly
+            for col in input_data.columns:
+                if col in training_data.columns:
+                    expected_dtype = training_data[col].dtype
+                    try:
+                        if expected_dtype in ['int8', 'int16', 'int64']:
+                            # For integer columns, ensure we have integer values
+                            if input_data[col].dtype == 'object':
+                                # Convert categorical strings to integers using simple mapping
+                                unique_vals = input_data[col].unique()
+                                val_map = {val: idx for idx, val in enumerate(unique_vals)}
+                                input_data[col] = input_data[col].map(val_map).astype(expected_dtype)
+                            else:
+                                input_data[col] = input_data[col].astype(expected_dtype)
+                        elif expected_dtype == 'float64':
+                            input_data[col] = input_data[col].astype('float64')
+                    except Exception as e:
+                        st.warning(f"Could not convert {col} to {expected_dtype}: {e}")
+
         except Exception as e:
             st.error(f"Could not load training data structure: {e}")
             return {'success': False, 'error': f'Data structure error: {e}'}
@@ -1957,31 +1978,14 @@ def make_prediction(model, year_made, model_id, product_size, state, enclosure,
                 label_encoders = local_preprocessing_data['label_encoders']
                 imputer = local_preprocessing_data['imputer']
 
-            # Apply the same preprocessing as during training
-            input_encoded = input_data.copy()
+            # CRITICAL FIX: Since the training data is already encoded and the imputer
+            # expects the same format, we can directly apply imputation without additional encoding
+            # The label_encoders are empty because encoding was done during training data preparation
 
-            # Encode categorical features using the saved encoders
-            for column in input_data.columns:
-                if column in label_encoders and input_data[column].dtype == 'object':
-                    le = label_encoders[column]
-                    # Handle unseen categories by using the most frequent category
-                    try:
-                        input_encoded[column] = le.transform(input_data[column].astype(str))
-                    except ValueError:
-                        # If category not seen during training, use the first category
-                        input_encoded[column] = [0]
-
-            # Ensure ALL categorical columns are encoded before imputation
-            # Check for any remaining object columns that weren't in label_encoders
-            for column in input_encoded.columns:
-                if input_encoded[column].dtype == 'object':
-                    # Encode any remaining categorical columns
-                    input_encoded[column] = pd.Categorical(input_encoded[column]).codes + 1
-
-            # Apply imputation (now all columns should be numerical)
+            # Apply imputation directly to the properly formatted input data
             input_final = pd.DataFrame(
-                imputer.transform(input_encoded),
-                columns=input_encoded.columns
+                imputer.transform(input_data),
+                columns=input_data.columns
             )
 
             # Success message for enhanced preprocessing

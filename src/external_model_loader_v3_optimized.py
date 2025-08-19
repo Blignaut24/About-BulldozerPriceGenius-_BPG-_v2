@@ -129,11 +129,22 @@ class ExternalModelLoaderV3Optimized:
                 st.error(f"❌ Model loading error: {e}")
                 return None
     
-    @st.cache_resource
+    def _get_cache_decorator(self):
+        """Get the appropriate caching decorator based on Streamlit version"""
+        if hasattr(st, 'cache_resource'):
+            return st.cache_resource
+        elif hasattr(st, 'cache'):
+            return st.cache(allow_output_mutation=True)
+        else:
+            # No caching available
+            def no_cache(func):
+                return func
+            return no_cache
+
     def load_model_from_google_drive(_self) -> Tuple[Optional[Any], Optional[dict], Optional[str]]:
         """
         Download and cache the ML model from Google Drive with performance optimizations.
-        
+
         Returns:
             Tuple of (model, preprocessing_data, error_message)
         """
@@ -305,5 +316,13 @@ class ExternalModelLoaderV3Optimized:
             st.error(f"Error clearing cache: {e}")
 
 
+# Apply caching decorator dynamically based on Streamlit version
+def _apply_cache_decorator():
+    """Apply the appropriate caching decorator to the load method"""
+    loader_instance = ExternalModelLoaderV3Optimized()
+    cache_decorator = loader_instance._get_cache_decorator()
+    loader_instance.load_model_from_google_drive = cache_decorator(loader_instance.load_model_from_google_drive)
+    return loader_instance
+
 # Global instance for easy access
-external_model_loader_v3_optimized = ExternalModelLoaderV3Optimized()
+external_model_loader_v3_optimized = _apply_cache_decorator()
