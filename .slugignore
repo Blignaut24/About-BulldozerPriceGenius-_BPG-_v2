@@ -1,0 +1,159 @@
+# .slugignore file - Optimize Heroku deployment by excluding unnecessary files
+# SECURITY: This file prevents sensitive and unnecessary files from being deployed to Heroku
+
+# Sensitive files and credentials (SECURITY CRITICAL)
+*.env
+.env*
+secrets.toml
+kaggle.json
+cloudinary_python.txt
+env.py
+*.key
+*.pem
+*.p12
+*.pfx
+config.ini
+credentials.json
+
+# Development and testing files
+# CRITICAL: Exclude specific files but KEEP requirements.txt and README.md
+local_requirements.txt
+test_*.py
+*_test.py
+tests/
+jupyter_notebooks/
+examples/
+
+# Documentation files (exclude specific ones, keep essential)
+CONTAINER_COMPATIBILITY_FIX.md
+DATAFRAME_COMPATIBILITY_FIX.md
+ENHANCED_ML_MODEL_FIXES_COMPLETE.md
+EQUIPMENT_AGE_CALCULATION_FIX.md
+ERROR_EXPLANATION_AND_FIX.md
+ERROR_FIXES_SUMMARY.md
+FINAL_REFINEMENTS_COMPLETE.md
+HEROKU_DEPLOYMENT_GUIDE.md
+KEY_TAKEAWAY_STYLING_IMPROVEMENTS.md
+ML_MODEL_ACCURACY_FIX_COMPLETE.md
+ML_MODEL_RESOLUTION.md
+ML_MODEL_STARTUP_GUIDE.md
+ML_MODEL_UNAVAILABLE_FINAL_SOLUTION.md
+ML_PREDICTION_TEST_ANALYSIS.md
+NESTED_EXPANDER_FIX.md
+PLACEHOLDER_PARAMETER_FIX.md
+PREPROCESSING_ERROR_FINAL_FIX.md
+PREPROCESSING_ERROR_FIX.md
+READABILITY_IMPROVEMENTS.md
+README_ModelID_Component.md
+README_YearMade_Component.md
+SECURITY_AUDIT_SUMMARY.md
+STREAMLIT_CACHING_COMPATIBILITY_FIX.md
+TARGETED_FIXES_IMPLEMENTATION_COMPLETE.md
+TECHNICAL_DEEP_DIVE_EXPANDER_CONVERSION.md
+TEST.md
+TESTING_INSTRUCTIONS.md
+TEST_CRITERIA_UPDATE_SUMMARY.md
+TIRE_SIZE_COMPATIBILITY_FIX_SUMMARY.md
+VALIDATION_CONSISTENCY_FIX.md
+YEAR_VALIDATION_SOLUTION.md
+
+# Virtual environments
+env/
+myenv/
+venv/
+.venv/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Git files
+.git/
+.gitignore
+
+# Python cache and compiled files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Model files (EXTERNAL STORAGE: Large model stored on Google Drive)
+*.pkl
+# EXCLUDE large model file - now loaded from Google Drive
+src/models/randomforest_regressor_best_RMSLE.pkl
+# INCLUDE small preprocessing components file
+!src/models/preprocessing_components.pkl
+
+# Large data files
+*.csv
+*.7z
+*.zip
+*.xlsx
+*.webp
+*.png
+!static/images/*.png
+!static/images/*.webp
+
+# Specific large files
+bulldozer_ai-min.webp
+Data Dictionary.xlsx
+Machine_Appendix.csv
+median_benchmark.csv
+predictions.csv
+random_forest_benchmark_test.csv
+test_predictions.csv
+Test.csv
+Train.7z
+Train.csv
+Train.zip
+TrainAndValid.7z
+TrainAndValid.csv
+TrainAndValid.zip
+Valid.7z
+Valid.csv
+Valid.zip
+ValidSolution.csv
+
+# Results and output directories
+results/
+ML_MODEL_STARTUP_GUIDE.md
+ML_MODEL_UNAVAILABLE_FINAL_SOLUTION.md
+ML_PREDICTION_TEST_ANALYSIS.md
+NESTED_EXPANDER_FIX.md
+PLACEHOLDER_PARAMETER_FIX.md
+PREPROCESSING_ERROR_FINAL_FIX.md
+PREPROCESSING_ERROR_FIX.md
+READABILITY_IMPROVEMENTS.md
+README_ModelID_Component.md
+README_YearMade_Component.md
+STREAMLIT_CACHING_COMPATIBILITY_FIX.md
+TARGETED_FIXES_IMPLEMENTATION_COMPLETE.md
+TECHNICAL_DEEP_DIVE_EXPANDER_CONVERSION.md
+TEST.md
+TESTING_INSTRUCTIONS.md
+TEST_CRITERIA_UPDATE_SUMMARY.md
+TIRE_SIZE_COMPATIBILITY_FIX_SUMMARY.md
+VALIDATION_CONSISTENCY_FIX.md
+YEAR_VALIDATION_SOLUTION.md
+
+# Demo and fix files
+demo_error_handling.py
+fix_model.py
+test_age_calculation.py
+test_fixed_errors.py
+test_improved_app.py
+test_model_error.py
+git_commit_message.txt
+

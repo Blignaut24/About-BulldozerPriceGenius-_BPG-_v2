@@ -1,0 +1,63 @@
+# Streamlit secrets (contains Google Drive file ID)
+.streamlit/secrets.toml
+
+# Documentation files (exclude from version control)
+docs/
+
+# Virtual environments (should never be in repository)
+venv/
+myenv/
+env/
+.env/
+
+# Large data files (use external storage instead)
+data/
+*.csv
+*.zip
+*.7z
+
+# Model files (use external loading instead)
+src/models/*.pkl
+*.pkl
+
+# Excel files
+*.xlsx
+*.xls
+
+# Python cache and compiled files
+core.Microsoft*
+core.mongo*
+core.python*
+env.py
+__pycache__/
+*.py[cod]
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Node modules
+node_modules/
+
+# GitHub workflows (if not needed)
+.github/
+
+# API keys and credentials
+cloudinary_python.txt
+kaggle.json
+*.json
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
