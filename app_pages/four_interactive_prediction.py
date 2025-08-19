@@ -1113,7 +1113,8 @@ def interactive_prediction_body():
                         grouser_tracks=grouser_tracks,
                         hydraulics=hydraulics,
                         sale_year=sale_year,
-                        sale_day_of_year=sale_day_of_year
+                        sale_day_of_year=sale_day_of_year,
+                        preprocessing_data=preprocessing_data
                     )
 
                     if prediction_result['success']:
@@ -1763,7 +1764,8 @@ def calculate_premium_value_multiplier(product_size, fi_base_model, enclosure,
 
 def make_prediction(model, year_made, model_id, product_size, state, enclosure,
                     fi_base_model, coupler_system, tire_size, hydraulics_flow,
-                    grouser_tracks, hydraulics, sale_year, sale_day_of_year):
+                    grouser_tracks, hydraulics, sale_year, sale_day_of_year,
+                    preprocessing_data=None):
     """
     Make a price prediction using the trained model with enhanced premium equipment recognition.
     Includes fixes for Test Scenario 1 severe underestimation issue.
@@ -1863,19 +1865,27 @@ def make_prediction(model, year_made, model_id, product_size, state, enclosure,
 
         # Load preprocessing components if available
         try:
-            import os
-            preprocessing_path = "src/models/preprocessing_components.pkl"
+            # Use preprocessing_data if passed as parameter (from external model loader)
+            if preprocessing_data is not None:
+                st.info("✅ Using preprocessing components from external model loader")
+                label_encoders = preprocessing_data['label_encoders']
+                imputer = preprocessing_data['imputer']
+            else:
+                # Fallback: try to load from local file system
+                import os
+                preprocessing_path = "src/models/preprocessing_components.pkl"
 
-            # Check if file exists first
-            if not os.path.exists(preprocessing_path):
-                raise FileNotFoundError(f"Preprocessing components file not found at: {preprocessing_path}")
+                # Check if file exists first
+                if not os.path.exists(preprocessing_path):
+                    raise FileNotFoundError(f"Preprocessing components file not found at: {preprocessing_path}")
 
-            # Use proper context manager for file opening
-            with open(preprocessing_path, 'rb') as f:
-                preprocessing_data = pickle.load(f)
+                # Use proper context manager for file opening
+                with open(preprocessing_path, 'rb') as f:
+                    local_preprocessing_data = pickle.load(f)
 
-            label_encoders = preprocessing_data['label_encoders']
-            imputer = preprocessing_data['imputer']
+                st.info("✅ Using preprocessing components from local file system")
+                label_encoders = local_preprocessing_data['label_encoders']
+                imputer = local_preprocessing_data['imputer']
 
             # Apply the same preprocessing as during training
             input_encoded = input_data.copy()
@@ -1904,9 +1914,13 @@ def make_prediction(model, year_made, model_id, product_size, state, enclosure,
                 columns=input_encoded.columns
             )
 
+            # Success message for enhanced preprocessing
+            st.success("✅ Enhanced ML preprocessing applied successfully")
+
         except Exception as e:
             # If preprocessing fails, use simple encoding with proper imputation
-            st.warning(f"Using basic preprocessing: {e}")
+            st.warning(f"⚠️ Enhanced preprocessing unavailable, using basic preprocessing: {e}")
+            st.info("🔄 Falling back to basic preprocessing with median imputation")
             input_final = input_data.copy()
 
             # Step 1: Encode categorical columns FIRST
