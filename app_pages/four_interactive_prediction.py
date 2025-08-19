@@ -306,8 +306,9 @@ def interactive_prediction_body():
                     )
                     return None, None, error_msg
 
-                # Load the local model
-                model = pickle.load(open(model_path, 'rb'))
+                # Load the local model using proper context manager
+                with open(model_path, 'rb') as f:
+                    model = pickle.load(f)
 
                 # Check if the loaded object has a predict method
                 if hasattr(model, 'predict'):
@@ -315,9 +316,15 @@ def interactive_prediction_body():
 
                     # Try to load preprocessing components
                     try:
-                        preprocessing_data = pickle.load(open(preprocessing_path, 'rb'))
-                        st.info("✅ Preprocessing components loaded successfully!")
-                        return model, preprocessing_data, None
+                        if os.path.exists(preprocessing_path):
+                            with open(preprocessing_path, 'rb') as f:
+                                preprocessing_data = pickle.load(f)
+                            st.info("✅ Preprocessing components loaded successfully!")
+                            return model, preprocessing_data, None
+                        else:
+                            st.warning(f"WARNING: Preprocessing components file not found at: {preprocessing_path}")
+                            st.info("🔄 Model will use basic preprocessing")
+                            return model, None, None
                     except Exception as e:
                         st.warning(f"WARNING: Could not load preprocessing components: {e}")
                         st.info("🔄 Model will use basic preprocessing")
@@ -1837,7 +1844,17 @@ def make_prediction(model, year_made, model_id, product_size, state, enclosure,
 
         # Load preprocessing components if available
         try:
-            preprocessing_data = pickle.load(open("src/models/preprocessing_components.pkl", 'rb'))
+            import os
+            preprocessing_path = "src/models/preprocessing_components.pkl"
+
+            # Check if file exists first
+            if not os.path.exists(preprocessing_path):
+                raise FileNotFoundError(f"Preprocessing components file not found at: {preprocessing_path}")
+
+            # Use proper context manager for file opening
+            with open(preprocessing_path, 'rb') as f:
+                preprocessing_data = pickle.load(f)
+
             label_encoders = preprocessing_data['label_encoders']
             imputer = preprocessing_data['imputer']
 
