@@ -16,9 +16,10 @@ data/
 *.zip
 *.7z
 
-# Model files (use external loading instead)
-src/models/*.pkl
-*.pkl
+# Large model files (use external loading instead)
+src/models/randomforest_regressor_best_RMSLE.pkl
+# Allow small preprocessing components file for Heroku deployment
+!src/models/preprocessing_components.pkl
 
 # Excel files
 *.xlsx
