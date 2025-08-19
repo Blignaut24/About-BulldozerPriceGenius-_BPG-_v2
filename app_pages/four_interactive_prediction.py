@@ -13,17 +13,27 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'src'))
 
 # Import external model loader (V2 with gdown support)
 try:
-    from external_model_loader_v2 import external_model_loader_v2 as external_model_loader
+    # Try optimized loader first (V3)
+    from external_model_loader_v3_optimized import external_model_loader_v3_optimized as external_model_loader
     EXTERNAL_MODEL_AVAILABLE = True
+    LOADER_VERSION = "V3 Optimized"
 except ImportError as e:
-    # Fallback to original loader
     try:
-        from external_model_loader import external_model_loader
+        # Fallback to V2 loader
+        from external_model_loader_v2 import external_model_loader_v2 as external_model_loader
         EXTERNAL_MODEL_AVAILABLE = True
+        LOADER_VERSION = "V2 Standard"
     except ImportError as e2:
-        st.error(f"Could not import external model loader: {e}, {e2}")
-        external_model_loader = None
-        EXTERNAL_MODEL_AVAILABLE = False
+        # Fallback to original loader
+        try:
+            from external_model_loader import external_model_loader
+            EXTERNAL_MODEL_AVAILABLE = True
+            LOADER_VERSION = "V1 Original"
+        except ImportError as e3:
+            st.error(f"Could not import any external model loader: {e}, {e2}, {e3}")
+            external_model_loader = None
+            EXTERNAL_MODEL_AVAILABLE = False
+            LOADER_VERSION = "None"
 
 # Streamlit compatibility functions are defined below
 
@@ -210,6 +220,7 @@ def interactive_prediction_body():
                 st.metric("Model Source", model_info['model_source'])
                 st.metric("Expected Size", model_info['expected_size'])
                 st.metric("Cache Status", "Enabled" if model_info['cache_enabled'] else "Disabled")
+                st.metric("Loader Version", LOADER_VERSION)
 
             with col2:
                 if model_info['model_file_id'] != "YOUR_GOOGLE_DRIVE_FILE_ID_HERE":
@@ -218,6 +229,14 @@ def interactive_prediction_body():
                 else:
                     st.error("❌ Model not configured")
                     st.info("Set GOOGLE_DRIVE_MODEL_ID environment variable")
+
+                # Show performance optimizations if using V3
+                if LOADER_VERSION == "V3 Optimized":
+                    st.info("⚡ Performance optimizations active")
+                    if 'download_timeout' in model_info:
+                        st.caption(f"Download timeout: {model_info['download_timeout']}s")
+                    if 'cache_status' in model_info:
+                        st.caption(f"Cache: {model_info['cache_status']}")
 
             # Cache management
             st.markdown("### 🔧 Cache Management")
