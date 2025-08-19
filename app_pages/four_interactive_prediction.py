@@ -1014,73 +1014,130 @@ def interactive_prediction_body():
     can_predict = len(critical_errors) == 0
 
     if can_predict:
-        # Custom CSS styling for the ML prediction button
+        # Enhanced CSS styling for the primary ML prediction button
         st.markdown("""
         <style>
-        /* Orange styling specifically for the ML prediction button */
-        .ml-prediction-button {
-            background-color: transparent !important;
-            border: 2px solid #FF6B35 !important;
-            color: #FF6B35 !important;
-            font-weight: 600 !important;
-            font-size: 18px !important;
-            padding: 12px 24px !important;
-            border-radius: 8px !important;
-            transition: all 0.3s ease !important;
-            min-height: 50px !important;
+        /* Primary CTA Button - Enhanced Design for Maximum Prominence */
+        div.stButton > button[kind="primary"]:contains("🚀 GET ML PREDICTION"),
+        div.stButton > button:contains("🚀 GET ML PREDICTION") {
+            /* Primary State - Bold and Prominent */
+            background: linear-gradient(135deg, #FF6B35 0%, #FF8C42 100%) !important;
+            border: none !important;
+            color: white !important;
+            font-weight: 700 !important;
+            font-size: 20px !important;
+            letter-spacing: 0.5px !important;
+            text-transform: uppercase !important;
+            padding: 18px 32px !important;
+            border-radius: 12px !important;
+            min-height: 65px !important;
             width: 100% !important;
             cursor: pointer !important;
+
+            /* Visual Enhancement */
+            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4) !important;
+            border: 2px solid transparent !important;
+            position: relative !important;
+            overflow: hidden !important;
+
+            /* Smooth Transitions */
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+            transform: translateY(0) scale(1) !important;
         }
 
-        /* Hover effect for the ML prediction button */
-        .ml-prediction-button:hover {
-            background-color: #FF6B35 !important;
+        /* Hover State - Engaging and Interactive */
+        div.stButton > button[kind="primary"]:contains("🚀 GET ML PREDICTION"):hover,
+        div.stButton > button:contains("🚀 GET ML PREDICTION"):hover {
+            background: linear-gradient(135deg, #FF8C42 0%, #FFB366 100%) !important;
             color: white !important;
-            border-color: #FF6B35 !important;
-            box-shadow: 0 4px 8px rgba(255, 107, 53, 0.3) !important;
-            transform: translateY(-1px) !important;
+
+            /* Enhanced Visual Effects */
+            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.6) !important;
+            transform: translateY(-3px) scale(1.02) !important;
+            border: 2px solid rgba(255, 255, 255, 0.3) !important;
         }
 
-        /* Active/pressed state */
-        .ml-prediction-button:active {
-            transform: translateY(0px) !important;
-            box-shadow: 0 2px 4px rgba(255, 107, 53, 0.3) !important;
+        /* Active/Pressed State */
+        div.stButton > button[kind="primary"]:contains("🚀 GET ML PREDICTION"):active,
+        div.stButton > button:contains("🚀 GET ML PREDICTION"):active {
+            transform: translateY(-1px) scale(0.98) !important;
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.5) !important;
+            background: linear-gradient(135deg, #E55A2B 0%, #FF6B35 100%) !important;
         }
 
-        /* Focus state for accessibility */
-        .ml-prediction-button:focus {
-            outline: 2px solid #FF6B35 !important;
-            outline-offset: 2px !important;
+        /* Focus State for Accessibility */
+        div.stButton > button[kind="primary"]:contains("🚀 GET ML PREDICTION"):focus,
+        div.stButton > button:contains("🚀 GET ML PREDICTION"):focus {
+            outline: 3px solid #FFB366 !important;
+            outline-offset: 3px !important;
+            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4), 0 0 0 3px rgba(255, 179, 102, 0.5) !important;
         }
 
-        /* Target the specific button containing the ML prediction text */
-        div.stButton > button[kind="primary"]:contains("🤖 Get ML Prediction"),
-        div.stButton > button:contains("🤖 Get ML Prediction") {
-            background-color: transparent !important;
-            border: 2px solid #FF6B35 !important;
-            color: #FF6B35 !important;
-            font-weight: 600 !important;
-            font-size: 18px !important;
-            padding: 12px 24px !important;
-            border-radius: 8px !important;
-            transition: all 0.3s ease !important;
-            min-height: 50px !important;
-            width: 100% !important;
+        /* Pulse Animation for Extra Attention (Subtle) */
+        @keyframes subtle-pulse {
+            0% { box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4); }
+            50% { box-shadow: 0 6px 20px rgba(255, 107, 53, 0.6); }
+            100% { box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4); }
         }
 
-        div.stButton > button[kind="primary"]:contains("🤖 Get ML Prediction"):hover,
-        div.stButton > button:contains("🤖 Get ML Prediction"):hover {
-            background-color: #FF6B35 !important;
+        /* Apply subtle pulse animation (respects prefers-reduced-motion) */
+        @media (prefers-reduced-motion: no-preference) {
+            div.stButton > button[kind="primary"]:contains("🚀 GET ML PREDICTION"),
+            div.stButton > button:contains("🚀 GET ML PREDICTION") {
+                animation: subtle-pulse 3s ease-in-out infinite !important;
+            }
+
+            div.stButton > button[kind="primary"]:contains("🚀 GET ML PREDICTION"):hover,
+            div.stButton > button:contains("🚀 GET ML PREDICTION"):hover {
+                animation: none !important;
+            }
+        }
+
+        /* Reduced motion accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            div.stButton > button[kind="primary"]:contains("🚀 GET ML PREDICTION"),
+            div.stButton > button:contains("🚀 GET ML PREDICTION"),
+            div.stButton > button[kind="primary"]:contains("🚀 GET ML PREDICTION"):hover,
+            div.stButton > button:contains("🚀 GET ML PREDICTION"):hover {
+                animation: none !important;
+                transition: color 0.2s ease, background-color 0.2s ease !important;
+                transform: none !important;
+            }
+        }
+
+        /* Button Container Styling for Better Spacing */
+        div.stButton:has(button:contains("🚀 GET ML PREDICTION")) {
+            margin: 24px 0 !important;
+            text-align: center !important;
+        }
+
+        /* Ensure button text is always visible and readable */
+        div.stButton > button[kind="primary"]:contains("🚀 GET ML PREDICTION") span,
+        div.stButton > button:contains("🚀 GET ML PREDICTION") span {
             color: white !important;
-            border-color: #FF6B35 !important;
-            box-shadow: 0 4px 8px rgba(255, 107, 53, 0.3) !important;
-            transform: translateY(-1px) !important;
+            font-weight: 700 !important;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) !important;
         }
         </style>
         """, unsafe_allow_html=True)
 
-        # ML Model prediction button with enhanced styling
-        button_text = "🤖 Get ML Prediction"
+        # Create visual separation and emphasis for the primary CTA
+        st.markdown("---")
+
+        # Add prominent section header for the prediction action
+        st.markdown("""
+        <div style="text-align: center; margin: 20px 0;">
+            <h3 style="color: #FF6B35; font-weight: 700; margin-bottom: 8px;">
+                🎯 Ready to Get Your Prediction?
+            </h3>
+            <p style="color: #666; font-size: 16px; margin-bottom: 20px;">
+                Click the button below to generate your bulldozer price prediction using our Enhanced ML Model
+            </p>
+        </div>
+        """, unsafe_allow_html=True)
+
+        # Primary ML Model prediction button with enhanced CTA styling
+        button_text = "🚀 GET ML PREDICTION"
 
         if st.button(button_text, key="ml_prediction_button"):
             with st.spinner("Generating ML prediction..."):
