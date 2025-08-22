@@ -48,7 +48,18 @@ class ExternalModelLoader:
         # This is the public Google Drive file ID for the trained model
         return "1mSIR9TnJvP4zpVHlrsMGm11WS-DWyyTp"
     
-    @st.cache_resource(max_entries=1, show_spinner="🔄 Loading ML Model...")
+    def _get_cache_decorator(self):
+        """Get the appropriate caching decorator based on Streamlit version"""
+        if hasattr(st, 'cache_resource'):
+            return st.cache_resource(max_entries=1, show_spinner="🔄 Loading ML Model...")
+        elif hasattr(st, 'cache'):
+            return st.cache(allow_output_mutation=True)
+        else:
+            # No caching available
+            def no_cache(func):
+                return func
+            return no_cache
+
     def load_model_from_google_drive(_self) -> Tuple[Optional[Any], Optional[dict], Optional[str]]:
         """
         Download and cache the ML model from Google Drive.
@@ -475,5 +486,13 @@ class ExternalModelLoader:
             st.error(f"Error clearing cache: {e}")
 
 
+# Apply caching decorator dynamically based on Streamlit version
+def _apply_cache_decorator():
+    """Apply the appropriate caching decorator to the load method"""
+    loader_instance = ExternalModelLoader()
+    cache_decorator = loader_instance._get_cache_decorator()
+    loader_instance.load_model_from_google_drive = cache_decorator(loader_instance.load_model_from_google_drive)
+    return loader_instance
+
 # Global instance for easy access
-external_model_loader = ExternalModelLoader()
+external_model_loader = _apply_cache_decorator()

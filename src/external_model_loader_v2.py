@@ -24,13 +24,25 @@ class ExternalModelLoaderV2:
     Simplified external model loader using gdown library.
     Specifically designed to handle Google Drive large file downloads.
     """
-    
+
     def __init__(self):
         # Google Drive file ID for the 561MB RandomForest model
         self.model_file_id = self._get_model_file_id()
-        
+
         # Preprocessing components (small file, can be local)
         self.preprocessing_path = "src/models/preprocessing_components.pkl"
+
+    def _get_cache_decorator(self):
+        """Get the appropriate caching decorator based on Streamlit version"""
+        if hasattr(st, 'cache_resource'):
+            return st.cache_resource
+        elif hasattr(st, 'cache'):
+            return st.cache(allow_output_mutation=True)
+        else:
+            # No caching available
+            def no_cache(func):
+                return func
+            return no_cache
     
     def _get_model_file_id(self) -> str:
         """Get the Google Drive file ID from environment variables or default."""
@@ -49,7 +61,6 @@ class ExternalModelLoaderV2:
         # Default file ID for the BulldozerPriceGenius model
         return "1mSIR9TnJvP4zpVHlrsMGm11WS-DWyyTp"
     
-    @st.cache_resource
     def load_model_from_google_drive(_self) -> Tuple[Optional[Any], Optional[dict], Optional[str]]:
         """
         Download and cache the ML model from Google Drive using gdown library.
@@ -226,5 +237,13 @@ class ExternalModelLoaderV2:
             st.error(f"Error clearing cache: {e}")
 
 
+# Apply caching decorator dynamically based on Streamlit version
+def _apply_cache_decorator():
+    """Apply the appropriate caching decorator to the load method"""
+    loader_instance = ExternalModelLoaderV2()
+    cache_decorator = loader_instance._get_cache_decorator()
+    loader_instance.load_model_from_google_drive = cache_decorator(loader_instance.load_model_from_google_drive)
+    return loader_instance
+
 # Global instance for easy access
-external_model_loader_v2 = ExternalModelLoaderV2()
+external_model_loader_v2 = _apply_cache_decorator()

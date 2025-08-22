@@ -95,14 +95,99 @@ def get_container():
         from contextlib import nullcontext
         return nullcontext()
 
+def _create_html_table(df):
+    """
+    Create an HTML table from a pandas DataFrame as a fallback when PyArrow is not available.
+    This bypasses Streamlit's dataframe rendering entirely.
+    """
+    try:
+        # Convert DataFrame to HTML with basic styling
+        html = df.to_html(
+            index=False,
+            classes='streamlit-table',
+            table_id='pyarrow-fallback-table',
+            escape=False
+        )
+
+        # Add CSS styling to make it look similar to Streamlit tables
+        styled_html = f"""
+        <style>
+        .streamlit-table {{
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.9em;
+            font-family: sans-serif;
+            min-width: 400px;
+            border-radius: 5px 5px 0 0;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+        }}
+        .streamlit-table thead tr {{
+            background-color: #009879;
+            color: #ffffff;
+            text-align: left;
+        }}
+        .streamlit-table th,
+        .streamlit-table td {{
+            padding: 12px 15px;
+            border: 1px solid #dddddd;
+        }}
+        .streamlit-table tbody tr {{
+            border-bottom: 1px solid #dddddd;
+        }}
+        .streamlit-table tbody tr:nth-of-type(even) {{
+            background-color: #f3f3f3;
+        }}
+        .streamlit-table tbody tr:last-of-type {{
+            border-bottom: 2px solid #009879;
+        }}
+        </style>
+        {html}
+        """
+
+        return styled_html
+
+    except Exception as e:
+        # If HTML table creation fails, return a simple text representation
+        return f"""
+        <div style="background-color: #f0f2f6; padding: 10px; border-radius: 5px;">
+        <h4>📊 Data Table (Text Format)</h4>
+        <pre>{df.to_string()}</pre>
+        <p><em>Note: Using text format due to display limitations</em></p>
+        </div>
+        """
+
 def get_dataframe_with_styling(df, use_container_width=False, hide_index=False, **kwargs):
     """
-    Display dataframe with styling support, falling back gracefully for older Streamlit versions.
+    Display dataframe with styling support, falling back gracefully for older Streamlit versions
+    and PyArrow import issues.
 
     The use_container_width parameter was added in Streamlit 1.0.0.
     The hide_index parameter was added in Streamlit 1.10.0.
     For older versions, we'll use alternative approaches.
     """
+    # First, check if PyArrow is available by testing import
+    try:
+        import pyarrow.lib
+        pyarrow_available = True
+    except (ImportError, ModuleNotFoundError):
+        pyarrow_available = False
+
+    # If PyArrow is not available, use HTML table fallback immediately
+    if not pyarrow_available:
+        st.warning("⚠️ PyArrow not available. Using HTML table display.")
+        display_df = df.copy()
+        if hide_index:
+            display_df = display_df.reset_index(drop=True)
+
+        html_table = _create_html_table(display_df)
+        st.markdown(html_table, unsafe_allow_html=True)
+
+        if use_container_width:
+            st.caption("💡 Note: Using HTML table display due to PyArrow unavailability")
+
+        return None
+
     try:
         # Try to use modern parameters (Streamlit >= 1.10.0)
         if use_container_width and hide_index:
@@ -127,7 +212,7 @@ def get_dataframe_with_styling(df, use_container_width=False, hide_index=False, 
         else:
             return st.dataframe(df, **kwargs)
 
-    except TypeError as e:
+    except (TypeError, ModuleNotFoundError, ImportError) as e:
         if "use_container_width" in str(e) or "hide_index" in str(e):
             # Fallback for older Streamlit versions
 
@@ -144,8 +229,25 @@ def get_dataframe_with_styling(df, use_container_width=False, hide_index=False, 
                 st.caption("💡 Note: Full-width display requires Streamlit 1.0.0+")
 
             return result
+        elif "pyarrow" in str(e) or "arrow" in str(e):
+            # Fallback for PyArrow import issues - use HTML table
+            st.warning("⚠️ PyArrow import issue detected. Using HTML table display.")
+
+            # Create a simple table display as fallback
+            display_df = df.copy()
+            if hide_index:
+                display_df = display_df.reset_index(drop=True)
+
+            # Use HTML table as fallback (doesn't require PyArrow)
+            html_table = _create_html_table(display_df)
+            st.markdown(html_table, unsafe_allow_html=True)
+
+            if use_container_width:
+                st.caption("💡 Note: Using HTML table display due to PyArrow compatibility issue")
+
+            return None
         else:
-            # Re-raise if it's a different TypeError
+            # Re-raise if it's a different error
             raise
 
 # Add src to path for component imports
