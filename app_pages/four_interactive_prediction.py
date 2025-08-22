@@ -95,6 +95,78 @@ def get_container():
         from contextlib import nullcontext
         return nullcontext()
 
+def _load_parquet_with_fallback(file_path, **kwargs):
+    """
+    Load a parquet file with multiple engine fallbacks and CSV emergency fallback.
+
+    Args:
+        file_path (str): Path to the parquet file
+        **kwargs: Additional arguments to pass to pd.read_parquet()
+
+    Returns:
+        tuple: (pd.DataFrame or None, list of error messages)
+    """
+    error_messages = []
+
+    # Convert to absolute path to handle working directory issues
+    if not os.path.isabs(file_path):
+        # Get the directory of this script and construct absolute path
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        project_root = os.path.dirname(script_dir)  # Go up one level from app_pages
+        abs_file_path = os.path.join(project_root, file_path)
+    else:
+        abs_file_path = file_path
+
+    if not os.path.exists(abs_file_path):
+        error_messages.append(f"File not found: {abs_file_path} (original: {file_path})")
+        error_messages.append(f"Current working directory: {os.getcwd()}")
+        error_messages.append(f"Script directory: {os.path.dirname(os.path.abspath(__file__))}")
+
+        # Try CSV fallback
+        csv_path = abs_file_path.replace('.parquet', '.csv')
+        if os.path.exists(csv_path):
+            try:
+                df = pd.read_csv(csv_path, **kwargs)
+                error_messages.append(f"SUCCESS: Loaded CSV fallback from {csv_path}")
+                return df, error_messages
+            except Exception as e:
+                error_messages.append(f"CSV fallback also failed: {str(e)}")
+
+        return None, error_messages
+
+    engines = ['pyarrow', 'fastparquet']
+
+    # Try each engine
+    for engine in engines:
+        try:
+            df = pd.read_parquet(abs_file_path, engine=engine, **kwargs)
+            return df, []  # Success - return dataframe and empty error list
+        except Exception as e:
+            error_messages.append(f"{engine} engine failed: {str(e)}")
+            continue
+
+    # Try default engine as last resort
+    try:
+        df = pd.read_parquet(abs_file_path, **kwargs)
+        return df, []  # Success with default engine
+    except Exception as e:
+        error_messages.append(f"default engine failed: {str(e)}")
+
+    # Emergency CSV fallback if all parquet engines fail
+    csv_path = abs_file_path.replace('.parquet', '.csv')
+    if os.path.exists(csv_path):
+        try:
+            error_messages.append(f"Attempting CSV emergency fallback: {csv_path}")
+            df = pd.read_csv(csv_path, **kwargs)
+            error_messages.append(f"SUCCESS: CSV emergency fallback worked")
+            return df, error_messages
+        except Exception as e:
+            error_messages.append(f"CSV emergency fallback failed: {str(e)}")
+    else:
+        error_messages.append(f"No CSV fallback available at: {csv_path}")
+
+    return None, error_messages
+
 def _create_html_table(df):
     """
     Create an HTML table from a pandas DataFrame as a fallback when PyArrow is not available.
@@ -295,6 +367,52 @@ def validate_year_logic(year_made, sale_year):
             f"• Changing Sale Year to {year_made} or later"
         )
     return True, ""
+
+
+def clear_all_input_fields():
+    """
+    Clear all input fields by resetting relevant session state variables.
+    This allows users to start fresh with new bulldozer specifications.
+    """
+    # List of session state keys to clear
+    keys_to_clear = [
+        # Year Made and Model ID
+        'year_made_input',
+        'model_id_input',
+
+        # Product Size and State
+        'product_size_input',
+        'state_input',
+
+        # Technical Specifications
+        'enclosure_input',
+        'fi_base_model_input',
+        'coupler_system_input',
+        'tire_size_input',
+        'hydraulics_flow_input',
+        'grouser_tracks_input',
+        'hydraulics_input',
+
+        # Sale Information
+        'sale_year_input',
+        'sale_day_of_year_input',
+
+        # Any cached prediction results
+        'last_prediction_result',
+        'prediction_cache',
+
+        # Form validation states
+        'form_validation_errors',
+        'input_validation_state'
+    ]
+
+    # Clear each key from session state if it exists
+    for key in keys_to_clear:
+        if key in st.session_state:
+            del st.session_state[key]
+
+    # Also clear any widget states that might persist
+    # Note: Streamlit widgets with keys will be reset on rerun
 
 
 def interactive_prediction_body():
@@ -511,7 +629,13 @@ def interactive_prediction_body():
             csv_path = "src/data_prep/TrainAndValid_object_values_as_categories.csv"
 
             if os.path.exists(parquet_path):
-                data = pd.read_parquet(parquet_path)
+                data, error_messages = _load_parquet_with_fallback(parquet_path)
+                if data is not None:
+                    st.info("✅ Training data loaded successfully")
+                else:
+                    st.error("❌ Failed to load parquet file with all available engines")
+                    for error_msg in error_messages:
+                        st.error(f"   • {error_msg}")
             elif os.path.exists(csv_path):
                 data = pd.read_csv(csv_path, nrows=5000)  # Load sample for categories
             else:
@@ -593,6 +717,7 @@ def interactive_prediction_body():
                 min_value=1974,
                 max_value=2011,
                 value=2000,
+                key="year_made_input",
                 help="🔴 REQUIRED: Year the bulldozer was manufactured (1974-2011). This is the most important factor for price prediction."
             )
 
@@ -602,6 +727,7 @@ def interactive_prediction_body():
             "⭐ Product Size (Required)",
             options=categorical_options['ProductSize'],
             index=0,
+            key="product_size_input",
             help="🔴 REQUIRED: Size category of the bulldozer. Determines the general price range and capabilities."
         )
 
@@ -611,6 +737,7 @@ def interactive_prediction_body():
         "⭐ State (Required)",
         options=state_options,
         index=0,
+        key="state_input",
         help="🔴 REQUIRED: State where the bulldozer is being sold. Affects regional pricing."
     )
 
@@ -626,6 +753,7 @@ def interactive_prediction_body():
             min_value=1,
             max_value=100000,
             value=4605,
+            key="model_id_input",
             help="🔵 OPTIONAL: Unique identifier for the bulldozer model. Default value represents a common model."
         )
     else:
@@ -634,6 +762,7 @@ def interactive_prediction_body():
             min_value=1,
             max_value=100000,
             value=4605,
+            key="model_id_input_fallback",
             help="🔵 OPTIONAL: Unique identifier for the bulldozer model. Default value represents a common model."
         )
 
@@ -649,6 +778,7 @@ def interactive_prediction_body():
                     "Enclosure (Optional)",
                     options=categorical_options['Enclosure'],
                     index=0,
+                    key="enclosure_input",
                     help="🔵 OPTIONAL: Type of operator protection system. Default: EROPS (most common)"
                 )
 
@@ -657,6 +787,7 @@ def interactive_prediction_body():
                     "Base Model (Optional)",
                     options=categorical_options['fiBaseModel'],
                     index=0,
+                    key="fi_base_model_input",
                     help="🔵 OPTIONAL: Base model designation. Default: D6 (common model)"
                 )
 
@@ -665,6 +796,7 @@ def interactive_prediction_body():
                     "Coupler System (Optional)",
                     options=categorical_options['Coupler_System'],
                     index=0,
+                    key="coupler_system_input",
                     help="🔵 OPTIONAL: Type of attachment coupling system. Default: None or Unspecified"
                 )
 
@@ -673,6 +805,7 @@ def interactive_prediction_body():
                     "Tire Size (Optional)",
                     options=categorical_options['Tire_Size'],
                     index=0,
+                    key="tire_size_input",
                     help="🔵 OPTIONAL: Tire size specification. Default: None or Unspecified"
                 )
 
@@ -682,6 +815,7 @@ def interactive_prediction_body():
                 "Hydraulics Flow (Optional)",
                 options=categorical_options['Hydraulics_Flow'],
                 index=0,
+                key="hydraulics_flow_input",
                 help="🔵 OPTIONAL: Hydraulic flow capacity. Default: Standard"
             )
 
@@ -690,6 +824,7 @@ def interactive_prediction_body():
                 "Grouser Tracks (Optional)",
                 options=categorical_options['Grouser_Tracks'],
                 index=0,
+                key="grouser_tracks_input",
                 help="🔵 OPTIONAL: Track grouser configuration. Default: None or Unspecified"
             )
 
@@ -698,6 +833,7 @@ def interactive_prediction_body():
                 "Hydraulics (Optional)",
                 options=categorical_options['Hydraulics'],
                 index=0,
+                key="hydraulics_input",
                 help="🔵 OPTIONAL: Hydraulic system configuration. Default: Standard"
             )
 
@@ -713,6 +849,7 @@ def interactive_prediction_body():
                 min_value=1989,
                 max_value=2015,
                 value=2006,
+                key="sale_year_input",
                 help="🔵 OPTIONAL: Sale year (1989-2015). Must be >= YearMade."
             )
 
@@ -731,6 +868,7 @@ def interactive_prediction_body():
                 min_value=1,
                 max_value=365,
                 value=182,  # Mid-year default
+                key="sale_day_of_year_input",
                 help="🔵 OPTIONAL: Day of the year when sold (1-365). Default: 182 (mid-year)"
             )
 
@@ -1297,6 +1435,27 @@ def interactive_prediction_body():
                     st.info("• Refresh the page and try again")
                     st.info("• Check your input values")
                     st.info("• Contact support if the problem persists")
+
+        # Add spacing between prediction button and reset button
+        st.markdown("<br>", unsafe_allow_html=True)
+
+        # Reset/Clear button with secondary styling
+        st.markdown("""
+        <div style="text-align: center; margin: 20px 0;">
+            <p style="color: #666; font-size: 14px; margin-bottom: 10px;">
+                Need to start over with different specifications?
+            </p>
+        </div>
+        """, unsafe_allow_html=True)
+
+        # Create columns for button centering and spacing
+        col1, col2, col3 = st.columns([1, 2, 1])
+
+        with col2:
+            if st.button("🔄 Clear All Fields", key="reset_form_button", help="Reset all input fields to start fresh"):
+                clear_all_input_fields()
+                st.success("✅ All fields have been cleared! You can now enter new bulldozer specifications.")
+                st.rerun()
 
 
 def create_feature_mappings():
@@ -1953,7 +2112,14 @@ def make_prediction(model, year_made, model_id, product_size, state, enclosure,
     try:
         # Load the training data to get the exact column structure
         try:
-            training_data = pd.read_parquet('src/data_prep/TrainAndValid_object_values_as_categories_and_missing_values_filled.parquet').head(1)
+            parquet_path = 'src/data_prep/TrainAndValid_object_values_as_categories_and_missing_values_filled.parquet'
+            training_data, error_messages = _load_parquet_with_fallback(parquet_path)
+
+            if training_data is None:
+                error_details = "\n".join([f"   • {msg}" for msg in error_messages])
+                raise Exception(f"Could not load training data from {parquet_path} with any available parquet engine.\nDetailed errors:\n{error_details}")
+
+            training_data = training_data.head(1)  # Only need structure, not all data
             expected_columns = [col for col in training_data.columns if col != 'SalePrice']  # Exclude target
 
             # Create input data frame with the same structure as training data
