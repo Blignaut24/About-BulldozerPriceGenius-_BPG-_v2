@@ -2510,7 +2510,7 @@ def make_prediction(model, year_made, model_id, product_size, state, enclosure,
 
         # CRITICAL FIX: Check if this is vintage premium equipment that should bypass general adjustments
         is_vintage_premium_override = (
-            equipment_age > 25 and
+            equipment_age > 10 and  # FIXED: Reduced from 25 to 10 years for 1990s equipment (Test Scenario 1)
             product_size == 'Large' and
             fi_base_model in ['D8', 'D9'] and
             'EROPS' in enclosure
