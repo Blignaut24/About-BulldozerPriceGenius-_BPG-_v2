@@ -1,9 +1,6 @@
 # Streamlit secrets (contains Google Drive file ID)
 .streamlit/secrets.toml
 
-# Documentation files (exclude from version control)
-docs/
-
 # Virtual environments (should never be in repository)
 venv/
 myenv/
