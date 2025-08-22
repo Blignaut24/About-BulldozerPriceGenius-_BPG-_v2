@@ -120,7 +120,7 @@ Each test scenario simulates actual appraisal situations you encounter, ensuring
 - **Sale Day of Year:** 180
 - **Model ID:** 4200
 - **Enclosure:** EROPS w AC
-- **Base Model:** D8
+i- **Base Model:** D8
 - **Coupler System:** Hydraulic
 - **Tire Size:** 26.5R25
 - **Hydraulics Flow:** High Flow
