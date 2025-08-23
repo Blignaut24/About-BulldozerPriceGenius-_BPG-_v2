@@ -430,6 +430,77 @@ def interactive_prediction_body():
     Choose the approach that best fits your needs and data availability.
     """)
 
+    # User Selection Interface for Prediction Method
+    st.header("🎯 Choose Your Prediction Method")
+
+    # User guidance section
+    with get_expander("📚 Prediction Method Guide", expanded=False):
+        col_guide1, col_guide2 = get_columns(2)
+
+        with col_guide1:
+            st.markdown("""
+            ### 🤖 Enhanced ML Model
+            **Best for high-stakes decisions requiring maximum accuracy**
+
+            **✅ Advantages:**
+            - 85-90% accuracy rate
+            - Advanced machine learning algorithms
+            - Complex pattern recognition
+            - Premium feature detection
+
+            **⏱️ Performance:**
+            - Response time: 2-15 seconds
+            - Best for important purchase/sale decisions
+            - Ideal when accuracy is more important than speed
+            """)
+
+        with col_guide2:
+            st.markdown("""
+            ### 📊 Statistical Fallback
+            **Best for quick decisions or when speed is critical**
+
+            **✅ Advantages:**
+            - 78.7% accuracy rate (production-ready)
+            - Lightning-fast response (<1 second)
+            - Mathematical precision
+            - 100% reliability
+
+            **⚡ Performance:**
+            - Instant results
+            - Perfect for preliminary estimates
+            - Reliable backup system
+            - Time-sensitive situations
+            """)
+
+        st.markdown("""
+        ### 🎯 Recommendations
+        - **🏆 Enhanced ML Model**: Use for important purchase/sale decisions, equipment appraisals, or when maximum accuracy is needed
+        - **⚡ Statistical Fallback**: Use for quick preliminary estimates, time-critical decisions, or when you need instant results
+        - **🛡️ Automatic Fallback**: The system automatically switches to Statistical Fallback if Enhanced ML Model is unavailable or times out
+        """)
+
+    # Prediction method selection
+    prediction_method_choice = st.radio(
+        "Select your preferred prediction method:",
+        options=[
+            "🤖 Enhanced ML Model (85-90% accuracy, 2-15s response)",
+            "📊 Statistical Fallback (78.7% accuracy, <1s response)"
+        ],
+        index=0,  # Default to Enhanced ML Model
+        help="Choose between maximum accuracy (Enhanced ML) or instant results (Statistical Fallback). The system will automatically fall back to Statistical Fallback if Enhanced ML Model fails."
+    )
+
+    # Store the user's choice for later use
+    user_prefers_statistical = "Statistical Fallback" in prediction_method_choice
+
+    # Display selected method information
+    if user_prefers_statistical:
+        st.info("📊 **Statistical Fallback selected** - You'll get instant, reliable predictions using mathematical models.")
+        prediction_approach = "📊 Statistical Fallback (User Selected)"
+    else:
+        st.info("🤖 **Enhanced ML Model selected** - You'll get maximum accuracy predictions using advanced machine learning.")
+        prediction_approach = "🤖 Advanced ML Model (User Selected)"
+
     # External Model Status and Management
     if EXTERNAL_MODEL_AVAILABLE and external_model_loader:
         with st.expander("🌐 External Model Status", expanded=False):
@@ -465,15 +536,36 @@ def interactive_prediction_body():
             if st.button("🗑️ Clear Model Cache", help="Force re-download of the model"):
                 external_model_loader.clear_model_cache()
 
-    # Prediction approach - ML Model only
-    st.header("🎯 Advanced ML Model Prediction")
-    st.info("🤖 **Using our most accurate machine learning model** for bulldozer price predictions with 85-90% confidence levels.")
+    # Display prediction approach based on user selection
+    if user_prefers_statistical:
+        st.header("📊 Statistical Fallback Prediction")
+        st.info("📊 **Using our reliable statistical model** for instant bulldozer price predictions with 78.7% accuracy.")
 
-    # Set prediction approach to ML Model (no user selection needed)
-    prediction_approach = "🤖 Advanced ML Model (Recommended)"
+        # Display Statistical Fallback description
+        st.markdown("""
+        <div style="
+            background: linear-gradient(90deg, #e3f2fd 0%, #bbdefb 100%);
+            border-left: 5px solid #2196f3;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+        ">
+            <h4 style="color: #1976d2; margin: 0 0 10px 0;">
+                📊 Statistical Fallback System
+            </h4>
+            <p style="margin: 0; color: #424242;">
+                <strong>Accuracy:</strong> 78.7% (Production-ready reliability)<br>
+                <strong>Method:</strong> Mathematical models with market data<br>
+                <strong>Response Time:</strong> <1 second (Lightning-fast)<br>
+                <strong>Best For:</strong> Quick estimates and reliable backup predictions
+            </p>
+        </div>
+        """, unsafe_allow_html=True)
+    else:
+        st.header("🤖 Enhanced ML Model Prediction")
+        st.info("🤖 **Using our most accurate machine learning model** for bulldozer price predictions with 85-90% confidence levels.")
 
-    # Display approach descriptions
-    if prediction_approach == "🤖 Advanced ML Model (Recommended)":
+        # Display Enhanced ML Model description
         st.markdown("""
         <div style="
             background: linear-gradient(90deg, #e8f5e8 0%, #c8e6c9 100%);
@@ -483,7 +575,7 @@ def interactive_prediction_body():
             margin: 10px 0;
         ">
             <h4 style="color: #2e7d32; margin: 0 0 10px 0;">
-                🤖 Advanced Machine Learning Model
+                🤖 Enhanced ML Model with Premium Recognition
             </h4>
             <p style="margin: 0; color: #424242;">
                 <strong>Accuracy:</strong> 85-90% (Highest precision available)<br>
@@ -1292,12 +1384,14 @@ def interactive_prediction_body():
     can_predict = len(critical_errors) == 0
 
     if can_predict:
-        # Enhanced CSS styling for the primary ML prediction button
+        # Enhanced CSS styling for both prediction buttons
         st.markdown("""
         <style>
         /* Primary CTA Button - Enhanced Design for Maximum Prominence */
         div.stButton > button[kind="primary"]:contains("🚀 GET ML PREDICTION"),
-        div.stButton > button:contains("🚀 GET ML PREDICTION") {
+        div.stButton > button:contains("🚀 GET ML PREDICTION"),
+        div.stButton > button[kind="primary"]:contains("⚡ GET INSTANT PREDICTION"),
+        div.stButton > button:contains("⚡ GET INSTANT PREDICTION") {
             /* Primary State - Bold and Prominent */
             background: linear-gradient(135deg, #FF6B35 0%, #FF8C42 100%) !important;
             border: none !important;
@@ -1325,7 +1419,9 @@ def interactive_prediction_body():
 
         /* Hover State - Engaging and Interactive */
         div.stButton > button[kind="primary"]:contains("🚀 GET ML PREDICTION"):hover,
-        div.stButton > button:contains("🚀 GET ML PREDICTION"):hover {
+        div.stButton > button:contains("🚀 GET ML PREDICTION"):hover,
+        div.stButton > button[kind="primary"]:contains("⚡ GET INSTANT PREDICTION"):hover,
+        div.stButton > button:contains("⚡ GET INSTANT PREDICTION"):hover {
             background: linear-gradient(135deg, #FF8C42 0%, #FFB366 100%) !important;
             color: white !important;
 
@@ -1337,7 +1433,9 @@ def interactive_prediction_body():
 
         /* Active/Pressed State */
         div.stButton > button[kind="primary"]:contains("🚀 GET ML PREDICTION"):active,
-        div.stButton > button:contains("🚀 GET ML PREDICTION"):active {
+        div.stButton > button:contains("🚀 GET ML PREDICTION"):active,
+        div.stButton > button[kind="primary"]:contains("⚡ GET INSTANT PREDICTION"):active,
+        div.stButton > button:contains("⚡ GET INSTANT PREDICTION"):active {
             transform: translateY(-1px) scale(0.98) !important;
             box-shadow: 0 4px 15px rgba(255, 107, 53, 0.5) !important;
             background: linear-gradient(135deg, #E55A2B 0%, #FF6B35 100%) !important;
@@ -1345,7 +1443,9 @@ def interactive_prediction_body():
 
         /* Focus State for Accessibility */
         div.stButton > button[kind="primary"]:contains("🚀 GET ML PREDICTION"):focus,
-        div.stButton > button:contains("🚀 GET ML PREDICTION"):focus {
+        div.stButton > button:contains("🚀 GET ML PREDICTION"):focus,
+        div.stButton > button[kind="primary"]:contains("⚡ GET INSTANT PREDICTION"):focus,
+        div.stButton > button:contains("⚡ GET INSTANT PREDICTION"):focus {
             outline: 3px solid #FFB366 !important;
             outline-offset: 3px !important;
             box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4), 0 0 0 3px rgba(255, 179, 102, 0.5) !important;
@@ -1361,12 +1461,16 @@ def interactive_prediction_body():
         /* Apply subtle pulse animation (respects prefers-reduced-motion) */
         @media (prefers-reduced-motion: no-preference) {
             div.stButton > button[kind="primary"]:contains("🚀 GET ML PREDICTION"),
-            div.stButton > button:contains("🚀 GET ML PREDICTION") {
+            div.stButton > button:contains("🚀 GET ML PREDICTION"),
+            div.stButton > button[kind="primary"]:contains("⚡ GET INSTANT PREDICTION"),
+            div.stButton > button:contains("⚡ GET INSTANT PREDICTION") {
                 animation: subtle-pulse 3s ease-in-out infinite !important;
             }
 
             div.stButton > button[kind="primary"]:contains("🚀 GET ML PREDICTION"):hover,
-            div.stButton > button:contains("🚀 GET ML PREDICTION"):hover {
+            div.stButton > button:contains("🚀 GET ML PREDICTION"):hover,
+            div.stButton > button[kind="primary"]:contains("⚡ GET INSTANT PREDICTION"):hover,
+            div.stButton > button:contains("⚡ GET INSTANT PREDICTION"):hover {
                 animation: none !important;
             }
         }
@@ -1375,8 +1479,12 @@ def interactive_prediction_body():
         @media (prefers-reduced-motion: reduce) {
             div.stButton > button[kind="primary"]:contains("🚀 GET ML PREDICTION"),
             div.stButton > button:contains("🚀 GET ML PREDICTION"),
+            div.stButton > button[kind="primary"]:contains("⚡ GET INSTANT PREDICTION"),
+            div.stButton > button:contains("⚡ GET INSTANT PREDICTION"),
             div.stButton > button[kind="primary"]:contains("🚀 GET ML PREDICTION"):hover,
-            div.stButton > button:contains("🚀 GET ML PREDICTION"):hover {
+            div.stButton > button:contains("🚀 GET ML PREDICTION"):hover,
+            div.stButton > button[kind="primary"]:contains("⚡ GET INSTANT PREDICTION"):hover,
+            div.stButton > button:contains("⚡ GET INSTANT PREDICTION"):hover {
                 animation: none !important;
                 transition: color 0.2s ease, background-color 0.2s ease !important;
                 transform: none !important;
@@ -1384,14 +1492,17 @@ def interactive_prediction_body():
         }
 
         /* Button Container Styling for Better Spacing */
-        div.stButton:has(button:contains("🚀 GET ML PREDICTION")) {
+        div.stButton:has(button:contains("🚀 GET ML PREDICTION")),
+        div.stButton:has(button:contains("⚡ GET INSTANT PREDICTION")) {
             margin: 24px 0 !important;
             text-align: center !important;
         }
 
         /* Ensure button text is always visible and readable */
         div.stButton > button[kind="primary"]:contains("🚀 GET ML PREDICTION") span,
-        div.stButton > button:contains("🚀 GET ML PREDICTION") span {
+        div.stButton > button:contains("🚀 GET ML PREDICTION") span,
+        div.stButton > button[kind="primary"]:contains("⚡ GET INSTANT PREDICTION") span,
+        div.stButton > button:contains("⚡ GET INSTANT PREDICTION") span {
             color: white !important;
             font-weight: 700 !important;
             text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) !important;
@@ -1403,21 +1514,34 @@ def interactive_prediction_body():
         st.markdown("---")
 
         # Add prominent section header for the prediction action
-        st.markdown("""
-        <div style="text-align: center; margin: 20px 0;">
-            <h3 style="color: #FF6B35; font-weight: 700; margin-bottom: 8px;">
-                🎯 Ready to Get Your Prediction?
-            </h3>
-            <p style="color: #666; font-size: 16px; margin-bottom: 20px;">
-                Click the button below to generate your bulldozer price prediction using our Enhanced ML Model
-            </p>
-        </div>
-        """, unsafe_allow_html=True)
+        if user_prefers_statistical:
+            st.markdown("""
+            <div style="text-align: center; margin: 20px 0;">
+                <h3 style="color: #1976d2; font-weight: 700; margin-bottom: 8px;">
+                    ⚡ Ready to Get Your Instant Prediction?
+                </h3>
+                <p style="color: #666; font-size: 16px; margin-bottom: 20px;">
+                    Click the button below to generate your bulldozer price prediction using our Statistical Fallback system
+                </p>
+            </div>
+            """, unsafe_allow_html=True)
+            button_text = "⚡ GET INSTANT PREDICTION"
+            button_key = "statistical_prediction_button"
+        else:
+            st.markdown("""
+            <div style="text-align: center; margin: 20px 0;">
+                <h3 style="color: #FF6B35; font-weight: 700; margin-bottom: 8px;">
+                    🎯 Ready to Get Your Prediction?
+                </h3>
+                <p style="color: #666; font-size: 16px; margin-bottom: 20px;">
+                    Click the button below to generate your bulldozer price prediction using our Enhanced ML Model
+                </p>
+            </div>
+            """, unsafe_allow_html=True)
+            button_text = "🚀 GET ML PREDICTION"
+            button_key = "ml_prediction_button"
 
-        # Primary ML Model prediction button with enhanced CTA styling
-        button_text = "🚀 GET ML PREDICTION"
-
-        if st.button(button_text, key="ml_prediction_button"):
+        if st.button(button_text, key=button_key):
             # Performance optimization: Use progress tracking and timeout protection
             progress_bar = st.progress(0)
             status_text = st.empty()
@@ -1426,6 +1550,37 @@ def interactive_prediction_body():
                 import time
                 start_time = time.time()
 
+                # Check if user selected Statistical Fallback directly
+                if user_prefers_statistical:
+                    # User explicitly chose Statistical Fallback - skip ML model and go directly to statistical prediction
+                    status_text.text("📊 Generating statistical prediction...")
+                    progress_bar.progress(50)
+
+                    # Direct statistical prediction
+                    prediction_result = make_prediction_fallback(
+                        selected_year_made, selected_model_id, product_size, state, enclosure,
+                        fi_base_model, coupler_system, tire_size, hydraulics_flow,
+                        grouser_tracks, hydraulics, sale_year, sale_day_of_year
+                    )
+
+                    # Add method indicator to result
+                    prediction_result['method'] = 'Statistical Fallback (User Selected)'
+
+                    # Complete progress
+                    progress_bar.progress(100)
+                    total_time = time.time() - start_time
+                    status_text.text(f"✅ Statistical prediction completed in {total_time:.1f}s!")
+
+                    # Clear progress indicators after short delay
+                    time.sleep(1)
+                    progress_bar.empty()
+                    status_text.empty()
+
+                    # Display results
+                    display_prediction_results(prediction_result, product_size, sale_year, "Statistical Fallback (User Selected)")
+                    return
+
+                # User chose Enhanced ML Model - proceed with ML prediction logic
                 # Step 1: Model validation
                 status_text.text("🔍 Validating ML model...")
                 progress_bar.progress(10)
