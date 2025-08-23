@@ -379,6 +379,7 @@ def clear_all_input_fields():
         # Year Made and Model ID
         'year_made_input',
         'model_id_input',
+        'model_id_input_fallback',  # ADDED: Fallback model ID input key
 
         # Product Size and State
         'product_size_input',
