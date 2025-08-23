@@ -1436,26 +1436,27 @@ def interactive_prediction_body():
                     st.info("• Check your input values")
                     st.info("• Contact support if the problem persists")
 
-        # Add spacing between prediction button and reset button
-        st.markdown("<br>", unsafe_allow_html=True)
+    # FIXED: Move Clear All button outside the can_predict block to ensure it's always visible
+    # Add spacing between prediction section and reset button
+    st.markdown("<br>", unsafe_allow_html=True)
 
-        # Reset/Clear button with secondary styling
-        st.markdown("""
-        <div style="text-align: center; margin: 20px 0;">
-            <p style="color: #666; font-size: 14px; margin-bottom: 10px;">
-                Need to start over with different specifications?
-            </p>
-        </div>
-        """, unsafe_allow_html=True)
+    # Reset/Clear button with secondary styling - ALWAYS VISIBLE
+    st.markdown("""
+    <div style="text-align: center; margin: 20px 0;">
+        <p style="color: #666; font-size: 14px; margin-bottom: 10px;">
+            Need to start over with different specifications?
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
 
-        # Create columns for button centering and spacing
-        col1, col2, col3 = st.columns([1, 2, 1])
+    # Create columns for button centering and spacing
+    col1, col2, col3 = st.columns([1, 2, 1])
 
-        with col2:
-            if st.button("🔄 Clear All Fields", key="reset_form_button", help="Reset all input fields to start fresh"):
-                clear_all_input_fields()
-                st.success("✅ All fields have been cleared! You can now enter new bulldozer specifications.")
-                st.rerun()
+    with col2:
+        if st.button("🔄 Clear All Fields", key="reset_form_button", help="Reset all input fields to start fresh"):
+            clear_all_input_fields()
+            st.success("✅ All fields have been cleared! You can now enter new bulldozer specifications.")
+            st.rerun()
 
 
 def create_feature_mappings():
