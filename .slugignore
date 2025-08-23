@@ -125,25 +125,6 @@ ValidSolution.csv
 
 # Results and output directories
 results/
-ML_MODEL_STARTUP_GUIDE.md
-ML_MODEL_UNAVAILABLE_FINAL_SOLUTION.md
-ML_PREDICTION_TEST_ANALYSIS.md
-NESTED_EXPANDER_FIX.md
-PLACEHOLDER_PARAMETER_FIX.md
-PREPROCESSING_ERROR_FINAL_FIX.md
-PREPROCESSING_ERROR_FIX.md
-READABILITY_IMPROVEMENTS.md
-README_ModelID_Component.md
-README_YearMade_Component.md
-STREAMLIT_CACHING_COMPATIBILITY_FIX.md
-TARGETED_FIXES_IMPLEMENTATION_COMPLETE.md
-TECHNICAL_DEEP_DIVE_EXPANDER_CONVERSION.md
-TEST.md
-TESTING_INSTRUCTIONS.md
-TEST_CRITERIA_UPDATE_SUMMARY.md
-TIRE_SIZE_COMPATIBILITY_FIX_SUMMARY.md
-VALIDATION_CONSISTENCY_FIX.md
-YEAR_VALIDATION_SOLUTION.md
 
 # Demo and fix files
 demo_error_handling.py
@@ -153,4 +134,30 @@ test_fixed_errors.py
 test_improved_app.py
 test_model_error.py
 git_commit_message.txt
+
+# New validation and test files (added during development)
+test_expander_fix.py
+UX_ENHANCEMENT_VALIDATION.md
+STREAMLIT_EXPANDER_FIX_VALIDATION.md
+HEROKU_DEPLOYMENT_VALIDATION.md
+comprehensive_fallback_validation.py
+fallback_calibration_analysis.py
+heroku_performance_test.py
+real_prediction_test.py
+statistical_fallback_validation.py
+test_deployment_config.py
+test_fallback_notifications.py
+test_preprocessing_logic.py
+test_rubric_gitignore.py
+test_scenario_*.py
+test_streamlit_fix.py
+test_unseen_data_predictions.py
+verify_*.py
+
+# Development scripts
+setup_heroku_environment.py
+heroku_setup.sh
+deploy_heroku.sh
+run_*.py
+quick_start_*.py
 

@@ -8,10 +8,17 @@ email = \"\"\n\
 headless = true\n\
 enableCORS = false\n\
 enableXsrfProtection = false\n\
+maxUploadSize = 200\n\
+\n\
+[browser]\n\
+gatherUsageStats = false\n\
 \n\
 [theme]\n\
-primaryColor = \"#FF6B6B\"\n\
-backgroundColor = \"#FFFFFF\"\n\
-secondaryBackgroundColor = \"#F0F2F6\"\n\
-textColor = \"#262730\"\n\
+primaryColor = \"#FF6B35\"\n\
+backgroundColor = \"#1e1e1e\"\n\
+secondaryBackgroundColor = \"#2d2d2d\"\n\
+textColor = \"#ffffff\"\n\
+\n\
+[runner]\n\
+magicEnabled = false\n\
 " > ~/.streamlit/config.toml
