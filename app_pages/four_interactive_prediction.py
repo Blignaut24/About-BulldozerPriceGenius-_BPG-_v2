@@ -516,13 +516,13 @@ def interactive_prediction_body():
             st.markdown("### 📊 Model Configuration")
 
             model_info = external_model_loader.get_model_info()
-            col1, col2 = st.columns(2)
+            col1, col2 = get_columns(2)
 
             with col1:
-                st.metric("Model Source", model_info['model_source'])
-                st.metric("Expected Size", model_info['expected_size'])
-                st.metric("Cache Status", "Enabled" if model_info['cache_enabled'] else "Disabled")
-                st.metric("Loader Version", LOADER_VERSION)
+                get_metric("Model Source", model_info['model_source'])
+                get_metric("Expected Size", model_info['expected_size'])
+                get_metric("Cache Status", "Enabled" if model_info['cache_enabled'] else "Disabled")
+                get_metric("Loader Version", LOADER_VERSION)
 
             with col2:
                 if model_info['model_file_id'] != "YOUR_GOOGLE_DRIVE_FILE_ID_HERE":
@@ -550,19 +550,20 @@ def interactive_prediction_body():
         st.header("📊 Statistical Fallback Prediction")
         st.info("📊 **Using our reliable statistical model** for instant bulldozer price predictions with 78.7% accuracy.")
 
-        # Display Statistical Fallback description
-        st.markdown("""
+        # Display Statistical Fallback description with dark theme compatibility
+        st.markdown(f"""
         <div style="
-            background: linear-gradient(90deg, #e3f2fd 0%, #bbdefb 100%);
-            border-left: 5px solid #2196f3;
+            background: linear-gradient(90deg, {colors['info_bg']} 0%, #0a3a5c 100%);
+            border-left: 5px solid {colors['accent_blue']};
             padding: 15px;
             border-radius: 8px;
             margin: 10px 0;
+            border: 1px solid {colors['border_color']};
         ">
-            <h4 style="color: #1976d2; margin: 0 0 10px 0;">
+            <h4 style="color: {colors['accent_blue']}; margin: 0 0 10px 0;">
                 📊 Statistical Fallback System
             </h4>
-            <p style="margin: 0; color: #424242;">
+            <p style="margin: 0; color: {colors['info_text']};">
                 <strong>Accuracy:</strong> 78.7% (Production-ready reliability)<br>
                 <strong>Method:</strong> Mathematical models with market data<br>
                 <strong>Response Time:</strong> <1 second (Lightning-fast)<br>
@@ -574,19 +575,20 @@ def interactive_prediction_body():
         st.header("🤖 Enhanced ML Model Prediction")
         st.info("🤖 **Using our most accurate machine learning model** for bulldozer price predictions with 85-90% confidence levels.")
 
-        # Display Enhanced ML Model description
-        st.markdown("""
+        # Display Enhanced ML Model description with dark theme compatibility
+        st.markdown(f"""
         <div style="
-            background: linear-gradient(90deg, #e8f5e8 0%, #c8e6c9 100%);
-            border-left: 5px solid #4caf50;
+            background: linear-gradient(90deg, {colors['success_bg']} 0%, #1e4a32 100%);
+            border-left: 5px solid {colors['accent_green']};
             padding: 15px;
             border-radius: 8px;
             margin: 10px 0;
+            border: 1px solid {colors['border_color']};
         ">
-            <h4 style="color: #2e7d32; margin: 0 0 10px 0;">
+            <h4 style="color: {colors['accent_green']}; margin: 0 0 10px 0;">
                 🤖 Enhanced ML Model with Premium Recognition
             </h4>
-            <p style="margin: 0; color: #424242;">
+            <p style="margin: 0; color: {colors['success_text']};">
                 <strong>Accuracy:</strong> 85-90% (Highest precision available)<br>
                 <strong>Training Data:</strong> 400,000+ real bulldozer sales<br>
                 <strong>Method:</strong> Random Forest algorithm with advanced preprocessing<br>
@@ -1750,12 +1752,12 @@ def interactive_prediction_body():
 
         # Add prominent section header for the prediction action
         if user_prefers_statistical:
-            st.markdown("""
+            st.markdown(f"""
             <div style="text-align: center; margin: 20px 0;">
-                <h3 style="color: #1976d2; font-weight: 700; margin-bottom: 8px;">
+                <h3 style="color: {colors['accent_blue']}; font-weight: 700; margin-bottom: 8px;">
                     ⚡ Ready to Get Your Instant Prediction?
                 </h3>
-                <p style="color: #666; font-size: 16px; margin-bottom: 20px;">
+                <p style="color: {colors['text_secondary']}; font-size: 16px; margin-bottom: 20px;">
                     Click the button below to generate your bulldozer price prediction using our Statistical Fallback system
                 </p>
             </div>
@@ -1763,12 +1765,12 @@ def interactive_prediction_body():
             button_text = "⚡ GET INSTANT PREDICTION"
             button_key = "statistical_prediction_button"
         else:
-            st.markdown("""
+            st.markdown(f"""
             <div style="text-align: center; margin: 20px 0;">
-                <h3 style="color: #FF6B35; font-weight: 700; margin-bottom: 8px;">
+                <h3 style="color: {colors['accent_orange']}; font-weight: 700; margin-bottom: 8px;">
                     🎯 Ready to Get Your Prediction?
                 </h3>
-                <p style="color: #666; font-size: 16px; margin-bottom: 20px;">
+                <p style="color: {colors['text_secondary']}; font-size: 16px; margin-bottom: 20px;">
                     Click the button below to generate your bulldozer price prediction using our Enhanced ML Model
                 </p>
             </div>
@@ -1987,7 +1989,7 @@ def interactive_prediction_body():
     """, unsafe_allow_html=True)
 
     # Create columns for button centering and spacing
-    col1, col2, col3 = st.columns([1, 2, 1])
+    col1, col2, col3 = get_columns([1, 2, 1])
 
     with col2:
         if st.button("🔄 Clear All Fields", key="reset_form_button", help="Reset all input fields to start fresh"):
@@ -3592,7 +3594,10 @@ def calculate_dynamic_confidence(product_size, fi_base_model, enclosure, hydraul
 
 
 def display_prediction_results(result, product_size=None, sale_year=None, approach=None):
-    """Display the prediction results with enhanced method-specific formatting"""
+    """Display the prediction results with enhanced method-specific formatting and dark theme compatibility"""
+    # Get dark theme colors
+    colors = get_dark_theme_colors()
+
     predicted_price = result['predicted_price']
     prediction_method = result.get('method', 'unknown')
 
@@ -3608,61 +3613,61 @@ def display_prediction_results(result, product_size=None, sale_year=None, approa
         # Fallback default
         confidence = 75
 
-    # TARGETED FIX 2: Method display consistency
+    # TARGETED FIX 2: Method display consistency with dark theme colors
     # Use the actual method from result for consistent display
     actual_method = result.get('method', 'unknown')
 
     if actual_method == "Enhanced ML Model":
-        header_color = "#1b5e20"  # Darker green for better contrast
-        text_color = "#1a1a1a"   # Dark text for readability
-        bg_color = "#f1f8e9"     # Slightly lighter background
-        border_color = "#4caf50"
+        header_color = colors['accent_green']  # Dark theme green
+        text_color = colors['success_text']    # Dark theme success text
+        bg_color = colors['success_bg']        # Dark theme success background
+        border_color = colors['accent_green']
         icon = "🔥"  # Fire icon for enhanced model
         method_name = "Enhanced ML Model"
     elif actual_method == "model" or "ML" in str(approach):
         # Standard ML Model (including Enhanced ML that might not be properly labeled)
-        header_color = "#1b5e20"  # Darker green for better contrast
-        text_color = "#1a1a1a"   # Dark text for readability
-        bg_color = "#f1f8e9"     # Slightly lighter background
-        border_color = "#4caf50"
+        header_color = colors['accent_green']  # Dark theme green
+        text_color = colors['success_text']    # Dark theme success text
+        bg_color = colors['success_bg']        # Dark theme success background
+        border_color = colors['accent_green']
         icon = "🤖"
         method_name = "Advanced ML Model"
     elif approach == "📊 Basic Statistical Estimation":
-        header_color = "#e65100"  # Darker orange for better contrast
-        text_color = "#1a1a1a"   # Dark text for readability
-        bg_color = "#fff8e1"     # Slightly lighter background
-        border_color = "#ff9800"
+        header_color = colors['accent_orange']  # Dark theme orange
+        text_color = colors['warning_text']     # Dark theme warning text
+        bg_color = colors['warning_bg']         # Dark theme warning background
+        border_color = colors['accent_orange']
         icon = "📊"
         method_name = "Basic Statistical Estimation"
     elif approach == "🧠 Intelligent Fallback System":
-        header_color = "#0d47a1"  # Darker blue for better contrast
-        text_color = "#1a1a1a"   # Dark text for readability
-        bg_color = "#e8f4fd"     # Slightly lighter background
-        border_color = "#1976d2"
+        header_color = colors['accent_blue']   # Dark theme blue
+        text_color = colors['info_text']       # Dark theme info text
+        bg_color = colors['info_bg']           # Dark theme info background
+        border_color = colors['accent_blue']
         icon = "🧠"
         method_name = "Intelligent Fallback System"
     else:  # Default to Enhanced ML Model if method indicates enhanced features
         # Check if this is an enhanced prediction based on result contents
         if 'value_multiplier' in result and result.get('value_multiplier', 1.0) > 2.0:
-            header_color = "#1b5e20"
-            text_color = "#1a1a1a"
-            bg_color = "#f1f8e9"
-            border_color = "#4caf50"
+            header_color = colors['accent_green']
+            text_color = colors['success_text']
+            bg_color = colors['success_bg']
+            border_color = colors['accent_green']
             icon = "🔥"
             method_name = "Enhanced ML Model"
         else:
-            header_color = "#1b5e20"
-            text_color = "#1a1a1a"
-            bg_color = "#f1f8e9"
-            border_color = "#4caf50"
+            header_color = colors['accent_green']
+            text_color = colors['success_text']
+            bg_color = colors['success_bg']
+            border_color = colors['accent_green']
             icon = "🤖"
             method_name = "Advanced ML Model"
 
-    # Enhanced prediction display with better contrast
-    header_style = f"background: linear-gradient(90deg, {bg_color}, {bg_color}); border-left: 5px solid {border_color};"
+    # Enhanced prediction display with dark theme compatibility
+    header_style = f"background: linear-gradient(90deg, {bg_color}, {bg_color}); border-left: 5px solid {border_color}; border: 1px solid {colors['border_color']};"
 
     st.markdown(f"""
-    <div style="{header_style} padding: 20px; border-radius: 10px; margin: 15px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+    <div style="{header_style} padding: 20px; border-radius: 10px; margin: 15px 0; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);">
         <h2 style="margin: 0 0 10px 0; font-size: 24px; color: {header_color}; font-weight: bold;">
             {icon} Predicted Sale Price: ${predicted_price:,.2f}
         </h2>
