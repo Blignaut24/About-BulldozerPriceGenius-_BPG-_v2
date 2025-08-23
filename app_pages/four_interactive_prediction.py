@@ -6,6 +6,8 @@ import os
 import pickle
 import warnings
 import gc  # Add garbage collection for memory optimization
+import time
+from concurrent.futures import ThreadPoolExecutor, TimeoutError as FuturesTimeoutError
 from datetime import datetime, date
 warnings.filterwarnings('ignore')
 
@@ -630,12 +632,10 @@ def interactive_prediction_body():
 
             try:
                 # Use timeout protection for external model loading
-                import concurrent.futures
-
                 def load_external_model():
                     return external_model_loader.load_model_from_google_drive()
 
-                with concurrent.futures.ThreadPoolExecutor(max_workers=1) as executor:
+                with ThreadPoolExecutor(max_workers=1) as executor:
                     future = executor.submit(load_external_model)
 
                     try:
@@ -653,7 +653,7 @@ def interactive_prediction_body():
                             st.info("🔄 Falling back to local model...")
                             # Continue to local model fallback instead of returning
 
-                    except concurrent.futures.TimeoutError:
+                    except FuturesTimeoutError:
                         st.warning("⏰ **External model loading timeout** (30s)")
                         st.info("🔄 Switching to local model for faster response...")
                         # Store timeout info for potential fallback notification later
@@ -2851,8 +2851,6 @@ def make_prediction_with_timeout(model, year_made, model_id, product_size, state
     Make a price prediction with timeout protection for Heroku deployment.
     Falls back to statistical prediction if ML prediction takes too long.
     """
-    import concurrent.futures
-    import time
 
     def prediction_task():
         return make_prediction(
@@ -2864,7 +2862,7 @@ def make_prediction_with_timeout(model, year_made, model_id, product_size, state
 
     try:
         # Use ThreadPoolExecutor for timeout protection
-        with concurrent.futures.ThreadPoolExecutor(max_workers=1) as executor:
+        with ThreadPoolExecutor(max_workers=1) as executor:
             future = executor.submit(prediction_task)
 
             try:
@@ -2872,7 +2870,7 @@ def make_prediction_with_timeout(model, year_made, model_id, product_size, state
                 result = future.result(timeout=timeout_seconds)
                 return result
 
-            except concurrent.futures.TimeoutError:
+            except FuturesTimeoutError:
                 # Timeout occurred - display comprehensive fallback notification
                 display_fallback_notification(
                     reason="ML Prediction Timeout",
