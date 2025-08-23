@@ -18,6 +18,19 @@ import logging
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
+
+# Streamlit compatibility layer for expander
+def get_expander(label, expanded=False):
+    """Get the appropriate expander function based on Streamlit version"""
+    if hasattr(st, 'expander'):
+        return st.expander(label, expanded=expanded)
+    elif hasattr(st, 'beta_expander'):
+        return st.beta_expander(label, expanded=expanded)
+    else:
+        # Fallback for very old versions - just use a container
+        st.markdown(f"**{label}**")
+        from contextlib import nullcontext
+        return nullcontext()
 logger = logging.getLogger(__name__)
 
 
@@ -214,7 +227,7 @@ def create_model_id_input() -> Optional[int]:
     st.subheader("🔢 ModelID Input")
     
     # Add help information
-    with st.expander("ℹ️ About ModelID", expanded=False):
+    with get_expander("ℹ️ About ModelID", expanded=False):
         st.markdown("""
         **What is ModelID?**
         

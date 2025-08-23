@@ -512,7 +512,7 @@ def interactive_prediction_body():
 
     # External Model Status and Management
     if EXTERNAL_MODEL_AVAILABLE and external_model_loader:
-        with st.expander("🌐 External Model Status", expanded=False):
+        with get_expander("🌐 External Model Status", expanded=False):
             st.markdown("### 📊 Model Configuration")
 
             model_info = external_model_loader.get_model_info()
@@ -2124,7 +2124,7 @@ def display_fallback_notification(reason, details, technical_cause, user_action)
     """
     st.warning("⚠️ **Using Statistical Prediction Instead of Enhanced ML Model**")
 
-    with st.expander("📋 **Why is the Enhanced ML Model not being used?**", expanded=True):
+    with get_expander("📋 **Why is the Enhanced ML Model not being used?**", expanded=True):
         st.markdown(f"""
         **Reason:** {reason}
 
