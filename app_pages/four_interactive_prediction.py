@@ -9,6 +9,9 @@ import gc  # Add garbage collection for memory optimization
 from datetime import datetime, date
 warnings.filterwarnings('ignore')
 
+# Import dark theme
+from app_pages.dark_theme import apply_dark_theme, get_dark_theme_colors, create_dark_section_html, create_dark_progress_bar
+
 # Add src directory to path for external model loader
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'src'))
 
@@ -423,6 +426,12 @@ def interactive_prediction_body():
     Allows users to choose between different prediction approaches and input feature values.
     """
 
+    # Apply dark theme
+    apply_dark_theme()
+
+    # Get dark theme colors
+    colors = get_dark_theme_colors()
+
     # Page header
     st.title("🚜 Interactive Bulldozer Price Prediction")
     st.markdown("""
@@ -800,11 +809,11 @@ def interactive_prediction_body():
     # Enhanced UX: Form Organization and Progress Indicators
     st.header("📝 Enter Bulldozer Information")
 
-    # Progress indicator showing completion status
-    st.markdown("""
-    <div style="background: linear-gradient(90deg, #f8f9fa 0%, #e9ecef 100%); padding: 15px; border-radius: 8px; margin: 10px 0;">
-        <h4 style="color: #495057; margin: 0 0 10px 0;">📊 Form Completion Guide</h4>
-        <p style="margin: 0; color: #6c757d;">
+    # Progress indicator showing completion status - Dark Theme
+    st.markdown(f"""
+    <div style="background: linear-gradient(90deg, {colors['secondary_bg']} 0%, {colors['tertiary_bg']} 100%); padding: 15px; border-radius: 8px; margin: 10px 0; border: 1px solid {colors['border_color']};">
+        <h4 style="color: {colors['text_primary']}; margin: 0 0 10px 0;">📊 Form Completion Guide</h4>
+        <p style="margin: 0; color: {colors['text_secondary']};">
             <strong>🔴 Required (3 fields):</strong> Year Made, Product Size, State<br>
             <strong>🔵 Recommended (10 fields):</strong> Technical specifications for higher accuracy<br>
             <strong>📅 Optional:</strong> Sale timing information for market conditions
@@ -932,14 +941,13 @@ def interactive_prediction_body():
                 st.success("✅ Test Scenario 11 loaded!")
                 st.experimental_rerun()
 
-    # Enhanced Form Organization with Visual Separation
+    # Enhanced Form Organization with Visual Separation - Dark Theme
     st.markdown("---")
-    st.markdown("""
-    <div style="background: linear-gradient(90deg, #fff3cd 0%, #ffeaa7 100%); padding: 15px; border-radius: 8px; margin: 10px 0; border-left: 5px solid #ffc107;">
-        <h3 style="color: #856404; margin: 0 0 10px 0;">🔴 Section 1: Required Information</h3>
-        <p style="margin: 0; color: #856404;">These 3 fields are essential for any prediction. Complete these first.</p>
-    </div>
-    """, unsafe_allow_html=True)
+    st.markdown(create_dark_section_html(
+        "🔴 Section 1: Required Information",
+        "These 3 fields are essential for any prediction. Complete these first.",
+        "required"
+    ), unsafe_allow_html=True)
 
     # Always required: Year Made and Product Size
     col1, col2 = get_columns(2)
@@ -989,19 +997,12 @@ def interactive_prediction_body():
         if not state: missing_fields.append("State")
         st.warning(f"⚠️ Please complete required fields: {', '.join(missing_fields)}")
 
-    # Progress indicator
+    # Progress indicator - Dark Theme
     total_fields = 13
     completed_fields = sum([bool(selected_year_made), bool(product_size), bool(state)])
     progress_percentage = (completed_fields / 3) * 100  # Based on required fields
 
-    st.markdown(f"""
-    <div style="background: #f8f9fa; padding: 10px; border-radius: 5px; margin: 10px 0;">
-        <strong>📊 Required Fields Progress: {completed_fields}/3 ({progress_percentage:.0f}%)</strong>
-        <div style="background: #e9ecef; height: 8px; border-radius: 4px; margin: 5px 0;">
-            <div style="background: #28a745; height: 8px; border-radius: 4px; width: {progress_percentage}%;"></div>
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
+    st.markdown(create_dark_progress_bar(completed_fields, 3, "Required Fields Progress"), unsafe_allow_html=True)
 
     # ML Model inputs - simplified to single approach
     st.header("� Enter Bulldozer Information")
@@ -1028,14 +1029,13 @@ def interactive_prediction_body():
             help="Unique identifier for the bulldozer model. Default value represents a common model."
         )
 
-    # Enhanced Technical Specifications Section - Always Visible for Better UX
+    # Enhanced Technical Specifications Section - Always Visible for Better UX - Dark Theme
     st.markdown("---")
-    st.markdown("""
-    <div style="background: linear-gradient(90deg, #d1ecf1 0%, #bee5eb 100%); padding: 15px; border-radius: 8px; margin: 10px 0; border-left: 5px solid #17a2b8;">
-        <h3 style="color: #0c5460; margin: 0 0 10px 0;">🔵 Section 2: Technical Specifications (Recommended)</h3>
-        <p style="margin: 0; color: #0c5460;">These fields significantly improve prediction accuracy. Add what you know from your bulldozer!</p>
-    </div>
-    """, unsafe_allow_html=True)
+    st.markdown(create_dark_section_html(
+        "🔵 Section 2: Technical Specifications (Recommended)",
+        "These fields significantly improve prediction accuracy. Add what you know from your bulldozer!",
+        "technical"
+    ), unsafe_allow_html=True)
 
     # Technical specifications in organized columns with enhanced tooltips
     st.markdown("### 🔧 Equipment Specifications")
@@ -1118,14 +1118,13 @@ def interactive_prediction_body():
     else:
         st.info("💡 Add technical specifications above for higher prediction accuracy.")
 
-    # Enhanced Sale Information Section
+    # Enhanced Sale Information Section - Dark Theme
     st.markdown("---")
-    st.markdown("""
-    <div style="background: linear-gradient(90deg, #f8d7da 0%, #f5c6cb 100%); padding: 15px; border-radius: 8px; margin: 10px 0; border-left: 5px solid #dc3545;">
-        <h3 style="color: #721c24; margin: 0 0 10px 0;">📅 Section 3: Sale Information (Optional)</h3>
-        <p style="margin: 0; color: #721c24;">Sale timing affects market conditions. Leave blank to use intelligent defaults.</p>
-    </div>
-    """, unsafe_allow_html=True)
+    st.markdown(create_dark_section_html(
+        "📅 Section 3: Sale Information (Optional)",
+        "Sale timing affects market conditions. Leave blank to use intelligent defaults.",
+        "optional"
+    ), unsafe_allow_html=True)
 
     # Sale date information with enhanced validation
     st.markdown("### 📅 Sale Timing Details")
@@ -1544,18 +1543,18 @@ def interactive_prediction_body():
     can_predict = len(critical_errors) == 0
 
     if can_predict:
-        # Enhanced CSS styling for both prediction buttons
+        # Enhanced CSS styling for both prediction buttons - Dark Theme Compatible
         st.markdown("""
         <style>
-        /* Primary CTA Button - Enhanced Design for Maximum Prominence */
+        /* Primary CTA Button - Enhanced Design for Maximum Prominence - Dark Theme */
         div.stButton > button[kind="primary"]:contains("🚀 GET ML PREDICTION"),
         div.stButton > button:contains("🚀 GET ML PREDICTION"),
         div.stButton > button[kind="primary"]:contains("⚡ GET INSTANT PREDICTION"),
         div.stButton > button:contains("⚡ GET INSTANT PREDICTION") {
             /* Primary State - Bold and Prominent */
             background: linear-gradient(135deg, #FF6B35 0%, #FF8C42 100%) !important;
-            border: none !important;
-            color: white !important;
+            border: 2px solid #555555 !important;
+            color: #ffffff !important;
             font-weight: 700 !important;
             font-size: 20px !important;
             letter-spacing: 0.5px !important;
@@ -1673,14 +1672,13 @@ def interactive_prediction_body():
         # Create visual separation and emphasis for the primary CTA
         st.markdown("---")
 
-        # Test Scenario Validation Section
+        # Test Scenario Validation Section - Dark Theme
         st.markdown("---")
-        st.markdown("""
-        <div style="background: linear-gradient(90deg, #e2e3e5 0%, #d6d8db 100%); padding: 15px; border-radius: 8px; margin: 10px 0; border-left: 5px solid #6c757d;">
-            <h3 style="color: #495057; margin: 0 0 10px 0;">🧪 Test Scenario Validation</h3>
-            <p style="margin: 0; color: #495057;">Verify your inputs match our comprehensive test framework for production validation.</p>
-        </div>
-        """, unsafe_allow_html=True)
+        st.markdown(create_dark_section_html(
+            "🧪 Test Scenario Validation",
+            "Verify your inputs match our comprehensive test framework for production validation.",
+            "validation"
+        ), unsafe_allow_html=True)
 
         # Validate current inputs against test scenarios
         current_config = {

@@ -1,5 +1,6 @@
 # Import required libraries
 import streamlit as st
+from app_pages.dark_theme import apply_dark_theme
 
 
 class MultiPage:
@@ -33,6 +34,10 @@ class MultiPage:
         """
         # Configure page settings
         st.set_page_config(page_title=self.app_name, page_icon="🚜")
+
+        # Apply dark theme globally
+        apply_dark_theme()
+
         st.title(f"{self.app_name} 🚜")
         
         # Create sidebar navigation
