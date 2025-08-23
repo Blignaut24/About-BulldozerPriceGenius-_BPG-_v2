@@ -5,6 +5,7 @@ import sys
 import os
 import pickle
 import warnings
+import gc  # Add garbage collection for memory optimization
 from datetime import datetime, date
 warnings.filterwarnings('ignore')
 
@@ -514,6 +515,9 @@ def interactive_prediction_body():
     def load_trained_model():
         """Load the trained RandomForest model with preprocessing components"""
 
+        # Memory optimization: Force garbage collection before loading
+        gc.collect()
+
         # Try to load from external storage first (Google Drive)
         if EXTERNAL_MODEL_AVAILABLE and external_model_loader:
             st.info("🌐 Loading ML model from external storage...")
@@ -521,6 +525,8 @@ def interactive_prediction_body():
 
             if model is not None:
                 st.success("✅ External ML Model loaded successfully!")
+                # Memory optimization: Force garbage collection after loading
+                gc.collect()
                 return model, preprocessing_data, None
             elif error_msg:
                 st.warning(f"⚠️ External model loading failed: {error_msg}")
@@ -1397,6 +1403,9 @@ def interactive_prediction_body():
                         return
 
                     # Use ML Model approach only
+                    # Memory optimization: Force garbage collection before prediction
+                    gc.collect()
+
                     prediction_result = make_prediction(
                         model=model,
                         year_made=selected_year_made,
@@ -1414,6 +1423,9 @@ def interactive_prediction_body():
                         sale_day_of_year=sale_day_of_year,
                         preprocessing_data=preprocessing_data
                     )
+
+                    # Memory optimization: Force garbage collection after prediction
+                    gc.collect()
 
                     if prediction_result['success']:
                         display_prediction_results(prediction_result, product_size, sale_year, prediction_approach)

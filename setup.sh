@@ -8,7 +8,6 @@ email = \"\"\n\
 headless = true\n\
 enableCORS = false\n\
 enableXsrfProtection = false\n\
-port = \$PORT\n\
 \n\
 [theme]\n\
 primaryColor = \"#FF6B6B\"\n\
