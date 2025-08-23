@@ -8,7 +8,7 @@
 ### **✅ Required Files Verified:**
 - [x] `Procfile` - Heroku process definition
 - [x] `requirements.txt` - Python dependencies with pinned versions
-- [x] `runtime.txt` - Python 3.11.10 specification
+- [x] `.python-version` - Python 3.11 specification (modern Heroku)
 - [x] `.slugignore` - Deployment optimization (excludes 100+ unnecessary files)
 - [x] `setup.sh` - Streamlit configuration with dark theme
 - [x] `.streamlit/config.toml` - Production Streamlit settings
@@ -75,9 +75,9 @@ heroku open
 web: sh setup.sh && streamlit run app.py
 ```
 
-### **Python Runtime:**
+### **Python Runtime (Modern Heroku):**
 ```
-python-3.11.10
+3.11
 ```
 
 ### **Key Dependencies:**

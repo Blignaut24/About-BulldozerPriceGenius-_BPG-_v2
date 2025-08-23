@@ -50,7 +50,7 @@ def check_heroku_files():
     files_to_check = [
         ('Procfile', 'Heroku process definition'),
         ('requirements.txt', 'Python dependencies'),
-        ('runtime.txt', 'Python version specification'),
+        ('.python-version', 'Python version specification (modern Heroku)'),
         ('.slugignore', 'Deployment optimization'),
         ('setup.sh', 'Streamlit configuration script'),
         ('.streamlit/config.toml', 'Streamlit configuration'),
