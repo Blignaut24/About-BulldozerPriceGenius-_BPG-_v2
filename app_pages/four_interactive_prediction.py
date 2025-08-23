@@ -744,114 +744,114 @@ def interactive_prediction_body():
 
     # ML Model inputs - simplified to single approach
     st.header("� Enter Bulldozer Information")
-    st.subheader("🔧 Detailed Specifications (Optional)")
-    st.info("💡 **More details = higher accuracy with our ML model!** All fields are optional.")
+    st.subheader("🔧 Detailed Specifications")
+    st.info("💡 **More details = higher accuracy with our ML model!** All fields below help improve prediction accuracy.")
 
     # Model ID for ML approach
     if MODELID_COMPONENT_AVAILABLE:
         selected_model_id = st.number_input(
-            "Model ID (Optional)",
+            "Model ID",
             min_value=1,
             max_value=100000,
             value=4605,
             key="model_id_input",
-            help="🔵 OPTIONAL: Unique identifier for the bulldozer model. Default value represents a common model."
+            help="Unique identifier for the bulldozer model. Default value represents a common model."
         )
     else:
         selected_model_id = st.number_input(
-            "Model ID (Optional)",
+            "Model ID",
             min_value=1,
             max_value=100000,
             value=4605,
             key="model_id_input_fallback",
-            help="🔵 OPTIONAL: Unique identifier for the bulldozer model. Default value represents a common model."
+            help="Unique identifier for the bulldozer model. Default value represents a common model."
         )
 
     # Additional ML model inputs
-    with get_expander("⚙️ Advanced Technical Specifications (Optional)", expanded=False):
-        st.info("🔵 **All technical specifications are optional.** More details = higher accuracy!")
+    with get_expander("⚙️ Advanced Technical Specifications", expanded=False):
+        st.info("🔵 **All technical specifications help improve accuracy.** More details = higher accuracy!")
 
         col_tech1, col_tech2 = get_columns(2)
 
         with col_tech1:
                 # Enclosure
                 enclosure = st.selectbox(
-                    "Enclosure (Optional)",
+                    "Enclosure",
                     options=categorical_options['Enclosure'],
                     index=0,
                     key="enclosure_input",
-                    help="🔵 OPTIONAL: Type of operator protection system. Default: EROPS (most common)"
+                    help="Type of operator protection system. Default: EROPS (most common)"
                 )
 
                 # Base Model
                 fi_base_model = st.selectbox(
-                    "Base Model (Optional)",
+                    "Base Model",
                     options=categorical_options['fiBaseModel'],
                     index=0,
                     key="fi_base_model_input",
-                    help="🔵 OPTIONAL: Base model designation. Default: D6 (common model)"
+                    help="Base model designation. Default: D6 (common model)"
                 )
 
                 # Coupler System
                 coupler_system = st.selectbox(
-                    "Coupler System (Optional)",
+                    "Coupler System",
                     options=categorical_options['Coupler_System'],
                     index=0,
                     key="coupler_system_input",
-                    help="🔵 OPTIONAL: Type of attachment coupling system. Default: None or Unspecified"
+                    help="Type of attachment coupling system. Default: None or Unspecified"
                 )
 
                 # Tire Size
                 tire_size = st.selectbox(
-                    "Tire Size (Optional)",
+                    "Tire Size",
                     options=categorical_options['Tire_Size'],
                     index=0,
                     key="tire_size_input",
-                    help="🔵 OPTIONAL: Tire size specification. Default: None or Unspecified"
+                    help="Tire size specification. Default: None or Unspecified"
                 )
 
         with col_tech2:
             # Hydraulics Flow
             hydraulics_flow = st.selectbox(
-                "Hydraulics Flow (Optional)",
+                "Hydraulics Flow",
                 options=categorical_options['Hydraulics_Flow'],
                 index=0,
                 key="hydraulics_flow_input",
-                help="🔵 OPTIONAL: Hydraulic flow capacity. Default: Standard"
+                help="Hydraulic flow capacity. Default: Standard"
             )
 
             # Grouser Tracks
             grouser_tracks = st.selectbox(
-                "Grouser Tracks (Optional)",
+                "Grouser Tracks",
                 options=categorical_options['Grouser_Tracks'],
                 index=0,
                 key="grouser_tracks_input",
-                help="🔵 OPTIONAL: Track grouser configuration. Default: None or Unspecified"
+                help="Track grouser configuration. Default: None or Unspecified"
             )
 
             # Hydraulics
             hydraulics = st.selectbox(
-                "Hydraulics (Optional)",
+                "Hydraulics",
                 options=categorical_options['Hydraulics'],
                 index=0,
                 key="hydraulics_input",
-                help="🔵 OPTIONAL: Hydraulic system configuration. Default: Standard"
+                help="Hydraulic system configuration. Default: Standard"
             )
 
-    # Sale date information (Optional)
-    with get_expander("📅 Sale Information (Optional)", expanded=False):
-        st.info("🔵 **Sale timing is optional.** If you don't specify, we'll use typical market timing (mid-2006, mid-year).")
+    # Sale date information
+    with get_expander("📅 Sale Information", expanded=False):
+        st.info("🔵 **Sale timing helps improve accuracy.** If you don't specify, we'll use typical market timing (mid-2006, mid-year).")
 
         col_sale1, col_sale2 = get_columns(2)
 
         with col_sale1:
             sale_year = st.number_input(
-                "Sale Year (Optional)",
+                "Sale Year",
                 min_value=1989,
                 max_value=2015,
                 value=2006,
                 key="sale_year_input",
-                help="🔵 OPTIONAL: Sale year (1989-2015). Must be >= YearMade."
+                help="Sale year (1989-2015). Must be >= YearMade."
             )
 
             # Real-time validation display for year logic
@@ -865,12 +865,12 @@ def interactive_prediction_body():
 
         with col_sale2:
             sale_day_of_year = st.number_input(
-                "Sale Day of Year (Optional)",
+                "Sale Day of Year",
                 min_value=1,
                 max_value=365,
                 value=182,  # Mid-year default
                 key="sale_day_of_year_input",
-                help="🔵 OPTIONAL: Day of the year when sold (1-365). Default: 182 (mid-year)"
+                help="Day of the year when sold (1-365). Default: 182 (mid-year)"
             )
 
         # Understanding Sale Timing Impact - moved inside the expandable section
@@ -1194,7 +1194,7 @@ def interactive_prediction_body():
 
     # Required: Year Made (with auto-correction)
     if selected_year_made is None or selected_year_made == 0:
-        validation_errors.append("⭐ Year Made is required - please enter the year the bulldozer was built")
+        validation_errors.append("⭐ Please enter the Year Made - this is essential for accurate pricing")
     elif selected_year_made < 1974:
         # Auto-correct to minimum
         selected_year_made = 1974
@@ -1243,7 +1243,7 @@ def interactive_prediction_body():
         st.warning("⚠️ **Please provide the required information:**")
         for error in critical_errors:
             st.warning(f"• {error.replace('⭐ ', '')}")
-        st.info("💡 **Tip:** Only Year Made and Product Size are required for a basic prediction!")
+        st.info("💡 **Tip:** Year Made and Product Size are essential - additional details significantly improve accuracy!")
 
     if warning_errors:
         st.info("ℹ️ **Optional field suggestions:**")
