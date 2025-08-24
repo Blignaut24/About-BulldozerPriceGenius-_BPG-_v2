@@ -945,11 +945,22 @@ def interactive_prediction_body():
 
     # Enhanced Form Organization with Visual Separation - Dark Theme
     st.markdown("---")
-    st.markdown(create_dark_section_html(
-        "🔴 Section 1: Required Information",
-        "These 3 fields are essential for any prediction. Complete these first.",
-        "required"
-    ), unsafe_allow_html=True)
+    # Create orange background section for Required Information to match other sections
+    st.markdown(f"""
+    <div style="background: linear-gradient(90deg, {colors['warning_bg']} 0%, #b45309 100%);
+                border-left: 5px solid {colors['accent_orange']};
+                padding: 15px;
+                border-radius: 8px;
+                margin: 10px 0;
+                border: 1px solid {colors['border_color']};">
+        <h3 style="color: {colors['warning_text']}; margin: 0 0 10px 0;">
+            🔴 Section 1: Required Information
+        </h3>
+        <p style="color: {colors['warning_text']}; margin: 0;">
+            These 3 fields are essential for any prediction. Complete these first.
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
 
     # Always required: Year Made and Product Size
     col1, col2 = get_columns(2)
@@ -1188,6 +1199,7 @@ def interactive_prediction_body():
         # Understanding Sale Timing Impact - moved inside the expandable section
         st.markdown("---")
         st.markdown("### 📊 Understanding Sale Timing Impact on Price Predictions")
+        st.markdown("")  # Add proper spacing
 
         # Improved "Why Sale Information Matters" section with better readability
         st.markdown("### 🎯 Why Sale Information Matters")
@@ -1270,8 +1282,10 @@ def interactive_prediction_body():
 
         # Add visual separator and improved section header
         st.markdown("---")
+        st.markdown("")  # Add proper spacing before header
         st.markdown("### 📊 **Detailed Impact Analysis**")
         st.markdown("*Understanding how timing affects bulldozer values*")
+        st.markdown("")  # Add proper spacing after header
 
         col_impact1, col_impact2 = get_columns(2)
 
@@ -1361,8 +1375,10 @@ def interactive_prediction_body():
 
         # Example impact demonstration with improved formatting
         st.markdown("---")
+        st.markdown("")  # Add proper spacing before header
         st.markdown("### 📋 **Real-World Example: Timing Impact on Price**")
         st.markdown("*How the same bulldozer could sell for vastly different prices*")
+        st.markdown("")  # Add proper spacing after header
 
         # Create a more visually appealing example
         st.markdown("""
