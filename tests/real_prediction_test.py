@@ -15,9 +15,9 @@ import time
 import pandas as pd
 import numpy as np
 
-# Add src and app_pages directories to path
-sys.path.append('src')
-sys.path.append('app_pages')
+# Add src and app_pages directories to path (from tests directory)
+sys.path.append('../src')
+sys.path.append('../app_pages')
 
 def test_enhanced_ml_model():
     """Test the Enhanced ML Model with Test Scenario 1 parameters"""

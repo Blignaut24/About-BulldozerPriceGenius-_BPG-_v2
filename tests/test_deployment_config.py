@@ -12,12 +12,13 @@ def test_deployment_config():
     print("BulldozerPriceGenius Deployment Configuration Test")
     print("=" * 55)
     
-    # Test 1: Check required files
+    # Test 1: Check required files (in parent directory)
     required_files = ['Procfile', 'requirements.txt', '.python-version', 'setup.sh', 'app.py']
     print('\nRequired Files Check:')
     all_files_present = True
     for file in required_files:
-        if os.path.exists(file):
+        file_path = os.path.join('..', file)
+        if os.path.exists(file_path):
             print(f'✅ {file} exists')
         else:
             print(f'❌ {file} missing')
@@ -26,16 +27,16 @@ def test_deployment_config():
     # Test 2: Check Python version in .python-version
     print('\nPython Version Check:')
     try:
-        with open('.python-version', 'r') as f:
+        with open('../.python-version', 'r') as f:
             python_version = f.read().strip()
             print(f'✅ Python version: {python_version}')
     except:
         print('❌ Failed to read .python-version')
-    
+
     # Test 3: Check gdown version in requirements.txt
     print('\nDependencies Check:')
     try:
-        with open('requirements.txt', 'r') as f:
+        with open('../requirements.txt', 'r') as f:
             content = f.read()
             if 'gdown==5.2.0' in content:
                 print('✅ gdown==5.2.0 specified correctly')
@@ -52,7 +53,7 @@ def test_deployment_config():
     # Test 4: Check external model loader configuration
     print('\nModel Configuration Check:')
     try:
-        sys.path.append('src')
+        sys.path.append('../src')
         from external_model_loader import ExternalModelLoader
         loader = ExternalModelLoader()
         file_id = loader._get_model_file_id()

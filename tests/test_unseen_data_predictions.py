@@ -7,7 +7,7 @@ Demonstrates the system's ability to make predictions on new, unseen bulldozer c
 import sys
 import time
 from datetime import datetime
-sys.path.append('.')
+sys.path.append('..')  # Add parent directory (from tests directory)
 
 def create_completely_unseen_scenarios():
     """Create completely new, unseen bulldozer scenarios for testing"""

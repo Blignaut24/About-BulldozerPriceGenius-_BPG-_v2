@@ -7,7 +7,7 @@ Tests the timeout and fallback mechanisms for Test Scenario 1
 import sys
 import time
 import os
-sys.path.append('.')
+sys.path.append('..')  # Add parent directory (from tests directory)
 
 def test_prediction_performance():
     """Test the prediction performance with timeout mechanisms"""

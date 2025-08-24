@@ -21,9 +21,16 @@ import numpy as np
 from datetime import datetime
 from typing import Dict, List, Tuple, Any
 
-# Add src and app_pages directories to path
-sys.path.append('src')
-sys.path.append('app_pages')
+# Add src and app_pages directories to path (works from both parent and tests directory)
+import os
+current_dir = os.path.dirname(os.path.abspath(__file__))
+parent_dir = os.path.dirname(current_dir)
+src_path = os.path.join(parent_dir, 'src')
+app_pages_path = os.path.join(parent_dir, 'app_pages')
+sys.path.append(src_path)
+sys.path.append(app_pages_path)
+# Also add parent directory itself
+sys.path.append(parent_dir)
 
 class TestScenarioValidator:
     """Automated test validator for Enhanced ML Model predictions"""
@@ -38,7 +45,7 @@ class TestScenarioValidator:
         
         # Test parquet loading functionality
         try:
-            from four_interactive_prediction import _load_parquet_with_fallback
+            from app_pages.four_interactive_prediction import _load_parquet_with_fallback
             parquet_path = 'src/data_prep/TrainAndValid_object_values_as_categories_and_missing_values_filled.parquet'
             training_data, error_messages = _load_parquet_with_fallback(parquet_path)
             
@@ -302,7 +309,7 @@ class TestScenarioValidator:
         """
         try:
             # Import the prediction components
-            from four_interactive_prediction import _load_parquet_with_fallback
+            from app_pages.four_interactive_prediction import _load_parquet_with_fallback
 
             # Load training data to verify functionality
             parquet_path = 'src/data_prep/TrainAndValid_object_values_as_categories_and_missing_values_filled.parquet'

@@ -5,7 +5,7 @@ Test script to verify Test Scenario 1 confidence fix
 
 import sys
 import os
-sys.path.append('.')
+sys.path.append('..')  # Add parent directory (from tests directory)
 
 def test_scenario_1_confidence():
     """Test the confidence calculation for Test Scenario 1"""

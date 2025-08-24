@@ -5,7 +5,7 @@ Test script to verify Test Scenario 1 multiplier calculation
 
 import sys
 import os
-sys.path.append('.')
+sys.path.append('..')  # Add parent directory (from tests directory)
 
 def test_scenario_1_multiplier():
     """Test the multiplier calculation for Test Scenario 1"""

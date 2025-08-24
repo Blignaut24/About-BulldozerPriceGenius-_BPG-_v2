@@ -6,7 +6,7 @@ Tests various fallback scenarios and notification display
 
 import sys
 import os
-sys.path.append('.')
+sys.path.append('..')  # Add parent directory (from tests directory)
 
 def test_fallback_notification_system():
     """Test the fallback notification system for various scenarios"""
