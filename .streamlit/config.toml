@@ -1,4 +1,5 @@
 [server]
+port = 8501
 headless = true
 enableCORS = false
 enableXsrfProtection = false
@@ -15,3 +16,7 @@ textColor = "#ffffff"
 
 [runner]
 magicEnabled = false
+fastReruns = true
+
+[logger]
+level = "info"

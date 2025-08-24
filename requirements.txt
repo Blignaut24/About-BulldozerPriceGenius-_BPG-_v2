@@ -5,10 +5,10 @@
 streamlit>=1.28.0,<2.0.0
 altair>=4.2.0,<5.0.0
 
-# Data science and machine learning (core dependencies)
-numpy==2.2.2
-pandas==2.3.1
-scikit-learn==1.7.1
+# Data science and machine learning (core dependencies - Heroku compatible versions)
+numpy>=1.21.0,<2.0.0
+pandas>=1.3.0,<3.0.0
+scikit-learn>=1.0.0,<2.0.0
 joblib>=1.0.0,<2.0.0
 
 # Visualization

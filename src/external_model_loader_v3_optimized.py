@@ -10,6 +10,7 @@ from typing import Optional, Tuple, Any
 import time
 import tempfile
 import threading
+import gc  # For memory management on Heroku
 from concurrent.futures import ThreadPoolExecutor, TimeoutError as FutureTimeoutError
 
 # Import gdown at module level to ensure it's available
@@ -112,11 +113,24 @@ class ExternalModelLoaderV3Optimized:
                 return False
     
     def _load_model_with_timeout(self, temp_file_path: str) -> Optional[Any]:
-        """Load model from file with timeout handling."""
+        """Load model from file with timeout handling and memory optimization."""
         def load_task():
-            with open(temp_file_path, 'rb') as f:
-                return pickle.load(f)
-        
+            # Clear memory before loading large model
+            gc.collect()
+
+            try:
+                # Try memory-efficient loading first
+                with open(temp_file_path, 'rb') as f:
+                    return pickle.load(f)
+            except MemoryError:
+                # Fallback: try with joblib if available
+                try:
+                    import joblib
+                    return joblib.load(temp_file_path, mmap_mode='r')
+                except ImportError:
+                    # Re-raise original MemoryError if joblib not available
+                    raise MemoryError("Insufficient memory to load model")
+
         with ThreadPoolExecutor(max_workers=1) as executor:
             future = executor.submit(load_task)
             try:
@@ -124,6 +138,9 @@ class ExternalModelLoaderV3Optimized:
                 return model
             except FutureTimeoutError:
                 st.error(f"⏰ Model loading timeout after {self.load_timeout} seconds")
+                return None
+            except MemoryError:
+                st.error("❌ Insufficient memory to load model. This may be a Heroku memory limit issue.")
                 return None
             except Exception as e:
                 st.error(f"❌ Model loading error: {e}")
