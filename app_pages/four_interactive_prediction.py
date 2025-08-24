@@ -577,20 +577,20 @@ def interactive_prediction_body():
         st.header("🤖 Enhanced ML Model Prediction")
         st.info("🤖 **Using our most accurate machine learning model** for bulldozer price predictions with 85-90% confidence levels.")
 
-        # Display Enhanced ML Model description with dark theme compatibility
+        # Display Enhanced ML Model description with blue background
         st.markdown(f"""
         <div style="
-            background: linear-gradient(90deg, {colors['success_bg']} 0%, #1e4a32 100%);
-            border-left: 5px solid {colors['accent_green']};
+            background: linear-gradient(90deg, {colors['info_bg']} 0%, #1e3a8a 100%);
+            border-left: 5px solid {colors['accent_blue']};
             padding: 15px;
             border-radius: 8px;
             margin: 10px 0;
             border: 1px solid {colors['border_color']};
         ">
-            <h4 style="color: {colors['accent_green']}; margin: 0 0 10px 0;">
+            <h4 style="color: {colors['accent_blue']}; margin: 0 0 10px 0;">
                 🤖 Enhanced ML Model with Premium Recognition
             </h4>
-            <p style="margin: 0; color: {colors['success_text']};">
+            <p style="margin: 0; color: {colors['info_text']};">
                 <strong>Accuracy:</strong> 85-90% (Highest precision available)<br>
                 <strong>Training Data:</strong> 400,000+ real bulldozer sales<br>
                 <strong>Method:</strong> Random Forest algorithm with advanced preprocessing<br>
@@ -960,7 +960,7 @@ def interactive_prediction_body():
             selected_year_made = create_year_made_input()
         else:
             selected_year_made = st.number_input(
-                "⭐ Year Made (Required)",
+                "⭐ Year Made",
                 min_value=1974,
                 max_value=2018,  # Extended range to support Test Scenario 8 (2018)
                 value=2000,
@@ -971,7 +971,7 @@ def interactive_prediction_body():
     with col2:
         # ProductSize (ALWAYS REQUIRED) - Enhanced with test scenario examples
         product_size = st.selectbox(
-            "⭐ Product Size (Required)",
+            "⭐ Product Size",
             options=categorical_options['ProductSize'],
             index=0,
             key="product_size_input",
@@ -981,7 +981,7 @@ def interactive_prediction_body():
     # State (Required for all approaches) - Enhanced with test scenario locations
     state_options = ["All States"] + categorical_options['state']
     state = st.selectbox(
-        "⭐ State (Required)",
+        "⭐ State",
         options=state_options,
         index=0,
         key="state_input",
@@ -997,7 +997,7 @@ def interactive_prediction_body():
         if not selected_year_made: missing_fields.append("Year Made")
         if not product_size: missing_fields.append("Product Size")
         if not state: missing_fields.append("State")
-        st.warning(f"⚠️ Please complete required fields: {', '.join(missing_fields)}")
+
 
     # Progress indicator - Dark Theme
     total_fields = 13
@@ -1033,11 +1033,22 @@ def interactive_prediction_body():
 
     # Enhanced Technical Specifications Section - Always Visible for Better UX - Dark Theme
     st.markdown("---")
-    st.markdown(create_dark_section_html(
-        "🔵 Section 2: Technical Specifications (Recommended)",
-        "These fields significantly improve prediction accuracy. Add what you know from your bulldozer!",
-        "technical"
-    ), unsafe_allow_html=True)
+    # Create orange background section for Technical Specifications
+    st.markdown(f"""
+    <div style="background: linear-gradient(90deg, {colors['warning_bg']} 0%, #b45309 100%);
+                border-left: 5px solid {colors['accent_orange']};
+                padding: 15px;
+                border-radius: 8px;
+                margin: 10px 0;
+                border: 1px solid {colors['border_color']};">
+        <h3 style="color: {colors['warning_text']}; margin: 0 0 10px 0;">
+            🔵 Section 2: Technical Specifications
+        </h3>
+        <p style="color: {colors['warning_text']}; margin: 0;">
+            These fields significantly improve prediction accuracy. Add what you know from your bulldozer!
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
 
     # Technical specifications in organized columns with enhanced tooltips
     st.markdown("### 🔧 Equipment Specifications")
@@ -1122,11 +1133,22 @@ def interactive_prediction_body():
 
     # Enhanced Sale Information Section - Dark Theme
     st.markdown("---")
-    st.markdown(create_dark_section_html(
-        "📅 Section 3: Sale Information (Optional)",
-        "Sale timing affects market conditions. Leave blank to use intelligent defaults.",
-        "optional"
-    ), unsafe_allow_html=True)
+    # Create orange background section for Sale Information
+    st.markdown(f"""
+    <div style="background: linear-gradient(90deg, {colors['warning_bg']} 0%, #b45309 100%);
+                border-left: 5px solid {colors['accent_orange']};
+                padding: 15px;
+                border-radius: 8px;
+                margin: 10px 0;
+                border: 1px solid {colors['border_color']};">
+        <h3 style="color: {colors['warning_text']}; margin: 0 0 10px 0;">
+            📅 Section 3: Sale Information
+        </h3>
+        <p style="color: {colors['warning_text']}; margin: 0;">
+            Sale timing affects market conditions. Leave blank to use intelligent defaults.
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
 
     # Sale date information with enhanced validation
     st.markdown("### 📅 Sale Timing Details")
@@ -1170,14 +1192,15 @@ def interactive_prediction_body():
         # Improved "Why Sale Information Matters" section with better readability
         st.markdown("### 🎯 Why Sale Information Matters")
 
-        st.markdown("""
-        <div style="background: linear-gradient(90deg, #e8f5e8 0%, #d4edda 100%);
-                    border-left: 5px solid #28a745;
+        st.markdown(f"""
+        <div style="background: linear-gradient(90deg, {colors['info_bg']} 0%, #1e3a8a 100%);
+                    border-left: 5px solid {colors['accent_blue']};
                     padding: 20px;
                     border-radius: 10px;
                     margin: 15px 0;
-                    box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-            <p style="color: #155724; margin: 0; font-size: 16px;">
+                    border: 1px solid {colors['border_color']};
+                    box-shadow: 0 2px 4px rgba(0,0,0,0.3);">
+            <p style="color: {colors['info_text']}; margin: 0; font-size: 16px;">
                 Understanding how sale timing affects bulldozer price predictions
             </p>
         </div>
@@ -1218,11 +1241,21 @@ def interactive_prediction_body():
         **⚡ Key Impact on Predictions:**
         """)
 
-        st.success("""
-        **Sale timing is a critical factor that can impact price predictions by 15-25%**
-
-        This means the same bulldozer could be worth $15,000-$25,000 more or less depending on *when* it's sold!
-        """)
+        st.markdown(f"""
+        <div style="background: linear-gradient(90deg, {colors['info_bg']} 0%, #1e3a8a 100%);
+                    border-left: 5px solid {colors['accent_blue']};
+                    padding: 15px;
+                    border-radius: 8px;
+                    margin: 10px 0;
+                    border: 1px solid {colors['border_color']};">
+            <p style="color: {colors['info_text']}; margin: 0; font-weight: bold;">
+                Sale timing is a critical factor that can impact price predictions by 15-25%
+            </p>
+            <p style="color: {colors['info_text']}; margin: 5px 0 0 0;">
+                This means the same bulldozer could be worth $15,000-$25,000 more or less depending on <em>when</em> it's sold!
+            </p>
+        </div>
+        """, unsafe_allow_html=True)
 
         st.markdown("""
         **🎯 Why This Matters for Your Prediction:**
@@ -1270,9 +1303,18 @@ def interactive_prediction_body():
             → *+2% to +5% gradual increase*
             """)
 
-            st.success("""
-            **💡 Key Insight:** Identical bulldozers sold in different years had vastly different values due to economic conditions.
-            """)
+            st.markdown(f"""
+            <div style="background: linear-gradient(90deg, {colors['info_bg']} 0%, #1e3a8a 100%);
+                        border-left: 5px solid {colors['accent_blue']};
+                        padding: 12px;
+                        border-radius: 6px;
+                        margin: 8px 0;
+                        border: 1px solid {colors['border_color']};">
+                <p style="color: {colors['info_text']}; margin: 0; font-weight: bold;">
+                    💡 Key Insight: Identical bulldozers sold in different years had vastly different values due to economic conditions.
+                </p>
+            </div>
+            """, unsafe_allow_html=True)
 
         with col_impact2:
             st.markdown("""
@@ -1302,9 +1344,18 @@ def interactive_prediction_body():
             → *-2% to -3% lower demand*
             """)
 
-            st.success("""
-            **💡 Key Insight:** Construction equipment sells better during building season when contractors are most active.
-            """)
+            st.markdown(f"""
+            <div style="background: linear-gradient(90deg, {colors['info_bg']} 0%, #1e3a8a 100%);
+                        border-left: 5px solid {colors['accent_blue']};
+                        padding: 12px;
+                        border-radius: 6px;
+                        margin: 8px 0;
+                        border: 1px solid {colors['border_color']};">
+                <p style="color: {colors['info_text']}; margin: 0; font-weight: bold;">
+                    💡 Key Insight: Construction equipment sells better during building season when contractors are most active.
+                </p>
+            </div>
+            """, unsafe_allow_html=True)
 
 
 
@@ -1341,15 +1392,15 @@ def interactive_prediction_body():
             hide_index=True
         )
 
-        # Add visual emphasis to the price difference with improved styling
-        st.markdown("""
-        <div style="background: linear-gradient(135deg, #e8f5e8 0%, #d4edda 50%, #c3e6cb 100%);
-                    border: 2px solid #28a745;
-                    border-left: 6px solid #28a745;
+        # Add visual emphasis to the price difference with blue styling
+        st.markdown(f"""
+        <div style="background: linear-gradient(135deg, {colors['info_bg']} 0%, #1e3a8a 50%, #0c4a6e 100%);
+                    border: 2px solid {colors['accent_blue']};
+                    border-left: 6px solid {colors['accent_blue']};
                     padding: 20px;
                     border-radius: 12px;
                     margin: 20px 0;
-                    box-shadow: 0 4px 12px rgba(40, 167, 69, 0.15);
+                    box-shadow: 0 4px 12px rgba(23, 162, 184, 0.15);
                     position: relative;
                     overflow: hidden;">
             <div style="position: absolute;
@@ -1357,23 +1408,23 @@ def interactive_prediction_body():
                         left: 0;
                         right: 0;
                         height: 3px;
-                        background: linear-gradient(90deg, #28a745, #20c997, #28a745);"></div>
-            <div style="color: #155724;
+                        background: linear-gradient(90deg, {colors['accent_blue']}, #20c997, {colors['accent_blue']});"></div>
+            <div style="color: {colors['info_text']};
                         font-size: 16px;
                         font-weight: 600;
                         line-height: 1.5;
-                        text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);">
+                        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);">
                 <span style="font-size: 18px; margin-right: 8px;">💡</span>
-                <strong style="color: #0d4419;">Key Takeaway:</strong>
+                <strong style="color: {colors['info_text']};">Key Takeaway:</strong>
                 The same bulldozer could vary by
-                <strong style="color: #dc3545;
-                           background: rgba(220, 53, 69, 0.1);
+                <strong style="color: {colors['accent_red']};
+                           background: rgba(220, 53, 69, 0.2);
                            padding: 2px 6px;
                            border-radius: 4px;
                            font-size: 17px;">$74,000</strong>
                 <br>
-                <span style="font-size: 15px; color: #495057; margin-top: 5px; display: inline-block;">
-                    (from <strong style="color: #28a745;">$154,000</strong> to <strong style="color: #dc3545;">$228,000</strong>)
+                <span style="font-size: 15px; color: {colors['text_secondary']}; margin-top: 5px; display: inline-block;">
+                    (from <strong style="color: {colors['accent_green']};">$154,000</strong> to <strong style="color: {colors['accent_red']};">$228,000</strong>)
                     depending on sale timing alone!
                 </span>
             </div>
@@ -1438,11 +1489,21 @@ def interactive_prediction_body():
         col_tip1, col_tip2 = get_columns(2)
 
         with col_tip1:
-            st.success("""
-            **🎯 For Baseline Predictions:**
-
-            Use default values (2006, mid-year) if unsure about sale timing. These represent typical market conditions.
-            """)
+            st.markdown(f"""
+            <div style="background: linear-gradient(90deg, {colors['info_bg']} 0%, #1e3a8a 100%);
+                        border-left: 5px solid {colors['accent_blue']};
+                        padding: 15px;
+                        border-radius: 8px;
+                        margin: 10px 0;
+                        border: 1px solid {colors['border_color']};">
+                <p style="color: {colors['info_text']}; margin: 0; font-weight: bold;">
+                    🎯 For Baseline Predictions:
+                </p>
+                <p style="color: {colors['info_text']}; margin: 5px 0 0 0;">
+                    Use default values (2006, mid-year) if unsure about sale timing. These represent typical market conditions.
+                </p>
+            </div>
+            """, unsafe_allow_html=True)
 
         with col_tip2:
             st.info("""
@@ -1529,11 +1590,7 @@ def interactive_prediction_body():
     critical_errors = [error for error in validation_errors if error.startswith("⭐")]
     warning_errors = [error for error in validation_errors if error.startswith("🔵")]
 
-    if critical_errors:
-        st.warning("⚠️ **Please provide the required information:**")
-        for error in critical_errors:
-            st.warning(f"• {error.replace('⭐ ', '')}")
-        st.info("💡 **Tip:** Year Made and Product Size are essential - additional details significantly improve accuracy!")
+
 
     if warning_errors:
         st.info("ℹ️ **Optional field suggestions:**")
