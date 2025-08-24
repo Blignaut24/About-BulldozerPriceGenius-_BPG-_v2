@@ -347,6 +347,281 @@ This test validates the Statistical Fallback Model's sophisticated vintage equip
 
 ---
 
+### **Test Scenario 3: Economic Crisis Impact Assessment**
+*Category: Vintage Equipment (Economic Stress Testing)*
+
+**🎯 Purpose and Importance**
+This scenario tests both systems' ability to accurately value equipment sold during the 2008-2009 financial crisis period. It validates handling of economic stress factors and market depression effects on equipment valuation during one of the most challenging periods in construction equipment history.
+
+**📋 Bulldozer Configuration**
+- **Year Made**: 1995
+- **Sale Year**: 2009
+- **Product Size**: Medium
+- **State**: Michigan
+- **Enclosure**: EROPS
+- **Base Model**: D7
+- **Coupler System**: Hydraulic
+- **Tire Size**: 23.5R25
+- **Hydraulics Flow**: Standard Flow
+- **Grouser Tracks**: Single
+- **Hydraulics**: 2 Valve
+- **Model ID**: 3800
+- **Sale Day of Year**: 45
+
+**💰 Expected Results (Crisis Period Valuation)**
+- **Price Range**: $85,000 - $140,000 (crisis-depressed values)
+- **Confidence Range**: 70-85% (moderate confidence for crisis period)
+- **Value Multiplier Range**: 6.0x - 9.5x (crisis impact recognition)
+- **Response Time**: <10 seconds
+
+**🔬 Testing Instructions**
+1. Navigate to Page 4: Interactive Prediction
+2. Enter the bulldozer configuration exactly as specified above
+3. Click "Predict Sale Price" button
+4. Record the prediction results and response time
+5. Evaluate how each system handles the 2009 financial crisis impact
+6. Assess whether the systems recognize the market depression effects
+7. Compare approaches to economic stress period valuation
+
+**✅ Success Criteria**
+- **Enhanced ML Model**: ≥85% overall accuracy, crisis period recognition, appropriate market depression factors
+- **Statistical Fallback**: ≥75% overall accuracy, economic stress handling, realistic crisis-period pricing
+- **Both Systems**: No inflated valuations ignoring crisis impact, proper economic cycle recognition
+- **Crisis Recognition**: Predictions reflect the significant market depression of 2008-2009 period
+
+**📊 Results Analysis**
+*[To be completed during testing]*
+- Enhanced ML Model Result:
+- Statistical Fallback Result:
+- Crisis Period Handling:
+- Economic Stress Recognition:
+- Issues Identified:
+
+**🎯 Conclusions and Implications**
+*[To be completed after testing]*
+
+---
+
+### **Test Scenario 4: Vintage Compact Specialist Equipment**
+*Category: Vintage Equipment (Specialized Small Equipment)*
+
+**🎯 Purpose and Importance**
+This scenario tests both systems' ability to accurately value vintage compact equipment with specialized features. It validates handling of smaller bulldozers from the 1990s era, ensuring the systems can properly assess compact equipment that often has different market dynamics than larger machines.
+
+**📋 Bulldozer Configuration**
+- **Year Made**: 1992
+- **Sale Year**: 2007
+- **Product Size**: Compact
+- **State**: Florida
+- **Enclosure**: ROPS
+- **Base Model**: D3
+- **Coupler System**: Manual
+- **Tire Size**: 16.9R24
+- **Hydraulics Flow**: Standard Flow
+- **Grouser Tracks**: Single
+- **Hydraulics**: 2 Valve
+- **Model ID**: 2400
+- **Sale Day of Year**: 210
+
+**💰 Expected Results (Vintage Compact Specialist)**
+- **Price Range**: $45,000 - $85,000 (compact vintage premium)
+- **Confidence Range**: 75-85% (good confidence for compact equipment)
+- **Value Multiplier Range**: 7.5x - 12.0x (compact equipment multiplier recognition)
+- **Response Time**: <10 seconds
+
+**🔬 Testing Instructions**
+1. Navigate to Page 4: Interactive Prediction
+2. Enter the bulldozer configuration exactly as specified above
+3. Click "Predict Sale Price" button
+4. Record the prediction results and response time
+5. Evaluate how each system handles compact bulldozer valuation
+6. Assess whether the systems recognize the specialized compact market dynamics
+7. Compare approaches to vintage compact equipment pricing
+
+**✅ Success Criteria**
+- **Enhanced ML Model**: ≥85% overall accuracy, compact equipment recognition, appropriate size-based multipliers
+- **Statistical Fallback**: ≥75% overall accuracy, vintage compact handling, realistic compact market pricing
+- **Both Systems**: Proper compact vs. large equipment differentiation, appropriate vintage compact premiums
+- **Compact Recognition**: Predictions reflect the specialized nature of compact bulldozer markets
+
+**📊 Results Analysis**
+*[To be completed during testing]*
+- Enhanced ML Model Result:
+- Statistical Fallback Result:
+- Compact Equipment Handling:
+- Vintage Compact Recognition:
+- Issues Identified:
+
+**🎯 Conclusions and Implications**
+*[To be completed after testing]*
+
+---
+
+### **Test Scenario 5: Modern Premium Construction Boom**
+*Category: Modern Equipment (2000s Construction Boom)*
+
+**🎯 Purpose and Importance**
+This scenario tests both systems' ability to accurately value modern equipment sold during the 2006-2007 construction boom period. It validates handling of premium features combined with peak market conditions, representing optimal equipment valuation scenarios.
+
+**📋 Bulldozer Configuration**
+- **Year Made**: 2004
+- **Sale Year**: 2006
+- **Product Size**: Large
+- **State**: Nevada
+- **Enclosure**: EROPS w AC
+- **Base Model**: D8
+- **Coupler System**: Hydraulic
+- **Tire Size**: 26.5R25
+- **Hydraulics Flow**: High Flow
+- **Grouser Tracks**: Double
+- **Hydraulics**: 4 Valve
+- **Model ID**: 4600
+- **Sale Day of Year**: 120
+
+**💰 Expected Results (Construction Boom Premium)**
+- **Price Range**: $180,000 - $280,000 (boom period premium)
+- **Confidence Range**: 80-90% (high confidence for boom period)
+- **Value Multiplier Range**: 7.5x - 11.0x (boom market recognition)
+- **Response Time**: <10 seconds
+
+**🔬 Testing Instructions**
+1. Navigate to Page 4: Interactive Prediction
+2. Enter the bulldozer configuration exactly as specified above
+3. Click "Predict Sale Price" button
+4. Record the prediction results and response time
+5. Evaluate how each system handles the 2006 construction boom impact
+6. Assess whether the systems recognize the market premium effects
+7. Compare approaches to boom period valuation
+
+**✅ Success Criteria**
+- **Enhanced ML Model**: ≥85% overall accuracy, boom period recognition, appropriate market premium factors
+- **Statistical Fallback**: ≥75% overall accuracy, construction boom handling, realistic boom-period pricing
+- **Both Systems**: Proper boom premium recognition, appropriate economic cycle adjustments
+- **Boom Recognition**: Predictions reflect the significant market premiums of 2006-2007 period
+
+**📊 Results Analysis**
+*[To be completed during testing]*
+- Enhanced ML Model Result:
+- Statistical Fallback Result:
+- Boom Period Handling:
+- Premium Market Recognition:
+- Issues Identified:
+
+**🎯 Conclusions and Implications**
+*[To be completed after testing]*
+
+---
+
+### **Test Scenario 6: Modern Standard Configuration**
+*Category: Modern Equipment (Standard Features)*
+
+**🎯 Purpose and Importance**
+This scenario tests both systems' ability to accurately value modern equipment with standard configurations. It validates handling of typical 2000s equipment without premium features, representing the most common equipment configurations in the market.
+
+**📋 Bulldozer Configuration**
+- **Year Made**: 2008
+- **Sale Year**: 2012
+- **Product Size**: Medium
+- **State**: Ohio
+- **Enclosure**: EROPS
+- **Base Model**: D6
+- **Coupler System**: Hydraulic
+- **Tire Size**: 23.5R25
+- **Hydraulics Flow**: Standard Flow
+- **Grouser Tracks**: Single
+- **Hydraulics**: 3 Valve
+- **Model ID**: 3600
+- **Sale Day of Year**: 180
+
+**💰 Expected Results (Modern Standard)**
+- **Price Range**: $120,000 - $180,000 (standard modern equipment)
+- **Confidence Range**: 80-90% (high confidence for standard configurations)
+- **Value Multiplier Range**: 6.5x - 9.5x (standard equipment recognition)
+- **Response Time**: <10 seconds
+
+**🔬 Testing Instructions**
+1. Navigate to Page 4: Interactive Prediction
+2. Enter the bulldozer configuration exactly as specified above
+3. Click "Predict Sale Price" button
+4. Record the prediction results and response time
+5. Evaluate how each system handles standard modern equipment
+6. Assess whether the systems provide appropriate baseline valuations
+7. Compare approaches to standard configuration pricing
+
+**✅ Success Criteria**
+- **Enhanced ML Model**: ≥85% overall accuracy, standard configuration recognition, appropriate baseline pricing
+- **Statistical Fallback**: ≥75% overall accuracy, modern standard handling, realistic market-rate pricing
+- **Both Systems**: Proper standard vs. premium differentiation, appropriate modern equipment valuation
+- **Standard Recognition**: Predictions reflect typical modern equipment market values
+
+**📊 Results Analysis**
+*[To be completed during testing]*
+- Enhanced ML Model Result:
+- Statistical Fallback Result:
+- Standard Configuration Handling:
+- Modern Equipment Recognition:
+- Issues Identified:
+
+**🎯 Conclusions and Implications**
+*[To be completed after testing]*
+
+---
+
+### **Test Scenario 7: Modern Recovery Period Assessment**
+*Category: Modern Equipment (Post-Crisis Recovery)*
+
+**🎯 Purpose and Importance**
+This scenario tests both systems' ability to accurately value modern equipment sold during the 2010-2012 recovery period. It validates handling of market stabilization effects and gradual value recovery following the financial crisis.
+
+**📋 Bulldozer Configuration**
+- **Year Made**: 2007
+- **Sale Year**: 2011
+- **Product Size**: Large/Medium
+- **State**: Texas
+- **Enclosure**: EROPS w AC
+- **Base Model**: D7
+- **Coupler System**: Hydraulic
+- **Tire Size**: 25.5R25
+- **Hydraulics Flow**: High Flow
+- **Grouser Tracks**: Double
+- **Hydraulics**: 3 Valve
+- **Model ID**: 4200
+- **Sale Day of Year**: 240
+
+**💰 Expected Results (Recovery Period)**
+- **Price Range**: $140,000 - $210,000 (recovery period stabilization)
+- **Confidence Range**: 75-85% (moderate confidence for recovery period)
+- **Value Multiplier Range**: 7.0x - 10.0x (recovery market recognition)
+- **Response Time**: <10 seconds
+
+**🔬 Testing Instructions**
+1. Navigate to Page 4: Interactive Prediction
+2. Enter the bulldozer configuration exactly as specified above
+3. Click "Predict Sale Price" button
+4. Record the prediction results and response time
+5. Evaluate how each system handles the 2011 recovery period impact
+6. Assess whether the systems recognize the market stabilization effects
+7. Compare approaches to recovery period valuation
+
+**✅ Success Criteria**
+- **Enhanced ML Model**: ≥85% overall accuracy, recovery period recognition, appropriate market stabilization factors
+- **Statistical Fallback**: ≥75% overall accuracy, post-crisis recovery handling, realistic recovery-period pricing
+- **Both Systems**: Proper recovery premium recognition, appropriate economic cycle adjustments
+- **Recovery Recognition**: Predictions reflect the gradual market recovery of 2010-2012 period
+
+**📊 Results Analysis**
+*[To be completed during testing]*
+- Enhanced ML Model Result:
+- Statistical Fallback Result:
+- Recovery Period Handling:
+- Market Stabilization Recognition:
+- Issues Identified:
+
+**🎯 Conclusions and Implications**
+*[To be completed after testing]*
+
+---
+
 ### **Test Scenario 8: Ultra-Modern Premium Technology**
 *Category: Recent Equipment (Latest Technology)*
 
@@ -402,6 +677,116 @@ This scenario tests both systems' ability to accurately value cutting-edge equip
 
 ---
 
+### **Test Scenario 9: Recent Premium Advanced Features**
+*Category: Recent Equipment (Advanced Technology)*
+
+**🎯 Purpose and Importance**
+This scenario tests both systems' ability to accurately value recent equipment with advanced features and technology. It validates handling of 2010s equipment with sophisticated specifications, representing the evolution of bulldozer technology in the modern era.
+
+**📋 Bulldozer Configuration**
+- **Year Made**: 2014
+- **Sale Year**: 2015
+- **Product Size**: Large/Medium
+- **State**: Colorado
+- **Enclosure**: EROPS w AC
+- **Base Model**: D8
+- **Coupler System**: Hydraulic
+- **Tire Size**: 26.5R25
+- **Hydraulics Flow**: High Flow
+- **Grouser Tracks**: Triple
+- **Hydraulics**: 4 Valve
+- **Model ID**: 4800
+- **Sale Day of Year**: 150
+
+**💰 Expected Results (Recent Advanced Technology)**
+- **Price Range**: $280,000 - $420,000 (recent advanced technology)
+- **Confidence Range**: 85-95% (high confidence for recent equipment)
+- **Value Multiplier Range**: 6.5x - 9.5x (recent equipment with controlled depreciation)
+- **Response Time**: <10 seconds
+
+**🔬 Testing Instructions**
+1. Navigate to Page 4: Interactive Prediction
+2. Enter the bulldozer configuration exactly as specified above
+3. Click "Predict Sale Price" button
+4. Record the prediction results and response time
+5. Evaluate how each system handles recent advanced technology
+6. Assess whether the systems recognize the minimal depreciation for 1-year-old equipment
+7. Compare approaches to recent technology valuation
+
+**✅ Success Criteria**
+- **Enhanced ML Model**: ≥85% overall accuracy, recent technology recognition, appropriate advanced feature premiums
+- **Statistical Fallback**: ≥75% overall accuracy, advanced technology handling, realistic recent equipment pricing
+- **Both Systems**: Proper recent vs. vintage differentiation, appropriate advanced technology valuation
+- **Technology Recognition**: Predictions reflect recent equipment technology and minimal depreciation
+
+**📊 Results Analysis**
+*[To be completed during testing]*
+- Enhanced ML Model Result:
+- Statistical Fallback Result:
+- Recent Technology Handling:
+- Advanced Feature Recognition:
+- Issues Identified:
+
+**🎯 Conclusions and Implications**
+*[To be completed after testing]*
+
+---
+
+### **Test Scenario 10: Recent Compact Advanced Configuration**
+*Category: Recent Equipment (Compact Advanced)*
+
+**🎯 Purpose and Importance**
+This scenario tests both systems' ability to accurately value recent compact equipment with advanced configurations. It validates handling of smaller bulldozers with modern technology, ensuring the systems can properly assess compact equipment market dynamics in the recent era.
+
+**📋 Bulldozer Configuration**
+- **Year Made**: 2013
+- **Sale Year**: 2014
+- **Product Size**: Small
+- **State**: Washington
+- **Enclosure**: EROPS w AC
+- **Base Model**: D4
+- **Coupler System**: Hydraulic
+- **Tire Size**: 18.4R26
+- **Hydraulics Flow**: High Flow
+- **Grouser Tracks**: Double
+- **Hydraulics**: 3 Valve
+- **Model ID**: 2800
+- **Sale Day of Year**: 75
+
+**💰 Expected Results (Recent Compact Advanced)**
+- **Price Range**: $140,000 - $220,000 (recent compact with advanced features)
+- **Confidence Range**: 80-90% (high confidence for recent compact)
+- **Value Multiplier Range**: 8.0x - 12.5x (compact equipment with advanced technology)
+- **Response Time**: <10 seconds
+
+**🔬 Testing Instructions**
+1. Navigate to Page 4: Interactive Prediction
+2. Enter the bulldozer configuration exactly as specified above
+3. Click "Predict Sale Price" button
+4. Record the prediction results and response time
+5. Evaluate how each system handles recent compact advanced equipment
+6. Assess whether the systems recognize the specialized compact advanced market
+7. Compare approaches to recent compact technology pricing
+
+**✅ Success Criteria**
+- **Enhanced ML Model**: ≥85% overall accuracy, recent compact recognition, appropriate advanced compact premiums
+- **Statistical Fallback**: ≥75% overall accuracy, compact advanced handling, realistic recent compact pricing
+- **Both Systems**: Proper compact vs. large equipment differentiation, appropriate recent compact valuation
+- **Compact Advanced Recognition**: Predictions reflect recent compact equipment with advanced technology
+
+**📊 Results Analysis**
+*[To be completed during testing]*
+- Enhanced ML Model Result:
+- Statistical Fallback Result:
+- Recent Compact Handling:
+- Advanced Compact Recognition:
+- Issues Identified:
+
+**🎯 Conclusions and Implications**
+*[To be completed after testing]*
+
+---
+
 ### **Test Scenario 11: Extreme Configuration Mix**
 *Category: Edge Cases (Hybrid Specifications)*
 
@@ -450,6 +835,61 @@ This scenario tests both systems' ability to handle unusual combinations of prem
 - Statistical Fallback Result:
 - Hybrid Configuration Handling:
 - Feature Interaction Logic:
+- Issues Identified:
+
+**🎯 Conclusions and Implications**
+*[To be completed after testing]*
+
+---
+
+### **Test Scenario 12: Geographic Extreme Edge Case**
+*Category: Edge Cases (Geographic Extremes)*
+
+**🎯 Purpose and Importance**
+This scenario tests both systems' ability to handle geographic extremes and unusual market conditions. It validates handling of equipment sold in remote or economically challenging regions, ensuring the systems can adapt to diverse geographic and economic conditions across different markets.
+
+**📋 Bulldozer Configuration**
+- **Year Made**: 2010
+- **Sale Year**: 2013
+- **Product Size**: Medium
+- **State**: Alaska
+- **Enclosure**: EROPS w AC
+- **Base Model**: D6
+- **Coupler System**: Hydraulic
+- **Tire Size**: 23.5R25
+- **Hydraulics Flow**: High Flow
+- **Grouser Tracks**: Double
+- **Hydraulics**: 3 Valve
+- **Model ID**: 3800
+- **Sale Day of Year**: 330
+
+**💰 Expected Results (Geographic Extreme)**
+- **Price Range**: $160,000 - $240,000 (geographic premium for remote location)
+- **Confidence Range**: 70-85% (moderate uncertainty for extreme geography)
+- **Value Multiplier Range**: 7.0x - 10.5x (geographic factor recognition)
+- **Response Time**: <10 seconds
+
+**🔬 Testing Instructions**
+1. Navigate to Page 4: Interactive Prediction
+2. Enter the bulldozer configuration exactly as specified above
+3. Click "Predict Sale Price" button
+4. Record the prediction results and response time
+5. Evaluate how each system handles the Alaska geographic factor
+6. Assess whether the systems recognize remote location premiums/discounts
+7. Compare approaches to geographic extreme valuation
+
+**✅ Success Criteria**
+- **Enhanced ML Model**: ≥85% overall accuracy, geographic factor recognition, appropriate location-based adjustments
+- **Statistical Fallback**: ≥75% overall accuracy, extreme geography handling, realistic remote location pricing
+- **Both Systems**: Proper geographic differentiation, appropriate remote location valuation
+- **Geographic Recognition**: Predictions reflect the unique market dynamics of extreme geographic locations
+
+**📊 Results Analysis**
+*[To be completed during testing]*
+- Enhanced ML Model Result:
+- Statistical Fallback Result:
+- Geographic Extreme Handling:
+- Remote Location Recognition:
 - Issues Identified:
 
 **🎯 Conclusions and Implications**
