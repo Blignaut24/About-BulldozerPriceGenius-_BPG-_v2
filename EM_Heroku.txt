@@ -1,0 +1,108 @@
+C:\Users\blign>heroku logs --tail
+ »   Warning: heroku update available from 7.53.0 to 10.12.0.
+ »   Error: Missing required flag:
+ »     -a, --app APP  app to run command against
+ »   See more help with --help
+
+C:\Users\blign>heroku logs --tail -a bulldozerpricegenius
+ »   Warning: heroku update available from 7.53.0 to 10.12.0.
+2025-08-24T19:37:53.469484+00:00 heroku[web.1]: Process running mem=1058M(206.7%)
+2025-08-24T19:37:53.471042+00:00 heroku[web.1]: Error R15 (Memory quota vastly exceeded)
+2025-08-24T19:37:53.472308+00:00 heroku[web.1]: Stopping process with SIGKILL
+2025-08-24T19:37:53.580975+00:00 heroku[router]: at=info method=GET path="/_stcore/stream" host=bulldozerpricegenius-707a4e3cbb84.herokuapp.com request_id=418d1663-b65f-d406-1176-02ac4bc476c5 fwd="145.53.33.145" dyno=web.1 connect=0ms service=141598ms status=101 bytes=0 protocol=http1.1 tls=true tls_version=unknown
+2025-08-24T19:37:53.663113+00:00 heroku[web.1]: Process exited with status 137
+2025-08-24T19:37:53.682986+00:00 heroku[web.1]: State changed from up to crashed
+2025-08-24T19:37:53.685973+00:00 heroku[web.1]: State changed from crashed to starting
+2025-08-24T19:38:02.904715+00:00 heroku[web.1]: Starting process with command `sh setup.sh && streamlit run app.py --server.port=55212 --server.address=0.0.0.0 --server.headless=true --server.enableCORS=false --server.enableXsrfProtection=false`
+2025-08-24T19:38:03.407617+00:00 app[web.1]: Python buildpack: Detected 512 MB available memory and 8 CPU cores.
+2025-08-24T19:38:03.407724+00:00 app[web.1]: Python buildpack: Defaulting WEB_CONCURRENCY to 2 based on the available memory.
+2025-08-24T19:38:04.121815+00:00 app[web.1]: 2025-08-24 19:38:04.121 "general.email" is not a valid config option. If you previously had this config option set, it may have been removed.
+2025-08-24T19:38:04.122124+00:00 app[web.1]: 2025-08-24 19:38:04.122 "general.email" is not a valid config option. If you previously had this config option set, it may have been removed.
+2025-08-24T19:38:04.285032+00:00 app[web.1]:
+2025-08-24T19:38:04.285038+00:00 app[web.1]: You can now view your Streamlit app in your browser.
+2025-08-24T19:38:04.285039+00:00 app[web.1]:
+2025-08-24T19:38:04.285065+00:00 app[web.1]: URL: http://0.0.0.0:55212
+2025-08-24T19:38:04.285072+00:00 app[web.1]:
+2025-08-24T19:38:04.563298+00:00 heroku[web.1]: State changed from starting to up
+2025-08-24T19:38:05.622902+00:00 heroku[router]: at=info method=GET path="/_stcore/host-config" host=bulldozerpricegenius-707a4e3cbb84.herokuapp.com request_id=add86e7d-3c8e-d60d-4835-9faa794e3edb fwd="145.53.33.145, 145.53.33.145" dyno=web.1 connect=5000ms service=7003ms status=304 bytes=0 protocol=http1.1 tls=true tls_version=unknown
+2025-08-24T19:38:06.183984+00:00 heroku[router]: at=info method=GET path="/_stcore/health" host=bulldozerpricegenius-707a4e3cbb84.herokuapp.com request_id=9cb88ca7-52ee-e1a6-290c-adef3c7e2d7a fwd="145.53.33.145, 145.53.33.145" dyno=web.1 connect=5000ms service=7003ms status=304 bytes=0 protocol=http1.1 tls=true tls_version=unknown
+2025-08-24T19:38:12.850703+00:00 app[web.1]: 2025-08-24 19:38:12.850 Thread 'ThreadPoolExecutor-1_0': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2025-08-24T19:38:12.850938+00:00 app[web.1]: 2025-08-24 19:38:12.850 Thread 'ThreadPoolExecutor-1_0': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2025-08-24T19:38:12.850985+00:00 app[web.1]: 2025-08-24 19:38:12.850 Thread 'ThreadPoolExecutor-1_0': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2025-08-24T19:38:12.851434+00:00 app[web.1]: 2025-08-24 19:38:12.851 Thread 'ThreadPoolExecutor-1_0': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2025-08-24T19:38:12.852153+00:00 app[web.1]: 2025-08-24 19:38:12.852 Thread 'ThreadPoolExecutor-1_0': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2025-08-24T19:38:12.852341+00:00 app[web.1]: 2025-08-24 19:38:12.852 Thread 'ThreadPoolExecutor-1_0': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2025-08-24T19:38:12.852380+00:00 app[web.1]: 2025-08-24 19:38:12.852 Thread 'ThreadPoolExecutor-1_0': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2025-08-24T19:38:12.852429+00:00 app[web.1]: 2025-08-24 19:38:12.852 Thread 'ThreadPoolExecutor-1_0': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2025-08-24T19:38:12.852454+00:00 app[web.1]: 2025-08-24 19:38:12.852 Thread 'ThreadPoolExecutor-1_0': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2025-08-24T19:38:12.852481+00:00 app[web.1]: 2025-08-24 19:38:12.852 Thread 'ThreadPoolExecutor-1_0': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2025-08-24T19:38:12.852535+00:00 app[web.1]: 2025-08-24 19:38:12.852 Thread 'ThreadPoolExecutor-1_0': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2025-08-24T19:38:12.852559+00:00 app[web.1]: 2025-08-24 19:38:12.852 Thread 'ThreadPoolExecutor-1_0': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2025-08-24T19:38:12.852594+00:00 app[web.1]: 2025-08-24 19:38:12.852 Thread 'ThreadPoolExecutor-1_0': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2025-08-24T19:38:12.852633+00:00 app[web.1]: 2025-08-24 19:38:12.852 Thread 'ThreadPoolExecutor-1_0': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2025-08-24T19:38:12.852656+00:00 app[web.1]: 2025-08-24 19:38:12.852 Thread 'ThreadPoolExecutor-1_0': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2025-08-24T19:38:12.852684+00:00 app[web.1]: 2025-08-24 19:38:12.852 Thread 'ThreadPoolExecutor-1_0': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2025-08-24T19:38:12.852727+00:00 app[web.1]: 2025-08-24 19:38:12.852 Thread 'ThreadPoolExecutor-1_0': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2025-08-24T19:38:12.852750+00:00 app[web.1]: 2025-08-24 19:38:12.852 Thread 'ThreadPoolExecutor-1_0': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2025-08-24T19:38:12.852777+00:00 app[web.1]: 2025-08-24 19:38:12.852 Thread 'ThreadPoolExecutor-1_0': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2025-08-24T19:38:12.852813+00:00 app[web.1]: 2025-08-24 19:38:12.852 Thread 'ThreadPoolExecutor-1_0': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2025-08-24T19:38:12.852836+00:00 app[web.1]: 2025-08-24 19:38:12.852 Thread 'ThreadPoolExecutor-1_0': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2025-08-24T19:38:12.852863+00:00 app[web.1]: 2025-08-24 19:38:12.852 Thread 'ThreadPoolExecutor-1_0': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2025-08-24T19:38:12.853321+00:00 app[web.1]: 2025-08-24 19:38:12.853 Thread 'ThreadPoolExecutor-1_0': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2025-08-24T19:38:12.853344+00:00 app[web.1]: 2025-08-24 19:38:12.853 Thread 'ThreadPoolExecutor-1_0': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2025-08-24T19:38:12.853378+00:00 app[web.1]: 2025-08-24 19:38:12.853 Thread 'ThreadPoolExecutor-1_0': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2025-08-24T19:38:12.853437+00:00 app[web.1]: 2025-08-24 19:38:12.853 Thread 'ThreadPoolExecutor-1_0': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2025-08-24T19:38:12.853439+00:00 app[web.1]: 2025-08-24 19:38:12.853 Thread 'ThreadPoolExecutor-1_0': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2025-08-24T19:38:12.853464+00:00 app[web.1]: 2025-08-24 19:38:12.853 Thread 'ThreadPoolExecutor-1_0': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2025-08-24T19:38:13.351900+00:00 app[web.1]: 2025-08-24 19:38:13.351 Thread 'Thread-8': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2025-08-24T19:38:13.351919+00:00 app[web.1]: 2025-08-24 19:38:13.351 Thread 'Thread-8': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2025-08-24T19:38:13.351965+00:00 app[web.1]: 2025-08-24 19:38:13.351 Thread 'Thread-8': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2025-08-24T19:38:20.794002+00:00 app[web.1]: 2025-08-24 19:38:20.793 Thread 'ThreadPoolExecutor-1_0': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2025-08-24T19:38:20.794037+00:00 app[web.1]: 2025-08-24 19:38:20.793 Thread 'ThreadPoolExecutor-1_0': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2025-08-24T19:38:20.794085+00:00 app[web.1]: 2025-08-24 19:38:20.794 Thread 'ThreadPoolExecutor-1_0': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2025-08-24T19:38:20.794202+00:00 app[web.1]: 2025-08-24 19:38:20.794 Thread 'ThreadPoolExecutor-1_0': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2025-08-24T19:38:20.794224+00:00 app[web.1]: 2025-08-24 19:38:20.794 Thread 'ThreadPoolExecutor-1_0': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2025-08-24T19:38:20.794252+00:00 app[web.1]: 2025-08-24 19:38:20.794 Thread 'ThreadPoolExecutor-1_0': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2025-08-24T19:38:20.794290+00:00 app[web.1]: 2025-08-24 19:38:20.794 Thread 'ThreadPoolExecutor-1_0': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2025-08-24T19:38:20.794310+00:00 app[web.1]: 2025-08-24 19:38:20.794 Thread 'ThreadPoolExecutor-1_0': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2025-08-24T19:38:20.794336+00:00 app[web.1]: 2025-08-24 19:38:20.794 Thread 'ThreadPoolExecutor-1_0': missing ScriptRunContext! This warning can be ignored when running in bare mode.
+2025-08-24T19:38:36.554645+00:00 heroku[web.1]: Process running mem=1198M(234.0%)
+2025-08-24T19:38:36.557007+00:00 heroku[web.1]: Error R15 (Memory quota vastly exceeded)
+2025-08-24T19:38:36.560616+00:00 heroku[web.1]: Stopping process with SIGKILL
+2025-08-24T19:38:36.667416+00:00 heroku[router]: at=info method=GET path="/_stcore/stream" host=bulldozerpricegenius-707a4e3cbb84.herokuapp.com request_id=75001267-888d-b4a6-2a25-9b423fd408e7 fwd="145.53.33.145" dyno=web.1 connect=0ms service=30374ms status=101 bytes=0 protocol=http1.1 tls=true tls_version=unknown
+2025-08-24T19:38:36.729022+00:00 heroku[web.1]: Process exited with status 137
+2025-08-24T19:38:36.748688+00:00 heroku[web.1]: State changed from up to crashed
+2025-08-24T19:38:51.706881+00:00 heroku[router]: sock=client at=warning code=H27 desc="Client Request Interrupted" method=GET path="/_stcore/host-config" host=bulldozerpricegenius-707a4e3cbb84.herokuapp.com request_id=256baaf5-24bf-b797-2eb8-7099610322de fwd="145.53.33.145" dyno= connect=5000ms service=9759ms status=499 bytes=567 protocol=http1.1 tls=true tls_version=unknown
+2025-08-24T19:38:51.707578+00:00 heroku[router]: sock=client at=warning code=H27 desc="Client Request Interrupted" method=GET path="/_stcore/health" host=bulldozerpricegenius-707a4e3cbb84.herokuapp.com request_id=d4e59bb5-ef47-c614-694e-124e819e7bf5 fwd="145.53.33.145" dyno= connect=5000ms service=10005ms status=499 bytes=567 protocol=http1.1 tls=true tls_version=unknown
+2025-08-24T19:39:06.830326+00:00 heroku[router]: sock=client at=warning code=H27 desc="Client Request Interrupted" method=GET path="/_stcore/health" host=bulldozerpricegenius-707a4e3cbb84.herokuapp.com request_id=dbe4cca1-6824-d6eb-3efd-7efcae79079e fwd="" dyno= connect=0ms service=0ms status=499 bytes=567 protocol=http1.1 tls=true tls_version=unknown
+2025-08-24T19:39:06.831843+00:00 heroku[router]: sock=client at=warning code=H27 desc="Client Request Interrupted" method=GET path="/_stcore/host-config" host=bulldozerpricegenius-707a4e3cbb84.herokuapp.com request_id=dbbc90e1-8390-b174-5a47-18c2728b6071 fwd="" dyno= connect=0ms service=0ms status=499 bytes=567 protocol=http1.1 tls=true tls_version=unknown
+2025-08-24T19:39:22.030871+00:00 heroku[router]: sock=client at=warning code=H27 desc="Client Request Interrupted" method=GET path="/_stcore/health" host=bulldozerpricegenius-707a4e3cbb84.herokuapp.com request_id=d3f56805-3619-6e07-b5f9-98ee6485c5ef fwd="" dyno= connect=0ms service=0ms status=499 bytes=567 protocol=http1.1 tls=true tls_version=unknown
+2025-08-24T19:39:22.033290+00:00 heroku[router]: sock=client at=warning code=H27 desc="Client Request Interrupted" method=GET path="/_stcore/host-config" host=bulldozerpricegenius-707a4e3cbb84.herokuapp.com request_id=3dc859d1-b591-233f-79e5-db1feb5500af fwd="" dyno= connect=0ms service=0ms status=499 bytes=567 protocol=http1.1 tls=true tls_version=unknown
+2025-08-24T19:39:37.399111+00:00 heroku[router]: sock=client at=warning code=H27 desc="Client Request Interrupted" method=GET path="/_stcore/health" host=bulldozerpricegenius-707a4e3cbb84.herokuapp.com request_id=75c81898-7220-f459-88aa-d8f2ab0f9323 fwd="" dyno= connect=0ms service=0ms status=499 bytes=567 protocol=http1.1 tls=true tls_version=unknown
+2025-08-24T19:39:37.400438+00:00 heroku[router]: sock=client at=warning code=H27 desc="Client Request Interrupted" method=GET path="/_stcore/host-config" host=bulldozerpricegenius-707a4e3cbb84.herokuapp.com request_id=910314d6-f523-5bd7-1fbf-1a58f96d06e2 fwd="" dyno= connect=0ms service=0ms status=499 bytes=567 protocol=http1.1 tls=true tls_version=unknown
+2025-08-24T19:39:53.218691+00:00 heroku[router]: sock=client at=warning code=H27 desc="Client Request Interrupted" method=GET path="/_stcore/health" host=bulldozerpricegenius-707a4e3cbb84.herokuapp.com request_id=c65130fd-1bae-5406-8b0e-50e22c36c50e fwd="" dyno= connect=0ms service=0ms status=499 bytes=567 protocol=http1.1 tls=true tls_version=unknown
+2025-08-24T19:39:53.220589+00:00 heroku[router]: sock=client at=warning code=H27 desc="Client Request Interrupted" method=GET path="/_stcore/host-config" host=bulldozerpricegenius-707a4e3cbb84.herokuapp.com request_id=0d56ab95-48d8-e7da-850a-cdcfc664249f fwd="" dyno= connect=0ms service=0ms status=499 bytes=567 protocol=http1.1 tls=true tls_version=unknown
+2025-08-24T19:40:09.819046+00:00 heroku[router]: sock=client at=warning code=H27 desc="Client Request Interrupted" method=GET path="/_stcore/health" host=bulldozerpricegenius-707a4e3cbb84.herokuapp.com request_id=c18a0db9-9a40-2510-6195-295fc669fc61 fwd="" dyno= connect=0ms service=0ms status=499 bytes=567 protocol=http1.1 tls=true tls_version=unknown
+2025-08-24T19:40:09.872049+00:00 heroku[router]: sock=client at=warning code=H27 desc="Client Request Interrupted" method=GET path="/_stcore/host-config" host=bulldozerpricegenius-707a4e3cbb84.herokuapp.com request_id=ddfe2b47-0e5b-4113-7ef9-485caff3dac2 fwd="" dyno= connect=0ms service=0ms status=499 bytes=567 protocol=http1.1 tls=true tls_version=unknown
+2025-08-24T19:40:26.852114+00:00 heroku[router]: sock=client at=warning code=H27 desc="Client Request Interrupted" method=GET path="/_stcore/health" host=bulldozerpricegenius-707a4e3cbb84.herokuapp.com request_id=ce8bfd42-0e1e-ef57-d408-3bd49b60384e fwd="" dyno= connect=0ms service=0ms status=499 bytes=567 protocol=http1.1 tls=true tls_version=unknown
+2025-08-24T19:40:26.890839+00:00 heroku[router]: sock=client at=warning code=H27 desc="Client Request Interrupted" method=GET path="/_stcore/host-config" host=bulldozerpricegenius-707a4e3cbb84.herokuapp.com request_id=f02e5c7f-cbfb-120e-0d1d-c1344fb30e56 fwd="" dyno= connect=0ms service=0ms status=499 bytes=567 protocol=http1.1 tls=true tls_version=unknown
+2025-08-24T19:40:43.859615+00:00 heroku[router]: sock=client at=warning code=H27 desc="Client Request Interrupted" method=GET path="/_stcore/health" host=bulldozerpricegenius-707a4e3cbb84.herokuapp.com request_id=719db61a-d8fa-fe67-8e3e-71d0e3030536 fwd="" dyno= connect=0ms service=0ms status=499 bytes=567 protocol=http1.1 tls=true tls_version=unknown
+2025-08-24T19:40:43.899775+00:00 heroku[router]: sock=client at=warning code=H27 desc="Client Request Interrupted" method=GET path="/_stcore/host-config" host=bulldozerpricegenius-707a4e3cbb84.herokuapp.com request_id=dce3f8be-cab9-587f-bd3c-9fbac41b0487 fwd="" dyno= connect=0ms service=0ms status=499 bytes=567 protocol=http1.1 tls=true tls_version=unknown
+2025-08-24T19:40:48.946840+00:00 heroku[router]: sock=client at=warning code=H27 desc="Client Request Interrupted" method=GET path="/" host=bulldozerpricegenius-707a4e3cbb84.herokuapp.com request_id=bd8f81b7-f690-bd05-6034-b6782f545da6 fwd="" dyno= connect=0ms service=0ms status=499 bytes=567 protocol=http1.1 tls=true tls_version=unknown
+2025-08-24T19:40:49.018998+00:00 heroku[router]: sock=client at=warning code=H27 desc="Client Request Interrupted" method=GET path="/_stcore/health" host=bulldozerpricegenius-707a4e3cbb84.herokuapp.com request_id=3df7423f-639f-e8d0-9abf-66328cf21e88 fwd="" dyno= connect=0ms service=0ms status=499 bytes=567 protocol=http1.1 tls=true tls_version=unknown
+2025-08-24T19:40:49.019120+00:00 heroku[router]: sock=client at=warning code=H27 desc="Client Request Interrupted" method=GET path="/_stcore/host-config" host=bulldozerpricegenius-707a4e3cbb84.herokuapp.com request_id=42cbbfe9-7c7e-7e8e-1b19-12cd24e3e9f3 fwd="" dyno= connect=0ms service=0ms status=499 bytes=567 protocol=http1.1 tls=true tls_version=unknown
+2025-08-24T19:41:34.833042+00:00 heroku[router]: sock=client at=warning code=H27 desc="Client Request Interrupted" method=GET path="/" host=bulldozerpricegenius-707a4e3cbb84.herokuapp.com request_id=29321efb-b561-5822-79be-0d034059c545 fwd="" dyno= connect=0ms service=0ms status=499 bytes=567 protocol=http1.1 tls=true tls_version=unknown
+2025-08-24T19:42:53.461024+00:00 heroku[router]: at=error code=H10 desc="App crashed" method=GET path="/" host=bulldozerpricegenius-707a4e3cbb84.herokuapp.com request_id=888e4a0a-c8ef-61fc-9c61-5f8f5f586274 fwd="" dyno= connect=0ms service=0ms status=503 bytes=567 protocol=http1.1 tls=true tls_version=unknown
+2025-08-24T19:44:10.486130+00:00 heroku[router]: at=error code=H10 desc="App crashed" method=GET path="/favicon.ico" host=bulldozerpricegenius-707a4e3cbb84.herokuapp.com request_id=fa4b04c1-b1d0-cc9d-443f-7374b7893cfa fwd="" dyno= connect=0ms service=0ms status=503 bytes=567 protocol=http1.1 tls=true tls_version=unknown
+2025-08-24T19:49:11.663454+00:00 heroku[web.1]: State changed from crashed to starting
+2025-08-24T19:49:20.777140+00:00 heroku[web.1]: Starting process with command `sh setup.sh && streamlit run app.py --server.port=3960 --server.address=0.0.0.0 --server.headless=true --server.enableCORS=false --server.enableXsrfProtection=false`
+2025-08-24T19:49:21.303792+00:00 app[web.1]: Python buildpack: Detected 512 MB available memory and 8 CPU cores.
+2025-08-24T19:49:21.303936+00:00 app[web.1]: Python buildpack: Defaulting WEB_CONCURRENCY to 2 based on the available memory.
+2025-08-24T19:49:22.055510+00:00 app[web.1]: 2025-08-24 19:49:22.055 "general.email" is not a valid config option. If you previously had this config option set, it may have been removed.
+2025-08-24T19:49:22.055826+00:00 app[web.1]: 2025-08-24 19:49:22.055 "general.email" is not a valid config option. If you previously had this config option set, it may have been removed.
+2025-08-24T19:49:22.235286+00:00 app[web.1]:
+2025-08-24T19:49:22.235292+00:00 app[web.1]: You can now view your Streamlit app in your browser.
+2025-08-24T19:49:22.235293+00:00 app[web.1]:
+2025-08-24T19:49:22.235316+00:00 app[web.1]: URL: http://0.0.0.0:3960
+2025-08-24T19:49:22.235325+00:00 app[web.1]:
+2025-08-24T19:49:22.446894+00:00 heroku[web.1]: State changed from starting to up

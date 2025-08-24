@@ -39,16 +39,25 @@ class ExternalModelLoaderV3Optimized:
         # Preprocessing components (small file, can be local)
         self.preprocessing_path = "src/models/preprocessing_components.pkl"
         
-        # Performance settings
-        self.download_timeout = 300  # 5 minutes timeout for download
-        self.load_timeout = 120      # 2 minutes timeout for model loading
-        
-        # Cache settings
+        # Performance settings optimized for Heroku memory constraints
+        self.download_timeout = 180  # Reduced to 3 minutes for faster failure
+        self.load_timeout = 60       # Reduced to 1 minute for model loading
+
+        # Memory management settings for Heroku (512MB limit)
+        self.enable_memory_optimization = True
+        self.use_fallback_on_memory_error = True
+        self.disable_threading_on_heroku = self._is_heroku_environment()
+
+        # Cache settings - disabled on Heroku to save memory
         self._model_cache = None
         self._preprocessing_cache = None
         self._cache_timestamp = None
-        self._cache_ttl = 3600  # 1 hour cache TTL
-    
+        self._cache_ttl = 3600 if not self._is_heroku_environment() else 0  # No caching on Heroku
+
+    def _is_heroku_environment(self) -> bool:
+        """Check if running on Heroku platform."""
+        return 'DYNO' in os.environ or 'HEROKU_APP_NAME' in os.environ
+
     def _get_model_file_id(self) -> str:
         """Get the Google Drive file ID from environment variables or default."""
         # Try to get from Streamlit secrets first (for Streamlit Cloud)
@@ -131,21 +140,42 @@ class ExternalModelLoaderV3Optimized:
                     # Re-raise original MemoryError if joblib not available
                     raise MemoryError("Insufficient memory to load model")
 
-        with ThreadPoolExecutor(max_workers=1) as executor:
-            future = executor.submit(load_task)
+        # On Heroku, avoid ThreadPoolExecutor to prevent context issues and save memory
+        if self.disable_threading_on_heroku:
             try:
-                model = future.result(timeout=self.load_timeout)
-                return model
-            except FutureTimeoutError:
-                st.error(f"⏰ Model loading timeout after {self.load_timeout} seconds")
-                return None
+                return load_task()
             except MemoryError:
-                st.error("❌ Insufficient memory to load model. This may be a Heroku memory limit issue.")
-                return None
+                st.warning("⚠️ Memory limit reached. Switching to lightweight statistical model.")
+                return self._get_fallback_model()
             except Exception as e:
                 st.error(f"❌ Model loading error: {e}")
-                return None
-    
+                return self._get_fallback_model()
+        else:
+            # Use threading for local development
+            with ThreadPoolExecutor(max_workers=1) as executor:
+                future = executor.submit(load_task)
+                try:
+                    model = future.result(timeout=self.load_timeout)
+                    return model
+                except FutureTimeoutError:
+                    st.error(f"⏰ Model loading timeout after {self.load_timeout} seconds")
+                    return None
+                except MemoryError:
+                    st.error("❌ Insufficient memory to load model. This may be a Heroku memory limit issue.")
+                    return None
+                except Exception as e:
+                    st.error(f"❌ Model loading error: {e}")
+                    return None
+
+    def _get_fallback_model(self):
+        """Get a lightweight fallback model for memory-constrained environments."""
+        try:
+            from src.lightweight_fallback_model import create_fallback_model
+            return create_fallback_model()
+        except ImportError:
+            st.error("❌ Fallback model not available. Using minimal baseline.")
+            return None
+
     def _get_cache_decorator(self):
         """Get the appropriate caching decorator based on Streamlit version"""
         if hasattr(st, 'cache_resource'):

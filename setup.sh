@@ -1,14 +1,11 @@
 mkdir -p ~/.streamlit/
 
 echo "\
-[general]\n\
-email = \"\"\n\
-\n\
 [server]\n\
 headless = true\n\
 enableCORS = false\n\
 enableXsrfProtection = false\n\
-maxUploadSize = 200\n\
+maxUploadSize = 50\n\
 \n\
 [browser]\n\
 gatherUsageStats = false\n\
@@ -21,4 +18,8 @@ textColor = \"#ffffff\"\n\
 \n\
 [runner]\n\
 magicEnabled = false\n\
+fastReruns = false\n\
+\n\
+[logger]\n\
+level = \"error\"\n\
 " > ~/.streamlit/config.toml

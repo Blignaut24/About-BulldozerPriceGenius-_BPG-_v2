@@ -3,7 +3,7 @@ port = 8501
 headless = true
 enableCORS = false
 enableXsrfProtection = false
-maxUploadSize = 200
+maxUploadSize = 50
 
 [browser]
 gatherUsageStats = false
@@ -16,7 +16,7 @@ textColor = "#ffffff"
 
 [runner]
 magicEnabled = false
-fastReruns = true
+fastReruns = false
 
 [logger]
-level = "info"
+level = "error"
