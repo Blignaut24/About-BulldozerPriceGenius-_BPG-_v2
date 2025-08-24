@@ -1369,32 +1369,45 @@ def interactive_prediction_body():
                 <p style="color: {colors['info_text']}; margin: 0 0 20px 0; font-size: 14px;">
                     Our model learned from market data spanning multiple economic cycles:
                 </p>
+            </div>
+            """, unsafe_allow_html=True)
 
-                <div style="color: {colors['info_text']}; line-height: 1.6;">
-                    <h5 style="color: {colors['accent_blue']}; margin: 15px 0 10px 0; font-size: 16px;">
-                        📅 Historical Sale Year Effects:
-                    </h5>
+            # Historical Sale Year Effects with simplified HTML
+            st.markdown(f"""
+            <h5 style="color: {colors['accent_blue']}; margin: 15px 0 10px 0; font-size: 16px;">
+                📅 Historical Sale Year Effects:
+            </h5>
+            """, unsafe_allow_html=True)
 
-                    <div style="margin: 12px 0; padding: 12px; background: rgba(40, 167, 69, 0.1); border-radius: 6px;">
-                        <div style="font-weight: bold; color: {colors['accent_green']};">🏗️ 2006-2007: Construction Boom</div>
-                        <div style="margin-left: 20px; font-style: italic;">→ +10% to +15% price premium</div>
-                    </div>
+            # Construction Boom
+            st.markdown(f"""
+            <div style="margin: 12px 0; padding: 12px; background: rgba(40, 167, 69, 0.1); border-radius: 6px;">
+                <div style="font-weight: bold; color: {colors['accent_green']};">🏗️ 2006-2007: Construction Boom</div>
+                <div style="margin-left: 20px; font-style: italic; color: {colors['info_text']};">→ +10% to +15% price premium</div>
+            </div>
+            """, unsafe_allow_html=True)
 
-                    <div style="margin: 12px 0; padding: 12px; background: rgba(220, 53, 69, 0.1); border-radius: 6px;">
-                        <div style="font-weight: bold; color: {colors['accent_red']};">📉 2008-2009: Financial Crisis</div>
-                        <div style="margin-left: 20px; font-style: italic;">→ -15% to -25% price reduction</div>
-                    </div>
+            # Financial Crisis
+            st.markdown(f"""
+            <div style="margin: 12px 0; padding: 12px; background: rgba(220, 53, 69, 0.1); border-radius: 6px;">
+                <div style="font-weight: bold; color: {colors['accent_red']};">📉 2008-2009: Financial Crisis</div>
+                <div style="margin-left: 20px; font-style: italic; color: {colors['info_text']};">→ -15% to -25% price reduction</div>
+            </div>
+            """, unsafe_allow_html=True)
 
-                    <div style="margin: 12px 0; padding: 12px; background: rgba(255, 193, 7, 0.1); border-radius: 6px;">
-                        <div style="font-weight: bold; color: {colors['accent_yellow']};">⚖️ 2010-2012: Recovery Period</div>
-                        <div style="margin-left: 20px; font-style: italic;">→ Baseline market values</div>
-                    </div>
+            # Recovery Period
+            st.markdown(f"""
+            <div style="margin: 12px 0; padding: 12px; background: rgba(255, 193, 7, 0.1); border-radius: 6px;">
+                <div style="font-weight: bold; color: {colors['accent_yellow']};">⚖️ 2010-2012: Recovery Period</div>
+                <div style="margin-left: 20px; font-style: italic; color: {colors['info_text']};">→ Baseline market values</div>
+            </div>
+            """, unsafe_allow_html=True)
 
-                    <div style="margin: 12px 0; padding: 12px; background: rgba(23, 162, 184, 0.1); border-radius: 6px;">
-                        <div style="font-weight: bold; color: {colors['accent_blue']};">📈 2013-2015: Stable Growth</div>
-                        <div style="margin-left: 20px; font-style: italic;">→ +2% to +5% gradual increase</div>
-                    </div>
-                </div>
+            # Stable Growth
+            st.markdown(f"""
+            <div style="margin: 12px 0; padding: 12px; background: rgba(23, 162, 184, 0.1); border-radius: 6px;">
+                <div style="font-weight: bold; color: {colors['accent_blue']};">📈 2013-2015: Stable Growth</div>
+                <div style="margin-left: 20px; font-style: italic; color: {colors['info_text']};">→ +2% to +5% gradual increase</div>
             </div>
             """, unsafe_allow_html=True)
 
@@ -1431,32 +1444,45 @@ def interactive_prediction_body():
                 <p style="color: {colors['info_text']}; margin: 0 0 20px 0; font-size: 14px;">
                     Construction activity varies throughout the year, affecting equipment demand:
                 </p>
+            </div>
+            """, unsafe_allow_html=True)
 
-                <div style="color: {colors['info_text']}; line-height: 1.6;">
-                    <h5 style="color: {colors['accent_blue']}; margin: 15px 0 10px 0; font-size: 16px;">
-                        📅 Sale Day of Year Effects:
-                    </h5>
+            # Sale Day of Year Effects with simplified HTML
+            st.markdown(f"""
+            <h5 style="color: {colors['accent_blue']}; margin: 15px 0 10px 0; font-size: 16px;">
+                📅 Sale Day of Year Effects:
+            </h5>
+            """, unsafe_allow_html=True)
 
-                    <div style="margin: 12px 0; padding: 12px; background: rgba(40, 167, 69, 0.1); border-radius: 6px;">
-                        <div style="font-weight: bold; color: {colors['accent_green']};">🌸 Spring (Days 60-150)</div>
-                        <div style="margin-left: 20px; font-style: italic;">→ +2% to +3% peak demand</div>
-                    </div>
+            # Spring
+            st.markdown(f"""
+            <div style="margin: 12px 0; padding: 12px; background: rgba(40, 167, 69, 0.1); border-radius: 6px;">
+                <div style="font-weight: bold; color: {colors['accent_green']};">🌸 Spring (Days 60-150)</div>
+                <div style="margin-left: 20px; font-style: italic; color: {colors['info_text']};">→ +2% to +3% peak demand</div>
+            </div>
+            """, unsafe_allow_html=True)
 
-                    <div style="margin: 12px 0; padding: 12px; background: rgba(255, 193, 7, 0.1); border-radius: 6px;">
-                        <div style="font-weight: bold; color: {colors['accent_yellow']};">☀️ Summer (Days 151-240)</div>
-                        <div style="margin-left: 20px; font-style: italic;">→ +1% to +2% high activity</div>
-                    </div>
+            # Summer
+            st.markdown(f"""
+            <div style="margin: 12px 0; padding: 12px; background: rgba(255, 193, 7, 0.1); border-radius: 6px;">
+                <div style="font-weight: bold; color: {colors['accent_yellow']};">☀️ Summer (Days 151-240)</div>
+                <div style="margin-left: 20px; font-style: italic; color: {colors['info_text']};">→ +1% to +2% high activity</div>
+            </div>
+            """, unsafe_allow_html=True)
 
-                    <div style="margin: 12px 0; padding: 12px; background: rgba(23, 162, 184, 0.1); border-radius: 6px;">
-                        <div style="font-weight: bold; color: {colors['accent_blue']};">🍂 Fall (Days 241-330)</div>
-                        <div style="margin-left: 20px; font-style: italic;">→ Baseline moderate demand</div>
-                    </div>
+            # Fall
+            st.markdown(f"""
+            <div style="margin: 12px 0; padding: 12px; background: rgba(23, 162, 184, 0.1); border-radius: 6px;">
+                <div style="font-weight: bold; color: {colors['accent_blue']};">🍂 Fall (Days 241-330)</div>
+                <div style="margin-left: 20px; font-style: italic; color: {colors['info_text']};">→ Baseline moderate demand</div>
+            </div>
+            """, unsafe_allow_html=True)
 
-                    <div style="margin: 12px 0; padding: 12px; background: rgba(224, 224, 224, 0.1); border-radius: 6px;">
-                        <div style="font-weight: bold; color: {colors['text_secondary']};">❄️ Winter (Days 331-59)</div>
-                        <div style="margin-left: 20px; font-style: italic;">→ -2% to -3% lower demand</div>
-                    </div>
-                </div>
+            # Winter
+            st.markdown(f"""
+            <div style="margin: 12px 0; padding: 12px; background: rgba(224, 224, 224, 0.1); border-radius: 6px;">
+                <div style="font-weight: bold; color: {colors['text_secondary']};">❄️ Winter (Days 331-59)</div>
+                <div style="margin-left: 20px; font-style: italic; color: {colors['info_text']};">→ -2% to -3% lower demand</div>
             </div>
             """, unsafe_allow_html=True)
 
