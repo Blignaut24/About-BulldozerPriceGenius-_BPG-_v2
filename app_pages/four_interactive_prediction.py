@@ -1375,7 +1375,7 @@ def interactive_prediction_body():
                         📅 Historical Sale Year Effects:
                     </h5>
 
-                    <div style="margin: 12px 0; padding: 12px; background: rgba(23, 162, 184, 0.1); border-radius: 6px;">
+                    <div style="margin: 12px 0; padding: 12px; background: rgba(40, 167, 69, 0.1); border-radius: 6px;">
                         <div style="font-weight: bold; color: {colors['accent_green']};">🏗️ 2006-2007: Construction Boom</div>
                         <div style="margin-left: 20px; font-style: italic;">→ +10% to +15% price premium</div>
                     </div>
@@ -1452,7 +1452,7 @@ def interactive_prediction_body():
                         <div style="margin-left: 20px; font-style: italic;">→ Baseline moderate demand</div>
                     </div>
 
-                    <div style="margin: 12px 0; padding: 12px; background: rgba(108, 117, 125, 0.1); border-radius: 6px;">
+                    <div style="margin: 12px 0; padding: 12px; background: rgba(224, 224, 224, 0.1); border-radius: 6px;">
                         <div style="font-weight: bold; color: {colors['text_secondary']};">❄️ Winter (Days 331-59)</div>
                         <div style="margin-left: 20px; font-style: italic;">→ -2% to -3% lower demand</div>
                     </div>
