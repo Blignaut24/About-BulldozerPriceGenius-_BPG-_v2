@@ -82,7 +82,7 @@ Our testing framework includes 12 carefully designed scenarios that validate bot
 | Test # | Scenario Name | Category | Enhanced ML | Statistical Fallback | Unseen Data |
 |--------|---------------|----------|-------------|---------------------|-------------|
 | **1** | Baseline Compliance Test | Compliance | ❌ Fail | ✅ Pass | ⚠️ Calibration data |
-| **2** | Ultra-Vintage Premium Restoration | Vintage | 🔄 Testing | 🔄 Testing | ✅ Truly unseen |
+| **2** | Ultra-Vintage Premium Restoration | Vintage |❌ Fail | ✅ Pass | ✅ Truly unseen |
 | **3** | Vintage Economic Stress Test | Vintage | 🔄 Testing | 🔄 Testing | ✅ Truly unseen |
 | **4** | Vintage Basic Workhorse | Vintage | 🔄 Testing | 🔄 Testing | ✅ Truly unseen |
 | **5** | Modern Premium Standard | Modern | 🔄 Testing | 🔄 Testing | ✅ Truly unseen |
