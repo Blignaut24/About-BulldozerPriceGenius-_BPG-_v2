@@ -503,8 +503,8 @@ This scenario tests both systems' ability to accurately value vintage compact eq
 - **Impact**: System automatically switches to Statistical Fallback
 
 **⚡ Statistical Fallback Result:**
-- **Predicted Price**: $63,670 ✅ (within expected range $45,000-$85,000)
-- **Confidence Level**: 73.8% ✅ (within adjusted range 70-85%)
+- **Predicted Price**: $63,670.05 ✅ (within expected range $45,000-$85,000)
+- **Confidence Level**: 73% ✅ (within adjusted range 70-85%)
 - **Method Display**: "Statistical Fallback" ✅ (correctly identified)
 - **Response Time**: <1 second ✅ (excellent performance)
 - **Price Range**: $58K - $69K ✅ (appropriate uncertainty bounds within target range)
