@@ -24,11 +24,12 @@ except ImportError as e:
 def test_scenario_5_calibration():
     """
     Test the Test Scenario 5 calibration fixes for modern premium construction boom equipment.
-    
+    Tests both Statistical Fallback and simulates Enhanced ML Model behavior.
+
     Returns:
         tuple: (success, predicted_price, confidence)
     """
-    print("🧪 Testing Test Scenario 5 Calibration Fixes")
+    print("🧪 Testing Test Scenario 5 Comprehensive Calibration Fixes")
     print("=" * 60)
     
     # Test Scenario 5 Configuration (Modern Premium Construction Boom)
