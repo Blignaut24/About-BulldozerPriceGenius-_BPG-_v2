@@ -464,7 +464,7 @@ So that I can explore price predictions and market insights without installing a
 
 # 🤖 **Understanding the Two 'Brains' Behind BulldozerPriceGenius**
 
-BulldozerPriceGenius employs a sophisticated **dual-model architecture** that ensures reliable bulldozer price predictions under all deployment conditions. This innovative approach combines a high-accuracy machine learning model with a lightweight statistical fallback, providing users with consistent service even when facing technical constraints.
+BulldozerPriceGenius employs a sophisticated **dual-model architecture** that ensures reliable bulldozer price predictions under all deployment conditions. This innovative approach combines a high-accuracy machine learning model with a lightweight precision price tool, providing users with consistent service even when facing technical constraints.
 
 ## 🧠 **The Dual-Model Architecture**
 
@@ -513,7 +513,7 @@ When the primary model cannot operate, our **Lightweight Statistical Model** pro
 {
     'predicted_price': 125000.00,
     'confidence_level': 'Medium',
-    'method_used': 'Statistical Fallback Model',
+    'method_used': 'Precision Price Tool Model',
     'uncertainty_range': {
         'lower': 87500.00,
         'upper': 162500.00

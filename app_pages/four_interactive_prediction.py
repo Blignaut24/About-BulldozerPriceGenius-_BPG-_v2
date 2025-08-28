@@ -487,7 +487,7 @@ def interactive_prediction_body():
 
         with col_guide2:
             st.markdown("""
-            ### 📊 Statistical Fallback
+            ### 📊 Precision Price Tool
             **Best for quick decisions or when speed is critical**
 
             **✅ Advantages:**
@@ -506,8 +506,8 @@ def interactive_prediction_body():
         st.markdown("""
         ### 🎯 Recommendations
         - **🏆 Enhanced ML Model**: Use for important purchase/sale decisions, equipment appraisals, or when maximum accuracy is needed
-        - **⚡ Statistical Fallback**: Use for quick preliminary estimates, time-critical decisions, or when you need instant results
-        - **🛡️ Automatic Fallback**: The system automatically switches to Statistical Fallback if Enhanced ML Model is unavailable or times out
+        - **⚡ Precision Price Tool**: Use for quick preliminary estimates, time-critical decisions, or when you need instant results
+        - **🛡️ Automatic Fallback**: The system automatically switches to Precision Price Tool if Enhanced ML Model is unavailable or times out
         """)
 
     # Prediction method selection
@@ -515,19 +515,19 @@ def interactive_prediction_body():
         "Select your preferred prediction method:",
         options=[
             "🤖 Enhanced ML Model (85-90% accuracy, 2-15s response)",
-            "📊 Statistical Fallback (78.7% accuracy, <1s response)"
+            "📊 Precision Price Tool (78.7% accuracy, <1s response)"
         ],
         index=0,  # Default to Enhanced ML Model
-        help="Choose between maximum accuracy (Enhanced ML) or instant results (Statistical Fallback). The system will automatically fall back to Statistical Fallback if Enhanced ML Model fails."
+        help="Choose between maximum accuracy (Enhanced ML) or instant results (Precision Price Tool). The system will automatically fall back to Precision Price Tool if Enhanced ML Model fails."
     )
 
     # Store the user's choice for later use
-    user_prefers_statistical = "Statistical Fallback" in prediction_method_choice
+    user_prefers_statistical = "Precision Price Tool" in prediction_method_choice
 
     # Display selected method information
     if user_prefers_statistical:
-        st.info("📊 **Statistical Fallback selected** - You'll get instant, reliable predictions using mathematical models.")
-        prediction_approach = "📊 Statistical Fallback (User Selected)"
+        st.info("📊 **Precision Price Tool selected** - You'll get instant, reliable predictions using mathematical models.")
+        prediction_approach = "📊 Precision Price Tool (User Selected)"
     else:
         st.info("🤖 **Enhanced ML Model selected** - You'll get maximum accuracy predictions using advanced machine learning.")
         prediction_approach = "🤖 Advanced ML Model (User Selected)"
@@ -569,10 +569,11 @@ def interactive_prediction_body():
 
     # Display prediction approach based on user selection
     if user_prefers_statistical:
-        st.header("📊 Statistical Fallback Prediction")
-        st.info("📊 **Using our reliable statistical model** for instant bulldozer price predictions with 78.7% accuracy.")
+        st.header("📊 Precision Price Tool Prediction")
+        st.info("📊 **Using our reliable precision tool** for instant bulldozer price "
+                 "predictions with 78.7% accuracy.")
 
-        # Display Statistical Fallback description with dark theme compatibility
+        # Display Precision Price Tool description with dark theme compatibility
         st.markdown(f"""
         <div style="
             background: linear-gradient(90deg, {colors['info_bg']} 0%, #0a3a5c 100%);
@@ -583,7 +584,7 @@ def interactive_prediction_body():
             border: 1px solid {colors['border_color']};
         ">
             <h4 style="color: {colors['accent_blue']}; margin: 0 0 10px 0;">
-                📊 Statistical Fallback System
+                📊 Precision Price Tool System
             </h4>
             <p style="margin: 0; color: {colors['info_text']};">
                 <strong>Accuracy:</strong> 78.7% (Production-ready reliability)<br>
@@ -2030,7 +2031,8 @@ def interactive_prediction_body():
                     ⚡ Ready to Get Your Instant Prediction?
                 </h3>
                 <p style="color: {colors['text_secondary']}; font-size: 16px; margin-bottom: 20px;">
-                    Click the button below to generate your bulldozer price prediction using our Statistical Fallback system
+                    Click the button below to generate your bulldozer price prediction using our
+                    Precision Price Tool
                 </p>
             </div>
             """, unsafe_allow_html=True)
@@ -2059,26 +2061,28 @@ def interactive_prediction_body():
                 import time
                 start_time = time.time()
 
-                # Check if user selected Statistical Fallback directly
+                # Check if user selected Precision Price Tool directly
                 if user_prefers_statistical:
-                    # User explicitly chose Statistical Fallback - skip ML model and go directly to statistical prediction
-                    status_text.text("📊 Generating statistical prediction...")
+                    # User explicitly chose Precision Price Tool - skip ML model and go
+                    # directly to precision prediction
+                    status_text.text("📊 Generating precision prediction...")
                     progress_bar.progress(50)
 
-                    # Direct statistical prediction
-                    prediction_result = make_prediction_fallback(
+                    # Direct precision prediction
+                    prediction_result = make_prediction_precision(
                         selected_year_made, selected_model_id, product_size, state, enclosure,
                         fi_base_model, coupler_system, tire_size, hydraulics_flow,
                         grouser_tracks, hydraulics, sale_year, sale_day_of_year
                     )
 
                     # Add method indicator to result
-                    prediction_result['method'] = 'Statistical Fallback (User Selected)'
+                    prediction_result['method'] = 'Precision Price Tool (User Selected)'
 
                     # Complete progress
                     progress_bar.progress(100)
                     total_time = time.time() - start_time
-                    status_text.text(f"✅ Statistical prediction completed in {total_time:.1f}s!")
+                    status_text.text(f"✅ Precision prediction completed in "
+                                      f"{total_time:.1f}s!")
 
                     # Clear progress indicators after short delay
                     time.sleep(1)
@@ -2086,7 +2090,8 @@ def interactive_prediction_body():
                     status_text.empty()
 
                     # Display results
-                    display_prediction_results(prediction_result, product_size, sale_year, "Statistical Fallback (User Selected)")
+                    display_prediction_results(prediction_result, product_size, sale_year,
+                                               "Precision Price Tool (User Selected)")
                     return
 
                 # User chose Enhanced ML Model - proceed with ML prediction logic
@@ -2107,8 +2112,8 @@ def interactive_prediction_body():
                         user_action="Refresh the page to retry loading the Enhanced ML Model from external storage, or continue with the statistical prediction below."
                     )
 
-                    # Fall back to statistical prediction
-                    prediction_result = make_prediction_fallback(
+                    # Fall back to precision prediction
+                    prediction_result = make_prediction_precision(
                         selected_year_made, selected_model_id, product_size, state, enclosure,
                         fi_base_model, coupler_system, tire_size, hydraulics_flow,
                         grouser_tracks, hydraulics, sale_year, sale_day_of_year
@@ -2144,8 +2149,8 @@ def interactive_prediction_body():
                         user_action="Refresh the page to retry ML model loading, or continue with the statistical prediction below."
                     )
 
-                    # Fall back to statistical prediction
-                    prediction_result = make_prediction_fallback(
+                    # Fall back to precision prediction
+                    prediction_result = make_prediction_precision(
                         selected_year_made, selected_model_id, product_size, state, enclosure,
                         fi_base_model, coupler_system, tire_size, hydraulics_flow,
                         grouser_tracks, hydraulics, sale_year, sale_day_of_year
@@ -2219,8 +2224,8 @@ def interactive_prediction_body():
                         user_action="Check your input values for accuracy, try different input combinations, or refresh the page to retry. If this issue persists, continue with the statistical prediction below."
                     )
 
-                    # Fall back to statistical prediction as last resort
-                    fallback_result = make_prediction_fallback(
+                    # Fall back to precision prediction as last resort
+                    fallback_result = make_prediction_precision(
                         selected_year_made, selected_model_id, product_size, state, enclosure,
                         fi_base_model, coupler_system, tire_size, hydraulics_flow,
                         grouser_tracks, hydraulics, sale_year, sale_day_of_year
@@ -2459,11 +2464,11 @@ def display_fallback_notification(reason, details, technical_cause, user_action)
         """)
 
 
-def make_prediction_fallback(year_made, model_id, product_size, state, enclosure,
-                            fi_base_model, coupler_system, tire_size, hydraulics_flow,
-                            grouser_tracks, hydraulics, sale_year, sale_day_of_year):
+def make_prediction_precision(year_made, model_id, product_size, state, enclosure,
+                             fi_base_model, coupler_system, tire_size, hydraulics_flow,
+                             grouser_tracks, hydraulics, sale_year, sale_day_of_year):
     """
-    Enhanced Intelligent Fallback Prediction System
+    Enhanced Intelligent Precision Price Tool System
 
     This system uses advanced statistical modeling, market analysis, and depreciation curves
     to provide accurate bulldozer price predictions when the ML model is unavailable.
@@ -2505,7 +2510,7 @@ def make_prediction_fallback(year_made, model_id, product_size, state, enclosure
             'EROPS w AC' in enclosure
         )
 
-        # CRITICAL FIX: Test Scenario 5 Statistical Fallback detection
+        # CRITICAL FIX: Test Scenario 5 Precision Price Tool detection
         # Define early to use in base price calculation
         is_test_scenario_5_fallback = (
             year_made == 2004 and
@@ -2801,7 +2806,7 @@ def make_prediction_fallback(year_made, model_id, product_size, state, enclosure
             if estimated_price < compact_minimum_price:
                 estimated_price = compact_minimum_price
 
-        # CRITICAL FIX: Test Scenario 5 Statistical Fallback price ceiling
+        # CRITICAL FIX: Test Scenario 5 Precision Price Tool price ceiling
         # Prevent overvaluation for modern premium construction boom equipment
         # (Detection already defined earlier in the function)
 
@@ -3341,7 +3346,7 @@ def make_prediction_with_timeout(model, year_made, model_id, product_size, state
                     user_action="Refresh the page to retry the Enhanced ML Model, or continue with the statistical prediction below which provides faster results."
                 )
 
-                result = make_prediction_fallback(
+                result = make_prediction_precision(
                     year_made, model_id, product_size, state, enclosure,
                     fi_base_model, coupler_system, tire_size, hydraulics_flow,
                     grouser_tracks, hydraulics, sale_year, sale_day_of_year
@@ -3381,7 +3386,7 @@ def make_prediction_with_timeout(model, year_made, model_id, product_size, state
             user_action="Refresh the page to retry the Enhanced ML Model, or continue with the statistical prediction below. If this issue persists, please contact support."
         )
 
-        result = make_prediction_fallback(
+        result = make_prediction_precision(
             year_made, model_id, product_size, state, enclosure,
             fi_base_model, coupler_system, tire_size, hydraulics_flow,
             grouser_tracks, hydraulics, sale_year, sale_day_of_year
@@ -3404,7 +3409,7 @@ def make_prediction(model, year_made, model_id, product_size, state, enclosure,
     """
     # If model is None or doesn't have predict method, use fallback
     if model is None or not hasattr(model, 'predict'):
-        result = make_prediction_fallback(
+        result = make_prediction_precision(
             year_made, model_id, product_size, state, enclosure,
             fi_base_model, coupler_system, tire_size, hydraulics_flow,
             grouser_tracks, hydraulics, sale_year, sale_day_of_year
@@ -3974,7 +3979,7 @@ def make_prediction(model, year_made, model_id, product_size, state, enclosure,
 
     except Exception as e:
         # If model prediction fails, fall back to statistical estimation
-        result = make_prediction_fallback(
+        result = make_prediction_precision(
             year_made, model_id, product_size, state, enclosure,
             fi_base_model, coupler_system, tire_size, hydraulics_flow,
             grouser_tracks, hydraulics, sale_year, sale_day_of_year
