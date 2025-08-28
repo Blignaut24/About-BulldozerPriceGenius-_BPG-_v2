@@ -1,108 +1,448 @@
-C:\Users\blign>heroku logs --tail
- »   Warning: heroku update available from 7.53.0 to 10.12.0.
- »   Error: Missing required flag:
- »     -a, --app APP  app to run command against
- »   See more help with --help
-
-C:\Users\blign>heroku logs --tail -a bulldozerpricegenius
- »   Warning: heroku update available from 7.53.0 to 10.12.0.
-2025-08-24T19:37:53.469484+00:00 heroku[web.1]: Process running mem=1058M(206.7%)
-2025-08-24T19:37:53.471042+00:00 heroku[web.1]: Error R15 (Memory quota vastly exceeded)
-2025-08-24T19:37:53.472308+00:00 heroku[web.1]: Stopping process with SIGKILL
-2025-08-24T19:37:53.580975+00:00 heroku[router]: at=info method=GET path="/_stcore/stream" host=bulldozerpricegenius-707a4e3cbb84.herokuapp.com request_id=418d1663-b65f-d406-1176-02ac4bc476c5 fwd="145.53.33.145" dyno=web.1 connect=0ms service=141598ms status=101 bytes=0 protocol=http1.1 tls=true tls_version=unknown
-2025-08-24T19:37:53.663113+00:00 heroku[web.1]: Process exited with status 137
-2025-08-24T19:37:53.682986+00:00 heroku[web.1]: State changed from up to crashed
-2025-08-24T19:37:53.685973+00:00 heroku[web.1]: State changed from crashed to starting
-2025-08-24T19:38:02.904715+00:00 heroku[web.1]: Starting process with command `sh setup.sh && streamlit run app.py --server.port=55212 --server.address=0.0.0.0 --server.headless=true --server.enableCORS=false --server.enableXsrfProtection=false`
-2025-08-24T19:38:03.407617+00:00 app[web.1]: Python buildpack: Detected 512 MB available memory and 8 CPU cores.
-2025-08-24T19:38:03.407724+00:00 app[web.1]: Python buildpack: Defaulting WEB_CONCURRENCY to 2 based on the available memory.
-2025-08-24T19:38:04.121815+00:00 app[web.1]: 2025-08-24 19:38:04.121 "general.email" is not a valid config option. If you previously had this config option set, it may have been removed.
-2025-08-24T19:38:04.122124+00:00 app[web.1]: 2025-08-24 19:38:04.122 "general.email" is not a valid config option. If you previously had this config option set, it may have been removed.
-2025-08-24T19:38:04.285032+00:00 app[web.1]:
-2025-08-24T19:38:04.285038+00:00 app[web.1]: You can now view your Streamlit app in your browser.
-2025-08-24T19:38:04.285039+00:00 app[web.1]:
-2025-08-24T19:38:04.285065+00:00 app[web.1]: URL: http://0.0.0.0:55212
-2025-08-24T19:38:04.285072+00:00 app[web.1]:
-2025-08-24T19:38:04.563298+00:00 heroku[web.1]: State changed from starting to up
-2025-08-24T19:38:05.622902+00:00 heroku[router]: at=info method=GET path="/_stcore/host-config" host=bulldozerpricegenius-707a4e3cbb84.herokuapp.com request_id=add86e7d-3c8e-d60d-4835-9faa794e3edb fwd="145.53.33.145, 145.53.33.145" dyno=web.1 connect=5000ms service=7003ms status=304 bytes=0 protocol=http1.1 tls=true tls_version=unknown
-2025-08-24T19:38:06.183984+00:00 heroku[router]: at=info method=GET path="/_stcore/health" host=bulldozerpricegenius-707a4e3cbb84.herokuapp.com request_id=9cb88ca7-52ee-e1a6-290c-adef3c7e2d7a fwd="145.53.33.145, 145.53.33.145" dyno=web.1 connect=5000ms service=7003ms status=304 bytes=0 protocol=http1.1 tls=true tls_version=unknown
-2025-08-24T19:38:12.850703+00:00 app[web.1]: 2025-08-24 19:38:12.850 Thread 'ThreadPoolExecutor-1_0': missing ScriptRunContext! This warning can be ignored when running in bare mode.
-2025-08-24T19:38:12.850938+00:00 app[web.1]: 2025-08-24 19:38:12.850 Thread 'ThreadPoolExecutor-1_0': missing ScriptRunContext! This warning can be ignored when running in bare mode.
-2025-08-24T19:38:12.850985+00:00 app[web.1]: 2025-08-24 19:38:12.850 Thread 'ThreadPoolExecutor-1_0': missing ScriptRunContext! This warning can be ignored when running in bare mode.
-2025-08-24T19:38:12.851434+00:00 app[web.1]: 2025-08-24 19:38:12.851 Thread 'ThreadPoolExecutor-1_0': missing ScriptRunContext! This warning can be ignored when running in bare mode.
-2025-08-24T19:38:12.852153+00:00 app[web.1]: 2025-08-24 19:38:12.852 Thread 'ThreadPoolExecutor-1_0': missing ScriptRunContext! This warning can be ignored when running in bare mode.
-2025-08-24T19:38:12.852341+00:00 app[web.1]: 2025-08-24 19:38:12.852 Thread 'ThreadPoolExecutor-1_0': missing ScriptRunContext! This warning can be ignored when running in bare mode.
-2025-08-24T19:38:12.852380+00:00 app[web.1]: 2025-08-24 19:38:12.852 Thread 'ThreadPoolExecutor-1_0': missing ScriptRunContext! This warning can be ignored when running in bare mode.
-2025-08-24T19:38:12.852429+00:00 app[web.1]: 2025-08-24 19:38:12.852 Thread 'ThreadPoolExecutor-1_0': missing ScriptRunContext! This warning can be ignored when running in bare mode.
-2025-08-24T19:38:12.852454+00:00 app[web.1]: 2025-08-24 19:38:12.852 Thread 'ThreadPoolExecutor-1_0': missing ScriptRunContext! This warning can be ignored when running in bare mode.
-2025-08-24T19:38:12.852481+00:00 app[web.1]: 2025-08-24 19:38:12.852 Thread 'ThreadPoolExecutor-1_0': missing ScriptRunContext! This warning can be ignored when running in bare mode.
-2025-08-24T19:38:12.852535+00:00 app[web.1]: 2025-08-24 19:38:12.852 Thread 'ThreadPoolExecutor-1_0': missing ScriptRunContext! This warning can be ignored when running in bare mode.
-2025-08-24T19:38:12.852559+00:00 app[web.1]: 2025-08-24 19:38:12.852 Thread 'ThreadPoolExecutor-1_0': missing ScriptRunContext! This warning can be ignored when running in bare mode.
-2025-08-24T19:38:12.852594+00:00 app[web.1]: 2025-08-24 19:38:12.852 Thread 'ThreadPoolExecutor-1_0': missing ScriptRunContext! This warning can be ignored when running in bare mode.
-2025-08-24T19:38:12.852633+00:00 app[web.1]: 2025-08-24 19:38:12.852 Thread 'ThreadPoolExecutor-1_0': missing ScriptRunContext! This warning can be ignored when running in bare mode.
-2025-08-24T19:38:12.852656+00:00 app[web.1]: 2025-08-24 19:38:12.852 Thread 'ThreadPoolExecutor-1_0': missing ScriptRunContext! This warning can be ignored when running in bare mode.
-2025-08-24T19:38:12.852684+00:00 app[web.1]: 2025-08-24 19:38:12.852 Thread 'ThreadPoolExecutor-1_0': missing ScriptRunContext! This warning can be ignored when running in bare mode.
-2025-08-24T19:38:12.852727+00:00 app[web.1]: 2025-08-24 19:38:12.852 Thread 'ThreadPoolExecutor-1_0': missing ScriptRunContext! This warning can be ignored when running in bare mode.
-2025-08-24T19:38:12.852750+00:00 app[web.1]: 2025-08-24 19:38:12.852 Thread 'ThreadPoolExecutor-1_0': missing ScriptRunContext! This warning can be ignored when running in bare mode.
-2025-08-24T19:38:12.852777+00:00 app[web.1]: 2025-08-24 19:38:12.852 Thread 'ThreadPoolExecutor-1_0': missing ScriptRunContext! This warning can be ignored when running in bare mode.
-2025-08-24T19:38:12.852813+00:00 app[web.1]: 2025-08-24 19:38:12.852 Thread 'ThreadPoolExecutor-1_0': missing ScriptRunContext! This warning can be ignored when running in bare mode.
-2025-08-24T19:38:12.852836+00:00 app[web.1]: 2025-08-24 19:38:12.852 Thread 'ThreadPoolExecutor-1_0': missing ScriptRunContext! This warning can be ignored when running in bare mode.
-2025-08-24T19:38:12.852863+00:00 app[web.1]: 2025-08-24 19:38:12.852 Thread 'ThreadPoolExecutor-1_0': missing ScriptRunContext! This warning can be ignored when running in bare mode.
-2025-08-24T19:38:12.853321+00:00 app[web.1]: 2025-08-24 19:38:12.853 Thread 'ThreadPoolExecutor-1_0': missing ScriptRunContext! This warning can be ignored when running in bare mode.
-2025-08-24T19:38:12.853344+00:00 app[web.1]: 2025-08-24 19:38:12.853 Thread 'ThreadPoolExecutor-1_0': missing ScriptRunContext! This warning can be ignored when running in bare mode.
-2025-08-24T19:38:12.853378+00:00 app[web.1]: 2025-08-24 19:38:12.853 Thread 'ThreadPoolExecutor-1_0': missing ScriptRunContext! This warning can be ignored when running in bare mode.
-2025-08-24T19:38:12.853437+00:00 app[web.1]: 2025-08-24 19:38:12.853 Thread 'ThreadPoolExecutor-1_0': missing ScriptRunContext! This warning can be ignored when running in bare mode.
-2025-08-24T19:38:12.853439+00:00 app[web.1]: 2025-08-24 19:38:12.853 Thread 'ThreadPoolExecutor-1_0': missing ScriptRunContext! This warning can be ignored when running in bare mode.
-2025-08-24T19:38:12.853464+00:00 app[web.1]: 2025-08-24 19:38:12.853 Thread 'ThreadPoolExecutor-1_0': missing ScriptRunContext! This warning can be ignored when running in bare mode.
-2025-08-24T19:38:13.351900+00:00 app[web.1]: 2025-08-24 19:38:13.351 Thread 'Thread-8': missing ScriptRunContext! This warning can be ignored when running in bare mode.
-2025-08-24T19:38:13.351919+00:00 app[web.1]: 2025-08-24 19:38:13.351 Thread 'Thread-8': missing ScriptRunContext! This warning can be ignored when running in bare mode.
-2025-08-24T19:38:13.351965+00:00 app[web.1]: 2025-08-24 19:38:13.351 Thread 'Thread-8': missing ScriptRunContext! This warning can be ignored when running in bare mode.
-2025-08-24T19:38:20.794002+00:00 app[web.1]: 2025-08-24 19:38:20.793 Thread 'ThreadPoolExecutor-1_0': missing ScriptRunContext! This warning can be ignored when running in bare mode.
-2025-08-24T19:38:20.794037+00:00 app[web.1]: 2025-08-24 19:38:20.793 Thread 'ThreadPoolExecutor-1_0': missing ScriptRunContext! This warning can be ignored when running in bare mode.
-2025-08-24T19:38:20.794085+00:00 app[web.1]: 2025-08-24 19:38:20.794 Thread 'ThreadPoolExecutor-1_0': missing ScriptRunContext! This warning can be ignored when running in bare mode.
-2025-08-24T19:38:20.794202+00:00 app[web.1]: 2025-08-24 19:38:20.794 Thread 'ThreadPoolExecutor-1_0': missing ScriptRunContext! This warning can be ignored when running in bare mode.
-2025-08-24T19:38:20.794224+00:00 app[web.1]: 2025-08-24 19:38:20.794 Thread 'ThreadPoolExecutor-1_0': missing ScriptRunContext! This warning can be ignored when running in bare mode.
-2025-08-24T19:38:20.794252+00:00 app[web.1]: 2025-08-24 19:38:20.794 Thread 'ThreadPoolExecutor-1_0': missing ScriptRunContext! This warning can be ignored when running in bare mode.
-2025-08-24T19:38:20.794290+00:00 app[web.1]: 2025-08-24 19:38:20.794 Thread 'ThreadPoolExecutor-1_0': missing ScriptRunContext! This warning can be ignored when running in bare mode.
-2025-08-24T19:38:20.794310+00:00 app[web.1]: 2025-08-24 19:38:20.794 Thread 'ThreadPoolExecutor-1_0': missing ScriptRunContext! This warning can be ignored when running in bare mode.
-2025-08-24T19:38:20.794336+00:00 app[web.1]: 2025-08-24 19:38:20.794 Thread 'ThreadPoolExecutor-1_0': missing ScriptRunContext! This warning can be ignored when running in bare mode.
-2025-08-24T19:38:36.554645+00:00 heroku[web.1]: Process running mem=1198M(234.0%)
-2025-08-24T19:38:36.557007+00:00 heroku[web.1]: Error R15 (Memory quota vastly exceeded)
-2025-08-24T19:38:36.560616+00:00 heroku[web.1]: Stopping process with SIGKILL
-2025-08-24T19:38:36.667416+00:00 heroku[router]: at=info method=GET path="/_stcore/stream" host=bulldozerpricegenius-707a4e3cbb84.herokuapp.com request_id=75001267-888d-b4a6-2a25-9b423fd408e7 fwd="145.53.33.145" dyno=web.1 connect=0ms service=30374ms status=101 bytes=0 protocol=http1.1 tls=true tls_version=unknown
-2025-08-24T19:38:36.729022+00:00 heroku[web.1]: Process exited with status 137
-2025-08-24T19:38:36.748688+00:00 heroku[web.1]: State changed from up to crashed
-2025-08-24T19:38:51.706881+00:00 heroku[router]: sock=client at=warning code=H27 desc="Client Request Interrupted" method=GET path="/_stcore/host-config" host=bulldozerpricegenius-707a4e3cbb84.herokuapp.com request_id=256baaf5-24bf-b797-2eb8-7099610322de fwd="145.53.33.145" dyno= connect=5000ms service=9759ms status=499 bytes=567 protocol=http1.1 tls=true tls_version=unknown
-2025-08-24T19:38:51.707578+00:00 heroku[router]: sock=client at=warning code=H27 desc="Client Request Interrupted" method=GET path="/_stcore/health" host=bulldozerpricegenius-707a4e3cbb84.herokuapp.com request_id=d4e59bb5-ef47-c614-694e-124e819e7bf5 fwd="145.53.33.145" dyno= connect=5000ms service=10005ms status=499 bytes=567 protocol=http1.1 tls=true tls_version=unknown
-2025-08-24T19:39:06.830326+00:00 heroku[router]: sock=client at=warning code=H27 desc="Client Request Interrupted" method=GET path="/_stcore/health" host=bulldozerpricegenius-707a4e3cbb84.herokuapp.com request_id=dbe4cca1-6824-d6eb-3efd-7efcae79079e fwd="" dyno= connect=0ms service=0ms status=499 bytes=567 protocol=http1.1 tls=true tls_version=unknown
-2025-08-24T19:39:06.831843+00:00 heroku[router]: sock=client at=warning code=H27 desc="Client Request Interrupted" method=GET path="/_stcore/host-config" host=bulldozerpricegenius-707a4e3cbb84.herokuapp.com request_id=dbbc90e1-8390-b174-5a47-18c2728b6071 fwd="" dyno= connect=0ms service=0ms status=499 bytes=567 protocol=http1.1 tls=true tls_version=unknown
-2025-08-24T19:39:22.030871+00:00 heroku[router]: sock=client at=warning code=H27 desc="Client Request Interrupted" method=GET path="/_stcore/health" host=bulldozerpricegenius-707a4e3cbb84.herokuapp.com request_id=d3f56805-3619-6e07-b5f9-98ee6485c5ef fwd="" dyno= connect=0ms service=0ms status=499 bytes=567 protocol=http1.1 tls=true tls_version=unknown
-2025-08-24T19:39:22.033290+00:00 heroku[router]: sock=client at=warning code=H27 desc="Client Request Interrupted" method=GET path="/_stcore/host-config" host=bulldozerpricegenius-707a4e3cbb84.herokuapp.com request_id=3dc859d1-b591-233f-79e5-db1feb5500af fwd="" dyno= connect=0ms service=0ms status=499 bytes=567 protocol=http1.1 tls=true tls_version=unknown
-2025-08-24T19:39:37.399111+00:00 heroku[router]: sock=client at=warning code=H27 desc="Client Request Interrupted" method=GET path="/_stcore/health" host=bulldozerpricegenius-707a4e3cbb84.herokuapp.com request_id=75c81898-7220-f459-88aa-d8f2ab0f9323 fwd="" dyno= connect=0ms service=0ms status=499 bytes=567 protocol=http1.1 tls=true tls_version=unknown
-2025-08-24T19:39:37.400438+00:00 heroku[router]: sock=client at=warning code=H27 desc="Client Request Interrupted" method=GET path="/_stcore/host-config" host=bulldozerpricegenius-707a4e3cbb84.herokuapp.com request_id=910314d6-f523-5bd7-1fbf-1a58f96d06e2 fwd="" dyno= connect=0ms service=0ms status=499 bytes=567 protocol=http1.1 tls=true tls_version=unknown
-2025-08-24T19:39:53.218691+00:00 heroku[router]: sock=client at=warning code=H27 desc="Client Request Interrupted" method=GET path="/_stcore/health" host=bulldozerpricegenius-707a4e3cbb84.herokuapp.com request_id=c65130fd-1bae-5406-8b0e-50e22c36c50e fwd="" dyno= connect=0ms service=0ms status=499 bytes=567 protocol=http1.1 tls=true tls_version=unknown
-2025-08-24T19:39:53.220589+00:00 heroku[router]: sock=client at=warning code=H27 desc="Client Request Interrupted" method=GET path="/_stcore/host-config" host=bulldozerpricegenius-707a4e3cbb84.herokuapp.com request_id=0d56ab95-48d8-e7da-850a-cdcfc664249f fwd="" dyno= connect=0ms service=0ms status=499 bytes=567 protocol=http1.1 tls=true tls_version=unknown
-2025-08-24T19:40:09.819046+00:00 heroku[router]: sock=client at=warning code=H27 desc="Client Request Interrupted" method=GET path="/_stcore/health" host=bulldozerpricegenius-707a4e3cbb84.herokuapp.com request_id=c18a0db9-9a40-2510-6195-295fc669fc61 fwd="" dyno= connect=0ms service=0ms status=499 bytes=567 protocol=http1.1 tls=true tls_version=unknown
-2025-08-24T19:40:09.872049+00:00 heroku[router]: sock=client at=warning code=H27 desc="Client Request Interrupted" method=GET path="/_stcore/host-config" host=bulldozerpricegenius-707a4e3cbb84.herokuapp.com request_id=ddfe2b47-0e5b-4113-7ef9-485caff3dac2 fwd="" dyno= connect=0ms service=0ms status=499 bytes=567 protocol=http1.1 tls=true tls_version=unknown
-2025-08-24T19:40:26.852114+00:00 heroku[router]: sock=client at=warning code=H27 desc="Client Request Interrupted" method=GET path="/_stcore/health" host=bulldozerpricegenius-707a4e3cbb84.herokuapp.com request_id=ce8bfd42-0e1e-ef57-d408-3bd49b60384e fwd="" dyno= connect=0ms service=0ms status=499 bytes=567 protocol=http1.1 tls=true tls_version=unknown
-2025-08-24T19:40:26.890839+00:00 heroku[router]: sock=client at=warning code=H27 desc="Client Request Interrupted" method=GET path="/_stcore/host-config" host=bulldozerpricegenius-707a4e3cbb84.herokuapp.com request_id=f02e5c7f-cbfb-120e-0d1d-c1344fb30e56 fwd="" dyno= connect=0ms service=0ms status=499 bytes=567 protocol=http1.1 tls=true tls_version=unknown
-2025-08-24T19:40:43.859615+00:00 heroku[router]: sock=client at=warning code=H27 desc="Client Request Interrupted" method=GET path="/_stcore/health" host=bulldozerpricegenius-707a4e3cbb84.herokuapp.com request_id=719db61a-d8fa-fe67-8e3e-71d0e3030536 fwd="" dyno= connect=0ms service=0ms status=499 bytes=567 protocol=http1.1 tls=true tls_version=unknown
-2025-08-24T19:40:43.899775+00:00 heroku[router]: sock=client at=warning code=H27 desc="Client Request Interrupted" method=GET path="/_stcore/host-config" host=bulldozerpricegenius-707a4e3cbb84.herokuapp.com request_id=dce3f8be-cab9-587f-bd3c-9fbac41b0487 fwd="" dyno= connect=0ms service=0ms status=499 bytes=567 protocol=http1.1 tls=true tls_version=unknown
-2025-08-24T19:40:48.946840+00:00 heroku[router]: sock=client at=warning code=H27 desc="Client Request Interrupted" method=GET path="/" host=bulldozerpricegenius-707a4e3cbb84.herokuapp.com request_id=bd8f81b7-f690-bd05-6034-b6782f545da6 fwd="" dyno= connect=0ms service=0ms status=499 bytes=567 protocol=http1.1 tls=true tls_version=unknown
-2025-08-24T19:40:49.018998+00:00 heroku[router]: sock=client at=warning code=H27 desc="Client Request Interrupted" method=GET path="/_stcore/health" host=bulldozerpricegenius-707a4e3cbb84.herokuapp.com request_id=3df7423f-639f-e8d0-9abf-66328cf21e88 fwd="" dyno= connect=0ms service=0ms status=499 bytes=567 protocol=http1.1 tls=true tls_version=unknown
-2025-08-24T19:40:49.019120+00:00 heroku[router]: sock=client at=warning code=H27 desc="Client Request Interrupted" method=GET path="/_stcore/host-config" host=bulldozerpricegenius-707a4e3cbb84.herokuapp.com request_id=42cbbfe9-7c7e-7e8e-1b19-12cd24e3e9f3 fwd="" dyno= connect=0ms service=0ms status=499 bytes=567 protocol=http1.1 tls=true tls_version=unknown
-2025-08-24T19:41:34.833042+00:00 heroku[router]: sock=client at=warning code=H27 desc="Client Request Interrupted" method=GET path="/" host=bulldozerpricegenius-707a4e3cbb84.herokuapp.com request_id=29321efb-b561-5822-79be-0d034059c545 fwd="" dyno= connect=0ms service=0ms status=499 bytes=567 protocol=http1.1 tls=true tls_version=unknown
-2025-08-24T19:42:53.461024+00:00 heroku[router]: at=error code=H10 desc="App crashed" method=GET path="/" host=bulldozerpricegenius-707a4e3cbb84.herokuapp.com request_id=888e4a0a-c8ef-61fc-9c61-5f8f5f586274 fwd="" dyno= connect=0ms service=0ms status=503 bytes=567 protocol=http1.1 tls=true tls_version=unknown
-2025-08-24T19:44:10.486130+00:00 heroku[router]: at=error code=H10 desc="App crashed" method=GET path="/favicon.ico" host=bulldozerpricegenius-707a4e3cbb84.herokuapp.com request_id=fa4b04c1-b1d0-cc9d-443f-7374b7893cfa fwd="" dyno= connect=0ms service=0ms status=503 bytes=567 protocol=http1.1 tls=true tls_version=unknown
-2025-08-24T19:49:11.663454+00:00 heroku[web.1]: State changed from crashed to starting
-2025-08-24T19:49:20.777140+00:00 heroku[web.1]: Starting process with command `sh setup.sh && streamlit run app.py --server.port=3960 --server.address=0.0.0.0 --server.headless=true --server.enableCORS=false --server.enableXsrfProtection=false`
-2025-08-24T19:49:21.303792+00:00 app[web.1]: Python buildpack: Detected 512 MB available memory and 8 CPU cores.
-2025-08-24T19:49:21.303936+00:00 app[web.1]: Python buildpack: Defaulting WEB_CONCURRENCY to 2 based on the available memory.
-2025-08-24T19:49:22.055510+00:00 app[web.1]: 2025-08-24 19:49:22.055 "general.email" is not a valid config option. If you previously had this config option set, it may have been removed.
-2025-08-24T19:49:22.055826+00:00 app[web.1]: 2025-08-24 19:49:22.055 "general.email" is not a valid config option. If you previously had this config option set, it may have been removed.
-2025-08-24T19:49:22.235286+00:00 app[web.1]:
-2025-08-24T19:49:22.235292+00:00 app[web.1]: You can now view your Streamlit app in your browser.
-2025-08-24T19:49:22.235293+00:00 app[web.1]:
-2025-08-24T19:49:22.235316+00:00 app[web.1]: URL: http://0.0.0.0:3960
-2025-08-24T19:49:22.235325+00:00 app[web.1]:
-2025-08-24T19:49:22.446894+00:00 heroku[web.1]: State changed from starting to up
+-----> Building on the Heroku-24 stack
+-----> Deleting 122 files matching .slugignore patterns.
+-----> Using buildpacks:
+       1. heroku/python
+       2. https://github.com/raxod502/heroku-buildpack-git-lfs
+-----> Python app detected
+-----> Using Python 3.11.9 specified in runtime.txt
+ !     Warning: The runtime.txt file is deprecated.
+ !     
+ !     The runtime.txt file is deprecated since it has been replaced
+ !     by the more widely supported .python-version file:
+ !     https://devcenter.heroku.com/changelog-items/3141
+ !     
+ !     Please switch to using a .python-version file instead.
+ !     
+ !     Delete your runtime.txt file and create a new file in the
+ !     root directory of your app named:
+ !     .python-version
+ !     
+ !     Make sure to include the '.' character at the start of the
+ !     filename. Don't add a file extension such as '.txt'.
+ !     
+ !     In the new file, specify your app's major Python version number
+ !     only. Don't include quotes or a 'python-' prefix.
+ !     
+ !     For example, to request the latest version of Python 3.11,
+ !     update your .python-version file so it contains exactly:
+ !     3.11
+ !     
+ !     We strongly recommend that you don't specify the Python patch
+ !     version number, since it will pin your app to an exact Python
+ !     version and so stop your app from receiving security updates
+ !     each time it builds.
+ !     
+ !     In the future support for runtime.txt will be removed and
+ !     this warning will be made an error.
+ !     Warning: A Python patch update is available!
+ !     
+ !     Your app is using Python 3.11.9, however, there is a newer
+ !     patch release of Python 3.11 available: 3.11.13
+ !     
+ !     It is important to always use the latest patch version of
+ !     Python to keep your app secure.
+ !     
+ !     Update your runtime.txt file to use the new version.
+ !     
+ !     We strongly recommend that you don't pin your app to an
+ !     exact Python version such as 3.11.9, and instead only specify
+ !     the major Python version of 3.11 in your runtime.txt file.
+ !     This will allow your app to receive the latest available Python
+ !     patch version automatically and prevent this warning.
+-----> Restoring cache
+-----> Using cached install of Python 3.11.9
+-----> Installing pip 25.2, setuptools 70.3.0 and wheel 0.45.1
+-----> Installing dependencies using 'pip install -r requirements.txt'
+       Requirement already satisfied: streamlit<2.0.0,>=1.28.0 (from -r requirements.txt (line 5)) (1.48.1)
+       Requirement already satisfied: altair<5.0.0,>=4.2.0 (from -r requirements.txt (line 6)) (4.2.2)
+       Requirement already satisfied: numpy<2.0.0,>=1.21.0 (from -r requirements.txt (line 9)) (1.26.4)
+       Requirement already satisfied: pandas<3.0.0,>=1.3.0 (from -r requirements.txt (line 10)) (2.3.2)
+       Requirement already satisfied: scikit-learn<2.0.0,>=1.0.0 (from -r requirements.txt (line 11)) (1.7.1)
+       Requirement already satisfied: joblib<2.0.0,>=1.0.0 (from -r requirements.txt (line 12)) (1.5.1)
+       Requirement already satisfied: matplotlib<4.0.0,>=3.5.0 (from -r requirements.txt (line 15)) (3.10.5)
+       Requirement already satisfied: seaborn<1.0.0,>=0.11.0 (from -r requirements.txt (line 16)) (0.13.2)
+       Requirement already satisfied: pyarrow==20.0.0 (from -r requirements.txt (line 17)) (20.0.0)
+       Requirement already satisfied: fastparquet>=2024.11.0 (from -r requirements.txt (line 18)) (2024.11.0)
+       Requirement already satisfied: tqdm<5.0.0,>=4.60.0 (from -r requirements.txt (line 21)) (4.67.1)
+       Requirement already satisfied: requests<3.0.0,>=2.25.0 (from -r requirements.txt (line 24)) (2.32.5)
+       Requirement already satisfied: gdown==5.2.0 (from -r requirements.txt (line 25)) (5.2.0)
+       Requirement already satisfied: beautifulsoup4 (from gdown==5.2.0->-r requirements.txt (line 25)) (4.13.5)
+       Requirement already satisfied: filelock (from gdown==5.2.0->-r requirements.txt (line 25)) (3.19.1)
+       Requirement already satisfied: blinker<2,>=1.5.0 (from streamlit<2.0.0,>=1.28.0->-r requirements.txt (line 5)) (1.9.0)
+       Requirement already satisfied: cachetools<7,>=4.0 (from streamlit<2.0.0,>=1.28.0->-r requirements.txt (line 5)) (6.2.0)
+       Requirement already satisfied: click<9,>=7.0 (from streamlit<2.0.0,>=1.28.0->-r requirements.txt (line 5)) (8.2.1)
+       Requirement already satisfied: packaging<26,>=20 (from streamlit<2.0.0,>=1.28.0->-r requirements.txt (line 5)) (25.0)
+       Requirement already satisfied: pillow<12,>=7.1.0 (from streamlit<2.0.0,>=1.28.0->-r requirements.txt (line 5)) (11.3.0)
+       Requirement already satisfied: protobuf<7,>=3.20 (from streamlit<2.0.0,>=1.28.0->-r requirements.txt (line 5)) (6.32.0)
+       Requirement already satisfied: tenacity<10,>=8.1.0 (from streamlit<2.0.0,>=1.28.0->-r requirements.txt (line 5)) (9.1.2)
+       Requirement already satisfied: toml<2,>=0.10.1 (from streamlit<2.0.0,>=1.28.0->-r requirements.txt (line 5)) (0.10.2)
+       Requirement already satisfied: typing-extensions<5,>=4.4.0 (from streamlit<2.0.0,>=1.28.0->-r requirements.txt (line 5)) (4.15.0)
+       Requirement already satisfied: watchdog<7,>=2.1.5 (from streamlit<2.0.0,>=1.28.0->-r requirements.txt (line 5)) (6.0.0)
+       Requirement already satisfied: gitpython!=3.1.19,<4,>=3.0.7 (from streamlit<2.0.0,>=1.28.0->-r requirements.txt (line 5)) (3.1.45)
+       Requirement already satisfied: pydeck<1,>=0.8.0b4 (from streamlit<2.0.0,>=1.28.0->-r requirements.txt (line 5)) (0.9.1)
+       Requirement already satisfied: tornado!=6.5.0,<7,>=6.0.3 (from streamlit<2.0.0,>=1.28.0->-r requirements.txt (line 5)) (6.5.2)
+       Requirement already satisfied: entrypoints (from altair<5.0.0,>=4.2.0->-r requirements.txt (line 6)) (0.4)
+       Requirement already satisfied: jinja2 (from altair<5.0.0,>=4.2.0->-r requirements.txt (line 6)) (3.1.6)
+       Requirement already satisfied: jsonschema>=3.0 (from altair<5.0.0,>=4.2.0->-r requirements.txt (line 6)) (4.25.1)
+       Requirement already satisfied: toolz (from altair<5.0.0,>=4.2.0->-r requirements.txt (line 6)) (1.0.0)
+       Requirement already satisfied: python-dateutil>=2.8.2 (from pandas<3.0.0,>=1.3.0->-r requirements.txt (line 10)) (2.9.0.post0)
+       Requirement already satisfied: pytz>=2020.1 (from pandas<3.0.0,>=1.3.0->-r requirements.txt (line 10)) (2025.2)
+       Requirement already satisfied: tzdata>=2022.7 (from pandas<3.0.0,>=1.3.0->-r requirements.txt (line 10)) (2025.2)
+       Requirement already satisfied: scipy>=1.8.0 (from scikit-learn<2.0.0,>=1.0.0->-r requirements.txt (line 11)) (1.16.1)
+       Requirement already satisfied: threadpoolctl>=3.1.0 (from scikit-learn<2.0.0,>=1.0.0->-r requirements.txt (line 11)) (3.6.0)
+       Requirement already satisfied: contourpy>=1.0.1 (from matplotlib<4.0.0,>=3.5.0->-r requirements.txt (line 15)) (1.3.3)
+       Requirement already satisfied: cycler>=0.10 (from matplotlib<4.0.0,>=3.5.0->-r requirements.txt (line 15)) (0.12.1)
+       Requirement already satisfied: fonttools>=4.22.0 (from matplotlib<4.0.0,>=3.5.0->-r requirements.txt (line 15)) (4.59.1)
+       Requirement already satisfied: kiwisolver>=1.3.1 (from matplotlib<4.0.0,>=3.5.0->-r requirements.txt (line 15)) (1.4.9)
+       Requirement already satisfied: pyparsing>=2.3.1 (from matplotlib<4.0.0,>=3.5.0->-r requirements.txt (line 15)) (3.2.3)
+       Requirement already satisfied: charset_normalizer<4,>=2 (from requests<3.0.0,>=2.25.0->-r requirements.txt (line 24)) (3.4.3)
+       Requirement already satisfied: idna<4,>=2.5 (from requests<3.0.0,>=2.25.0->-r requirements.txt (line 24)) (3.10)
+       Requirement already satisfied: urllib3<3,>=1.21.1 (from requests<3.0.0,>=2.25.0->-r requirements.txt (line 24)) (2.5.0)
+       Requirement already satisfied: certifi>=2017.4.17 (from requests<3.0.0,>=2.25.0->-r requirements.txt (line 24)) (2025.8.3)
+       Requirement already satisfied: gitdb<5,>=4.0.1 (from gitpython!=3.1.19,<4,>=3.0.7->streamlit<2.0.0,>=1.28.0->-r requirements.txt (line 5)) (4.0.12)
+       Requirement already satisfied: smmap<6,>=3.0.1 (from gitdb<5,>=4.0.1->gitpython!=3.1.19,<4,>=3.0.7->streamlit<2.0.0,>=1.28.0->-r requirements.txt (line 5)) (5.0.2)
+       Requirement already satisfied: cramjam>=2.3 (from fastparquet>=2024.11.0->-r requirements.txt (line 18)) (2.11.0)
+       Requirement already satisfied: fsspec (from fastparquet>=2024.11.0->-r requirements.txt (line 18)) (2025.7.0)
+       Requirement already satisfied: MarkupSafe>=2.0 (from jinja2->altair<5.0.0,>=4.2.0->-r requirements.txt (line 6)) (3.0.2)
+       Requirement already satisfied: attrs>=22.2.0 (from jsonschema>=3.0->altair<5.0.0,>=4.2.0->-r requirements.txt (line 6)) (25.3.0)
+       Requirement already satisfied: jsonschema-specifications>=2023.03.6 (from jsonschema>=3.0->altair<5.0.0,>=4.2.0->-r requirements.txt (line 6)) (2025.4.1)
+       Requirement already satisfied: referencing>=0.28.4 (from jsonschema>=3.0->altair<5.0.0,>=4.2.0->-r requirements.txt (line 6)) (0.36.2)
+       Requirement already satisfied: rpds-py>=0.7.1 (from jsonschema>=3.0->altair<5.0.0,>=4.2.0->-r requirements.txt (line 6)) (0.27.0)
+       Requirement already satisfied: six>=1.5 (from python-dateutil>=2.8.2->pandas<3.0.0,>=1.3.0->-r requirements.txt (line 10)) (1.17.0)
+       Requirement already satisfied: soupsieve>1.2 (from beautifulsoup4->gdown==5.2.0->-r requirements.txt (line 25)) (2.7)
+       Requirement already satisfied: PySocks!=1.5.7,>=1.5.6 (from requests[socks]->gdown==5.2.0->-r requirements.txt (line 25)) (1.7.1)
+-----> Saving cache
+-----> Git LFS app detected
+-----> Install Git LFS
+       /tmp /tmp/codon/tmp/buildpacks/de37e887844785a1126d230ea56f2f216b506471
+--2025-08-25 19:29:48--  https://github.com/git-lfs/git-lfs/releases/download/v2.13.3/git-lfs-linux-amd64-v2.13.3.tar.gz
+Resolving github.com (github.com)... 140.82.114.3
+Connecting to github.com (github.com)|140.82.114.3|:443... connected.
+HTTP request sent, awaiting response... 302 Found
+Location: https://release-assets.githubusercontent.com/github-production-release-asset/13021798/3ac86a80-8e46-11eb-9c75-c4e2da444635?sp=r&sv=2018-11-09&sr=b&spr=https&se=2025-08-25T20%3A07%3A51Z&rscd=attachment%3B+filename%3Dgit-lfs-linux-amd64-v2.13.3.tar.gz&rsct=application%2Foctet-stream&skoid=96c2d410-5711-43a1-aedd-ab1947aa7ab0&sktid=398a6654-997b-47e9-b12b-9515b896b4de&skt=2025-08-25T19%3A07%3A47Z&ske=2025-08-25T20%3A07%3A51Z&sks=b&skv=2018-11-09&sig=gcCRhQyMa9IWy61hM7Q8OZ9r0sdsiKTpqeBsKZwNWa8%3D&jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmVsZWFzZS1hc3NldHMuZ2l0aHVidXNlcmNvbnRlbnQuY29tIiwia2V5Ijoia2V5MSIsImV4cCI6MTc1NjE1MDQ4OCwibmJmIjoxNzU2MTUwMTg4LCJwYXRoIjoicmVsZWFzZWFzc2V0cHJvZHVjdGlvbi5ibG9iLmNvcmUud2luZG93cy5uZXQifQ.4_U3y2ZZVW7o6-6mGbkDhVTiq64K4HgwEASgjVytjNw&response-content-disposition=attachment%3B%20filename%3Dgit-lfs-linux-amd64-v2.13.3.tar.gz&response-content-type=application%2Foctet-stream [following]
+--2025-08-25 19:29:48--  https://release-assets.githubusercontent.com/github-production-release-asset/13021798/3ac86a80-8e46-11eb-9c75-c4e2da444635?sp=r&sv=2018-11-09&sr=b&spr=https&se=2025-08-25T20%3A07%3A51Z&rscd=attachment%3B+filename%3Dgit-lfs-linux-amd64-v2.13.3.tar.gz&rsct=application%2Foctet-stream&skoid=96c2d410-5711-43a1-aedd-ab1947aa7ab0&sktid=398a6654-997b-47e9-b12b-9515b896b4de&skt=2025-08-25T19%3A07%3A47Z&ske=2025-08-25T20%3A07%3A51Z&sks=b&skv=2018-11-09&sig=gcCRhQyMa9IWy61hM7Q8OZ9r0sdsiKTpqeBsKZwNWa8%3D&jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmVsZWFzZS1hc3NldHMuZ2l0aHVidXNlcmNvbnRlbnQuY29tIiwia2V5Ijoia2V5MSIsImV4cCI6MTc1NjE1MDQ4OCwibmJmIjoxNzU2MTUwMTg4LCJwYXRoIjoicmVsZWFzZWFzc2V0cHJvZHVjdGlvbi5ibG9iLmNvcmUud2luZG93cy5uZXQifQ.4_U3y2ZZVW7o6-6mGbkDhVTiq64K4HgwEASgjVytjNw&response-content-disposition=attachment%3B%20filename%3Dgit-lfs-linux-amd64-v2.13.3.tar.gz&response-content-type=application%2Foctet-stream
+Resolving release-assets.githubusercontent.com (release-assets.githubusercontent.com)... 185.199.109.133, 185.199.110.133, 185.199.111.133, ...
+Connecting to release-assets.githubusercontent.com (release-assets.githubusercontent.com)|185.199.109.133|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 4055224 (3.9M) [application/octet-stream]
+Saving to: ‘git-lfs.tar.gz’
+     0K .......... .......... .......... .......... ..........  1% 26.3M 0s
+    50K .......... .......... .......... .......... ..........  2% 22.4M 0s
+   100K .......... .......... .......... .......... ..........  3% 26.6M 0s
+   150K .......... .......... .......... .......... ..........  5%  243M 0s
+   200K .......... .......... .......... .......... ..........  6%  135M 0s
+   250K .......... .......... .......... .......... ..........  7% 44.4M 0s
+   300K .......... .......... .......... .......... ..........  8% 99.6M 0s
+   350K .......... .......... .......... .......... .......... 10%  112M 0s
+   400K .......... .......... .......... .......... .......... 11%  360M 0s
+   450K .......... .......... .......... .......... .......... 12%  402M 0s
+   500K .......... .......... .......... .......... .......... 13% 70.8M 0s
+   550K .......... .......... .......... .......... .......... 15%  157M 0s
+   600K .......... .......... .......... .......... .......... 16%  319M 0s
+   650K .......... .......... .......... .......... .......... 17%  308M 0s
+   700K .......... .......... .......... .......... .......... 18%  300M 0s
+   750K .......... .......... .......... .......... .......... 20%  219M 0s
+   800K .......... .......... .......... .......... .......... 21%  340M 0s
+   850K .......... .......... .......... .......... .......... 22%  345M 0s
+   900K .......... .......... .......... .......... .......... 23%  368M 0s
+   950K .......... .......... .......... .......... .......... 25%  392M 0s
+  1000K .......... .......... .......... .......... .......... 26%  162M 0s
+  1050K .......... .......... .......... .......... .......... 27%  335M 0s
+  1100K .......... .......... .......... .......... .......... 29%  120M 0s
+  1150K .......... .......... .......... .......... .......... 30%  434M 0s
+  1200K .......... .......... .......... .......... .......... 31%  437M 0s
+  1250K .......... .......... .......... .......... .......... 32%  398M 0s
+  1300K .......... .......... .......... .......... .......... 34%  323M 0s
+  1350K .......... .......... .......... .......... .......... 35%  576M 0s
+  1400K .......... .......... .......... .......... .......... 36%  733M 0s
+  1450K .......... .......... .......... .......... .......... 37%  744M 0s
+  1500K .......... .......... .......... .......... .......... 39%  500M 0s
+  1550K .......... .......... .......... .......... .......... 40%  530M 0s
+  1600K .......... .......... .......... .......... .......... 41%  566M 0s
+  1650K .......... .......... .......... .......... .......... 42%  721M 0s
+  1700K .......... .......... .......... .......... .......... 44%  642M 0s
+  1750K .......... .......... .......... .......... .......... 45%  462M 0s
+  1800K .......... .......... .......... .......... .......... 46%  508M 0s
+  1850K .......... .......... .......... .......... .......... 47%  325M 0s
+  1900K .......... .......... .......... .......... .......... 49%  539M 0s
+  1950K .......... .......... .......... .......... .......... 50%  706M 0s
+  2000K .......... .......... .......... .......... .......... 51%  483M 0s
+  2050K .......... .......... .......... .......... .......... 53%  628M 0s
+  2100K .......... .......... .......... .......... .......... 54%  676M 0s
+  2150K .......... .......... .......... .......... .......... 55%  452M 0s
+  2200K .......... .......... .......... .......... .......... 56%  643M 0s
+  2250K .......... .......... .......... .......... .......... 58%  682M 0s
+  2300K .......... .......... .......... .......... .......... 59%  337M 0s
+  2350K .......... .......... .......... .......... .......... 60%  619M 0s
+  2400K .......... .......... .......... .......... .......... 61%  562M 0s
+  2450K .......... .......... .......... .......... .......... 63%  439M 0s
+  2500K .......... .......... .......... .......... .......... 64%  399M 0s
+  2550K .......... .......... .......... .......... .......... 65%  382M 0s
+  2600K .......... .......... .......... .......... .......... 66%  444M 0s
+  2650K .......... .......... .......... .......... .......... 68%  346M 0s
+  2700K .......... .......... .......... .......... .......... 69%  289M 0s
+  2750K .......... .......... .......... .......... .......... 70%  365M 0s
+  2800K .......... .......... .......... .......... .......... 71%  378M 0s
+  2850K .......... .......... .......... .......... .......... 73%  373M 0s
+  2900K .......... .......... .......... .......... .......... 74%  314M 0s
+  2950K .......... .......... .......... .......... .......... 75%  463M 0s
+  3000K .......... .......... .......... .......... .......... 77%  367M 0s
+  3050K .......... .......... .......... .......... .......... 78%  388M 0s
+  3100K .......... .......... .......... .......... .......... 79%  270M 0s
+  3150K .......... .......... .......... .......... .......... 80% 99.8M 0s
+  3200K .......... .......... .......... .......... .......... 82% 95.2M 0s
+  3250K .......... .......... .......... .......... .......... 83%  199M 0s
+  3300K .......... .......... .......... .......... .......... 84% 62.5M 0s
+  3350K .......... .......... .......... .......... .......... 85% 75.5M 0s
+  3400K .......... .......... .......... .......... .......... 87%  118M 0s
+  3450K .......... .......... .......... .......... .......... 88%  455M 0s
+  3500K .......... .......... .......... .......... .......... 89%  353M 0s
+  3550K .......... .......... .......... .......... .......... 90%  447M 0s
+  3600K .......... .......... .......... .......... .......... 92%  317M 0s
+  3650K .......... .......... .......... .......... .......... 93%  415M 0s
+  3700K .......... .......... .......... .......... .......... 94%  439M 0s
+  3750K .......... .......... .......... .......... .......... 95%  437M 0s
+  3800K .......... .......... .......... .......... .......... 97%  440M 0s
+  3850K .......... .......... .......... .......... .......... 98%  422M 0s
+  3900K .......... .......... .......... .......... .......... 99%  340M 0s
+  3950K ..........                                            100% 19.0T=0.02s
+2025-08-25 19:29:49 (189 MB/s) - ‘git-lfs.tar.gz’ saved [4055224/4055224]
+       README.md
+       CHANGELOG.md
+       man/
+       man/git-lfs-clean.1
+       man/git-lfs-track.1
+       man/git-lfs-fetch.1.html
+       man/git-lfs-post-merge.1.html
+       man/git-lfs-env.1
+       man/git-lfs-uninstall.1.html
+       man/git-lfs-push.1.html
+       man/git-lfs-lock.1
+       man/git-lfs-clean.1.html
+       man/git-lfs-smudge.1
+       man/git-lfs-install.1.html
+       man/git-lfs-install.1
+       man/git-lfs-locks.1.html
+       man/git-lfs.1.html
+       man/git-lfs-prune.1
+       man/git-lfs-post-checkout.1.html
+       man/git-lfs-smudge.1.html
+       man/git-lfs-untrack.1
+       man/git-lfs-locks.1
+       man/git-lfs-migrate.1.html
+       man/git-lfs-env.1.html
+       man/git-lfs-fsck.1
+       man/git-lfs-migrate.1
+       man/git-lfs-ls-files.1.html
+       man/git-lfs-post-commit.1
+       man/git-lfs-ext.1
+       man/git-lfs-status.1.html
+       man/git-lfs-fetch.1
+       man/git-lfs-pull.1
+       man/git-lfs-untrack.1.html
+       man/git-lfs-prune.1.html
+       man/git-lfs-ls-files.1
+       man/git-lfs-pre-push.1.html
+       man/git-lfs.1
+       man/git-lfs-pointer.1
+       man/git-lfs-post-commit.1.html
+       man/git-lfs-track.1.html
+       man/git-lfs-logs.1.html
+       man/git-lfs-uninstall.1
+       man/git-lfs-config.5
+       man/git-lfs-update.1.html
+       man/git-lfs-update.1
+       man/git-lfs-clone.1
+       man/git-lfs-pointer.1.html
+       man/git-lfs-checkout.1.html
+       man/git-lfs-post-merge.1
+       man/git-lfs-clone.1.html
+       man/git-lfs-post-checkout.1
+       man/git-lfs-config.5.html
+       man/git-lfs-fsck.1.html
+       man/git-lfs-status.1
+       man/git-lfs-unlock.1.html
+       man/git-lfs-filter-process.1
+       man/git-lfs-lock.1.html
+       man/git-lfs-ext.1.html
+       man/git-lfs-push.1
+       man/git-lfs-pre-push.1
+       man/git-lfs-checkout.1
+       man/git-lfs-filter-process.1.html
+       man/git-lfs-pull.1.html
+       man/git-lfs-unlock.1
+       man/git-lfs-logs.1
+       git-lfs
+       install.sh
+       /tmp/codon/tmp/buildpacks/de37e887844785a1126d230ea56f2f216b506471
+-----> Download Git LFS assets
+       /tmp/build_977bfb56 /tmp/codon/tmp/buildpacks/de37e887844785a1126d230ea56f2f216b506471
+       git version 2.43.0
+       git-lfs/2.13.3 (GitHub; linux amd64; go 1.16.2; git a5e65851)
+hint: Using 'master' as the name for the initial branch. This default branch name
+hint: is subject to change. To configure the initial branch name to use in all
+hint: of your new repositories, which will suppress this warning, call:
+hint: 
+hint: 	git config --global init.defaultBranch <name>
+hint: 
+hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+hint: 'development'. The just-created branch can be renamed via this command:
+hint: 
+hint: 	git branch -m <name>
+       Initialized empty Git repository in /tmp/build_977bfb56/.git/
+From https://github.com/Blignaut24/About-BulldozerPriceGenius-_BPG-_v2
+ * [new branch]        feature/fix-model-prediction -> origin/feature/fix-model-prediction
+ * [new branch]        fix/interactive-prediction-page -> origin/fix/interactive-prediction-page
+ * [new branch]        git_lfs           -> origin/git_lfs
+ * [new branch]        heroku_bugs       -> origin/heroku_bugs
+ * [new branch]        heroku_dependence -> origin/heroku_dependence
+ * [new branch]        ide               -> origin/ide
+ * [new branch]        image             -> origin/image
+ * [new branch]        import_model      -> origin/import_model
+ * [new branch]        main              -> origin/main
+ * [new branch]        streamlit_explore -> origin/streamlit_explore
+       Unstaged changes after reset:
+       D	.env.example
+       D	.gitignore
+       D	.vscode/arctictern.py
+       D	.vscode/heroku_config.sh
+       D	.vscode/init_tasks.sh
+       D	.vscode/make_url.py
+       D	.vscode/uptime.sh
+       D	TEST.md
+       D	comprehensive_fallback_validation.py
+       D	demo_error_handling.py
+       D	deploy_heroku.sh
+       D	docs/CONTAINER_COMPATIBILITY_FIX.md
+       D	docs/DATAFRAME_COMPATIBILITY_FIX.md
+       D	docs/ENHANCED_ML_MODEL_FIXES_COMPLETE.md
+       D	docs/EQUIPMENT_AGE_CALCULATION_FIX.md
+       D	docs/ERROR_EXPLANATION_AND_FIX.md
+       D	docs/ERROR_FIXES_SUMMARY.md
+       D	docs/FINAL_REFINEMENTS_COMPLETE.md
+       D	docs/HEROKU_DEPLOYMENT_GUIDE.md
+       D	docs/KEY_TAKEAWAY_STYLING_IMPROVEMENTS.md
+       D	docs/ML_MODEL_ACCURACY_FIX_COMPLETE.md
+       D	docs/ML_MODEL_RESOLUTION.md
+       D	docs/ML_MODEL_STARTUP_GUIDE.md
+       D	docs/ML_MODEL_UNAVAILABLE_FINAL_SOLUTION.md
+       D	docs/ML_PREDICTION_TEST_ANALYSIS.md
+       D	docs/NESTED_EXPANDER_FIX.md
+       D	docs/PLACEHOLDER_PARAMETER_FIX.md
+       D	docs/PREPROCESSING_ERROR_FINAL_FIX.md
+       D	docs/PREPROCESSING_ERROR_FIX.md
+       D	docs/READABILITY_IMPROVEMENTS.md
+       D	docs/README_ModelID_Component.md
+       D	docs/README_YearMade_Component.md
+       D	docs/SECURITY_AUDIT_SUMMARY.md
+       D	docs/STREAMLIT_CACHING_COMPATIBILITY_FIX.md
+       D	docs/STREAMLIT_EXPANDER_FIX_VALIDATION.md
+       D	docs/TARGETED_FIXES_IMPLEMENTATION_COMPLETE.md
+       D	docs/TECHNICAL_DEEP_DIVE_EXPANDER_CONVERSION.md
+       D	docs/TESTING_INSTRUCTIONS.md
+       D	docs/TEST_CRITERIA_UPDATE_SUMMARY.md
+       D	docs/TIRE_SIZE_COMPATIBILITY_FIX_SUMMARY.md
+       D	docs/UX_ENHANCEMENT_VALIDATION.md
+       D	docs/VALIDATION_CONSISTENCY_FIX.md
+       D	docs/YEAR_VALIDATION_SOLUTION.md
+       D	examples/model_id_prediction_demo.py
+       D	examples/year_made_prediction_demo.py
+       D	examples/year_validation_demo.py
+       D	fallback_calibration_analysis.py
+       D	fix_model.py
+       D	git_commit_message.txt
+       D	heroku_setup.sh
+       D	jupyter_notebooks/01_data_loading.ipynb
+       D	jupyter_notebooks/02_feature_engineering.ipynb
+       D	jupyter_notebooks/03_eda.ipynb
+       D	jupyter_notebooks/04_data_preprocessing.ipynb
+       D	jupyter_notebooks/05_model_training_and_evaluation.ipynb
+       D	local_requirements.txt
+       D	quick_start_external_model.py
+       D	results/about_us_page (2).webp
+       D	results/about_us_page.webp
+       D	results/actual_vs_predicted_ sale_price.webp
+       D	results/create_new_post_page (2).webp
+       D	results/create_new_post_page.webp
+       D	results/feature_importance.png
+       D	results/feature_importance.webp
+       D	results/full_post_page (2).webp
+       D	results/full_post_page.webp
+       D	results/home_page (2).webp
+       D	results/home_page.webp
+       D	results/landing_page (2).webp
+       D	results/landing_page.webp
+       D	results/manage_account_page (2).webp
+       D	results/manage_account_page.webp
+       D	results/median_saleprice_monthly.webp
+       D	results/model_comparison.webp
+       D	results/my_post_and_bookmarked_page (2).webp
+       D	results/my_post_and_bookmarked_page.webp
+       D	results/my_profile (2).webp
+       D	results/my_profile.webp
+       D	results/post_overview_page (2).webp
+       D	results/post_overview_page.webp
+       D	results/register_page (2).webp
+       D	results/register_page.webp
+       D	results/sale_price.webp
+       D	results/sale_price_distribution.png
+       D	results/sale_price_distribution.webp
+       D	results/update_and_delete_page (2).webp
+       D	results/update_and_delete_page.webp
+       D	results/user_profile (2).webp
+       D	results/user_profile.webp
+       D	setup_heroku_environment.py
+       D	static/images/BPG_Framework.webp
+       D	static/images/RMSLE.webp
+       D	static/images/bulldozer_ai-min.webp
+       D	static/images/interactive_dashboard.webp
+       D	static/images/kaggle_leaderboard.webp
+       D	static/images/sale_distrubution_by_month.webp
+       D	statistical_fallback_validation.py
+       D	tests/README.md
+       D	tests/automated_test_scenarios.py
+       D	tests/debug_test_scenario_1.py
+       D	tests/heroku_performance_test.py
+       D	tests/manual_test_checklist.py
+       D	tests/real_prediction_test.py
+       D	tests/run_test_scenarios.py
+       D	tests/test_age_calculation.py
+       D	tests/test_app_dependency_fix.py
+       D	tests/test_button_styling.py
+       D	tests/test_complete_implementation.py
+       D	tests/test_deployment_config.py
+       D	tests/test_expander_fix.py
+       D	tests/test_external_model.py
+       D	tests/test_fallback_notifications.py
+       D	tests/test_fixed_errors.py
+       D	tests/test_gdown_dependency_fix.py
+       D	tests/test_gdown_fix.py
+       D	tests/test_google_drive_connection.py
+       D	tests/test_google_drive_large_file_fix.py
+       D	tests/test_improved_app.py
+       D	tests/test_model_error.py
+       D	tests/test_model_id_input.py
+       D	tests/test_preprocessing_logic.py
+       D	tests/test_rubric_gitignore.py
+       D	tests/test_scenario_1_fix.py
+       D	tests/test_scenario_1_multiplier.py
+       D	tests/test_scenario_3_final_adjustment.py
+       D	tests/test_scenario_3_final_fixes.py
+       D	tests/test_scenario_3_fixes.py
+       D	tests/test_scenario_3_micro_adjustment.py
+       D	tests/test_streamlit_fix.py
+       D	tests/test_unseen_data_predictions.py
+       D	tests/test_validation_consistency.py
+       D	tests/test_year_made_input.py
+       D	tests/test_year_validation.py
+       D	verify_heroku_deployment.py
+       D	verify_preprocessing_fix.py
+       Updated git hooks.
+       Git LFS initialized.
+-----> Discovering process types
+       Procfile declares types -> web
+-----> Compressing...
+       Done: 228.7M
+-----> Launching...
+       Released v140
+       https://bulldozerpricegenius-707a4e3cbb84.herokuapp.com/ deployed to Heroku

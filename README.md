@@ -1079,6 +1079,7 @@ I've added links to the bug reports from my GitHub Project in my README.md table
 | Bug Description | Bug Report Link                                                                                                               | Bug Type                       |
 | --------------- | ----------------------------------------------------------------------------------------------------------------------------- | ------------------------------ |
 | 🐞 Bug Report:  | Pandas-Profiling Error Due to Package Compatibility Conflict [#19](https://github.com/Blignaut24/About-BulldozerPriceGenius-_BPG-_v2/issues/19) | 🐞Bug: Package Dependency Conflict 🔒 |
+ 🐞 Bug Report:  | 🐛 Bug Report: Heroku Python buildpack ignores .python-version file, persists using deleted runtime.txt despite cache purge [#23](https://github.com/users/Blignaut24/projects/23/views/1?pane=issue&itemId=125851995&issue=Blignaut24%7CAbout-BulldozerPriceGenius-_BPG-_v2%7C22) | 🐞Bug: Heroku Build 🔒 |
 
 ## Fixed bugs ✅
 
