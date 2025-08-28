@@ -2022,11 +2022,8 @@ def interactive_prediction_body():
 
         if not success:
             # Fallback display if the function fails
+            st.error("❌ Progress tracker component failed to render")
             st.info(f"📊 **Progress Summary**: {progress_data.get('total_completed', 0)}/{progress_data.get('total_fields', 13)} fields completed ({progress_data.get('percentage', 0):.0f}%) - Estimated Accuracy: {progress_data.get('accuracy_range', 'Unknown')}")
-
-        # Debug: Show progress data structure (only when needed for troubleshooting)
-        if st.checkbox("🔍 Debug Progress Data", value=False, help="Show progress data for debugging"):
-            st.json(progress_data)
 
     except Exception as e:
         st.error(f"❌ Error with progress tracker: {str(e)}")
