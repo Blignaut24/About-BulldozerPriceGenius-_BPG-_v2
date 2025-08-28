@@ -465,103 +465,71 @@ def calculate_comprehensive_progress(selected_year_made, product_size, state, se
     }
 
 
-def create_comprehensive_progress_display(progress_data):
-    """Create a comprehensive progress display with accuracy estimates"""
+def create_streamlit_progress_display(progress_data):
+    """Create a comprehensive progress display using Streamlit components for reliability"""
     try:
         # Validate progress_data structure
         if not progress_data or not isinstance(progress_data, dict):
             st.error("❌ Progress data is invalid or missing")
-            return "<div>Error: Invalid progress data</div>"
+            return False
 
-        # Check for required keys
-        required_keys = ['accuracy_color', 'accuracy_range', 'total_completed', 'total_fields',
-                        'percentage', 'required_completed', 'tech_completed', 'model_completed', 'sale_completed']
+        # Display progress tracker using Streamlit components
+        st.markdown("### 📊 Prediction Accuracy Tracker")
 
-        for key in required_keys:
-            if key not in progress_data:
-                st.error(f"❌ Missing progress data key: {key}")
-                return f"<div>Error: Missing key {key}</div>"
+        # Create progress summary row
+        col_summary1, col_summary2 = st.columns([2, 1])
+        with col_summary1:
+            accuracy_range = progress_data.get('accuracy_range', 'Unknown')
+            st.markdown(f"**Estimated Accuracy: {accuracy_range}**")
+        with col_summary2:
+            total_completed = progress_data.get('total_completed', 0)
+            total_fields = progress_data.get('total_fields', 13)
+            percentage = progress_data.get('percentage', 0)
+            st.markdown(f"**{total_completed}/{total_fields} fields completed ({percentage:.0f}%)**")
 
-        colors = get_dark_theme_colors()
+        # Progress bar
+        st.progress(percentage / 100.0)
 
-        # Validate colors structure
-        if not colors or not isinstance(colors, dict):
-            st.error("❌ Dark theme colors are invalid or missing")
-            return "<div>Error: Invalid theme colors</div>"
+        # Field completion metrics
+        col1, col2, col3, col4 = st.columns(4)
 
-        # Safe value extraction with defaults
-        accuracy_color = progress_data.get('accuracy_color', '#28a745')
-        accuracy_range = progress_data.get('accuracy_range', 'Unknown')
-        total_completed = progress_data.get('total_completed', 0)
-        total_fields = progress_data.get('total_fields', 13)
-        percentage = progress_data.get('percentage', 0)
-        required_completed = progress_data.get('required_completed', 0)
-        tech_completed = progress_data.get('tech_completed', 0)
-        model_completed = progress_data.get('model_completed', 0)
-        sale_completed = progress_data.get('sale_completed', 0)
+        with col1:
+            required_completed = progress_data.get('required_completed', 0)
+            st.metric(
+                "🔴 Required",
+                f"{required_completed}/3",
+                help="Year Made, Product Size, State"
+            )
+        with col2:
+            tech_completed = progress_data.get('tech_completed', 0)
+            st.metric(
+                "🔵 Technical",
+                f"{tech_completed}/7",
+                help="Enclosure, Base Model, Coupler System, Tire Size, Hydraulics Flow, Grouser Tracks, Hydraulics"
+            )
+        with col3:
+            model_completed = progress_data.get('model_completed', 0)
+            st.metric(
+                "🔧 Model ID",
+                f"{model_completed}/1",
+                help="Specific model identification number"
+            )
+        with col4:
+            sale_completed = progress_data.get('sale_completed', 0)
+            st.metric(
+                "📅 Sale Info",
+                f"{sale_completed}/2",
+                help="Sale year and day of year"
+            )
 
-        return f"""
-        <div style="background: linear-gradient(135deg, {colors['secondary_bg']} 0%, {colors['tertiary_bg']} 100%);
-                    border: 2px solid {colors['border_color']};
-                    border-radius: 12px;
-                    padding: 20px;
-                    margin: 20px 0;
-                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);">
+        # Accuracy guide
+        st.info("💡 **Accuracy Guide:** Complete more fields to improve prediction precision. Each technical specification adds 2-5% accuracy.")
 
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-                <h4 style="color: {colors['text_primary']}; margin: 0; font-size: 18px; font-weight: 700;">
-                    📊 Prediction Accuracy Tracker
-                </h4>
-                <div style="text-align: right;">
-                    <div style="color: {accuracy_color}; font-weight: 700; font-size: 16px;">
-                        Estimated Accuracy: {accuracy_range}
-                    </div>
-                    <div style="color: {colors['text_secondary']}; font-size: 14px;">
-                        {total_completed}/{total_fields} fields completed ({percentage:.0f}%)
-                    </div>
-                </div>
-            </div>
-
-            <div style="background: {colors['primary_bg']}; border-radius: 8px; height: 16px; border: 1px solid {colors['border_color']}; overflow: hidden; margin-bottom: 15px;">
-                <div style="background: linear-gradient(90deg, {accuracy_color} 0%, {colors['accent_blue']} 100%);
-                            height: 100%;
-                            width: {percentage}%;
-                            border-radius: 7px;
-                            transition: width 0.5s ease;
-                            box-shadow: 0 2px 6px rgba(255, 107, 53, 0.4);"></div>
-            </div>
-
-            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 15px; font-size: 13px;">
-                <div style="text-align: center; padding: 8px; background: rgba(220, 53, 69, 0.1); border-radius: 6px; border: 1px solid rgba(220, 53, 69, 0.3);">
-                    <div style="color: #dc3545; font-weight: 700;">🔴 Required</div>
-                    <div style="color: {colors['text_secondary']};">{required_completed}/3</div>
-                </div>
-                <div style="text-align: center; padding: 8px; background: rgba(23, 162, 184, 0.1); border-radius: 6px; border: 1px solid rgba(23, 162, 184, 0.3);">
-                    <div style="color: #17a2b8; font-weight: 700;">🔵 Technical</div>
-                    <div style="color: {colors['text_secondary']};">{tech_completed}/7</div>
-                </div>
-                <div style="text-align: center; padding: 8px; background: rgba(255, 193, 7, 0.1); border-radius: 6px; border: 1px solid rgba(255, 193, 7, 0.3);">
-                    <div style="color: #ffc107; font-weight: 700;">🔧 Model ID</div>
-                    <div style="color: {colors['text_secondary']};">{model_completed}/1</div>
-                </div>
-                <div style="text-align: center; padding: 8px; background: rgba(40, 167, 69, 0.1); border-radius: 6px; border: 1px solid rgba(40, 167, 69, 0.3);">
-                    <div style="color: #28a745; font-weight: 700;">📅 Sale Info</div>
-                    <div style="color: {colors['text_secondary']};">{sale_completed}/2</div>
-                </div>
-            </div>
-
-            <div style="margin-top: 15px; padding: 12px; background: rgba(23, 162, 184, 0.1); border-radius: 6px; border-left: 4px solid #17a2b8;">
-                <div style="color: {colors['info_text']}; font-size: 14px; line-height: 1.4;">
-                    <strong>💡 Accuracy Guide:</strong>
-                    Complete more fields to improve prediction precision. Each technical specification adds 2-5% accuracy.
-                </div>
-            </div>
-        </div>
-        """
+        return True
 
     except Exception as e:
         st.error(f"❌ Error creating progress display: {str(e)}")
-        return f"<div style='color: red; padding: 10px; border: 1px solid red; border-radius: 5px;'>Error creating progress display: {str(e)}</div>"
+        return False
 
 
 def clear_all_input_fields():
@@ -2049,18 +2017,16 @@ def interactive_prediction_body():
             sale_year, sale_day_of_year, categorical_options
         )
 
-        # Debug: Show progress data structure (remove this after fixing)
+        # Display comprehensive progress tracker using Streamlit components for reliability
+        success = create_streamlit_progress_display(progress_data)
+
+        if not success:
+            # Fallback display if the function fails
+            st.info(f"📊 **Progress Summary**: {progress_data.get('total_completed', 0)}/{progress_data.get('total_fields', 13)} fields completed ({progress_data.get('percentage', 0):.0f}%) - Estimated Accuracy: {progress_data.get('accuracy_range', 'Unknown')}")
+
+        # Debug: Show progress data structure (only when needed for troubleshooting)
         if st.checkbox("🔍 Debug Progress Data", value=False, help="Show progress data for debugging"):
             st.json(progress_data)
-
-        # Display comprehensive progress tracker
-        progress_html = create_comprehensive_progress_display(progress_data)
-        if progress_html and not progress_html.startswith("Error:"):
-            st.markdown(progress_html, unsafe_allow_html=True)
-        else:
-            st.error("❌ Failed to generate progress tracker HTML")
-            # Show simple progress info as fallback
-            st.info(f"📊 **Progress Summary**: {progress_data.get('total_completed', 0)}/{progress_data.get('total_fields', 13)} fields completed ({progress_data.get('percentage', 0):.0f}%) - Estimated Accuracy: {progress_data.get('accuracy_range', 'Unknown')}")
 
     except Exception as e:
         st.error(f"❌ Error with progress tracker: {str(e)}")
