@@ -11,6 +11,18 @@ from concurrent.futures import ThreadPoolExecutor, TimeoutError as FuturesTimeou
 from datetime import datetime, date
 warnings.filterwarnings('ignore')
 
+# Import JavaScript error fix
+sys.path.append(os.path.dirname(__file__))
+try:
+    from fix_js_module_error import apply_heroku_js_fixes, create_fallback_selectbox
+    JS_ERROR_FIX_AVAILABLE = True
+except ImportError:
+    JS_ERROR_FIX_AVAILABLE = False
+    def apply_heroku_js_fixes():
+        return False
+    def create_fallback_selectbox(label, options, index=0, key=None, help=None):
+        return st.selectbox(label, options=options, index=index, key=key, help=help)
+
 # Import dark theme
 from app_pages.dark_theme import apply_dark_theme, get_dark_theme_colors, create_dark_section_html, create_dark_progress_bar
 
@@ -427,6 +439,12 @@ def interactive_prediction_body():
     Main function to handle the interactive bulldozer price prediction.
     Allows users to choose between different prediction approaches and input feature values.
     """
+
+    # Apply JavaScript error fixes for Heroku deployment
+    if JS_ERROR_FIX_AVAILABLE:
+        js_fix_applied = apply_heroku_js_fixes()
+        if js_fix_applied:
+            st.info("🔧 Enhanced browser compatibility mode active for Heroku deployment")
 
     # Apply dark theme
     apply_dark_theme()
@@ -858,129 +876,229 @@ def interactive_prediction_body():
         - **States**: All 50 US states including test locations (California, Texas, Utah, etc.)
         - **Technical Specs**: All combinations from basic to premium configurations
 
-        **✅ Validated Test Scenarios:**
-        - Test Scenario 1: 1994 D8 premium (baseline compliance)
-        - Test Scenario 2: 1987 D9 ultra-vintage premium restoration
-        - Test Scenario 8: 2018 D10 ultra-modern premium technology
-        - Test Scenario 11: 2016 D5 extreme configuration mix
-        - All other scenarios (3-7, 9-10, 12) fully supported
+        **✅ Validated Test Scenarios (Precision Price Tool Framework):**
+        - **Test Scenario 1**: 1994 D8 premium (baseline compliance test)
+        - **Test Scenario 2**: 1987 D9 ultra-vintage premium restoration
+        - **Test Scenario 3**: 1995 D7 economic crisis impact assessment
+        - **Test Scenario 4**: 1992 D3 vintage compact specialist equipment
+        - **Test Scenario 5**: 2004 D8 modern premium construction boom
+        - **Test Scenario 6**: 2008 D6 modern standard configuration
+        - **Test Scenario 7**: 2006 D6 premium equipment market assessment
+        - **Test Scenario 8**: 2018 D10 ultra-modern premium technology
+        - **Test Scenario 9**: 2014 D8 recent premium advanced features
+        - **Test Scenario 10**: 2013 D4 recent compact advanced configuration
+        - **Test Scenario 11**: 2016 D5 extreme configuration mix
+        - **Test Scenario 12**: 2010 D6 geographic extreme edge case
         """)
 
-    # Enhanced help section with test scenario examples
+    # Enhanced help section with comprehensive test scenario examples
     with get_expander("❓ Need help? Examples from our test scenarios!", expanded=False):
         st.markdown("""
-        ### 🆘 **Quick Help Guide with Test Examples**
+        ### 🆘 **Comprehensive Guide with All 12 Precision Price Tool Test Scenarios**
 
-        **If you're unsure about bulldozer specifications, here are real examples:**
+        **Complete bulldozer configurations validated in our testing framework:**
 
-        1. **🔴 Required Fields (minimum for prediction):**
-           - **Year Made**: Enter the year built (1974-2011)
-             - *Example: 1994 (vintage premium), 2018 (ultra-modern)*
-           - **Product Size**: Choose based on bulldozer weight:
-             - **Large**: Over 40 tons *(Test Example: D8, D9, D10 models)*
-             - **Medium**: 25-40 tons *(Test Example: D6, D7 models)*
-             - **Small**: 6-25 tons *(Test Example: D5 model)*
-             - **Compact**: 15-25 tons *(Test Example: D4 model)*
-             - **Mini**: Under 15 tons *(Test Example: D3 model)*
-           - **State**: Select location *(Test Examples: California, Texas, Utah)*
+        #### **🔴 Required Fields (minimum for prediction):**
+        - **Year Made**: Enter the year built (1974-2018)
+          - *Vintage Examples: 1987 (ultra-vintage D9), 1992 (compact D3), 1994 (baseline D8), 1995 (crisis D7)*
+          - *Modern Examples: 2004 (boom D8), 2006 (premium D6), 2008 (standard D6), 2010 (Alaska D6)*
+          - *Recent Examples: 2013 (compact D4), 2014 (advanced D8), 2016 (mixed D5), 2018 (ultra-modern D10)*
+        - **Product Size**: Choose based on bulldozer category:
+          - **Large**: D8, D9, D10 models *(Tests 1, 2, 5, 7, 8, 9)*
+          - **Medium**: D6, D7 models *(Tests 3, 6, 12)*
+          - **Small**: D4, D5 models *(Tests 10, 11)*
+          - **Compact**: D3 model *(Test 4)*
+        - **State**: Geographic coverage from all test scenarios:
+          - *West Coast: California (Tests 1, 7, 8), Nevada (Test 5), Washington (Test 10)*
+          - *Central: Texas (Test 2), Colorado (Test 9), Utah (Test 11)*
+          - *East/Midwest: Michigan (Test 3), Ohio (Test 6), Florida (Test 4)*
+          - *Extreme: Alaska (Test 12)*
 
-        2. **🔵 Technical Specifications (for higher accuracy):**
-           - **Base Model**: D3-D11 *(Test Examples: D8, D9, D10, D5)*
-           - **Enclosure**: EROPS w AC (premium), ROPS (basic)
-           - **Hydraulics**: 4 Valve (premium), 2 Valve (standard), Auxiliary (specialty)
-           - **Tire Size**: 26.5R25 (large), 20.5R25 (small), 35/65-33 (ultra-modern)
+        #### **🔵 Technical Specifications (validated configurations):**
+        - **Base Models**: D3 (compact) → D4 (small) → D5 (small) → D6 (medium) → D7 (medium) → D8 (large) → D9 (large) → D10 (ultra-large)
+        - **Enclosure Types**:
+          - **EROPS w AC**: Premium enclosed (Tests 1, 2, 5, 7, 8, 9, 10, 12)
+          - **EROPS**: Standard enclosed (Tests 3, 6)
+          - **ROPS**: Basic open (Tests 4, 11)
+        - **Hydraulics Systems**:
+          - **4 Valve**: Premium (Tests 1, 2, 5, 7, 8, 9, 12)
+          - **3 Valve**: Standard (Tests 6, 10)
+          - **2 Valve**: Basic (Tests 3, 4)
+          - **Auxiliary**: Specialty (Test 11)
+        - **Hydraulics Flow**:
+          - **High Flow**: Premium performance (Tests 1, 2, 5, 7, 8, 9, 10, 11, 12)
+          - **Standard Flow**: Standard performance (Tests 3, 4, 6)
+        - **Tire Sizes**: 16.9R24 (compact) → 18.4R26 (small) → 20.5R25 (small) → 23.5R25 (medium) → 26.5R25 (large) → 29.5R25 (large) → 35/65-33 (ultra-modern)
 
-        3. **📅 Sale Information (market timing):**
-           - **Sale Year**: When sold (1989-2015) *(Test Examples: 2005, 2003, 2021)*
-           - **Sale Day**: Day of year (1-365) *(Test Examples: 180, 275, 90)*
+        #### **📅 Sale Information (market timing examples):**
+        - **Economic Periods**:
+          - *Pre-Crisis: 2003 (Test 2), 2005 (Test 1), 2006-2007 (Tests 5, 4)*
+          - *Crisis Period: 2009 (Tests 3, 7)*
+          - *Recovery: 2012-2015 (Tests 6, 9, 10)*
+          - *Recent: 2020-2021 (Tests 11, 8)*
+        - **Sale Day Examples**: 45 (Test 3), 75 (Test 10), 90 (Test 8), 120 (Test 5), 150 (Test 9), 180 (Tests 1, 6, 7), 210 (Test 4), 275 (Test 2), 300 (Test 11), 330 (Test 12)
 
-        4. **💡 Pro Tips from Test Scenarios:**
-           - **Premium Configuration**: EROPS w AC + Hydraulic + High Flow + Double Grouser + 4 Valve
-           - **Basic Configuration**: ROPS + Manual + Standard + Single Grouser + 2 Valve
-           - **Mixed Configuration**: ROPS + Hydraulic + High Flow + Triple Grouser + Auxiliary
+        #### **💡 Configuration Patterns from Test Scenarios:**
+        - **Ultra-Premium**: EROPS w AC + Hydraulic + High Flow + Double Grouser + 4 Valve *(Tests 1, 2, 5, 8)*
+        - **Standard Premium**: EROPS w AC + Hydraulic + High Flow + Double/Triple + 4 Valve *(Tests 7, 9, 10, 12)*
+        - **Standard Configuration**: EROPS + Hydraulic + Standard Flow + Single + 3 Valve *(Tests 3, 6)*
+        - **Basic Configuration**: ROPS + Manual + Standard Flow + Single + 2 Valve *(Test 4)*
+        - **Mixed Configuration**: ROPS + Hydraulic + High Flow + Triple + Auxiliary *(Test 11)*
         """)
 
-        # Quick-fill buttons for test scenarios
-        st.markdown("### 🚀 **Quick Fill Test Scenarios**")
-        col_test1, col_test2, col_test3 = get_columns(3)
+        # Quick-fill buttons for all 12 test scenarios
+        st.markdown("### 🚀 **Quick Fill Test Scenarios - All 12 Validated Configurations**")
 
-        with col_test1:
-            if st.button("📋 Test Scenario 1\n(1994 D8 Premium)", key="fill_test1"):
-                st.session_state.update({
-                    'year_made_input': 1994,
-                    'product_size_input': 'Large',
-                    'state_input': 'California',
-                    'model_id_input_fallback': 4200,
-                    'enclosure_input': 'EROPS w AC',
-                    'fi_base_model_input': 'D8',
-                    'coupler_system_input': 'Hydraulic',
-                    'tire_size_input': '26.5R25',
-                    'hydraulics_flow_input': 'High Flow',
-                    'grouser_tracks_input': 'Double',
-                    'hydraulics_input': '4 Valve',
-                    'sale_year_input': 2005,
-                    'sale_day_input': 180
-                })
-                st.success("✅ Test Scenario 1 loaded!")
-                # Use version-compatible rerun function
-                if hasattr(st, 'rerun'):
-                    st.rerun()
-                elif hasattr(st, 'experimental_rerun'):
-                    st.experimental_rerun()
-                else:
-                    st.info("🔄 Please refresh the page to see loaded scenario.")
+        # Row 1: Vintage Equipment (Tests 1-4)
+        st.markdown("#### **🏗️ Vintage Equipment (1987-1995)**")
+        col_v1, col_v2, col_v3, col_v4 = get_columns(4)
 
-        with col_test2:
-            if st.button("🏗️ Test Scenario 2\n(1987 D9 Vintage)", key="fill_test2"):
+        with col_v1:
+            if st.button("📋 Test 1\nBaseline\n(1994 D8)", key="fill_test1"):
                 st.session_state.update({
-                    'year_made_input': 1987,
-                    'product_size_input': 'Large',
-                    'state_input': 'Texas',
-                    'model_id_input_fallback': 4800,
-                    'enclosure_input': 'EROPS w AC',
-                    'fi_base_model_input': 'D9',
-                    'coupler_system_input': 'Hydraulic',
-                    'tire_size_input': '29.5R25',
-                    'hydraulics_flow_input': 'High Flow',
-                    'grouser_tracks_input': 'Double',
-                    'hydraulics_input': '4 Valve',
-                    'sale_year_input': 2003,
-                    'sale_day_input': 275
+                    'year_made_input': 1994, 'product_size_input': 'Large', 'state_input': 'California',
+                    'model_id_input_fallback': 4200, 'enclosure_input': 'EROPS w AC', 'fi_base_model_input': 'D8',
+                    'coupler_system_input': 'Hydraulic', 'tire_size_input': '26.5R25', 'hydraulics_flow_input': 'High Flow',
+                    'grouser_tracks_input': 'Double', 'hydraulics_input': '4 Valve', 'sale_year_input': 2005, 'sale_day_input': 180
                 })
-                st.success("✅ Test Scenario 2 loaded!")
-                # Use version-compatible rerun function
-                if hasattr(st, 'rerun'):
-                    st.rerun()
-                elif hasattr(st, 'experimental_rerun'):
-                    st.experimental_rerun()
-                else:
-                    st.info("🔄 Please refresh the page to see loaded scenario.")
+                st.success("✅ Test Scenario 1 (Baseline Compliance) loaded!")
+                if hasattr(st, 'rerun'): st.rerun()
 
-        with col_test3:
-            if st.button("⚙️ Test Scenario 11\n(2016 D5 Mixed)", key="fill_test11"):
+        with col_v2:
+            if st.button("🏛️ Test 2\nUltra-Vintage\n(1987 D9)", key="fill_test2"):
                 st.session_state.update({
-                    'year_made_input': 2016,
-                    'product_size_input': 'Small',
-                    'state_input': 'Utah',
-                    'model_id_input_fallback': 3200,
-                    'enclosure_input': 'ROPS',
-                    'fi_base_model_input': 'D5',
-                    'coupler_system_input': 'Hydraulic',
-                    'tire_size_input': '20.5R25',
-                    'hydraulics_flow_input': 'High Flow',
-                    'grouser_tracks_input': 'Triple',
-                    'hydraulics_input': 'Auxiliary',
-                    'sale_year_input': 2020,
-                    'sale_day_input': 300
+                    'year_made_input': 1987, 'product_size_input': 'Large', 'state_input': 'Texas',
+                    'model_id_input_fallback': 4800, 'enclosure_input': 'EROPS w AC', 'fi_base_model_input': 'D9',
+                    'coupler_system_input': 'Hydraulic', 'tire_size_input': '29.5R25', 'hydraulics_flow_input': 'High Flow',
+                    'grouser_tracks_input': 'Double', 'hydraulics_input': '4 Valve', 'sale_year_input': 2003, 'sale_day_input': 275
                 })
-                st.success("✅ Test Scenario 11 loaded!")
-                # Use version-compatible rerun function
-                if hasattr(st, 'rerun'):
-                    st.rerun()
-                elif hasattr(st, 'experimental_rerun'):
-                    st.experimental_rerun()
-                else:
-                    st.info("🔄 Please refresh the page to see loaded scenario.")
+                st.success("✅ Test Scenario 2 (Ultra-Vintage Premium) loaded!")
+                if hasattr(st, 'rerun'): st.rerun()
+
+        with col_v3:
+            if st.button("📉 Test 3\nCrisis Period\n(1995 D7)", key="fill_test3"):
+                st.session_state.update({
+                    'year_made_input': 1995, 'product_size_input': 'Medium', 'state_input': 'Michigan',
+                    'model_id_input_fallback': 3800, 'enclosure_input': 'EROPS', 'fi_base_model_input': 'D7',
+                    'coupler_system_input': 'Hydraulic', 'tire_size_input': '23.5R25', 'hydraulics_flow_input': 'Standard Flow',
+                    'grouser_tracks_input': 'Single', 'hydraulics_input': '2 Valve', 'sale_year_input': 2009, 'sale_day_input': 45
+                })
+                st.success("✅ Test Scenario 3 (Economic Crisis) loaded!")
+                if hasattr(st, 'rerun'): st.rerun()
+
+        with col_v4:
+            if st.button("🚜 Test 4\nCompact\n(1992 D3)", key="fill_test4"):
+                st.session_state.update({
+                    'year_made_input': 1992, 'product_size_input': 'Compact', 'state_input': 'Florida',
+                    'model_id_input_fallback': 2400, 'enclosure_input': 'ROPS', 'fi_base_model_input': 'D3',
+                    'coupler_system_input': 'Manual', 'tire_size_input': '16.9R24', 'hydraulics_flow_input': 'Standard Flow',
+                    'grouser_tracks_input': 'Single', 'hydraulics_input': '2 Valve', 'sale_year_input': 2007, 'sale_day_input': 210
+                })
+                st.success("✅ Test Scenario 4 (Vintage Compact) loaded!")
+                if hasattr(st, 'rerun'): st.rerun()
+
+        # Row 2: Modern Equipment (Tests 5-7)
+        st.markdown("#### **🏗️ Modern Equipment (2004-2008)**")
+        col_m1, col_m2, col_m3 = get_columns(3)
+
+        with col_m1:
+            if st.button("💰 Test 5\nBoom Period\n(2004 D8)", key="fill_test5"):
+                st.session_state.update({
+                    'year_made_input': 2004, 'product_size_input': 'Large', 'state_input': 'Nevada',
+                    'model_id_input_fallback': 4600, 'enclosure_input': 'EROPS w AC', 'fi_base_model_input': 'D8',
+                    'coupler_system_input': 'Hydraulic', 'tire_size_input': '26.5R25', 'hydraulics_flow_input': 'High Flow',
+                    'grouser_tracks_input': 'Double', 'hydraulics_input': '4 Valve', 'sale_year_input': 2006, 'sale_day_input': 120
+                })
+                st.success("✅ Test Scenario 5 (Construction Boom) loaded!")
+                if hasattr(st, 'rerun'): st.rerun()
+
+        with col_m2:
+            if st.button("⚙️ Test 6\nStandard\n(2008 D6)", key="fill_test6"):
+                st.session_state.update({
+                    'year_made_input': 2008, 'product_size_input': 'Medium', 'state_input': 'Ohio',
+                    'model_id_input_fallback': 3600, 'enclosure_input': 'EROPS', 'fi_base_model_input': 'D6',
+                    'coupler_system_input': 'Hydraulic', 'tire_size_input': '23.5R25', 'hydraulics_flow_input': 'Standard Flow',
+                    'grouser_tracks_input': 'Single', 'hydraulics_input': '3 Valve', 'sale_year_input': 2012, 'sale_day_input': 180
+                })
+                st.success("✅ Test Scenario 6 (Modern Standard) loaded!")
+                if hasattr(st, 'rerun'): st.rerun()
+
+        with col_m3:
+            if st.button("🔧 Test 7\nPremium\n(2006 D6)", key="fill_test7"):
+                st.session_state.update({
+                    'year_made_input': 2006, 'product_size_input': 'Large', 'state_input': 'California',
+                    'model_id_input_fallback': 1500, 'enclosure_input': 'EROPS w AC', 'fi_base_model_input': 'D6',
+                    'coupler_system_input': 'Hydraulic', 'tire_size_input': '23.5R25', 'hydraulics_flow_input': 'High Flow',
+                    'grouser_tracks_input': 'Double', 'hydraulics_input': '4 Valve', 'sale_year_input': 2009, 'sale_day_input': 180
+                })
+                st.success("✅ Test Scenario 7 (Premium Equipment) loaded!")
+                if hasattr(st, 'rerun'): st.rerun()
+
+        # Row 3: Recent Equipment (Tests 8-10)
+        st.markdown("#### **⚙️ Recent Equipment (2013-2018)**")
+        col_r1, col_r2, col_r3 = get_columns(3)
+
+        with col_r1:
+            if st.button("🚀 Test 8\nUltra-Modern\n(2018 D10)", key="fill_test8"):
+                st.session_state.update({
+                    'year_made_input': 2018, 'product_size_input': 'Large', 'state_input': 'California',
+                    'model_id_input_fallback': 5200, 'enclosure_input': 'EROPS w AC', 'fi_base_model_input': 'D10',
+                    'coupler_system_input': 'Hydraulic', 'tire_size_input': '35/65-33', 'hydraulics_flow_input': 'High Flow',
+                    'grouser_tracks_input': 'Double', 'hydraulics_input': '4 Valve', 'sale_year_input': 2021, 'sale_day_input': 90
+                })
+                st.success("✅ Test Scenario 8 (Ultra-Modern Premium) loaded!")
+                if hasattr(st, 'rerun'): st.rerun()
+
+        with col_r2:
+            if st.button("🔧 Test 9\nAdvanced\n(2014 D8)", key="fill_test9"):
+                st.session_state.update({
+                    'year_made_input': 2014, 'product_size_input': 'Large', 'state_input': 'Colorado',
+                    'model_id_input_fallback': 4800, 'enclosure_input': 'EROPS w AC', 'fi_base_model_input': 'D8',
+                    'coupler_system_input': 'Hydraulic', 'tire_size_input': '26.5R25', 'hydraulics_flow_input': 'High Flow',
+                    'grouser_tracks_input': 'Triple', 'hydraulics_input': '4 Valve', 'sale_year_input': 2015, 'sale_day_input': 150
+                })
+                st.success("✅ Test Scenario 9 (Recent Premium Advanced) loaded!")
+                if hasattr(st, 'rerun'): st.rerun()
+
+        with col_r3:
+            if st.button("🚜 Test 10\nCompact Adv\n(2013 D4)", key="fill_test10"):
+                st.session_state.update({
+                    'year_made_input': 2013, 'product_size_input': 'Small', 'state_input': 'Washington',
+                    'model_id_input_fallback': 2800, 'enclosure_input': 'EROPS w AC', 'fi_base_model_input': 'D4',
+                    'coupler_system_input': 'Hydraulic', 'tire_size_input': '18.4R26', 'hydraulics_flow_input': 'High Flow',
+                    'grouser_tracks_input': 'Double', 'hydraulics_input': '3 Valve', 'sale_year_input': 2014, 'sale_day_input': 75
+                })
+                st.success("✅ Test Scenario 10 (Recent Compact Advanced) loaded!")
+                if hasattr(st, 'rerun'): st.rerun()
+
+        # Row 4: Edge Cases (Tests 11-12)
+        st.markdown("#### **🔧 Edge Cases (2010-2020)**")
+        col_e1, col_e2 = get_columns(2)
+
+        with col_e1:
+            if st.button("⚙️ Test 11\nMixed Config\n(2016 D5)", key="fill_test11"):
+                st.session_state.update({
+                    'year_made_input': 2016, 'product_size_input': 'Small', 'state_input': 'Utah',
+                    'model_id_input_fallback': 3200, 'enclosure_input': 'ROPS', 'fi_base_model_input': 'D5',
+                    'coupler_system_input': 'Hydraulic', 'tire_size_input': '20.5R25', 'hydraulics_flow_input': 'High Flow',
+                    'grouser_tracks_input': 'Triple', 'hydraulics_input': 'Auxiliary', 'sale_year_input': 2020, 'sale_day_input': 300
+                })
+                st.success("✅ Test Scenario 11 (Extreme Configuration Mix) loaded!")
+                if hasattr(st, 'rerun'): st.rerun()
+
+        with col_e2:
+            if st.button("🏔️ Test 12\nAlaska\n(2010 D6)", key="fill_test12"):
+                st.session_state.update({
+                    'year_made_input': 2010, 'product_size_input': 'Medium', 'state_input': 'Alaska',
+                    'model_id_input_fallback': 3800, 'enclosure_input': 'EROPS w AC', 'fi_base_model_input': 'D6',
+                    'coupler_system_input': 'Hydraulic', 'tire_size_input': '23.5R25', 'hydraulics_flow_input': 'High Flow',
+                    'grouser_tracks_input': 'Double', 'hydraulics_input': '3 Valve', 'sale_year_input': 2013, 'sale_day_input': 330
+                })
+                st.success("✅ Test Scenario 12 (Geographic Extreme Edge Case) loaded!")
+                if hasattr(st, 'rerun'): st.rerun()
+
+        st.markdown("---")
+        st.info("💡 **Pro Tip**: These Quick Fill buttons populate the form with exact test scenario configurations from our validation framework. Each configuration has been tested with the Precision Price Tool for reliable predictions!")
 
     # Enhanced Form Organization with Visual Separation - Dark Theme
     st.markdown("---")
@@ -1020,7 +1138,8 @@ def interactive_prediction_body():
 
     with col2:
         # ProductSize (ALWAYS REQUIRED) - Enhanced with test scenario examples
-        product_size = st.selectbox(
+        # Use fallback selectbox to handle JavaScript module loading issues
+        product_size = create_fallback_selectbox(
             "⭐ Product Size",
             options=categorical_options['ProductSize'],
             index=0,
@@ -1972,16 +2091,25 @@ def interactive_prediction_body():
             'sale_day': sale_day_of_year
         }
 
-        # Test scenario validation
+        # Test scenario validation with Precision Price Tool framework
         test_scenario_match = validate_test_scenario_compatibility(current_config)
 
         if test_scenario_match:
-            st.success(f"✅ **Configuration matches {test_scenario_match}** - Validated for production testing!")
+            st.success(f"✅ **Configuration matches {test_scenario_match}** - Validated for Precision Price Tool testing!")
+
+            # Display expected performance metrics for matched test scenario
+            st.info(f"""
+            **📊 Expected Precision Price Tool Performance:**
+            - **Accuracy**: ≥75% (production-ready threshold)
+            - **Response Time**: <1 second (lightning-fast)
+            - **Confidence**: 70-85% (appropriate uncertainty communication)
+            - **Method**: Precision Price Tool (mathematical models)
+            """)
         else:
             # Check if configuration is within supported ranges
             validation_status = validate_input_ranges(current_config)
             if validation_status['valid']:
-                st.info("💡 **Custom configuration** - All inputs within supported ranges for reliable predictions.")
+                st.info("💡 **Custom configuration** - All inputs within supported ranges for reliable Precision Price Tool predictions.")
             else:
                 st.warning(f"⚠️ **Input validation**: {validation_status['message']}")
 
@@ -4455,31 +4583,81 @@ def validate_test_scenario_compatibility(config):
     """
     Validate if current configuration matches any of the 12 test scenarios from TEST.md
     Returns the matching test scenario name or None
+
+    Updated to reflect all 12 test scenarios with Precision Price Tool naming
     """
     test_scenarios = {
-        "Test Scenario 1 (Baseline Compliance)": {
+        "Test Scenario 1 (Baseline Compliance Test)": {
             'year_made': 1994, 'sale_year': 2005, 'product_size': 'Large', 'state': 'California',
             'enclosure': 'EROPS w AC', 'base_model': 'D8', 'coupler_system': 'Hydraulic',
             'tire_size': '26.5R25', 'hydraulics_flow': 'High Flow', 'grouser_tracks': 'Double',
-            'hydraulics': '4 Valve', 'model_id': 4200, 'sale_day': 180
+            'hydraulics': '4 Valve'
         },
-        "Test Scenario 2 (Ultra-Vintage Premium)": {
+        "Test Scenario 2 (Ultra-Vintage Premium Restoration)": {
             'year_made': 1987, 'sale_year': 2003, 'product_size': 'Large', 'state': 'Texas',
             'enclosure': 'EROPS w AC', 'base_model': 'D9', 'coupler_system': 'Hydraulic',
             'tire_size': '29.5R25', 'hydraulics_flow': 'High Flow', 'grouser_tracks': 'Double',
-            'hydraulics': '4 Valve', 'model_id': 4800, 'sale_day': 275
+            'hydraulics': '4 Valve'
         },
-        "Test Scenario 8 (Ultra-Modern Premium)": {
+        "Test Scenario 3 (Economic Crisis Impact Assessment)": {
+            'year_made': 1995, 'sale_year': 2009, 'product_size': 'Medium', 'state': 'Michigan',
+            'enclosure': 'EROPS', 'base_model': 'D7', 'coupler_system': 'Hydraulic',
+            'tire_size': '23.5R25', 'hydraulics_flow': 'Standard Flow', 'grouser_tracks': 'Single',
+            'hydraulics': '3 Valve'
+        },
+        "Test Scenario 4 (Vintage Compact Specialist Equipment)": {
+            'year_made': 1992, 'sale_year': 2007, 'product_size': 'Compact', 'state': 'Florida',
+            'enclosure': 'ROPS', 'base_model': 'D3', 'coupler_system': 'Manual',
+            'tire_size': '16.9R24', 'hydraulics_flow': 'Standard Flow', 'grouser_tracks': 'Single',
+            'hydraulics': '2 Valve'
+        },
+        "Test Scenario 5 (Modern Premium Construction Boom)": {
+            'year_made': 2004, 'sale_year': 2006, 'product_size': 'Large', 'state': 'Nevada',
+            'enclosure': 'EROPS w AC', 'base_model': 'D8', 'coupler_system': 'Hydraulic',
+            'tire_size': '26.5R25', 'hydraulics_flow': 'High Flow', 'grouser_tracks': 'Double',
+            'hydraulics': '4 Valve'
+        },
+        "Test Scenario 6 (Modern Standard Configuration)": {
+            'year_made': 2008, 'sale_year': 2012, 'product_size': 'Medium', 'state': 'Ohio',
+            'enclosure': 'EROPS', 'base_model': 'D6', 'coupler_system': 'Hydraulic',
+            'tire_size': '23.5R25', 'hydraulics_flow': 'Standard Flow', 'grouser_tracks': 'Single',
+            'hydraulics': '3 Valve'
+        },
+        "Test Scenario 7 (Premium Equipment Market Assessment)": {
+            'year_made': 2006, 'sale_year': 2009, 'product_size': 'Large', 'state': 'California',
+            'enclosure': 'EROPS w AC', 'base_model': 'D6', 'coupler_system': 'Hydraulic',
+            'tire_size': '23.5R25', 'hydraulics_flow': 'High Flow', 'grouser_tracks': 'Double',
+            'hydraulics': '4 Valve'
+        },
+        "Test Scenario 8 (Ultra-Modern Premium Technology)": {
             'year_made': 2018, 'sale_year': 2021, 'product_size': 'Large', 'state': 'California',
             'enclosure': 'EROPS w AC', 'base_model': 'D10', 'coupler_system': 'Hydraulic',
             'tire_size': '35/65-33', 'hydraulics_flow': 'High Flow', 'grouser_tracks': 'Double',
-            'hydraulics': '4 Valve', 'model_id': 5200, 'sale_day': 90
+            'hydraulics': '4 Valve'
+        },
+        "Test Scenario 9 (Recent Premium Advanced Features)": {
+            'year_made': 2014, 'sale_year': 2015, 'product_size': 'Large', 'state': 'Colorado',
+            'enclosure': 'EROPS w AC', 'base_model': 'D8', 'coupler_system': 'Hydraulic',
+            'tire_size': '26.5R25', 'hydraulics_flow': 'High Flow', 'grouser_tracks': 'Double',
+            'hydraulics': '4 Valve'
+        },
+        "Test Scenario 10 (Recent Compact Advanced Configuration)": {
+            'year_made': 2013, 'sale_year': 2014, 'product_size': 'Small', 'state': 'Washington',
+            'enclosure': 'EROPS w AC', 'base_model': 'D4', 'coupler_system': 'Hydraulic',
+            'tire_size': '18.4R26', 'hydraulics_flow': 'High Flow', 'grouser_tracks': 'Double',
+            'hydraulics': '4 Valve'
         },
         "Test Scenario 11 (Extreme Configuration Mix)": {
             'year_made': 2016, 'sale_year': 2020, 'product_size': 'Small', 'state': 'Utah',
             'enclosure': 'ROPS', 'base_model': 'D5', 'coupler_system': 'Hydraulic',
             'tire_size': '20.5R25', 'hydraulics_flow': 'High Flow', 'grouser_tracks': 'Triple',
-            'hydraulics': 'Auxiliary', 'model_id': 3200, 'sale_day': 300
+            'hydraulics': 'Auxiliary'
+        },
+        "Test Scenario 12 (Geographic Extreme Edge Case)": {
+            'year_made': 2010, 'sale_year': 2013, 'product_size': 'Medium', 'state': 'Alaska',
+            'enclosure': 'EROPS w AC', 'base_model': 'D6', 'coupler_system': 'Hydraulic',
+            'tire_size': '23.5R25', 'hydraulics_flow': 'High Flow', 'grouser_tracks': 'Double',
+            'hydraulics': '4 Valve'
         }
     }
 

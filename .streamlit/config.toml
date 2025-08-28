@@ -4,6 +4,7 @@ headless = true
 enableCORS = false
 enableXsrfProtection = false
 maxUploadSize = 50
+enableStaticServing = true
 
 [browser]
 gatherUsageStats = false
@@ -20,3 +21,6 @@ fastReruns = false
 
 [logger]
 level = "error"
+
+[client]
+showErrorDetails = false

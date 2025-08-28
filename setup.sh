@@ -6,6 +6,7 @@ headless = true\n\
 enableCORS = false\n\
 enableXsrfProtection = false\n\
 maxUploadSize = 50\n\
+enableStaticServing = true\n\
 \n\
 [browser]\n\
 gatherUsageStats = false\n\
@@ -22,4 +23,7 @@ fastReruns = false\n\
 \n\
 [logger]\n\
 level = \"error\"\n\
+\n\
+[client]\n\
+showErrorDetails = false\n\
 " > ~/.streamlit/config.toml
