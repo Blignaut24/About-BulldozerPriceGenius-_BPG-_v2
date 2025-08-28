@@ -39,9 +39,27 @@ def get_text_input_with_placeholder(label, placeholder=None, help=None, key=None
     """
     Get text_input with placeholder support, falling back gracefully for older Streamlit versions.
 
+    Handles Quick Fill button integration by converting session state integer values to strings.
+
     The placeholder parameter was added in Streamlit 0.87.0. For older versions,
     we'll include the placeholder text in the help parameter instead.
     """
+    # Handle Quick Fill button integration - convert session state integer values to strings
+    if key and key in st.session_state:
+        session_value = st.session_state[key]
+        if isinstance(session_value, (int, float)):
+            # Convert numeric values from Quick Fill buttons to strings
+            value = str(int(session_value))  # Convert to int first to remove decimals, then to string
+        elif session_value is not None:
+            # Ensure other non-None values are strings
+            value = str(session_value)
+
+    # Ensure value is always a string to prevent TypeError
+    if value is None:
+        value = ""
+    elif not isinstance(value, str):
+        value = str(value)
+
     try:
         # Try to use placeholder parameter (Streamlit >= 0.87.0)
         if placeholder is not None:
@@ -73,6 +91,17 @@ def get_text_input_with_placeholder(label, placeholder=None, help=None, key=None
                 help=combined_help,
                 key=key,
                 value=value
+            )
+        elif "bad argument type for built-in operation" in str(e):
+            # Handle the specific error from Quick Fill buttons
+            st.error(f"❌ Input error: Expected text input but received {type(value).__name__}: {value}")
+            st.info("🔄 Using fallback input method...")
+            # Return empty string to prevent crash
+            return st.text_input(
+                label=label,
+                help=help,
+                key=f"{key}_fallback" if key else None,
+                value=""
             )
         else:
             # Re-raise if it's a different TypeError
