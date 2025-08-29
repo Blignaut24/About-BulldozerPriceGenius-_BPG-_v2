@@ -3,6 +3,7 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import io
+import os
 
 
 # ===== HELPER FUNCTIONS =====
@@ -16,6 +17,40 @@ def load_parquet_data(parquet_file_path, nrows=None):
     return pd.read_parquet(parquet_file_path)
 
 
+def safe_display_image(image_path, alt_text="Image", caption=None, fallback_message=None):
+    """
+    Safely display an image with fallback handling for missing files.
+
+    Args:
+        image_path (str): Path to the image file
+        alt_text (str): Alternative text for accessibility
+        caption (str): Optional caption for the image
+        fallback_message (str): Custom message to display if image is missing
+    """
+    # Try multiple possible paths for the image
+    possible_paths = [
+        image_path,  # Original path
+        f"static/images/{os.path.basename(image_path)}",  # Alternative static path
+    ]
+
+    image_found = False
+    for path in possible_paths:
+        if os.path.exists(path):
+            try:
+                st.image(path, caption=caption)
+                image_found = True
+                break
+            except Exception:
+                continue
+
+    if not image_found:
+        # Display fallback content
+        if fallback_message:
+            st.info(fallback_message)
+        else:
+            st.warning(f"📊 **{alt_text}** - Image temporarily unavailable. Please refer to the detailed methodology description below.")
+
+
 # ===== MAIN PAGE FUNCTION =====
 # Main function to render the Project Framework page
 def project_framework_body():
@@ -26,9 +61,11 @@ def project_framework_body():
         The **BulldozerPriceGenius (BPG)** project helps users predict bulldozer sale prices using machine learning. By analyzing historical sales data through a **time series regression model**, the app delivers accurate, data-driven valuations. Below is a diagram overview of the BPG project, and this page focuses on the **Cross Industry Standard Process for Data Mining (CRISP-DM)** workflow.
         """
     )
-    st.image(
+    safe_display_image(
         "static/images/BPG_Framework.webp",
-        caption="BulldozerPriceGenius (BPG) Project Framework - CRISP-DM Methodology"
+        alt_text="BPG Project Framework Diagram",
+        caption="BulldozerPriceGenius (BPG) Project Framework - CRISP-DM Methodology",
+        fallback_message="📊 **BPG Project Framework**: This project follows the CRISP-DM (Cross Industry Standard Process for Data Mining) methodology, consisting of 6 phases: Business Understanding, Data Understanding, Data Preparation, Modeling, Evaluation, and Deployment. Each phase builds upon the previous to ensure systematic and effective machine learning model development for bulldozer price prediction."
     )
 
     # ===== NAVIGATION =====

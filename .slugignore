@@ -98,8 +98,10 @@ src/models/randomforest_regressor_best_RMSLE.pkl
 *.7z
 *.zip
 *.xlsx
+# Exclude all images except those in static/images/
 *.webp
 *.png
+# Allow static/images/ directory for deployment (UI assets)
 !static/images/*.png
 !static/images/*.webp
 
