@@ -620,23 +620,7 @@ def interactive_prediction_body():
     </div>
     """, unsafe_allow_html=True)
 
-    # Enhanced user guidance with accuracy emphasis
-    st.markdown(f"""
-    <div style="background: rgba(23, 162, 184, 0.1);
-                border-left: 4px solid {colors['accent_blue']};
-                padding: 15px;
-                border-radius: 8px;
-                margin: 15px 0;">
-        <h4 style="color: {colors['accent_blue']}; margin: 0 0 10px 0; font-size: 16px;">
-            📊 Prediction Accuracy Guide
-        </h4>
-        <p style="color: {colors['info_text']}; margin: 0; font-size: 14px; line-height: 1.5;">
-            <strong>🔴 Required Fields:</strong> Minimum for basic prediction (60-70% accuracy)<br>
-            <strong>🔵 Technical Fields:</strong> Significantly improve accuracy (75-85% accuracy)<br>
-            <strong>🟢 Complete Profile:</strong> All fields provide maximum precision (85-90% accuracy)
-        </p>
-    </div>
-    """, unsafe_allow_html=True)
+
 
     # User Selection Interface for Prediction Method
     st.header("🎯 Choose Your Prediction Method")
@@ -1009,17 +993,7 @@ def interactive_prediction_body():
     # Enhanced UX: Form Organization and Progress Indicators
     st.header("📝 Enter Bulldozer Information")
 
-    # Progress indicator showing completion status - Dark Theme
-    st.markdown(f"""
-    <div style="background: linear-gradient(90deg, {colors['secondary_bg']} 0%, {colors['tertiary_bg']} 100%); padding: 15px; border-radius: 8px; margin: 10px 0; border: 1px solid {colors['border_color']};">
-        <h4 style="color: {colors['text_primary']}; margin: 0 0 10px 0;">📊 Accuracy-Based Completion Guide</h4>
-        <p style="margin: 0; color: {colors['text_secondary']};">
-            <strong>🔴 Required (3 fields):</strong> Year Made, Product Size, State → 60-70% accuracy<br>
-            <strong>🔵 Technical Specs (7 fields):</strong> Each field adds 2-5% accuracy → Up to 85-90%<br>
-            <strong>📅 Sale Information (2 fields):</strong> Market timing refinements → Maximum precision
-        </p>
-    </div>
-    """, unsafe_allow_html=True)
+
 
     # Test Scenario Validation Notice
     with get_expander("🧪 Test Scenario Validation", expanded=False):
