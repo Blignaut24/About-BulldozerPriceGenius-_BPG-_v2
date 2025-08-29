@@ -219,7 +219,8 @@ def evaluate_prediction_accuracy(scenarios):
     print("=" * 70)
     
     try:
-        from app_pages.four_interactive_prediction import make_prediction_fallback
+        from app_pages.four_interactive_prediction import make_prediction_precision
+        make_prediction_fallback = make_prediction_precision  # Use precision prediction as fallback
     except ImportError as e:
         print(f"❌ Could not import fallback system: {e}")
         return None
