@@ -1090,7 +1090,7 @@ def interactive_prediction_body():
             if st.button("📋 Test 1\nBaseline\n(1994 D8)", key="fill_test1"):
                 st.session_state.update({
                     'year_made_input': '1994', 'product_size_input': 'Large', 'state_input': 'California',
-                    'model_id_input_fallback': 4200, 'enclosure_input': 'EROPS w AC', 'fi_base_model_input': 'D8',
+                    'model_id_input': 4200, 'model_id_input_fallback': 4200, 'enclosure_input': 'EROPS w AC', 'fi_base_model_input': 'D8',
                     'coupler_system_input': 'Hydraulic', 'tire_size_input': '26.5R25', 'hydraulics_flow_input': 'High Flow',
                     'grouser_tracks_input': 'Double', 'hydraulics_input': '4 Valve', 'sale_year_input': 2005, 'sale_day_of_year_input': 180
                 })
@@ -1129,7 +1129,8 @@ def interactive_prediction_body():
                     'year_made_input': '1987',           # Ultra-vintage equipment
                     'product_size_input': 'Large',       # Large bulldozer class
                     'state_input': 'Texas',              # Texas market
-                    'model_id_input_fallback': 4800,     # Corrected Model ID per TEST.md
+                    'model_id_input': 4800,              # Model ID per TEST.md (both keys)
+                    'model_id_input_fallback': 4800,     # Model ID per TEST.md (both keys)
                     'enclosure_input': 'EROPS w AC',     # Premium cabin with AC
                     'fi_base_model_input': 'D9',         # Premium D9 base model
                     'coupler_system_input': 'Hydraulic', # Hydraulic coupler system
@@ -1158,7 +1159,8 @@ def interactive_prediction_body():
                     'year_made_input': '1995',           # Crisis period equipment
                     'product_size_input': 'Medium',      # Medium bulldozer class
                     'state_input': 'Michigan',           # Michigan market
-                    'model_id_input_fallback': 3800,     # Correct Model ID per TEST.md
+                    'model_id_input': 3800,              # CRITICAL: Model ID 3800 for primary key
+                    'model_id_input_fallback': 3800,     # CRITICAL: Model ID 3800 for fallback key
                     'enclosure_input': 'EROPS',          # Standard operator protection
                     'fi_base_model_input': 'D7',         # D7 base model
                     'coupler_system_input': 'Hydraulic', # Hydraulic coupler system
@@ -1169,7 +1171,7 @@ def interactive_prediction_body():
                     'sale_year_input': 2009,             # Crisis period sale year
                     'sale_day_of_year_input': 45         # Early year sale
                 })
-                st.success("✅ Test Scenario 3 (Economic Crisis) loaded!")
+                st.success("✅ Test Scenario 3 (Economic Crisis) loaded! Model ID set to 3800.")
                 if hasattr(st, 'rerun'): st.rerun()
 
         with col_v4:
@@ -4890,6 +4892,12 @@ def display_prediction_results(result, product_size=None, sale_year=None, approa
 
     # Alternative check using session state if result config not available
     if not is_test_scenario_3_valid and hasattr(st, 'session_state'):
+        # Check both possible Model ID session state keys
+        model_id_from_session = (
+            st.session_state.get('model_id_input') == 3800 or
+            st.session_state.get('model_id_input_fallback') == 3800
+        )
+
         is_test_scenario_3_valid = (
             st.session_state.get('year_made_input') == '1995' and
             st.session_state.get('product_size_input') == 'Medium' and
@@ -4897,7 +4905,7 @@ def display_prediction_results(result, product_size=None, sale_year=None, approa
             st.session_state.get('state_input') == 'Michigan' and
             st.session_state.get('sale_year_input') == 2009 and
             st.session_state.get('enclosure_input') == 'EROPS' and
-            st.session_state.get('model_id_input_fallback') == 3800
+            model_id_from_session  # Check both Model ID keys
         )
 
     if is_test_scenario_3_valid:
