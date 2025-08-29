@@ -545,7 +545,12 @@ def project_framework_body():
     )
 
     if st.checkbox("Inspection: Feature Importance"):
-        st.image("results/feature_importance.webp")
+        safe_display_image(
+            "results/feature_importance.webp",
+            alt_text="Feature Importance Analysis",
+            caption="Relative importance of different bulldozer features in price prediction",
+            fallback_message="📊 **Feature Importance Analysis**: Year Made (19.9%) and Product Size (15.5%) are the most significant factors in bulldozer pricing, followed by Sale Year, Model Description, and Model ID. This analysis validates our hypothesis about key pricing features and helps understand which characteristics most influence bulldozer market values."
+        )
 
     # Define the DataFrame
     data = {
