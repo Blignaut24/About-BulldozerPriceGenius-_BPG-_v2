@@ -667,7 +667,12 @@ def project_framework_body():
     )
     # Add a checkbox to display the image
     if st.checkbox("Inspection: Interactive Dashboard Image"):
-        st.image("static/images/interactive_dashboard.webp", width=None)
+        safe_display_image(
+            "static/images/interactive_dashboard.webp",
+            alt_text="Interactive Dashboard Interface",
+            caption="BulldozerPriceGenius interactive dashboard showing filtered bulldozer listings",
+            fallback_message="📊 **Interactive Dashboard**: The deployed application features an intuitive dashboard that allows users to filter bulldozer entries by price range and U.S. state location. Users can explore bulldozers in specific states (like California) within custom price ranges (e.g., $28,771 - $109,516), making it easy to find relevant equipment for their needs."
+        )
     st.write(
         """
         The dashboard shows a filtered list of bulldozers based on price and location.
@@ -684,7 +689,12 @@ def project_framework_body():
 
     # Add a checkbox to display the Kaggle leaderboard image
     if st.checkbox("Inspection: Kaggle Leaderboard"):
-        st.image("static/images/kaggle_leaderboard.webp", use_column_width=True)
+        safe_display_image(
+            "static/images/kaggle_leaderboard.webp",
+            alt_text="Kaggle Competition Leaderboard",
+            caption="Kaggle Bluebook for Bulldozers competition leaderboard showing model ranking",
+            fallback_message="📊 **Kaggle Competition Results**: Our model achieved an RMSLE score of 0.27, ranking 69th out of 428 entries in the Kaggle Bluebook for Bulldozers competition. The top score was 0.22909, demonstrating that our model performs competitively in the machine learning community benchmark."
+        )
         st.write(
             "[*Kaggle Leaderboard*](https://www.kaggle.com/c/bluebook-for-bulldozers/leaderboard)"
         )
