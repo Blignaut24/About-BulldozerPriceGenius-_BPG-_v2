@@ -1357,18 +1357,18 @@ def interactive_prediction_body():
             "Model ID",
             min_value=1,
             max_value=100000,
-            value=4605,
+            value=4800,
             key="model_id_input",
-            help="Unique identifier for the bulldozer model. Default value represents a common model."
+            help="Unique identifier for the bulldozer model. Default value represents Test Scenario 2 specification."
         )
     else:
         selected_model_id = st.number_input(
             "Model ID",
             min_value=1,
             max_value=100000,
-            value=4605,
+            value=4800,
             key="model_id_input_fallback",
-            help="Unique identifier for the bulldozer model. Default value represents a common model."
+            help="Unique identifier for the bulldozer model. Default value represents Test Scenario 2 specification."
         )
 
     # Enhanced Technical Specifications Section - Always Visible for Better UX - Dark Theme
