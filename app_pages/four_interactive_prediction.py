@@ -4669,14 +4669,23 @@ def display_prediction_results(result, product_size=None, sale_year=None, approa
         )
 
     with col3:
-        # Display premium value multiplier if available (Enhanced ML Model)
-        if 'value_multiplier' in result and result.get('method') == 'Enhanced ML Model':
+        # Display value multiplier if available (for all prediction methods)
+        if 'value_multiplier' in result:
             multiplier = result['value_multiplier']
             multiplier_icon = "🔥" if multiplier > 3.0 else "⭐" if multiplier > 2.0 else "📈"
+
+            # Determine label based on prediction method
+            if result.get('method') == 'Enhanced ML Model':
+                label = f"{multiplier_icon} Premium Factor"
+                help_text = "Premium equipment value multiplier applied to base prediction"
+            else:
+                label = f"{multiplier_icon} Value Multiplier"
+                help_text = "Equipment value multiplier based on specifications and market factors"
+
             get_metric(
-                f"{multiplier_icon} Premium Factor",
+                label,
                 f"{multiplier:.2f}x",
-                help=f"Premium equipment value multiplier applied to base prediction"
+                help=help_text
             )
         else:
             # Calculate equipment age at time of sale
