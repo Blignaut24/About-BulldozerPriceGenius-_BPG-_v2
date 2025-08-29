@@ -1178,11 +1178,11 @@ def interactive_prediction_body():
             if st.button("🚜 Test 4\nCompact\n(1992 D3)", key="fill_test4"):
                 st.session_state.update({
                     'year_made_input': '1992', 'product_size_input': 'Compact', 'state_input': 'Florida',
-                    'model_id_input_fallback': 2400, 'enclosure_input': 'ROPS', 'fi_base_model_input': 'D3',
+                    'model_id_input': 2400, 'model_id_input_fallback': 2400, 'enclosure_input': 'ROPS', 'fi_base_model_input': 'D3',
                     'coupler_system_input': 'Manual', 'tire_size_input': '16.9R24', 'hydraulics_flow_input': 'Standard Flow',
                     'grouser_tracks_input': 'Single', 'hydraulics_input': '2 Valve', 'sale_year_input': 2007, 'sale_day_of_year_input': 210
                 })
-                st.success("✅ Test Scenario 4 (Vintage Compact) loaded!")
+                st.success("✅ Test Scenario 4 (Vintage Compact) loaded! Model ID set to 2400.")
                 if hasattr(st, 'rerun'): st.rerun()
 
         # Row 2: Modern Equipment (Tests 5-7)
@@ -1193,7 +1193,7 @@ def interactive_prediction_body():
             if st.button("💰 Test 5\nBoom Period\n(2004 D8)", key="fill_test5"):
                 st.session_state.update({
                     'year_made_input': '2004', 'product_size_input': 'Large', 'state_input': 'Nevada',
-                    'model_id_input_fallback': 4600, 'enclosure_input': 'EROPS w AC', 'fi_base_model_input': 'D8',
+                    'model_id_input': 4600, 'model_id_input_fallback': 4600, 'enclosure_input': 'EROPS w AC', 'fi_base_model_input': 'D8',
                     'coupler_system_input': 'Hydraulic', 'tire_size_input': '26.5R25', 'hydraulics_flow_input': 'High Flow',
                     'grouser_tracks_input': 'Double', 'hydraulics_input': '4 Valve', 'sale_year_input': 2006, 'sale_day_of_year_input': 120
                 })
@@ -1204,7 +1204,7 @@ def interactive_prediction_body():
             if st.button("⚙️ Test 6\nStandard\n(2008 D6)", key="fill_test6"):
                 st.session_state.update({
                     'year_made_input': '2008', 'product_size_input': 'Medium', 'state_input': 'Ohio',
-                    'model_id_input_fallback': 3600, 'enclosure_input': 'EROPS', 'fi_base_model_input': 'D6',
+                    'model_id_input': 3600, 'model_id_input_fallback': 3600, 'enclosure_input': 'EROPS', 'fi_base_model_input': 'D6',
                     'coupler_system_input': 'Hydraulic', 'tire_size_input': '23.5R25', 'hydraulics_flow_input': 'Standard Flow',
                     'grouser_tracks_input': 'Single', 'hydraulics_input': '3 Valve', 'sale_year_input': 2012, 'sale_day_of_year_input': 180
                 })
@@ -1215,7 +1215,7 @@ def interactive_prediction_body():
             if st.button("🔧 Test 7\nPremium\n(2006 D6)", key="fill_test7"):
                 st.session_state.update({
                     'year_made_input': '2006', 'product_size_input': 'Large', 'state_input': 'California',
-                    'model_id_input_fallback': 1500, 'enclosure_input': 'EROPS w AC', 'fi_base_model_input': 'D6',
+                    'model_id_input': 1500, 'model_id_input_fallback': 1500, 'enclosure_input': 'EROPS w AC', 'fi_base_model_input': 'D6',
                     'coupler_system_input': 'Hydraulic', 'tire_size_input': '23.5R25', 'hydraulics_flow_input': 'High Flow',
                     'grouser_tracks_input': 'Double', 'hydraulics_input': '4 Valve', 'sale_year_input': 2009, 'sale_day_of_year_input': 180
                 })
@@ -1230,7 +1230,7 @@ def interactive_prediction_body():
             if st.button("🚀 Test 8\nUltra-Modern\n(2018 D10)", key="fill_test8"):
                 st.session_state.update({
                     'year_made_input': '2018', 'product_size_input': 'Large', 'state_input': 'California',
-                    'model_id_input_fallback': 5200, 'enclosure_input': 'EROPS w AC', 'fi_base_model_input': 'D10',
+                    'model_id_input': 5200, 'model_id_input_fallback': 5200, 'enclosure_input': 'EROPS w AC', 'fi_base_model_input': 'D10',
                     'coupler_system_input': 'Hydraulic', 'tire_size_input': '35/65-33', 'hydraulics_flow_input': 'High Flow',
                     'grouser_tracks_input': 'Double', 'hydraulics_input': '4 Valve', 'sale_year_input': 2021, 'sale_day_of_year_input': 90
                 })
@@ -1241,7 +1241,7 @@ def interactive_prediction_body():
             if st.button("🔧 Test 9\nAdvanced\n(2014 D8)", key="fill_test9"):
                 st.session_state.update({
                     'year_made_input': '2014', 'product_size_input': 'Large', 'state_input': 'Colorado',
-                    'model_id_input_fallback': 4800, 'enclosure_input': 'EROPS w AC', 'fi_base_model_input': 'D8',
+                    'model_id_input': 4800, 'model_id_input_fallback': 4800, 'enclosure_input': 'EROPS w AC', 'fi_base_model_input': 'D8',
                     'coupler_system_input': 'Hydraulic', 'tire_size_input': '26.5R25', 'hydraulics_flow_input': 'High Flow',
                     'grouser_tracks_input': 'Triple', 'hydraulics_input': '4 Valve', 'sale_year_input': 2015, 'sale_day_of_year_input': 150
                 })
@@ -1252,7 +1252,7 @@ def interactive_prediction_body():
             if st.button("🚜 Test 10\nCompact Adv\n(2013 D4)", key="fill_test10"):
                 st.session_state.update({
                     'year_made_input': '2013', 'product_size_input': 'Small', 'state_input': 'Washington',
-                    'model_id_input_fallback': 2800, 'enclosure_input': 'EROPS w AC', 'fi_base_model_input': 'D4',
+                    'model_id_input': 2800, 'model_id_input_fallback': 2800, 'enclosure_input': 'EROPS w AC', 'fi_base_model_input': 'D4',
                     'coupler_system_input': 'Hydraulic', 'tire_size_input': '18.4R26', 'hydraulics_flow_input': 'High Flow',
                     'grouser_tracks_input': 'Double', 'hydraulics_input': '3 Valve', 'sale_year_input': 2014, 'sale_day_of_year_input': 75
                 })
@@ -1267,7 +1267,7 @@ def interactive_prediction_body():
             if st.button("⚙️ Test 11\nMixed Config\n(2016 D5)", key="fill_test11"):
                 st.session_state.update({
                     'year_made_input': '2016', 'product_size_input': 'Small', 'state_input': 'Utah',
-                    'model_id_input_fallback': 3200, 'enclosure_input': 'ROPS', 'fi_base_model_input': 'D5',
+                    'model_id_input': 3200, 'model_id_input_fallback': 3200, 'enclosure_input': 'ROPS', 'fi_base_model_input': 'D5',
                     'coupler_system_input': 'Hydraulic', 'tire_size_input': '20.5R25', 'hydraulics_flow_input': 'High Flow',
                     'grouser_tracks_input': 'Triple', 'hydraulics_input': 'Auxiliary', 'sale_year_input': 2020, 'sale_day_of_year_input': 300
                 })
@@ -1278,7 +1278,7 @@ def interactive_prediction_body():
             if st.button("🏔️ Test 12\nAlaska\n(2010 D6)", key="fill_test12"):
                 st.session_state.update({
                     'year_made_input': '2010', 'product_size_input': 'Medium', 'state_input': 'Alaska',
-                    'model_id_input_fallback': 3800, 'enclosure_input': 'EROPS w AC', 'fi_base_model_input': 'D6',
+                    'model_id_input': 3800, 'model_id_input_fallback': 3800, 'enclosure_input': 'EROPS w AC', 'fi_base_model_input': 'D6',
                     'coupler_system_input': 'Hydraulic', 'tire_size_input': '23.5R25', 'hydraulics_flow_input': 'High Flow',
                     'grouser_tracks_input': 'Double', 'hydraulics_input': '3 Valve', 'sale_year_input': 2013, 'sale_day_of_year_input': 330
                 })
