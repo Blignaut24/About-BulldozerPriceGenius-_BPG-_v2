@@ -2143,9 +2143,9 @@ def interactive_prediction_body():
     if sale_year and sale_year < 1989:
         sale_year = 1989
         st.info("ℹ️ Sale Year adjusted to minimum value (1989)")
-    elif sale_year and sale_year > 2015:
-        sale_year = 2015
-        st.info("ℹ️ Sale Year adjusted to maximum value (2015)")
+    elif sale_year and sale_year > 2022:
+        sale_year = 2022
+        st.info("ℹ️ Sale Year adjusted to maximum value (2022)")
 
     # CRITICAL LOGICAL VALIDATION: YearMade cannot be after SaleYear
     year_logic_valid, year_logic_error = validate_year_logic(selected_year_made, sale_year)
@@ -2162,6 +2162,22 @@ def interactive_prediction_body():
     # Check for critical errors that prevent prediction
     critical_errors = [error for error in validation_errors if error.startswith("⭐")]
     warning_errors = [error for error in validation_errors if error.startswith("🔵")]
+
+    # DEBUG: Test Scenario 8 validation logging
+    if selected_year_made == 2018 and product_size == 'Large':
+        print(f"🔍 DEBUG Test Scenario 8 Validation:")
+        print(f"   Year Made: {selected_year_made}")
+        print(f"   Product Size: {product_size}")
+        print(f"   Sale Year: {sale_year}")
+        print(f"   Total validation errors: {len(validation_errors)}")
+        print(f"   Critical errors: {len(critical_errors)}")
+        print(f"   Warning errors: {len(warning_errors)}")
+        if validation_errors:
+            print(f"   All errors:")
+            for i, error in enumerate(validation_errors):
+                print(f"     {i+1}. {error}")
+        print(f"   Can predict: {len(critical_errors) == 0}")
+        print(f"   🎯 Button should {'APPEAR' if len(critical_errors) == 0 else 'BE HIDDEN'}")
 
 
 
