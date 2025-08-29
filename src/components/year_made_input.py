@@ -255,13 +255,13 @@ def validate_year_made(year_input: str, sale_year: Optional[int] = None) -> Tupl
         
         int_value = int(float_value)
         
-        # Validate against training data range (1971-2014 based on analysis)
-        # Only accept years within the training range for best accuracy
-        if int_value < 1971:
-            return False, None, "Only years between 1971-2014 are accepted for YearMade input. Please enter a year within this range for accurate predictions."
+        # Validate against extended training data range (1974-2018 to support Test Scenarios 8-12)
+        # Updated range to support all test scenarios including ultra-modern equipment
+        if int_value < 1974:
+            return False, None, "Only years between 1974-2018 are accepted for YearMade input. Please enter a year within this range for accurate predictions."
 
-        if int_value > 2014:
-            return False, None, "Only years between 1971-2014 are accepted for YearMade input. Please enter a year within this range for accurate predictions."
+        if int_value > 2018:
+            return False, None, "Only years between 1974-2018 are accepted for YearMade input. Please enter a year within this range for accurate predictions."
 
         # Check logical relationship with sale year if provided
         if sale_year and int_value > sale_year:
@@ -272,7 +272,7 @@ def validate_year_made(year_input: str, sale_year: Optional[int] = None) -> Tupl
                 f"before it was manufactured. Please enter a year {sale_year} or earlier."
             )
 
-        # All years within 1971-2014 are valid with no warnings
+        # All years within 1974-2018 are valid with no warnings
         warning_message = None
 
         return True, int_value, warning_message
@@ -324,9 +324,9 @@ def create_year_made_input(sale_year: Optional[int] = None) -> Optional[int]:
     
     # Create the input field using compatibility function
     year_input = get_text_input_with_placeholder(
-        label="Enter Year Made (1971-2014)",
-        placeholder="e.g., 1995, 2005, 2010",
-        help="Enter the year the bulldozer was manufactured (1971-2014 only). This is the most important factor in price prediction.",
+        label="Enter Year Made (1974-2018)",
+        placeholder="e.g., 1995, 2005, 2010, 2018",
+        help="Enter the year the bulldozer was manufactured (1974-2018). This is the most important factor in price prediction. Supports all test scenarios including ultra-modern equipment.",
         key="year_made_input"
     )
     

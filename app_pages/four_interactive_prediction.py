@@ -2163,22 +2163,6 @@ def interactive_prediction_body():
     critical_errors = [error for error in validation_errors if error.startswith("⭐")]
     warning_errors = [error for error in validation_errors if error.startswith("🔵")]
 
-    # DEBUG: Test Scenario 8 validation logging
-    if selected_year_made == 2018 and product_size == 'Large':
-        print(f"🔍 DEBUG Test Scenario 8 Validation:")
-        print(f"   Year Made: {selected_year_made}")
-        print(f"   Product Size: {product_size}")
-        print(f"   Sale Year: {sale_year}")
-        print(f"   Total validation errors: {len(validation_errors)}")
-        print(f"   Critical errors: {len(critical_errors)}")
-        print(f"   Warning errors: {len(warning_errors)}")
-        if validation_errors:
-            print(f"   All errors:")
-            for i, error in enumerate(validation_errors):
-                print(f"     {i+1}. {error}")
-        print(f"   Can predict: {len(critical_errors) == 0}")
-        print(f"   🎯 Button should {'APPEAR' if len(critical_errors) == 0 else 'BE HIDDEN'}")
-
 
 
     if warning_errors:
