@@ -1098,14 +1098,57 @@ def interactive_prediction_body():
                 if hasattr(st, 'rerun'): st.rerun()
 
         with col_v2:
-            if st.button("🏛️ Test 2\nUltra-Vintage\n(1987 D9)", key="fill_test2"):
+            # Enhanced Test 2 button with tooltip and improved UX
+            if st.button("🏛️ Test 2\nUltra-Vintage\n(1987 D9)",
+                        key="fill_test2",
+                        help="🏛️ Ultra-Vintage Premium Restoration Test Case\n\n" +
+                             "Tests Statistical Fallback model performance on ultra-vintage equipment (1987 D9) " +
+                             "with premium restoration features. Validates sophisticated valuation logic for " +
+                             "extreme age combined with high-end specifications.\n\n" +
+                             "Expected Results:\n" +
+                             "• Price: $120,000-$280,000\n" +
+                             "• Confidence: 65-80%\n" +
+                             "• Value Multiplier: 8.0x-15.0x\n" +
+                             "• Method: Statistical Prediction (Fallback)"):
+
+                # Clear all existing form data first for clean slate
+                form_fields_to_clear = [
+                    'year_made_input', 'product_size_input', 'state_input', 'model_id_input_fallback',
+                    'enclosure_input', 'fi_base_model_input', 'coupler_system_input', 'tire_size_input',
+                    'hydraulics_flow_input', 'grouser_tracks_input', 'hydraulics_input',
+                    'sale_year_input', 'sale_day_of_year_input'
+                ]
+
+                # Clear existing values
+                for field in form_fields_to_clear:
+                    if field in st.session_state:
+                        del st.session_state[field]
+
+                # Load Test Scenario 2 configuration (exactly as specified in TEST.md)
                 st.session_state.update({
-                    'year_made_input': '1987', 'product_size_input': 'Large', 'state_input': 'Texas',
-                    'model_id_input_fallback': 4800, 'enclosure_input': 'EROPS w AC', 'fi_base_model_input': 'D9',
-                    'coupler_system_input': 'Hydraulic', 'tire_size_input': '29.5R25', 'hydraulics_flow_input': 'High Flow',
-                    'grouser_tracks_input': 'Double', 'hydraulics_input': '4 Valve', 'sale_year_input': 2003, 'sale_day_of_year_input': 275
+                    'year_made_input': '1987',           # Ultra-vintage equipment
+                    'product_size_input': 'Large',       # Large bulldozer class
+                    'state_input': 'Texas',              # Texas market
+                    'model_id_input_fallback': 4800,     # Corrected Model ID per TEST.md
+                    'enclosure_input': 'EROPS w AC',     # Premium cabin with AC
+                    'fi_base_model_input': 'D9',         # Premium D9 base model
+                    'coupler_system_input': 'Hydraulic', # Hydraulic coupler system
+                    'tire_size_input': '29.5R25',        # Large tire specification
+                    'hydraulics_flow_input': 'High Flow', # High flow hydraulics
+                    'grouser_tracks_input': 'Double',    # Double grouser tracks
+                    'hydraulics_input': '4 Valve',       # 4 valve hydraulic system
+                    'sale_year_input': 2003,             # Sale year 2003
+                    'sale_day_of_year_input': 275        # Sale day of year 275
                 })
-                st.success("✅ Test Scenario 2 (Ultra-Vintage Premium) loaded!")
+
+                # Enhanced success message with configuration details
+                st.success("✅ **Test Scenario 2: Ultra-Vintage Premium Restoration** loaded successfully!")
+                st.info("🔧 **Configuration Applied:**\n" +
+                       "• 1987 D9 Large bulldozer (16 years old at sale)\n" +
+                       "• Premium features: EROPS w AC, High Flow Hydraulics, Double Grouser Tracks\n" +
+                       "• Model ID: 4800 (per TEST.md specification)\n" +
+                       "• Ready for Statistical Fallback validation testing")
+
                 if hasattr(st, 'rerun'): st.rerun()
 
         with col_v3:
