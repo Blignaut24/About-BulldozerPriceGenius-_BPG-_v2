@@ -5359,14 +5359,14 @@ def validate_test_scenario_compatibility(config):
         "Test Scenario 9 (Recent Premium Advanced Features)": {
             'year_made': 2014, 'sale_year': 2015, 'product_size': 'Large', 'state': 'Colorado',
             'enclosure': 'EROPS w AC', 'base_model': 'D8', 'coupler_system': 'Hydraulic',
-            'tire_size': '26.5R25', 'hydraulics_flow': 'High Flow', 'grouser_tracks': 'Double',
+            'tire_size': '26.5R25', 'hydraulics_flow': 'High Flow', 'grouser_tracks': 'Triple',
             'hydraulics': '4 Valve'
         },
         "Test Scenario 10 (Recent Compact Advanced Configuration)": {
             'year_made': 2013, 'sale_year': 2014, 'product_size': 'Small', 'state': 'Washington',
             'enclosure': 'EROPS w AC', 'base_model': 'D4', 'coupler_system': 'Hydraulic',
             'tire_size': '18.4R26', 'hydraulics_flow': 'High Flow', 'grouser_tracks': 'Double',
-            'hydraulics': '4 Valve'
+            'hydraulics': '3 Valve'
         },
         "Test Scenario 11 (Extreme Configuration Mix)": {
             'year_made': 2016, 'sale_year': 2020, 'product_size': 'Small', 'state': 'Utah',
@@ -5378,7 +5378,7 @@ def validate_test_scenario_compatibility(config):
             'year_made': 2010, 'sale_year': 2013, 'product_size': 'Medium', 'state': 'Alaska',
             'enclosure': 'EROPS w AC', 'base_model': 'D6', 'coupler_system': 'Hydraulic',
             'tire_size': '23.5R25', 'hydraulics_flow': 'High Flow', 'grouser_tracks': 'Double',
-            'hydraulics': '4 Valve'
+            'hydraulics': '3 Valve'
         }
     }
 
