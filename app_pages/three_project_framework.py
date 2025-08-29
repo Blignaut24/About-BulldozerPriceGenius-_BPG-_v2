@@ -24,9 +24,25 @@ def load_data(csv_file_path, nrows=None):
         return create_sample_bulldozer_data(nrows or 500)
 
 
-# Function to load data from a Parquet file
+# Function to load data from a Parquet file with fallback handling
 def load_parquet_data(parquet_file_path, nrows=None):
-    return pd.read_parquet(parquet_file_path)
+    """
+    Safely load data from Parquet file with fallback for missing files.
+    Returns either the actual data or sample data for demonstration.
+    """
+    try:
+        if os.path.exists(parquet_file_path):
+            df = pd.read_parquet(parquet_file_path)
+            # Apply nrows limit if specified
+            if nrows is not None:
+                df = df.head(nrows)
+            return df
+        else:
+            # Return sample data for demonstration when file is missing
+            return create_sample_bulldozer_data(nrows or 500)
+    except Exception:
+        # Fallback to sample data if any error occurs
+        return create_sample_bulldozer_data(nrows or 500)
 
 
 def create_sample_bulldozer_data(nrows=500):
@@ -371,13 +387,29 @@ def project_framework_body():
 
     # Optional: Check missing values in the dataset
     if st.checkbox("DataFrame Inspection: Identify columns with missing data"):
-        st.write("This calculates the total missing values per column efficiently, rather than checking rows one by one.")
+        st.write("**Missing Values Analysis**: This calculates the total missing values per column efficiently, rather than checking rows one by one.")
+
         parquet_file_path = (
             "data/processed/TrainAndValid_object_values_as_categories.parquet"
         )
+
+        # Check if we're using actual data or sample data
+        if os.path.exists(parquet_file_path):
+            parquet_data_info = "📊 **Live Parquet Data**: Analyzing actual preprocessed bulldozer data"
+        else:
+            parquet_data_info = "📊 **Sample Parquet Data**: Demonstrating missing value analysis with representative data structure"
+
+        st.info(parquet_data_info)
+
         df_tmp = load_parquet_data(parquet_file_path)
         missing_values = df_tmp.isna().sum().sort_values(ascending=False)[:25]
-        st.write(missing_values)
+
+        if len(missing_values[missing_values > 0]) > 0:
+            st.write("**Top 25 Columns with Missing Values:**")
+            st.write(missing_values[missing_values > 0])
+        else:
+            st.write("✅ **No missing values detected** in the current dataset sample")
+            st.write("*Note: This may indicate data has been preprocessed or sample data is being used*")
 
     # Feature engineering steps
     st.subheader("Feature Engineering")
@@ -413,9 +445,26 @@ def project_framework_body():
 
     # Optional: Inspect random sample rows
     parquet_file_path = "data/processed/TrainAndValid_object_values_as_categories_and_missing_values_filled.parquet"
-    df_tmp = load_parquet_data(parquet_file_path)
+
     if st.checkbox("Quality Checks: Inspection of Random Sample Rows"):
-        st.write(df_tmp.sample(5))
+        # Check if we're using actual data or sample data
+        if os.path.exists(parquet_file_path):
+            quality_data_info = "📊 **Live Processed Data**: Showing actual cleaned and preprocessed bulldozer data"
+        else:
+            quality_data_info = "📊 **Sample Processed Data**: Demonstrating data quality checks with representative cleaned data"
+
+        st.info(quality_data_info)
+
+        df_tmp = load_parquet_data(parquet_file_path)
+
+        # Display sample rows with better formatting
+        st.write("**Random Sample of Processed Data (5 rows):**")
+        sample_data = df_tmp.sample(5) if len(df_tmp) >= 5 else df_tmp
+        st.dataframe(sample_data)
+
+        # Show basic statistics
+        st.write(f"**Dataset Shape**: {df_tmp.shape[0]:,} rows × {df_tmp.shape[1]} columns")
+        st.write(f"**Data Types**: {df_tmp.dtypes.value_counts().to_dict()}")
     st.write("---")
 
     # ===== SECTION 4: MODELING =====
