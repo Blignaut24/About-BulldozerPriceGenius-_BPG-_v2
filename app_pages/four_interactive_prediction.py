@@ -2123,9 +2123,9 @@ def interactive_prediction_body():
         # Auto-correct to minimum
         selected_year_made = 1974
         st.info(f"ℹ️ Year Made adjusted to {selected_year_made} (minimum allowed)")
-    elif selected_year_made > 2011:
-        # Auto-correct to maximum
-        selected_year_made = 2011
+    elif selected_year_made > 2018:
+        # Auto-correct to maximum (updated to support Test Scenarios 8-12)
+        selected_year_made = 2018
         st.info(f"ℹ️ Year Made adjusted to {selected_year_made} (maximum allowed)")
 
     # Required: Product Size (automatically selected, should always be valid)
