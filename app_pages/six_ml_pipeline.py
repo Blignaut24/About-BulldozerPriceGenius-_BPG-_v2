@@ -72,52 +72,120 @@ def ml_pipeline_body():
     )
     # Add a checkbox to display the sale price distribution image
     if st.checkbox("Inspection: Sale Price Distribution"):
-        try:
-            # Try to display the image with error handling
-            image_path = "results/sale_price_distribution.webp"
-            if os.path.exists(image_path):
+        image_path = "results/sale_price_distribution.webp"
+
+        # Check if file exists and display image
+        if os.path.exists(image_path):
+            try:
+                # Try to display the image
                 st.image(image_path, caption="Sale Price Distribution")
-            else:
-                st.error(f"📊 Image file not found: {image_path}")
-                st.info("💡 The sale price distribution visualization is currently unavailable. Please ensure the image file exists in the results directory.")
-        except Exception as e:
-            st.error(f"❌ Error loading sale price distribution image: {str(e)}")
-            st.info("💡 There was an issue displaying the sale price distribution visualization.")
-        st.subheader("Histogram: Price Distribution")
-        st.markdown(
-            """
-            **Purpose**: This histogram shows the distribution of the SalePrice column, providing insights into how sale prices are spread across the dataset.
-            The histogram helps us understand:
-            - How bulldozer prices are distributed
-            - The most common price ranges
-            - Whether there are more low-priced or high-priced bulldozers
-            - Any unusual prices that might need special attention
-            """
-        )
+
+                # Display additional information about the visualization
+                st.subheader("Histogram: Price Distribution")
+                st.markdown(
+                    """
+                    **Purpose**: This histogram shows the distribution of the SalePrice column, providing insights into how sale prices are spread across the dataset.
+                    The histogram helps us understand:
+                    - How bulldozer prices are distributed
+                    - The most common price ranges
+                    - Whether there are more low-priced or high-priced bulldozers
+                    - Any unusual prices that might need special attention
+                    """
+                )
+
+            except Exception as e:
+                st.error(f"❌ Error loading sale price distribution image: {str(e)}")
+                st.info("💡 There was an issue displaying the sale price distribution visualization. The file exists but cannot be loaded.")
+
+                # Still show the informational content even if image fails
+                st.subheader("Histogram: Price Distribution")
+                st.markdown(
+                    """
+                    **Purpose**: This histogram shows the distribution of the SalePrice column, providing insights into how sale prices are spread across the dataset.
+                    The histogram helps us understand:
+                    - How bulldozer prices are distributed
+                    - The most common price ranges
+                    - Whether there are more low-priced or high-priced bulldozers
+                    - Any unusual prices that might need special attention
+
+                    *Note: The visualization image is currently unavailable.*
+                    """
+                )
+        else:
+            st.error(f"📊 Image file not found: {image_path}")
+            st.info("💡 The sale price distribution visualization is currently unavailable. Please ensure the image file exists in the results directory.")
+
+            # Show informational content even when file is missing
+            st.subheader("Histogram: Price Distribution")
+            st.markdown(
+                """
+                **Purpose**: This histogram shows the distribution of the SalePrice column, providing insights into how sale prices are spread across the dataset.
+                The histogram helps us understand:
+                - How bulldozer prices are distributed
+                - The most common price ranges
+                - Whether there are more low-priced or high-priced bulldozers
+                - Any unusual prices that might need special attention
+
+                *Note: The visualization image is currently unavailable.*
+                """
+            )
+
         st.write("---")
 
     # Add a checkbox to display the median sale price monthly image
     if st.checkbox("Inspection: Median Sale Price Monthly"):
-        try:
-            # Try to display the image with error handling
-            image_path = "results/median_saleprice_monthly.webp"
-            if os.path.exists(image_path):
+        image_path = "results/median_saleprice_monthly.webp"
+
+        # Check if file exists and display image
+        if os.path.exists(image_path):
+            try:
+                # Try to display the image
                 st.image(image_path, caption="Median Sale Price Monthly")
-            else:
-                st.error(f"📊 Image file not found: {image_path}")
-                st.info("💡 The median sale price monthly visualization is currently unavailable. Please ensure the image file exists in the results directory.")
-        except Exception as e:
-            st.error(f"❌ Error loading median sale price monthly image: {str(e)}")
-            st.info("💡 There was an issue displaying the median sale price monthly visualization.")
-        st.subheader("Visualizing Monthly Price Trends")
-        st.markdown(
-            """
-            We look at the average price per month to:
-            - Identify seasonal pricing patterns
-            - Spot months with typically higher or lower prices
-            - Help buyers and sellers make more informed decisions
-            """
-        )
+
+                # Display additional information about the visualization
+                st.subheader("Visualizing Monthly Price Trends")
+                st.markdown(
+                    """
+                    We look at the average price per month to:
+                    - Identify seasonal pricing patterns
+                    - Spot months with typically higher or lower prices
+                    - Help buyers and sellers make more informed decisions
+                    """
+                )
+
+            except Exception as e:
+                st.error(f"❌ Error loading median sale price monthly image: {str(e)}")
+                st.info("💡 There was an issue displaying the median sale price monthly visualization. The file exists but cannot be loaded.")
+
+                # Still show the informational content even if image fails
+                st.subheader("Visualizing Monthly Price Trends")
+                st.markdown(
+                    """
+                    We look at the average price per month to:
+                    - Identify seasonal pricing patterns
+                    - Spot months with typically higher or lower prices
+                    - Help buyers and sellers make more informed decisions
+
+                    *Note: The visualization image is currently unavailable.*
+                    """
+                )
+        else:
+            st.error(f"📊 Image file not found: {image_path}")
+            st.info("💡 The median sale price monthly visualization is currently unavailable. Please ensure the image file exists in the results directory.")
+
+            # Show informational content even when file is missing
+            st.subheader("Visualizing Monthly Price Trends")
+            st.markdown(
+                """
+                We look at the average price per month to:
+                - Identify seasonal pricing patterns
+                - Spot months with typically higher or lower prices
+                - Help buyers and sellers make more informed decisions
+
+                *Note: The visualization image is currently unavailable.*
+                """
+            )
+
         st.write("---")
 
     st.markdown(
