@@ -1,4 +1,5 @@
 import streamlit as st
+import os
 
 
 def ml_pipeline_body():
@@ -71,9 +72,17 @@ def ml_pipeline_body():
     )
     # Add a checkbox to display the sale price distribution image
     if st.checkbox("Inspection: Sale Price Distribution"):
-        st.image(
-            "results/sale_price_distribution.webp", caption="Sale Price Distribution"
-        )
+        try:
+            # Try to display the image with error handling
+            image_path = "results/sale_price_distribution.webp"
+            if os.path.exists(image_path):
+                st.image(image_path, caption="Sale Price Distribution")
+            else:
+                st.error(f"📊 Image file not found: {image_path}")
+                st.info("💡 The sale price distribution visualization is currently unavailable. Please ensure the image file exists in the results directory.")
+        except Exception as e:
+            st.error(f"❌ Error loading sale price distribution image: {str(e)}")
+            st.info("💡 There was an issue displaying the sale price distribution visualization.")
         st.subheader("Histogram: Price Distribution")
         st.markdown(
             """
@@ -89,9 +98,17 @@ def ml_pipeline_body():
 
     # Add a checkbox to display the median sale price monthly image
     if st.checkbox("Inspection: Median Sale Price Monthly"):
-        st.image(
-            "results/median_saleprice_monthly.webp", caption="Median Sale Price Monthly"
-        )
+        try:
+            # Try to display the image with error handling
+            image_path = "results/median_saleprice_monthly.webp"
+            if os.path.exists(image_path):
+                st.image(image_path, caption="Median Sale Price Monthly")
+            else:
+                st.error(f"📊 Image file not found: {image_path}")
+                st.info("💡 The median sale price monthly visualization is currently unavailable. Please ensure the image file exists in the results directory.")
+        except Exception as e:
+            st.error(f"❌ Error loading median sale price monthly image: {str(e)}")
+            st.info("💡 There was an issue displaying the median sale price monthly visualization.")
         st.subheader("Visualizing Monthly Price Trends")
         st.markdown(
             """
