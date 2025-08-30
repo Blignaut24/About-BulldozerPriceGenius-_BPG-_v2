@@ -1707,14 +1707,18 @@ def interactive_prediction_body():
         st.markdown("")  # Add proper spacing after header
 
         # Enhanced full-width layout for Economic Cycle and Seasonal Market sections
-        st.markdown(f"""
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin: 25px 0;">
+        col_impact1, col_impact2 = st.columns(2, gap="large")
+
+        with col_impact1:
+            # Economic Cycle Impact section with enhanced styling
+            st.markdown(f"""
             <div style="background: linear-gradient(90deg, {colors['info_bg']} 0%, #1e3a8a 100%);
                         border-left: 5px solid {colors['accent_blue']};
                         padding: 25px;
                         border-radius: 12px;
                         border: 1px solid {colors['border_color']};
-                        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);">
+                        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
+                        margin-bottom: 20px;">
                 <h4 style="color: {colors['accent_blue']}; margin: 0 0 20px 0; font-size: 20px;">
                     📈 Economic Cycle Impact
                 </h4>
@@ -1724,49 +1728,47 @@ def interactive_prediction_body():
                 <p style="color: {colors['info_text']}; margin: 0 0 25px 0; font-size: 16px; line-height: 1.6;">
                     Our model learned from market data spanning multiple economic cycles:
                 </p>
+            </div>
+            """, unsafe_allow_html=True)
 
-                <h5 style="color: {colors['accent_blue']}; margin: 20px 0 15px 0; font-size: 18px;">
-                    📅 Historical Sale Year Effects:
-                </h5>
+            st.markdown("##### 📅 Historical Sale Year Effects:")
 
-                <div style="margin: 15px 0; padding: 15px; background: rgba(40, 167, 69, 0.1); border-radius: 8px;">
-                    <div style="font-weight: bold; color: {colors['accent_green']}; font-size: 16px;">🏗️ 2006-2007: Construction Boom</div>
-                    <div style="margin-left: 20px; font-style: italic; color: {colors['info_text']}; font-size: 15px;">→ +10% to +15% price premium</div>
-                </div>
+            # Construction Boom
+            st.success("🏗️ **2006-2007: Construction Boom**  \n→ +10% to +15% price premium")
 
-                <div style="margin: 15px 0; padding: 15px; background: rgba(220, 53, 69, 0.1); border-radius: 8px;">
-                    <div style="font-weight: bold; color: {colors['accent_red']}; font-size: 16px;">📉 2008-2009: Financial Crisis</div>
-                    <div style="margin-left: 20px; font-style: italic; color: {colors['info_text']}; font-size: 15px;">→ -15% to -25% price reduction</div>
-                </div>
+            # Financial Crisis
+            st.error("📉 **2008-2009: Financial Crisis**  \n→ -15% to -25% price reduction")
 
-                <div style="margin: 15px 0; padding: 15px; background: rgba(255, 193, 7, 0.1); border-radius: 8px;">
-                    <div style="font-weight: bold; color: {colors['accent_yellow']}; font-size: 16px;">⚖️ 2010-2012: Recovery Period</div>
-                    <div style="margin-left: 20px; font-style: italic; color: {colors['info_text']}; font-size: 15px;">→ Baseline market values</div>
-                </div>
+            # Recovery Period
+            st.warning("⚖️ **2010-2012: Recovery Period**  \n→ Baseline market values")
 
-                <div style="margin: 15px 0; padding: 15px; background: rgba(59, 130, 246, 0.1); border-radius: 8px;">
-                    <div style="font-weight: bold; color: {colors['accent_blue']}; font-size: 16px;">📈 2013-2015: Stable Growth</div>
-                    <div style="margin-left: 20px; font-style: italic; color: {colors['info_text']}; font-size: 15px;">→ +2% to +5% gradual increase</div>
-                </div>
+            # Stable Growth
+            st.info("📈 **2013-2015: Stable Growth**  \n→ +2% to +5% gradual increase")
 
-                <div style="background: linear-gradient(135deg, {colors['info_bg']} 0%, #1e3a8a 100%);
-                            border: 2px solid {colors['accent_blue']};
-                            border-radius: 10px;
-                            padding: 20px;
-                            margin: 20px 0;
-                            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);">
-                    <div style="color: {colors['info_text']}; font-weight: bold; font-size: 16px; line-height: 1.6;">
-                        💡 Key Insight: Identical bulldozers sold in different years had vastly different values due to economic conditions.
-                    </div>
+            # Key Insight
+            st.markdown(f"""
+            <div style="background: linear-gradient(135deg, {colors['info_bg']} 0%, #1e3a8a 100%);
+                        border: 2px solid {colors['accent_blue']};
+                        border-radius: 10px;
+                        padding: 20px;
+                        margin: 20px 0;
+                        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);">
+                <div style="color: {colors['info_text']}; font-weight: bold; font-size: 16px; line-height: 1.6;">
+                    💡 Key Insight: Identical bulldozers sold in different years had vastly different values due to economic conditions.
                 </div>
             </div>
+            """, unsafe_allow_html=True)
 
+        with col_impact2:
+            # Seasonal Market Impact section with enhanced styling
+            st.markdown(f"""
             <div style="background: linear-gradient(90deg, {colors['info_bg']} 0%, #1e3a8a 100%);
                         border-left: 5px solid {colors['accent_blue']};
                         padding: 25px;
                         border-radius: 12px;
                         border: 1px solid {colors['border_color']};
-                        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);">
+                        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
+                        margin-bottom: 20px;">
                 <h4 style="color: {colors['accent_blue']}; margin: 0 0 20px 0; font-size: 20px;">
                     🌱 Seasonal Market Impact
                 </h4>
@@ -1776,44 +1778,45 @@ def interactive_prediction_body():
                 <p style="color: {colors['info_text']}; margin: 0 0 25px 0; font-size: 16px; line-height: 1.6;">
                     Construction activity varies throughout the year, affecting equipment demand:
                 </p>
+            </div>
+            """, unsafe_allow_html=True)
 
-                <h5 style="color: {colors['accent_blue']}; margin: 20px 0 15px 0; font-size: 18px;">
-                    📅 Sale Day of Year Effects:
-                </h5>
+            st.markdown("##### 📅 Sale Day of Year Effects:")
 
-                <div style="margin: 15px 0; padding: 15px; background: rgba(40, 167, 69, 0.1); border-radius: 8px;">
-                    <div style="font-weight: bold; color: {colors['accent_green']}; font-size: 16px;">🌸 Spring (Days 60-150)</div>
-                    <div style="margin-left: 20px; font-style: italic; color: {colors['info_text']}; font-size: 15px;">→ +2% to +3% peak demand</div>
-                </div>
+            # Spring
+            st.success("🌸 **Spring (Days 60-150)**  \n→ +2% to +3% peak demand")
 
-                <div style="margin: 15px 0; padding: 15px; background: rgba(255, 193, 7, 0.1); border-radius: 8px;">
-                    <div style="font-weight: bold; color: {colors['accent_yellow']}; font-size: 16px;">☀️ Summer (Days 151-240)</div>
-                    <div style="margin-left: 20px; font-style: italic; color: {colors['info_text']}; font-size: 15px;">→ +1% to +2% high activity</div>
-                </div>
+            # Summer
+            st.warning("☀️ **Summer (Days 151-240)**  \n→ +1% to +2% high activity")
 
-                <div style="margin: 15px 0; padding: 15px; background: rgba(59, 130, 246, 0.1); border-radius: 8px;">
-                    <div style="font-weight: bold; color: {colors['accent_blue']}; font-size: 16px;">🍂 Fall (Days 241-330)</div>
-                    <div style="margin-left: 20px; font-style: italic; color: {colors['info_text']}; font-size: 15px;">→ Baseline moderate demand</div>
-                </div>
+            # Fall
+            st.info("🍂 **Fall (Days 241-330)**  \n→ Baseline moderate demand")
 
-                <div style="margin: 15px 0; padding: 15px; background: rgba(224, 224, 224, 0.1); border-radius: 8px;">
-                    <div style="font-weight: bold; color: {colors['text_secondary']}; font-size: 16px;">❄️ Winter (Days 331-59)</div>
-                    <div style="margin-left: 20px; font-style: italic; color: {colors['info_text']}; font-size: 15px;">→ -2% to -3% lower demand</div>
-                </div>
+            # Winter
+            st.markdown("""
+            <div style="background-color: rgba(128, 128, 128, 0.1);
+                        border-left: 4px solid #808080;
+                        padding: 12px;
+                        border-radius: 4px;
+                        margin: 10px 0;">
+                <strong>❄️ Winter (Days 331-59)</strong><br>
+                → -2% to -3% lower demand
+            </div>
+            """, unsafe_allow_html=True)
 
-                <div style="background: linear-gradient(135deg, {colors['info_bg']} 0%, #1e3a8a 100%);
-                            border: 2px solid {colors['accent_blue']};
-                            border-radius: 10px;
-                            padding: 20px;
-                            margin: 20px 0;
-                            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);">
-                    <div style="color: {colors['info_text']}; font-weight: bold; font-size: 16px; line-height: 1.6;">
-                        💡 Key Insight: Construction equipment sells better during building season when contractors are most active.
-                    </div>
+            # Key Insight
+            st.markdown(f"""
+            <div style="background: linear-gradient(135deg, {colors['info_bg']} 0%, #1e3a8a 100%);
+                        border: 2px solid {colors['accent_blue']};
+                        border-radius: 10px;
+                        padding: 20px;
+                        margin: 20px 0;
+                        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);">
+                <div style="color: {colors['info_text']}; font-weight: bold; font-size: 16px; line-height: 1.6;">
+                    💡 Key Insight: Construction equipment sells better during building season when contractors are most active.
                 </div>
             </div>
-        </div>
-        """, unsafe_allow_html=True)
+            """, unsafe_allow_html=True)
 
 
 
