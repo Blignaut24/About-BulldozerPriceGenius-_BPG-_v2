@@ -1586,7 +1586,7 @@ def interactive_prediction_body():
                     border-radius: 12px;
                     margin: 20px 0;
                     border: 1px solid {colors['border_color']};
-                    box-shadow: 0 4px 8px rgba(23, 162, 184, 0.1);
+                    box-shadow: 0 4px 8px rgba(59, 130, 246, 0.1);
                     width: 100%;
                     max-width: none;">
             <h4 style="color: {colors['accent_blue']}; margin: 0 0 20px 0; font-size: 20px;">
@@ -1605,7 +1605,7 @@ def interactive_prediction_body():
                         border: 1px solid {colors['accent_blue']};
                         border-radius: 12px;
                         padding: 25px;
-                        box-shadow: 0 4px 8px rgba(23, 162, 184, 0.1);">
+                        box-shadow: 0 4px 8px rgba(59, 130, 246, 0.1);">
                 <h5 style="color: {colors['accent_blue']}; margin: 0 0 20px 0; font-size: 18px;">📊 Market Patterns</h5>
                 <ul style="color: {colors['info_text']}; margin: 0; padding-left: 20px; line-height: 1.8; font-size: 16px;">
                     <li><strong>Historical auction trends</strong></li>
@@ -1618,7 +1618,7 @@ def interactive_prediction_body():
                         border: 1px solid {colors['accent_blue']};
                         border-radius: 12px;
                         padding: 25px;
-                        box-shadow: 0 4px 8px rgba(23, 162, 184, 0.1);">
+                        box-shadow: 0 4px 8px rgba(59, 130, 246, 0.1);">
                 <h5 style="color: {colors['accent_blue']}; margin: 0 0 20px 0; font-size: 18px;">⏰ Timing Factors</h5>
                 <ul style="color: {colors['info_text']}; margin: 0; padding-left: 20px; line-height: 1.8; font-size: 16px;">
                     <li><strong>Seasonal construction activity</strong></li>
@@ -1642,7 +1642,7 @@ def interactive_prediction_body():
                     padding: 30px;
                     border-radius: 15px;
                     margin: 25px 0;
-                    box-shadow: 0 6px 20px rgba(23, 162, 184, 0.2);
+                    box-shadow: 0 6px 20px rgba(59, 130, 246, 0.2);
                     position: relative;
                     width: 100%;
                     max-width: none;">
@@ -1673,7 +1673,7 @@ def interactive_prediction_body():
                     border-radius: 12px;
                     margin: 25px 0;
                     border: 1px solid {colors['border_color']};
-                    box-shadow: 0 4px 12px rgba(23, 162, 184, 0.1);
+                    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
                     width: 100%;
                     max-width: none;">
             <h4 style="color: {colors['accent_blue']}; margin: 0 0 25px 0; font-size: 20px;">
@@ -1683,13 +1683,13 @@ def interactive_prediction_body():
                 By providing sale date information, you help our model deliver more accurate predictions:
             </p>
             <div style="color: {colors['info_text']}; line-height: 2.0; font-size: 16px;">
-                <div style="margin: 15px 0; padding: 15px 0; border-bottom: 1px solid rgba(23, 162, 184, 0.2);">
+                <div style="margin: 15px 0; padding: 15px 0; border-bottom: 1px solid rgba(59, 130, 246, 0.2);">
                     <strong>1. 📈 Account for economic conditions</strong> during the sale period
                 </div>
-                <div style="margin: 15px 0; padding: 15px 0; border-bottom: 1px solid rgba(23, 162, 184, 0.2);">
+                <div style="margin: 15px 0; padding: 15px 0; border-bottom: 1px solid rgba(59, 130, 246, 0.2);">
                     <strong>2. 🌱 Factor in seasonal demand patterns</strong> for construction equipment
                 </div>
-                <div style="margin: 15px 0; padding: 15px 0; border-bottom: 1px solid rgba(23, 162, 184, 0.2);">
+                <div style="margin: 15px 0; padding: 15px 0; border-bottom: 1px solid rgba(59, 130, 246, 0.2);">
                     <strong>3. 🎯 Apply market-specific adjustments</strong> based on historical data
                 </div>
                 <div style="margin: 15px 0; padding: 15px 0;">
@@ -1714,7 +1714,7 @@ def interactive_prediction_body():
                         padding: 25px;
                         border-radius: 12px;
                         border: 1px solid {colors['border_color']};
-                        box-shadow: 0 4px 12px rgba(23, 162, 184, 0.1);">
+                        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);">
                 <h4 style="color: {colors['accent_blue']}; margin: 0 0 20px 0; font-size: 20px;">
                     📈 Economic Cycle Impact
                 </h4>
@@ -1744,7 +1744,7 @@ def interactive_prediction_body():
                     <div style="margin-left: 20px; font-style: italic; color: {colors['info_text']}; font-size: 15px;">→ Baseline market values</div>
                 </div>
 
-                <div style="margin: 15px 0; padding: 15px; background: rgba(23, 162, 184, 0.1); border-radius: 8px;">
+                <div style="margin: 15px 0; padding: 15px; background: rgba(59, 130, 246, 0.1); border-radius: 8px;">
                     <div style="font-weight: bold; color: {colors['accent_blue']}; font-size: 16px;">📈 2013-2015: Stable Growth</div>
                     <div style="margin-left: 20px; font-style: italic; color: {colors['info_text']}; font-size: 15px;">→ +2% to +5% gradual increase</div>
                 </div>
@@ -1754,7 +1754,7 @@ def interactive_prediction_body():
                             border-radius: 10px;
                             padding: 20px;
                             margin: 20px 0;
-                            box-shadow: 0 4px 12px rgba(23, 162, 184, 0.15);">
+                            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);">
                     <div style="color: {colors['info_text']}; font-weight: bold; font-size: 16px; line-height: 1.6;">
                         💡 Key Insight: Identical bulldozers sold in different years had vastly different values due to economic conditions.
                     </div>
@@ -1766,7 +1766,7 @@ def interactive_prediction_body():
                         padding: 25px;
                         border-radius: 12px;
                         border: 1px solid {colors['border_color']};
-                        box-shadow: 0 4px 12px rgba(23, 162, 184, 0.1);">
+                        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);">
                 <h4 style="color: {colors['accent_blue']}; margin: 0 0 20px 0; font-size: 20px;">
                     🌱 Seasonal Market Impact
                 </h4>
@@ -1791,7 +1791,7 @@ def interactive_prediction_body():
                     <div style="margin-left: 20px; font-style: italic; color: {colors['info_text']}; font-size: 15px;">→ +1% to +2% high activity</div>
                 </div>
 
-                <div style="margin: 15px 0; padding: 15px; background: rgba(23, 162, 184, 0.1); border-radius: 8px;">
+                <div style="margin: 15px 0; padding: 15px; background: rgba(59, 130, 246, 0.1); border-radius: 8px;">
                     <div style="font-weight: bold; color: {colors['accent_blue']}; font-size: 16px;">🍂 Fall (Days 241-330)</div>
                     <div style="margin-left: 20px; font-style: italic; color: {colors['info_text']}; font-size: 15px;">→ Baseline moderate demand</div>
                 </div>
@@ -1806,7 +1806,7 @@ def interactive_prediction_body():
                             border-radius: 10px;
                             padding: 20px;
                             margin: 20px 0;
-                            box-shadow: 0 4px 12px rgba(23, 162, 184, 0.15);">
+                            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);">
                     <div style="color: {colors['info_text']}; font-weight: bold; font-size: 16px; line-height: 1.6;">
                         💡 Key Insight: Construction equipment sells better during building season when contractors are most active.
                     </div>
@@ -1829,14 +1829,14 @@ def interactive_prediction_body():
                     border-radius: 10px;
                     margin: 15px 0;
                     border: 1px solid {colors['border_color']};
-                    box-shadow: 0 2px 8px rgba(23, 162, 184, 0.1);">
+                    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.1);">
             <h3 style="color: {colors['accent_blue']}; margin: 0 0 10px 0; font-size: 20px;">
                 📋 Real-World Example: Timing Impact on Price
             </h3>
             <p style="color: {colors['info_text']}; margin: 0 0 15px 0; font-style: italic; font-size: 16px;">
                 How the same bulldozer could sell for vastly different prices
             </p>
-            <div style="background: rgba(23, 162, 184, 0.1); padding: 15px; border-radius: 8px; margin-top: 15px;">
+            <div style="background: rgba(59, 130, 246, 0.1); padding: 15px; border-radius: 8px; margin-top: 15px;">
                 <p style="color: {colors['info_text']}; margin: 0; font-weight: bold; font-size: 15px;">
                     Scenario: Identical 2005 Caterpillar D6 bulldozer sold at different times
                 </p>
@@ -1870,7 +1870,7 @@ def interactive_prediction_body():
                     border-radius: 10px;
                     padding: 15px;
                     margin: 15px 0;
-                    box-shadow: 0 2px 8px rgba(23, 162, 184, 0.1);">
+                    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.1);">
             <h4 style="color: {colors['accent_blue']}; margin: 0 0 15px 0; text-align: center;">
                 📊 Price Variation Analysis
             </h4>
@@ -1892,7 +1892,7 @@ def interactive_prediction_body():
                     padding: 20px;
                     border-radius: 12px;
                     margin: 20px 0;
-                    box-shadow: 0 4px 12px rgba(23, 162, 184, 0.15);
+                    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
                     position: relative;
                     overflow: hidden;">
             <div style="position: absolute;
@@ -2613,7 +2613,7 @@ def interactive_prediction_body():
                 border-radius: 10px;
                 margin: 20px 0;
                 border: 1px solid {colors['border_color']};
-                box-shadow: 0 2px 8px rgba(23, 162, 184, 0.2);">
+                box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);">
         <h3 style="color: {colors['accent_blue']}; margin: 0 0 15px 0; font-size: 18px;">
             📊 PREDICTION SYSTEM SUMMARY
         </h3>
