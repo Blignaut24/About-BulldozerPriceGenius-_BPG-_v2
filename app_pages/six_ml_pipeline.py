@@ -3,16 +3,110 @@ import os
 from PIL import Image
 import io
 import base64
+import matplotlib.pyplot as plt
+import numpy as np
 
 
-def get_fallback_image_base64(image_name):
+def generate_fallback_price_distribution():
     """
-    Get base64 encoded fallback images for deployment environments
-    where image files might not be available.
+    Generate a fallback price distribution visualization using matplotlib
+    when the original image is not available.
     """
-    # For now, return None to focus on file path resolution
-    # Base64 fallbacks can be added later if needed
-    return None
+    try:
+        # Create a sample price distribution that represents typical bulldozer prices
+        np.random.seed(42)  # For reproducible results
+
+        # Generate sample data that mimics bulldozer price distribution
+        # Most bulldozers are in the $20k-$80k range with some high-end equipment
+        low_end = np.random.lognormal(mean=10.5, sigma=0.5, size=3000)  # $20k-$60k range
+        mid_range = np.random.lognormal(mean=11.0, sigma=0.3, size=2000)  # $40k-$100k range
+        high_end = np.random.lognormal(mean=11.8, sigma=0.4, size=500)   # $80k-$200k+ range
+
+        prices = np.concatenate([low_end, mid_range, high_end])
+        prices = prices[prices < 500000]  # Remove extreme outliers
+
+        # Create the histogram
+        fig, ax = plt.subplots(figsize=(10, 6))
+        ax.hist(prices, bins=50, alpha=0.7, color='steelblue', edgecolor='black')
+        ax.set_xlabel('Sale Price ($)', fontsize=12)
+        ax.set_ylabel('Frequency', fontsize=12)
+        ax.set_title('Bulldozer Sale Price Distribution (Generated Fallback)', fontsize=14, fontweight='bold')
+        ax.grid(True, alpha=0.3)
+
+        # Format x-axis to show prices in thousands
+        ax.xaxis.set_major_formatter(plt.FuncFormatter(lambda x, p: f'${x/1000:.0f}K'))
+
+        # Add some statistics text
+        mean_price = np.mean(prices)
+        median_price = np.median(prices)
+        ax.text(0.7, 0.8, f'Mean: ${mean_price:,.0f}\nMedian: ${median_price:,.0f}',
+                transform=ax.transAxes, bbox=dict(boxstyle="round,pad=0.3", facecolor="white", alpha=0.8))
+
+        plt.tight_layout()
+
+        # Convert to PIL Image
+        buf = io.BytesIO()
+        plt.savefig(buf, format='png', dpi=100, bbox_inches='tight')
+        buf.seek(0)
+        img = Image.open(buf)
+        plt.close()
+
+        return img
+
+    except Exception as e:
+        return None
+
+
+def generate_fallback_monthly_trends():
+    """
+    Generate a fallback monthly price trends visualization using matplotlib
+    when the original image is not available.
+    """
+    try:
+        # Create sample monthly data that represents seasonal trends
+        months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+
+        # Simulate seasonal trends (higher prices in spring/summer construction season)
+        base_price = 45000
+        seasonal_factors = [0.85, 0.88, 0.95, 1.05, 1.15, 1.20,
+                           1.18, 1.12, 1.08, 1.02, 0.92, 0.87]
+
+        median_prices = [base_price * factor for factor in seasonal_factors]
+
+        # Create the line plot
+        fig, ax = plt.subplots(figsize=(10, 6))
+        ax.plot(months, median_prices, marker='o', linewidth=2, markersize=8,
+                color='darkgreen', markerfacecolor='lightgreen')
+        ax.set_xlabel('Month', fontsize=12)
+        ax.set_ylabel('Median Sale Price ($)', fontsize=12)
+        ax.set_title('Monthly Bulldozer Price Trends (Generated Fallback)', fontsize=14, fontweight='bold')
+        ax.grid(True, alpha=0.3)
+
+        # Format y-axis to show prices in thousands
+        ax.yaxis.set_major_formatter(plt.FuncFormatter(lambda x, p: f'${x/1000:.0f}K'))
+
+        # Add trend annotation
+        max_month = months[median_prices.index(max(median_prices))]
+        min_month = months[median_prices.index(min(median_prices))]
+        ax.text(0.02, 0.98, f'Peak: {max_month}\nLow: {min_month}',
+                transform=ax.transAxes, bbox=dict(boxstyle="round,pad=0.3", facecolor="white", alpha=0.8),
+                verticalalignment='top')
+
+        plt.xticks(rotation=45)
+        plt.tight_layout()
+
+        # Convert to PIL Image
+        buf = io.BytesIO()
+        plt.savefig(buf, format='png', dpi=100, bbox_inches='tight')
+        buf.seek(0)
+        img = Image.open(buf)
+        plt.close()
+
+        return img
+
+    except Exception as e:
+        return None
 
 
 def load_image_with_fallbacks(image_name, image_path):
@@ -63,7 +157,24 @@ def load_image_with_fallbacks(image_name, image_path):
         except Exception as e:
             debug_info.append(f"❌ Error with alternative path {i+1}: {e}")
 
-    # Strategy 3: All strategies failed
+    # Strategy 3: Generate fallback visualization using matplotlib
+    debug_info.append(f"Attempting to generate fallback visualization for {image_name}")
+    try:
+        if image_name == "sale_price_distribution":
+            img = generate_fallback_price_distribution()
+            if img is not None:
+                debug_info.append(f"✅ Generated fallback price distribution visualization")
+                return img, "generated_fallback", "\n".join(debug_info)
+        elif image_name == "median_saleprice_monthly":
+            img = generate_fallback_monthly_trends()
+            if img is not None:
+                debug_info.append(f"✅ Generated fallback monthly trends visualization")
+                return img, "generated_fallback", "\n".join(debug_info)
+        debug_info.append(f"❌ Failed to generate fallback visualization")
+    except Exception as e:
+        debug_info.append(f"❌ Error generating fallback: {e}")
+
+    # Strategy 4: All strategies failed
     debug_info.append(f"❌ All loading strategies failed for {image_name}")
     return None, "failed", "\n".join(debug_info)
 
