@@ -72,46 +72,35 @@ def ml_pipeline_body():
     )
     # Add a checkbox to display the sale price distribution image
     if st.checkbox("Inspection: Sale Price Distribution"):
+        # Use more robust path resolution
         image_path = "results/sale_price_distribution.webp"
 
-        # Check if file exists and display image
-        if os.path.exists(image_path):
-            try:
-                # Try to display the image
-                st.image(image_path, caption="Sale Price Distribution")
+        # Get absolute path for better reliability
+        abs_image_path = os.path.abspath(image_path)
 
-                # Display additional information about the visualization
-                st.subheader("Histogram: Price Distribution")
-                st.markdown(
-                    """
-                    **Purpose**: This histogram shows the distribution of the SalePrice column, providing insights into how sale prices are spread across the dataset.
-                    The histogram helps us understand:
-                    - How bulldozer prices are distributed
-                    - The most common price ranges
-                    - Whether there are more low-priced or high-priced bulldozers
-                    - Any unusual prices that might need special attention
-                    """
-                )
+        # Debug information (can be removed later)
+        # st.write(f"Debug - Current working directory: {os.getcwd()}")
+        # st.write(f"Debug - Looking for image at: {abs_image_path}")
+        # st.write(f"Debug - File exists: {os.path.exists(image_path)}")
 
-            except Exception as e:
-                st.error(f"❌ Error loading sale price distribution image: {str(e)}")
-                st.info("💡 There was an issue displaying the sale price distribution visualization. The file exists but cannot be loaded.")
+        try:
+            # Try to display the image directly - let Streamlit handle the error if file doesn't exist
+            st.image(image_path, caption="Sale Price Distribution")
 
-                # Still show the informational content even if image fails
-                st.subheader("Histogram: Price Distribution")
-                st.markdown(
-                    """
-                    **Purpose**: This histogram shows the distribution of the SalePrice column, providing insights into how sale prices are spread across the dataset.
-                    The histogram helps us understand:
-                    - How bulldozer prices are distributed
-                    - The most common price ranges
-                    - Whether there are more low-priced or high-priced bulldozers
-                    - Any unusual prices that might need special attention
+            # Display additional information about the visualization
+            st.subheader("Histogram: Price Distribution")
+            st.markdown(
+                """
+                **Purpose**: This histogram shows the distribution of the SalePrice column, providing insights into how sale prices are spread across the dataset.
+                The histogram helps us understand:
+                - How bulldozer prices are distributed
+                - The most common price ranges
+                - Whether there are more low-priced or high-priced bulldozers
+                - Any unusual prices that might need special attention
+                """
+            )
 
-                    *Note: The visualization image is currently unavailable.*
-                    """
-                )
-        else:
+        except FileNotFoundError:
             st.error(f"📊 Image file not found: {image_path}")
             st.info("💡 The sale price distribution visualization is currently unavailable. Please ensure the image file exists in the results directory.")
 
@@ -130,50 +119,72 @@ def ml_pipeline_body():
                 """
             )
 
+        except Exception as e:
+            st.error(f"❌ Error loading sale price distribution image: {str(e)}")
+            st.info("💡 There was an issue displaying the sale price distribution visualization.")
+
+            # Still show the informational content even if image fails
+            st.subheader("Histogram: Price Distribution")
+            st.markdown(
+                """
+                **Purpose**: This histogram shows the distribution of the SalePrice column, providing insights into how sale prices are spread across the dataset.
+                The histogram helps us understand:
+                - How bulldozer prices are distributed
+                - The most common price ranges
+                - Whether there are more low-priced or high-priced bulldozers
+                - Any unusual prices that might need special attention
+
+                *Note: The visualization image is currently unavailable.*
+                """
+            )
+
         st.write("---")
 
     # Add a checkbox to display the median sale price monthly image
     if st.checkbox("Inspection: Median Sale Price Monthly"):
+        # Use more robust path resolution
         image_path = "results/median_saleprice_monthly.webp"
 
-        # Check if file exists and display image
-        if os.path.exists(image_path):
-            try:
-                # Try to display the image
-                st.image(image_path, caption="Median Sale Price Monthly")
+        # Get absolute path for better reliability
+        abs_image_path = os.path.abspath(image_path)
 
-                # Display additional information about the visualization
-                st.subheader("Visualizing Monthly Price Trends")
-                st.markdown(
-                    """
-                    We look at the average price per month to:
-                    - Identify seasonal pricing patterns
-                    - Spot months with typically higher or lower prices
-                    - Help buyers and sellers make more informed decisions
-                    """
-                )
+        try:
+            # Try to display the image directly - let Streamlit handle the error if file doesn't exist
+            st.image(image_path, caption="Median Sale Price Monthly")
 
-            except Exception as e:
-                st.error(f"❌ Error loading median sale price monthly image: {str(e)}")
-                st.info("💡 There was an issue displaying the median sale price monthly visualization. The file exists but cannot be loaded.")
+            # Display additional information about the visualization
+            st.subheader("Visualizing Monthly Price Trends")
+            st.markdown(
+                """
+                We look at the average price per month to:
+                - Identify seasonal pricing patterns
+                - Spot months with typically higher or lower prices
+                - Help buyers and sellers make more informed decisions
+                """
+            )
 
-                # Still show the informational content even if image fails
-                st.subheader("Visualizing Monthly Price Trends")
-                st.markdown(
-                    """
-                    We look at the average price per month to:
-                    - Identify seasonal pricing patterns
-                    - Spot months with typically higher or lower prices
-                    - Help buyers and sellers make more informed decisions
-
-                    *Note: The visualization image is currently unavailable.*
-                    """
-                )
-        else:
+        except FileNotFoundError:
             st.error(f"📊 Image file not found: {image_path}")
             st.info("💡 The median sale price monthly visualization is currently unavailable. Please ensure the image file exists in the results directory.")
 
             # Show informational content even when file is missing
+            st.subheader("Visualizing Monthly Price Trends")
+            st.markdown(
+                """
+                We look at the average price per month to:
+                - Identify seasonal pricing patterns
+                - Spot months with typically higher or lower prices
+                - Help buyers and sellers make more informed decisions
+
+                *Note: The visualization image is currently unavailable.*
+                """
+            )
+
+        except Exception as e:
+            st.error(f"❌ Error loading median sale price monthly image: {str(e)}")
+            st.info("💡 There was an issue displaying the median sale price monthly visualization.")
+
+            # Still show the informational content even if image fails
             st.subheader("Visualizing Monthly Price Trends")
             st.markdown(
                 """
