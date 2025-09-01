@@ -269,14 +269,21 @@ def ml_pipeline_body():
         image_name = os.path.splitext(os.path.basename(image_path))[0]
         img, method, debug_info = load_image_with_fallbacks(image_name, image_path)
 
-        # Show debug information
-        st.write("🔍 **Debug Info:**")
-        st.code(debug_info, language="text")
+        # Optional debug information (collapsed by default for clean UX)
+        with st.expander("� Advanced Debug Information", expanded=False):
+            st.code(debug_info, language="text")
 
         if img is not None:
             # Successfully loaded image - display it
             st.image(img, caption="Sale Price Distribution")
-            st.success(f"✅ Image loaded successfully! Method: {method}")
+
+            # User-friendly success message based on loading method
+            if method == "loaded_from_file":
+                st.success("✅ Visualization loaded successfully")
+            elif method == "generated_fallback":
+                st.info("📊 Interactive chart generated for optimal viewing")
+            else:
+                st.success("✅ Visualization ready")
 
             # Display additional information about the visualization
             st.subheader("Histogram: Price Distribution")
@@ -292,8 +299,8 @@ def ml_pipeline_body():
             )
         else:
             # Failed to load image - show error and fallback content
-            st.error(f"❌ Error loading sale price distribution image")
-            st.info("💡 There was an issue displaying the sale price distribution visualization. Check the debug information above for details.")
+            st.error("❌ Visualization temporarily unavailable")
+            st.info("💡 We're working to display the price distribution chart. Please try refreshing the page.")
 
             # Still show the informational content even if image fails
             st.subheader("Histogram: Price Distribution")
@@ -306,7 +313,7 @@ def ml_pipeline_body():
                 - Whether there are more low-priced or high-priced bulldozers
                 - Any unusual prices that might need special attention
 
-                *Note: The visualization image is currently unavailable.*
+                *Note: The visualization is currently being prepared.*
                 """
             )
 
@@ -321,14 +328,21 @@ def ml_pipeline_body():
         image_name = os.path.splitext(os.path.basename(image_path))[0]
         img, method, debug_info = load_image_with_fallbacks(image_name, image_path)
 
-        # Show debug information
-        st.write("🔍 **Debug Info:**")
-        st.code(debug_info, language="text")
+        # Optional debug information (collapsed by default for clean UX)
+        with st.expander("� Advanced Debug Information", expanded=False):
+            st.code(debug_info, language="text")
 
         if img is not None:
             # Successfully loaded image - display it
             st.image(img, caption="Median Sale Price Monthly")
-            st.success(f"✅ Image loaded successfully! Method: {method}")
+
+            # User-friendly success message based on loading method
+            if method == "loaded_from_file":
+                st.success("✅ Visualization loaded successfully")
+            elif method == "generated_fallback":
+                st.info("📊 Interactive chart generated for optimal viewing")
+            else:
+                st.success("✅ Visualization ready")
 
             # Display additional information about the visualization
             st.subheader("Visualizing Monthly Price Trends")
@@ -342,8 +356,8 @@ def ml_pipeline_body():
             )
         else:
             # Failed to load image - show error and fallback content
-            st.error(f"❌ Error loading median sale price monthly image")
-            st.info("💡 There was an issue displaying the median sale price monthly visualization. Check the debug information above for details.")
+            st.error("❌ Visualization temporarily unavailable")
+            st.info("💡 We're working to display the monthly trends chart. Please try refreshing the page.")
 
             # Still show the informational content even if image fails
             st.subheader("Visualizing Monthly Price Trends")
@@ -354,7 +368,7 @@ def ml_pipeline_body():
                 - Spot months with typically higher or lower prices
                 - Help buyers and sellers make more informed decisions
 
-                *Note: The visualization image is currently unavailable.*
+                *Note: The visualization is currently being prepared.*
                 """
             )
 
