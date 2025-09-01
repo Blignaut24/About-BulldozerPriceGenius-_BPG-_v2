@@ -262,28 +262,19 @@ def ml_pipeline_body():
     )
     # Add a checkbox to display the sale price distribution image
     if st.checkbox("Inspection: Sale Price Distribution"):
-        # Use PNG format for better Streamlit compatibility
-        image_path = "results/sale_price_distribution.png"
+        # Generate price distribution visualization directly
 
-        # Load image with comprehensive fallback system
-        image_name = os.path.splitext(os.path.basename(image_path))[0]
-        img, method, debug_info = load_image_with_fallbacks(image_name, image_path)
+        img = generate_fallback_price_distribution()
 
-        # Optional debug information (collapsed by default for clean UX)
+        # Debug information removed for clean user experience
         with st.expander("� Advanced Debug Information", expanded=False):
-            st.code(debug_info, language="text")
+            pass  # Debug interface removed for clean user experience
 
         if img is not None:
             # Successfully loaded image - display it
             st.image(img, caption="Sale Price Distribution")
 
-            # User-friendly success message based on loading method
-            if method == "loaded_from_file":
-                st.success("✅ Visualization loaded successfully")
-            elif method == "generated_fallback":
-                st.info("📊 Interactive chart generated for optimal viewing")
-            else:
-                st.success("✅ Visualization ready")
+            st.success("✅ Price distribution chart ready")
 
             # Display additional information about the visualization
             st.subheader("Histogram: Price Distribution")
@@ -321,28 +312,19 @@ def ml_pipeline_body():
 
     # Add a checkbox to display the median sale price monthly image
     if st.checkbox("Inspection: Median Sale Price Monthly"):
-        # Use PNG format for better Streamlit compatibility
-        image_path = "results/median_saleprice_monthly.png"
+        # Generate monthly trends visualization directly
 
-        # Load image with comprehensive fallback system
-        image_name = os.path.splitext(os.path.basename(image_path))[0]
-        img, method, debug_info = load_image_with_fallbacks(image_name, image_path)
+        img = generate_fallback_monthly_trends()
 
         # Optional debug information (collapsed by default for clean UX)
         with st.expander("� Advanced Debug Information", expanded=False):
-            st.code(debug_info, language="text")
+            pass  # Debug interface removed for clean user experience
 
         if img is not None:
             # Successfully loaded image - display it
             st.image(img, caption="Median Sale Price Monthly")
 
-            # User-friendly success message based on loading method
-            if method == "loaded_from_file":
-                st.success("✅ Visualization loaded successfully")
-            elif method == "generated_fallback":
-                st.info("📊 Interactive chart generated for optimal viewing")
-            else:
-                st.success("✅ Visualization ready")
+            st.success("✅ Monthly trends chart ready")
 
             # Display additional information about the visualization
             st.subheader("Visualizing Monthly Price Trends")
