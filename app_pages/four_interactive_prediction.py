@@ -1618,35 +1618,39 @@ def interactive_prediction_body():
         </div>
         """, unsafe_allow_html=True)
 
-        # Enhanced full-width layout for better visual organization with blue-themed cards
+        # Market Patterns section - positioned first
         st.markdown(f"""
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin: 25px 0;">
-            <div style="background: linear-gradient(135deg, {colors['info_bg']} 0%, #1e3a8a 100%);
-                        border: 1px solid {colors['accent_blue']};
-                        border-radius: 12px;
-                        padding: 25px;
-                        box-shadow: 0 4px 8px rgba(59, 130, 246, 0.1);">
-                <h5 style="color: {colors['accent_blue']}; margin: 0 0 20px 0; font-size: 18px;">📊 Market Patterns</h5>
-                <ul style="color: {colors['info_text']}; margin: 0; padding-left: 20px; line-height: 1.8; font-size: 16px;">
-                    <li><strong>Historical auction trends</strong></li>
-                    <li><strong>Economic cycle impacts</strong></li>
-                    <li><strong>Regional market variations</strong></li>
-                    <li><strong>Equipment demand fluctuations</strong></li>
-                </ul>
-            </div>
-            <div style="background: linear-gradient(135deg, {colors['info_bg']} 0%, #1e3a8a 100%);
-                        border: 1px solid {colors['accent_blue']};
-                        border-radius: 12px;
-                        padding: 25px;
-                        box-shadow: 0 4px 8px rgba(59, 130, 246, 0.1);">
-                <h5 style="color: {colors['accent_blue']}; margin: 0 0 20px 0; font-size: 18px;">⏰ Timing Factors</h5>
-                <ul style="color: {colors['info_text']}; margin: 0; padding-left: 20px; line-height: 1.8; font-size: 16px;">
-                    <li><strong>Seasonal construction activity</strong></li>
-                    <li><strong>Economic boom/recession periods</strong></li>
-                    <li><strong>Industry-specific demand cycles</strong></li>
-                    <li><strong>Market sentiment changes</strong></li>
-                </ul>
-            </div>
+        <div style="background: linear-gradient(135deg, {colors['info_bg']} 0%, #1e3a8a 100%);
+                    border: 1px solid {colors['accent_blue']};
+                    border-radius: 12px;
+                    padding: 25px;
+                    margin: 25px 0;
+                    box-shadow: 0 4px 8px rgba(59, 130, 246, 0.1);">
+            <h5 style="color: {colors['accent_blue']}; margin: 0 0 20px 0; font-size: 18px;">📊 Market Patterns</h5>
+            <ul style="color: {colors['info_text']}; margin: 0; padding-left: 20px; line-height: 1.8; font-size: 16px;">
+                <li><strong>Historical auction trends</strong></li>
+                <li><strong>Economic cycle impacts</strong></li>
+                <li><strong>Regional market variations</strong></li>
+                <li><strong>Equipment demand fluctuations</strong></li>
+            </ul>
+        </div>
+        """, unsafe_allow_html=True)
+
+        # Timing Factors section - positioned immediately below Market Patterns
+        st.markdown(f"""
+        <div style="background: linear-gradient(135deg, {colors['info_bg']} 0%, #1e3a8a 100%);
+                    border: 1px solid {colors['accent_blue']};
+                    border-radius: 12px;
+                    padding: 25px;
+                    margin: 25px 0;
+                    box-shadow: 0 4px 8px rgba(59, 130, 246, 0.1);">
+            <h5 style="color: {colors['accent_blue']}; margin: 0 0 20px 0; font-size: 18px;">⏰ Timing Factors</h5>
+            <ul style="color: {colors['info_text']}; margin: 0; padding-left: 20px; line-height: 1.8; font-size: 16px;">
+                <li><strong>Seasonal construction activity</strong></li>
+                <li><strong>Economic boom/recession periods</strong></li>
+                <li><strong>Industry-specific demand cycles</strong></li>
+                <li><strong>Market sentiment changes</strong></li>
+            </ul>
         </div>
         """, unsafe_allow_html=True)
 
