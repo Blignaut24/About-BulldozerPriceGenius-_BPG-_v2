@@ -620,7 +620,27 @@ def interactive_prediction_body():
     </div>
     """, unsafe_allow_html=True)
 
-
+    # ASSESSMENT COMPLIANCE: Summary emphasizing prediction functionality
+    st.markdown(f"""
+    <div style="background: linear-gradient(90deg, {colors['info_bg']} 0%, #1e3a8a 100%);
+                border-left: 5px solid {colors['accent_blue']};
+                padding: 20px;
+                border-radius: 10px;
+                margin: 20px 0;
+                border: 1px solid {colors['border_color']};
+                box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);">
+        <h3 style="color: {colors['accent_blue']}; margin: 0 0 15px 0; font-size: 18px;">
+            📊 PREDICTION SYSTEM SUMMARY
+        </h3>
+        <p style="color: {colors['info_text']}; margin: 0; font-size: 16px; line-height: 1.6;">
+            <strong>✅ This page provides interactive bulldozer price predictions</strong><br>
+            • Users input bulldozer feature values (Year Made, Product Size, State, etc.)<br>
+            • System generates predicted sale prices using ML models or statistical methods<br>
+            • Results include confidence levels, price ranges, and technical insights<br>
+            • No training data filtering - only live price prediction functionality
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
 
     # User Selection Interface for Prediction Method
     st.header("🎯 Choose Your Prediction Method")
@@ -2607,28 +2627,7 @@ def interactive_prediction_body():
             else:
                 st.info("🔄 Please refresh the page to see cleared fields.")
 
-    # ASSESSMENT COMPLIANCE: Final summary emphasizing prediction functionality
-    st.markdown("---")
-    st.markdown(f"""
-    <div style="background: linear-gradient(90deg, {colors['info_bg']} 0%, #1e3a8a 100%);
-                border-left: 5px solid {colors['accent_blue']};
-                padding: 20px;
-                border-radius: 10px;
-                margin: 20px 0;
-                border: 1px solid {colors['border_color']};
-                box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);">
-        <h3 style="color: {colors['accent_blue']}; margin: 0 0 15px 0; font-size: 18px;">
-            📊 PREDICTION SYSTEM SUMMARY
-        </h3>
-        <p style="color: {colors['info_text']}; margin: 0; font-size: 16px; line-height: 1.6;">
-            <strong>✅ This page provides interactive bulldozer price predictions</strong><br>
-            • Users input bulldozer feature values (Year Made, Product Size, State, etc.)<br>
-            • System generates predicted sale prices using ML models or statistical methods<br>
-            • Results include confidence levels, price ranges, and technical insights<br>
-            • No training data filtering - only live price prediction functionality
-        </p>
-    </div>
-    """, unsafe_allow_html=True)
+
 
 
 def create_feature_mappings():
