@@ -266,10 +266,6 @@ def ml_pipeline_body():
 
         img = generate_fallback_price_distribution()
 
-        # Debug information removed for clean user experience
-        with st.expander("� Advanced Debug Information", expanded=False):
-            pass  # Debug interface removed for clean user experience
-
         if img is not None:
             # Successfully loaded image - display it
             st.image(img, caption="Sale Price Distribution")
@@ -315,10 +311,6 @@ def ml_pipeline_body():
         # Generate monthly trends visualization directly
 
         img = generate_fallback_monthly_trends()
-
-        # Optional debug information (collapsed by default for clean UX)
-        with st.expander("� Advanced Debug Information", expanded=False):
-            pass  # Debug interface removed for clean user experience
 
         if img is not None:
             # Successfully loaded image - display it
