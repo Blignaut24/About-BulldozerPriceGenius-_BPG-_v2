@@ -2,28 +2,83 @@ import streamlit as st
 import os
 from PIL import Image
 import io
+import base64
+
+
+def get_fallback_image_base64(image_name):
+    """
+    Get base64 encoded fallback images for deployment environments
+    where image files might not be available.
+    """
+    # For now, return None to focus on file path resolution
+    # Base64 fallbacks can be added later if needed
+    return None
+
+
+def load_image_with_fallbacks(image_name, image_path):
+    """
+    Comprehensive image loading with multiple fallback strategies:
+    1. Try to load from the specified path
+    2. Try alternative paths (for different deployment environments)
+    3. Provide detailed debugging information
+    """
+    debug_info = []
+
+    # Strategy 1: Try the primary path
+    debug_info.append(f"Trying primary path: {image_path}")
+    try:
+        if os.path.exists(image_path):
+            debug_info.append(f"✅ Primary path exists")
+            img = Image.open(image_path)
+            _ = img.size, img.mode, img.format  # Validate
+            debug_info.append(f"✅ Successfully loaded from primary path")
+            return img, "loaded_from_file", "\n".join(debug_info)
+        else:
+            debug_info.append(f"❌ Primary path does not exist")
+    except Exception as e:
+        debug_info.append(f"❌ Error with primary path: {e}")
+
+    # Strategy 2: Try alternative paths for different deployment environments
+    alternative_paths = [
+        f"./{image_path}",
+        f"/{image_path}",
+        f"app/{image_path}",
+        f"/app/{image_path}",
+        os.path.join(os.getcwd(), image_path),
+        os.path.join(os.path.dirname(__file__), "..", image_path),
+        os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", image_path)
+    ]
+
+    for i, alt_path in enumerate(alternative_paths):
+        debug_info.append(f"Trying alternative path {i+1}: {alt_path}")
+        try:
+            if os.path.exists(alt_path):
+                debug_info.append(f"✅ Alternative path {i+1} exists")
+                img = Image.open(alt_path)
+                _ = img.size, img.mode, img.format  # Validate
+                debug_info.append(f"✅ Successfully loaded from alternative path {i+1}")
+                return img, "loaded_from_alternative", "\n".join(debug_info)
+            else:
+                debug_info.append(f"❌ Alternative path {i+1} does not exist")
+        except Exception as e:
+            debug_info.append(f"❌ Error with alternative path {i+1}: {e}")
+
+    # Strategy 3: All strategies failed
+    debug_info.append(f"❌ All loading strategies failed for {image_name}")
+    return None, "failed", "\n".join(debug_info)
 
 
 def load_image_safely(image_path):
     """
-    Safely load an image using PIL and return it as a PIL Image object.
-    Returns None if the image cannot be loaded.
+    Legacy function for backward compatibility.
+    Now uses the comprehensive fallback system.
     """
-    try:
-        # Check if file exists
-        if not os.path.exists(image_path):
-            return None, f"File not found: {image_path}"
-
-        # Try to open with PIL
-        img = Image.open(image_path)
-
-        # Verify the image is valid by accessing its properties
-        _ = img.size, img.mode, img.format
-
+    image_name = os.path.splitext(os.path.basename(image_path))[0]
+    img, method, message = load_image_with_fallbacks(image_name, image_path)
+    if img is not None:
         return img, None
-
-    except Exception as e:
-        return None, f"Error loading image: {str(e)}"
+    else:
+        return None, message
 
 
 def ml_pipeline_body():
@@ -99,21 +154,18 @@ def ml_pipeline_body():
         # Use PNG format for better Streamlit compatibility
         image_path = "results/sale_price_distribution.png"
 
-        # Debug information for troubleshooting
-        st.write("🔍 **Debug Info:**")
-        st.write(f"- Current working directory: `{os.getcwd()}`")
-        st.write(f"- Looking for image at: `{os.path.abspath(image_path)}`")
-        st.write(f"- File exists: `{os.path.exists(image_path)}`")
-        if os.path.exists(image_path):
-            st.write(f"- File size: `{os.path.getsize(image_path)} bytes`")
+        # Load image with comprehensive fallback system
+        image_name = os.path.splitext(os.path.basename(image_path))[0]
+        img, method, debug_info = load_image_with_fallbacks(image_name, image_path)
 
-        # Load image safely using PIL
-        img, error_msg = load_image_safely(image_path)
+        # Show debug information
+        st.write("🔍 **Debug Info:**")
+        st.code(debug_info, language="text")
 
         if img is not None:
             # Successfully loaded image - display it
             st.image(img, caption="Sale Price Distribution")
-            st.success("✅ Image loaded successfully using PIL!")
+            st.success(f"✅ Image loaded successfully! Method: {method}")
 
             # Display additional information about the visualization
             st.subheader("Histogram: Price Distribution")
@@ -129,8 +181,8 @@ def ml_pipeline_body():
             )
         else:
             # Failed to load image - show error and fallback content
-            st.error(f"❌ Error loading sale price distribution image: {error_msg}")
-            st.info("💡 There was an issue displaying the sale price distribution visualization.")
+            st.error(f"❌ Error loading sale price distribution image")
+            st.info("💡 There was an issue displaying the sale price distribution visualization. Check the debug information above for details.")
 
             # Still show the informational content even if image fails
             st.subheader("Histogram: Price Distribution")
@@ -154,21 +206,18 @@ def ml_pipeline_body():
         # Use PNG format for better Streamlit compatibility
         image_path = "results/median_saleprice_monthly.png"
 
-        # Debug information for troubleshooting
-        st.write("🔍 **Debug Info:**")
-        st.write(f"- Current working directory: `{os.getcwd()}`")
-        st.write(f"- Looking for image at: `{os.path.abspath(image_path)}`")
-        st.write(f"- File exists: `{os.path.exists(image_path)}`")
-        if os.path.exists(image_path):
-            st.write(f"- File size: `{os.path.getsize(image_path)} bytes`")
+        # Load image with comprehensive fallback system
+        image_name = os.path.splitext(os.path.basename(image_path))[0]
+        img, method, debug_info = load_image_with_fallbacks(image_name, image_path)
 
-        # Load image safely using PIL
-        img, error_msg = load_image_safely(image_path)
+        # Show debug information
+        st.write("🔍 **Debug Info:**")
+        st.code(debug_info, language="text")
 
         if img is not None:
             # Successfully loaded image - display it
             st.image(img, caption="Median Sale Price Monthly")
-            st.success("✅ Image loaded successfully using PIL!")
+            st.success(f"✅ Image loaded successfully! Method: {method}")
 
             # Display additional information about the visualization
             st.subheader("Visualizing Monthly Price Trends")
@@ -182,8 +231,8 @@ def ml_pipeline_body():
             )
         else:
             # Failed to load image - show error and fallback content
-            st.error(f"❌ Error loading median sale price monthly image: {error_msg}")
-            st.info("💡 There was an issue displaying the median sale price monthly visualization.")
+            st.error(f"❌ Error loading median sale price monthly image")
+            st.info("💡 There was an issue displaying the median sale price monthly visualization. Check the debug information above for details.")
 
             # Still show the informational content even if image fails
             st.subheader("Visualizing Monthly Price Trends")
