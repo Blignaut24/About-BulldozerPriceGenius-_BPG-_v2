@@ -72,8 +72,8 @@ def ml_pipeline_body():
     )
     # Add a checkbox to display the sale price distribution image
     if st.checkbox("Inspection: Sale Price Distribution"):
-        # Use more robust path resolution
-        image_path = "results/sale_price_distribution.webp"
+        # Use PNG format for better Streamlit compatibility
+        image_path = "results/sale_price_distribution.png"
 
         # Get absolute path for better reliability
         abs_image_path = os.path.abspath(image_path)
@@ -142,8 +142,8 @@ def ml_pipeline_body():
 
     # Add a checkbox to display the median sale price monthly image
     if st.checkbox("Inspection: Median Sale Price Monthly"):
-        # Use more robust path resolution
-        image_path = "results/median_saleprice_monthly.webp"
+        # Use PNG format for better Streamlit compatibility
+        image_path = "results/median_saleprice_monthly.png"
 
         # Get absolute path for better reliability
         abs_image_path = os.path.abspath(image_path)
