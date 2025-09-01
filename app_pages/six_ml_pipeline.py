@@ -1,5 +1,29 @@
 import streamlit as st
 import os
+from PIL import Image
+import io
+
+
+def load_image_safely(image_path):
+    """
+    Safely load an image using PIL and return it as a PIL Image object.
+    Returns None if the image cannot be loaded.
+    """
+    try:
+        # Check if file exists
+        if not os.path.exists(image_path):
+            return None, f"File not found: {image_path}"
+
+        # Try to open with PIL
+        img = Image.open(image_path)
+
+        # Verify the image is valid by accessing its properties
+        _ = img.size, img.mode, img.format
+
+        return img, None
+
+    except Exception as e:
+        return None, f"Error loading image: {str(e)}"
 
 
 def ml_pipeline_body():
@@ -75,17 +99,21 @@ def ml_pipeline_body():
         # Use PNG format for better Streamlit compatibility
         image_path = "results/sale_price_distribution.png"
 
-        # Get absolute path for better reliability
-        abs_image_path = os.path.abspath(image_path)
+        # Debug information for troubleshooting
+        st.write("🔍 **Debug Info:**")
+        st.write(f"- Current working directory: `{os.getcwd()}`")
+        st.write(f"- Looking for image at: `{os.path.abspath(image_path)}`")
+        st.write(f"- File exists: `{os.path.exists(image_path)}`")
+        if os.path.exists(image_path):
+            st.write(f"- File size: `{os.path.getsize(image_path)} bytes`")
 
-        # Debug information (can be removed later)
-        # st.write(f"Debug - Current working directory: {os.getcwd()}")
-        # st.write(f"Debug - Looking for image at: {abs_image_path}")
-        # st.write(f"Debug - File exists: {os.path.exists(image_path)}")
+        # Load image safely using PIL
+        img, error_msg = load_image_safely(image_path)
 
-        try:
-            # Try to display the image directly - let Streamlit handle the error if file doesn't exist
-            st.image(image_path, caption="Sale Price Distribution")
+        if img is not None:
+            # Successfully loaded image - display it
+            st.image(img, caption="Sale Price Distribution")
+            st.success("✅ Image loaded successfully using PIL!")
 
             # Display additional information about the visualization
             st.subheader("Histogram: Price Distribution")
@@ -99,28 +127,9 @@ def ml_pipeline_body():
                 - Any unusual prices that might need special attention
                 """
             )
-
-        except FileNotFoundError:
-            st.error(f"📊 Image file not found: {image_path}")
-            st.info("💡 The sale price distribution visualization is currently unavailable. Please ensure the image file exists in the results directory.")
-
-            # Show informational content even when file is missing
-            st.subheader("Histogram: Price Distribution")
-            st.markdown(
-                """
-                **Purpose**: This histogram shows the distribution of the SalePrice column, providing insights into how sale prices are spread across the dataset.
-                The histogram helps us understand:
-                - How bulldozer prices are distributed
-                - The most common price ranges
-                - Whether there are more low-priced or high-priced bulldozers
-                - Any unusual prices that might need special attention
-
-                *Note: The visualization image is currently unavailable.*
-                """
-            )
-
-        except Exception as e:
-            st.error(f"❌ Error loading sale price distribution image: {str(e)}")
+        else:
+            # Failed to load image - show error and fallback content
+            st.error(f"❌ Error loading sale price distribution image: {error_msg}")
             st.info("💡 There was an issue displaying the sale price distribution visualization.")
 
             # Still show the informational content even if image fails
@@ -145,12 +154,21 @@ def ml_pipeline_body():
         # Use PNG format for better Streamlit compatibility
         image_path = "results/median_saleprice_monthly.png"
 
-        # Get absolute path for better reliability
-        abs_image_path = os.path.abspath(image_path)
+        # Debug information for troubleshooting
+        st.write("🔍 **Debug Info:**")
+        st.write(f"- Current working directory: `{os.getcwd()}`")
+        st.write(f"- Looking for image at: `{os.path.abspath(image_path)}`")
+        st.write(f"- File exists: `{os.path.exists(image_path)}`")
+        if os.path.exists(image_path):
+            st.write(f"- File size: `{os.path.getsize(image_path)} bytes`")
 
-        try:
-            # Try to display the image directly - let Streamlit handle the error if file doesn't exist
-            st.image(image_path, caption="Median Sale Price Monthly")
+        # Load image safely using PIL
+        img, error_msg = load_image_safely(image_path)
+
+        if img is not None:
+            # Successfully loaded image - display it
+            st.image(img, caption="Median Sale Price Monthly")
+            st.success("✅ Image loaded successfully using PIL!")
 
             # Display additional information about the visualization
             st.subheader("Visualizing Monthly Price Trends")
@@ -162,26 +180,9 @@ def ml_pipeline_body():
                 - Help buyers and sellers make more informed decisions
                 """
             )
-
-        except FileNotFoundError:
-            st.error(f"📊 Image file not found: {image_path}")
-            st.info("💡 The median sale price monthly visualization is currently unavailable. Please ensure the image file exists in the results directory.")
-
-            # Show informational content even when file is missing
-            st.subheader("Visualizing Monthly Price Trends")
-            st.markdown(
-                """
-                We look at the average price per month to:
-                - Identify seasonal pricing patterns
-                - Spot months with typically higher or lower prices
-                - Help buyers and sellers make more informed decisions
-
-                *Note: The visualization image is currently unavailable.*
-                """
-            )
-
-        except Exception as e:
-            st.error(f"❌ Error loading median sale price monthly image: {str(e)}")
+        else:
+            # Failed to load image - show error and fallback content
+            st.error(f"❌ Error loading median sale price monthly image: {error_msg}")
             st.info("💡 There was an issue displaying the median sale price monthly visualization.")
 
             # Still show the informational content even if image fails
