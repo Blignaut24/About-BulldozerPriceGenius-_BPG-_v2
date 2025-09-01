@@ -1730,117 +1730,112 @@ def interactive_prediction_body():
         st.markdown("*Understanding how timing affects bulldozer values*")
         st.markdown("")  # Add proper spacing after header
 
-        # Enhanced full-width layout for Economic Cycle and Seasonal Market sections
-        col_impact1, col_impact2 = st.columns(2, gap="large")
+        # Economic Cycle Impact section - converted to full-width layout
+        st.markdown(f"""
+        <div style="background: linear-gradient(90deg, {colors['info_bg']} 0%, #1e3a8a 100%);
+                    border-left: 5px solid {colors['accent_blue']};
+                    padding: 25px;
+                    border-radius: 12px;
+                    border: 1px solid {colors['border_color']};
+                    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
+                    margin: 25px 0;">
+            <h4 style="color: {colors['accent_blue']}; margin: 0 0 20px 0; font-size: 20px;">
+                📈 Economic Cycle Impact
+            </h4>
+            <p style="color: {colors['info_text']}; margin: 0 0 20px 0; font-size: 17px; font-weight: 500;">
+                How Economic Conditions Affect Prices:
+            </p>
+            <p style="color: {colors['info_text']}; margin: 0 0 25px 0; font-size: 16px; line-height: 1.6;">
+                Our model learned from market data spanning multiple economic cycles:
+            </p>
+        </div>
+        """, unsafe_allow_html=True)
 
-        with col_impact1:
-            # Economic Cycle Impact section with enhanced styling
-            st.markdown(f"""
-            <div style="background: linear-gradient(90deg, {colors['info_bg']} 0%, #1e3a8a 100%);
-                        border-left: 5px solid {colors['accent_blue']};
-                        padding: 25px;
-                        border-radius: 12px;
-                        border: 1px solid {colors['border_color']};
-                        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
-                        margin-bottom: 20px;">
-                <h4 style="color: {colors['accent_blue']}; margin: 0 0 20px 0; font-size: 20px;">
-                    📈 Economic Cycle Impact
-                </h4>
-                <p style="color: {colors['info_text']}; margin: 0 0 20px 0; font-size: 17px; font-weight: 500;">
-                    How Economic Conditions Affect Prices:
-                </p>
-                <p style="color: {colors['info_text']}; margin: 0 0 25px 0; font-size: 16px; line-height: 1.6;">
-                    Our model learned from market data spanning multiple economic cycles:
-                </p>
+        st.markdown("##### 📅 Historical Sale Year Effects:")
+
+        # Construction Boom
+        st.success("🏗️ **2006-2007: Construction Boom**  \n→ +10% to +15% price premium")
+
+        # Financial Crisis
+        st.error("📉 **2008-2009: Financial Crisis**  \n→ -15% to -25% price reduction")
+
+        # Recovery Period
+        st.warning("⚖️ **2010-2012: Recovery Period**  \n→ Baseline market values")
+
+        # Stable Growth
+        st.info("📈 **2013-2015: Stable Growth**  \n→ +2% to +5% gradual increase")
+
+        # Key Insight for Economic Cycle
+        st.markdown(f"""
+        <div style="background: linear-gradient(135deg, {colors['info_bg']} 0%, #1e3a8a 100%);
+                    border: 2px solid {colors['accent_blue']};
+                    border-radius: 10px;
+                    padding: 20px;
+                    margin: 20px 0;
+                    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);">
+            <div style="color: {colors['info_text']}; font-weight: bold; font-size: 16px; line-height: 1.6;">
+                💡 Key Insight: Identical bulldozers sold in different years had vastly different values due to economic conditions.
             </div>
-            """, unsafe_allow_html=True)
+        </div>
+        """, unsafe_allow_html=True)
 
-            st.markdown("##### 📅 Historical Sale Year Effects:")
+        # Seasonal Market Impact section - converted to full-width layout
+        st.markdown(f"""
+        <div style="background: linear-gradient(90deg, {colors['info_bg']} 0%, #1e3a8a 100%);
+                    border-left: 5px solid {colors['accent_blue']};
+                    padding: 25px;
+                    border-radius: 12px;
+                    border: 1px solid {colors['border_color']};
+                    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
+                    margin: 25px 0;">
+            <h4 style="color: {colors['accent_blue']}; margin: 0 0 20px 0; font-size: 20px;">
+                🌱 Seasonal Market Impact
+            </h4>
+            <p style="color: {colors['info_text']}; margin: 0 0 20px 0; font-size: 17px; font-weight: 500;">
+                How Seasons Affect Construction Equipment Sales:
+            </p>
+            <p style="color: {colors['info_text']}; margin: 0 0 25px 0; font-size: 16px; line-height: 1.6;">
+                Construction activity varies throughout the year, affecting equipment demand:
+            </p>
+        </div>
+        """, unsafe_allow_html=True)
 
-            # Construction Boom
-            st.success("🏗️ **2006-2007: Construction Boom**  \n→ +10% to +15% price premium")
+        st.markdown("##### 📅 Sale Day of Year Effects:")
 
-            # Financial Crisis
-            st.error("📉 **2008-2009: Financial Crisis**  \n→ -15% to -25% price reduction")
+        # Spring
+        st.success("🌸 **Spring (Days 60-150)**  \n→ +2% to +3% peak demand")
 
-            # Recovery Period
-            st.warning("⚖️ **2010-2012: Recovery Period**  \n→ Baseline market values")
+        # Summer
+        st.warning("☀️ **Summer (Days 151-240)**  \n→ +1% to +2% high activity")
 
-            # Stable Growth
-            st.info("📈 **2013-2015: Stable Growth**  \n→ +2% to +5% gradual increase")
+        # Fall
+        st.info("🍂 **Fall (Days 241-330)**  \n→ Baseline moderate demand")
 
-            # Key Insight
-            st.markdown(f"""
-            <div style="background: linear-gradient(135deg, {colors['info_bg']} 0%, #1e3a8a 100%);
-                        border: 2px solid {colors['accent_blue']};
-                        border-radius: 10px;
-                        padding: 20px;
-                        margin: 20px 0;
-                        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);">
-                <div style="color: {colors['info_text']}; font-weight: bold; font-size: 16px; line-height: 1.6;">
-                    💡 Key Insight: Identical bulldozers sold in different years had vastly different values due to economic conditions.
-                </div>
+        # Winter
+        st.markdown("""
+        <div style="background-color: rgba(128, 128, 128, 0.1);
+                    border-left: 4px solid #808080;
+                    padding: 12px;
+                    border-radius: 4px;
+                    margin: 10px 0;">
+            <strong>❄️ Winter (Days 331-59)</strong><br>
+            → -2% to -3% lower demand
+        </div>
+        """, unsafe_allow_html=True)
+
+        # Key Insight for Seasonal Impact
+        st.markdown(f"""
+        <div style="background: linear-gradient(135deg, {colors['info_bg']} 0%, #1e3a8a 100%);
+                    border: 2px solid {colors['accent_blue']};
+                    border-radius: 10px;
+                    padding: 20px;
+                    margin: 20px 0;
+                    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);">
+            <div style="color: {colors['info_text']}; font-weight: bold; font-size: 16px; line-height: 1.6;">
+                💡 Key Insight: Construction equipment sells better during building season when contractors are most active.
             </div>
-            """, unsafe_allow_html=True)
-
-        with col_impact2:
-            # Seasonal Market Impact section with enhanced styling
-            st.markdown(f"""
-            <div style="background: linear-gradient(90deg, {colors['info_bg']} 0%, #1e3a8a 100%);
-                        border-left: 5px solid {colors['accent_blue']};
-                        padding: 25px;
-                        border-radius: 12px;
-                        border: 1px solid {colors['border_color']};
-                        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
-                        margin-bottom: 20px;">
-                <h4 style="color: {colors['accent_blue']}; margin: 0 0 20px 0; font-size: 20px;">
-                    🌱 Seasonal Market Impact
-                </h4>
-                <p style="color: {colors['info_text']}; margin: 0 0 20px 0; font-size: 17px; font-weight: 500;">
-                    How Seasons Affect Construction Equipment Sales:
-                </p>
-                <p style="color: {colors['info_text']}; margin: 0 0 25px 0; font-size: 16px; line-height: 1.6;">
-                    Construction activity varies throughout the year, affecting equipment demand:
-                </p>
-            </div>
-            """, unsafe_allow_html=True)
-
-            st.markdown("##### 📅 Sale Day of Year Effects:")
-
-            # Spring
-            st.success("🌸 **Spring (Days 60-150)**  \n→ +2% to +3% peak demand")
-
-            # Summer
-            st.warning("☀️ **Summer (Days 151-240)**  \n→ +1% to +2% high activity")
-
-            # Fall
-            st.info("🍂 **Fall (Days 241-330)**  \n→ Baseline moderate demand")
-
-            # Winter
-            st.markdown("""
-            <div style="background-color: rgba(128, 128, 128, 0.1);
-                        border-left: 4px solid #808080;
-                        padding: 12px;
-                        border-radius: 4px;
-                        margin: 10px 0;">
-                <strong>❄️ Winter (Days 331-59)</strong><br>
-                → -2% to -3% lower demand
-            </div>
-            """, unsafe_allow_html=True)
-
-            # Key Insight
-            st.markdown(f"""
-            <div style="background: linear-gradient(135deg, {colors['info_bg']} 0%, #1e3a8a 100%);
-                        border: 2px solid {colors['accent_blue']};
-                        border-radius: 10px;
-                        padding: 20px;
-                        margin: 20px 0;
-                        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);">
-                <div style="color: {colors['info_text']}; font-weight: bold; font-size: 16px; line-height: 1.6;">
-                    💡 Key Insight: Construction equipment sells better during building season when contractors are most active.
-                </div>
-            </div>
-            """, unsafe_allow_html=True)
+        </div>
+        """, unsafe_allow_html=True)
 
 
 
