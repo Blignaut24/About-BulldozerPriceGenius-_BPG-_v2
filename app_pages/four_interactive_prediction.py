@@ -2602,29 +2602,7 @@ def interactive_prediction_body():
     # Add spacing between prediction section and reset button
     st.markdown("<br>", unsafe_allow_html=True)
 
-    # Reset/Clear button with secondary styling - ALWAYS VISIBLE
-    st.markdown("""
-    <div style="text-align: center; margin: 20px 0;">
-        <p style="color: #666; font-size: 14px; margin-bottom: 10px;">
-            Need to start over with different specifications?
-        </p>
-    </div>
-    """, unsafe_allow_html=True)
 
-    # Create columns for button centering and spacing
-    col1, col2, col3 = get_columns([1, 2, 1])
-
-    with col2:
-        if st.button("🔄 Clear All Fields", key="reset_form_button", help="Reset all input fields to start fresh"):
-            clear_all_input_fields()
-            st.success("✅ All fields have been cleared! You can now enter new bulldozer specifications.")
-            # Use version-compatible rerun function
-            if hasattr(st, 'rerun'):
-                st.rerun()
-            elif hasattr(st, 'experimental_rerun'):
-                st.experimental_rerun()
-            else:
-                st.info("🔄 Please refresh the page to see cleared fields.")
 
 
 
