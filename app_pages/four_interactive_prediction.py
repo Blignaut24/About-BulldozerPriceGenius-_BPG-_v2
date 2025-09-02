@@ -709,6 +709,7 @@ def interactive_prediction_body():
         """)
 
     # Prediction method selection removed — Enhanced ML Model is always used
+    user_prefers_statistical = False  # Always False in single-model mode
     prediction_approach = "🤖 Enhanced ML Model"
     st.info("🤖 Enhanced ML Model selected — maximum accuracy predictions using advanced ML.")
 
