@@ -691,24 +691,12 @@ def interactive_prediction_body():
         - **🛡️ Automatic Fallback**: The system automatically switches to Precision Price Tool if Enhanced ML Model is unavailable or times out
         """)
 
-    # Prediction method selection
-    prediction_method_choice = st.radio(
-        "Select your preferred prediction method:",
-        options=[
-            "🤖 Enhanced ML Model (85-90% accuracy, 2-15s response)",
-            "📊 Precision Price Tool (78.7% accuracy, <1s response)"
-        ],
-        index=0,  # Default to Enhanced ML Model
-        help="Choose between maximum accuracy (Enhanced ML) or instant results (Precision Price Tool). The system will automatically fall back to Precision Price Tool if Enhanced ML Model fails."
-    )
-
-    # Store the user's choice for later use
-    user_prefers_statistical = "Precision Price Tool" in prediction_method_choice
+    # Prediction method selection removed — Enhanced ML Model is always used
+    user_prefers_statistical = False
 
     # Display selected method information
     if user_prefers_statistical:
-        st.info("📊 **Precision Price Tool selected** - You'll get instant, reliable predictions using mathematical models.")
-        prediction_approach = "📊 Precision Price Tool (User Selected)"
+        pass  # Precision Price Tool removed
     else:
         st.info("🤖 **Enhanced ML Model selected** - You'll get maximum accuracy predictions using advanced machine learning.")
         prediction_approach = "🤖 Advanced ML Model (User Selected)"
@@ -2409,38 +2397,9 @@ def interactive_prediction_body():
 
                 # Check if user selected Precision Price Tool directly
                 if user_prefers_statistical:
-                    # User explicitly chose Precision Price Tool - skip ML model and go
-                    # directly to precision prediction
-                    status_text.text("📊 Generating precision prediction...")
-                    progress_bar.progress(50)
+                    # Precision Price Tool removed — always proceed with Enhanced ML Model
 
-                    # Direct precision prediction
-                    prediction_result = make_prediction_precision(
-                        selected_year_made, selected_model_id, product_size, state, enclosure,
-                        fi_base_model, coupler_system, tire_size, hydraulics_flow,
-                        grouser_tracks, hydraulics, sale_year, sale_day_of_year
-                    )
-
-                    # Add method indicator to result
-                    prediction_result['method'] = 'Precision Price Tool (User Selected)'
-
-                    # Complete progress
-                    progress_bar.progress(100)
-                    total_time = time.time() - start_time
-                    status_text.text(f"✅ Precision prediction completed in "
-                                      f"{total_time:.1f}s!")
-
-                    # Clear progress indicators after short delay
-                    time.sleep(1)
-                    progress_bar.empty()
-                    status_text.empty()
-
-                    # Display results
-                    display_prediction_results(prediction_result, product_size, sale_year,
-                                               "Precision Price Tool (User Selected)")
-                    return
-
-                # User chose Enhanced ML Model - proceed with ML prediction logic
+                # Proceed with ML prediction logic
                 # Step 1: Model validation
                 status_text.text("🔍 Validating ML model...")
                 progress_bar.progress(10)
@@ -2450,26 +2409,13 @@ def interactive_prediction_body():
                     progress_bar.empty()
                     status_text.empty()
 
-                    # Display comprehensive fallback notification for model unavailability
-                    display_fallback_notification(
+                    # Show diagnostic report instead of fallback
+                    diagnostic_context = {'model_info': external_model_loader.get_model_info() if external_model_loader else {}}
+                    display_diagnostic_error(
                         reason="Enhanced ML Model Unavailable",
-                        details="The Enhanced ML Model could not be loaded successfully. This may be due to external model loading failures, network connectivity issues, or system resource constraints.",
-                        technical_cause="Model file not found, corrupted, or failed to load from external storage",
-                        user_action="Refresh the page to retry loading the Enhanced ML Model from external storage, or continue with the statistical prediction below."
+                        error=RuntimeError("Model is None or failed to load"),
+                        context=diagnostic_context
                     )
-
-                    # Fall back to precision prediction
-                    prediction_result = make_prediction_precision(
-                        selected_year_made, selected_model_id, product_size, state, enclosure,
-                        fi_base_model, coupler_system, tire_size, hydraulics_flow,
-                        grouser_tracks, hydraulics, sale_year, sale_day_of_year
-                    )
-
-                    # Add fallback method indicator to result
-                    prediction_result['fallback_reason'] = "Enhanced ML Model Unavailable"
-                    prediction_result['method'] = 'Statistical Prediction (Fallback)'
-
-                    display_prediction_results(prediction_result, product_size, sale_year, "Statistical Prediction")
                     return
 
                 # Step 2: Memory optimization
@@ -2487,20 +2433,15 @@ def interactive_prediction_body():
                     progress_bar.empty()
                     status_text.empty()
 
-                    # Display comprehensive fallback notification
-                    display_fallback_notification(
+                    # Show diagnostic (no statistical fallback)
+                    diagnostic_context = {'model_info': external_model_loader.get_model_info() if external_model_loader else {}}
+                    display_diagnostic_error(
                         reason="Prediction Setup Timeout",
-                        details="The ML model setup process exceeded 8 seconds, likely due to system resource constraints or complex preprocessing requirements.",
-                        technical_cause="Model initialization or preprocessing pipeline timeout",
-                        user_action="Refresh the page to retry ML model loading, or continue with the statistical prediction below."
+                        error=TimeoutError("Setup exceeded 8 seconds"),
+                        context=diagnostic_context
                     )
 
-                    # Fall back to precision prediction
-                    prediction_result = make_prediction_precision(
-                        selected_year_made, selected_model_id, product_size, state, enclosure,
-                        fi_base_model, coupler_system, tire_size, hydraulics_flow,
-                        grouser_tracks, hydraulics, sale_year, sale_day_of_year
-                    )
+                    return
 
                     # Add fallback method indicator to result
                     prediction_result['fallback_reason'] = "Prediction Setup Timeout"
@@ -2563,25 +2504,12 @@ def interactive_prediction_body():
                     # ML prediction failed completely - display comprehensive fallback notification
                     error_details = prediction_result.get('error', 'Unknown error')
 
-                    display_fallback_notification(
+                    diagnostic_context = {'model_info': external_model_loader.get_model_info() if external_model_loader else {}, 'technical_cause': f'ML prediction processing error: {error_details}'}
+                    display_diagnostic_error(
                         reason="ML Prediction Processing Failed",
-                        details=f"The Enhanced ML Model encountered an error during prediction processing: {error_details}. This may be due to invalid input data combinations, model processing errors, or data preprocessing issues.",
-                        technical_cause=f"ML prediction processing error: {error_details}",
-                        user_action="Check your input values for accuracy, try different input combinations, or refresh the page to retry. If this issue persists, continue with the statistical prediction below."
+                        error=RuntimeError(error_details),
+                        context=diagnostic_context
                     )
-
-                    # Fall back to precision prediction as last resort
-                    fallback_result = make_prediction_precision(
-                        selected_year_made, selected_model_id, product_size, state, enclosure,
-                        fi_base_model, coupler_system, tire_size, hydraulics_flow,
-                        grouser_tracks, hydraulics, sale_year, sale_day_of_year
-                    )
-
-                    # Add fallback method indicator to result
-                    fallback_result['fallback_reason'] = f"ML Prediction Processing Failed: {error_details}"
-                    fallback_result['method'] = 'Statistical Prediction (Fallback)'
-
-                    display_prediction_results(fallback_result, product_size, sale_year, "Statistical Prediction")
 
             except Exception as e:
                 st.error(f"❌ **System Error During Prediction**")
@@ -2724,65 +2652,104 @@ def make_prediction_basic_statistical(year_made, product_size, state, sale_year=
         }
 
 
+
+
+def display_diagnostic_error(reason: str, error: Exception | str, context: dict | None = None):
+    """
+    Show a comprehensive, copyable diagnostic report when the Enhanced ML Model
+    fails to load or predict. No statistical fallback is used.
+    """
+    import traceback as _tb
+    import os as _os
+    from datetime import datetime as _dt
+
+    # Error basics
+    err_type = type(error).__name__ if isinstance(error, Exception) else "Error"
+    err_msg = str(error)
+
+    # Memory usage (best-effort)
+    mem_info = "unknown"
+    try:
+        import psutil  # optional
+        p = psutil.Process()
+        rss_mb = p.memory_info().rss / (1024 * 1024)
+        mem_info = f"RSS={rss_mb:.0f}MB"
+    except Exception:
+        mem_info = "psutil not available"
+
+    # Environment detection
+    is_heroku = 'DYNO' in _os.environ or 'HEROKU_APP_NAME' in _os.environ
+    is_render = any(k.startswith('RENDER') for k in _os.environ.keys()) or ('RENDER' in _os.environ)
+
+    # Model info
+    model_info_text = ""
+    try:
+        if context and 'model_info' in context and isinstance(context['model_info'], dict):
+            mi = context['model_info']
+            model_info_text = (
+                f"Source: {mi.get('model_source','unknown')}\n"
+                f"File ID: {mi.get('model_file_id','unknown')}\n"
+                f"Expected Size: {mi.get('expected_size','unknown')}\n"
+                f"Download Timeout: {mi.get('download_timeout','n/a')}s\n"
+                f"Load Timeout: {mi.get('load_timeout','n/a')}s\n"
+                f"Cache: {mi.get('cache_status','n/a')}\n"
+            )
+    except Exception:
+        pass
+
+    # Stack trace (best-effort)
+    stack = _tb.format_exc()
+
+    # Timestamp & session
+    ts = _dt.utcnow().isoformat() + "Z"
+    try:
+        session_keys = list(st.session_state.keys())
+    except Exception:
+        session_keys = []
+
+    # Compose copyable diagnostic block
+    report = (
+        "=== BulldozerPriceGenius Diagnostic Report ===\n"
+        f"Timestamp (UTC): {ts}\n\n"
+        "[1] Error\n"
+        f"Type: {err_type}\n"
+        f"Message: {err_msg}\n\n"
+        "[2] Environment\n"
+        f"Platform: {'Render' if is_render else ('Heroku' if is_heroku else 'Other')}\n"
+        f"Heroku Detected: {is_heroku}\n"
+        f"Render Detected: {is_render}\n"
+        f"Python Version: {sys.version}\n\n"
+        "[3] Memory\n"
+        f"Process Memory: {mem_info}\n\n"
+        "[4] Model\n"
+        f"Status: {reason}\n"
+        f"{model_info_text if model_info_text else ''}"
+        f"GOOGLE_DRIVE_MODEL_ID: {os.getenv('GOOGLE_DRIVE_MODEL_ID','<not set>')}\n\n"
+        "[5] Session\n"
+        f"Session Keys: {', '.join(session_keys) if session_keys else 'none'}\n\n"
+        "[6] Stack Trace\n"
+        f"{stack if stack and 'Traceback' in stack else 'No traceback available'}\n"
+        "==============================================\n"
+    )
+
+    st.error("❌ Enhanced ML Model Error — diagnostics below (copy/paste into Augment)")
+    st.code(report, language="text")
+
 def display_fallback_notification(reason, details, technical_cause, user_action):
     """
-    Display a comprehensive notification when fallback prediction is used instead of Enhanced ML Model.
-
-    Args:
-        reason: Short description of why fallback is being used
-        details: Detailed explanation of the issue
-        technical_cause: Technical reason for the fallback
-        user_action: Actionable guidance for the user
+    This function has been deprecated in single-model mode.
     """
-    st.warning("⚠️ **Using Statistical Prediction Instead of Enhanced ML Model**")
-
-    with get_expander("📋 **Why is the Enhanced ML Model not being used?**", expanded=True):
-        st.markdown(f"""
-        **Reason:** {reason}
-
-        **Details:** {details}
-
-        **Technical Cause:** {technical_cause}
-        """)
-
-        st.info(f"""
-        **📊 Prediction Accuracy Comparison:**
-        - **Enhanced ML Model:** 85-90% accuracy (preferred method)
-        - **Statistical Prediction:** 75-80% accuracy (current method)
-
-        **💡 What you can do:**
-        {user_action}
-        """)
-
-        st.markdown("""
-        **🔍 About the Statistical Prediction System:**
-        The fallback system uses advanced statistical modeling, market analysis, and depreciation curves
-        to provide accurate bulldozer price predictions. While not as precise as the Enhanced ML Model,
-        it still delivers reliable estimates based on:
-        - Historical market data and trends
-        - Equipment depreciation curves by age and size
-        - Regional market adjustments
-        - Feature-based value calculations
-        - Premium equipment recognition
-        """)
+    pass
 
 
 def make_prediction_precision(year_made, model_id, product_size, state, enclosure,
                              fi_base_model, coupler_system, tire_size, hydraulics_flow,
                              grouser_tracks, hydraulics, sale_year, sale_day_of_year):
     """
-    Enhanced Intelligent Precision Price Tool System
-
-    This system uses advanced statistical modeling, market analysis, and depreciation curves
-    to provide accurate bulldozer price predictions when the ML model is unavailable.
-
-    Features:
-    - Multi-factor depreciation modeling
-    - Regional market adjustments
-    - Equipment specification scoring
-    - Economic cycle considerations
-    - Confidence interval calculations
+    Deprecated: Precision Price Tool removed. Use Enhanced ML Model only.
     """
+    raise RuntimeError("Precision Price Tool is disabled in single-model mode")
+
     try:
         # CRITICAL FIX: Enhanced scenario detection for comprehensive calibration
         # Test Scenario 1: 1994 D8 with premium specifications should target $140K-$230K range
@@ -4236,65 +4203,55 @@ def make_prediction_with_timeout(model, year_made, model_id, product_size, state
                 return result
 
             except FuturesTimeoutError:
-                # Timeout occurred - display comprehensive fallback notification
-                display_fallback_notification(
-                    reason="ML Prediction Timeout",
-                    details=f"The Enhanced ML Model prediction process exceeded the {timeout_seconds}-second timeout limit. This can occur due to complex data preprocessing, model computation complexity, or system resource constraints on cloud platforms like Heroku.",
-                    technical_cause=f"ML prediction process timeout after {timeout_seconds} seconds",
-                    user_action="Refresh the page to retry the Enhanced ML Model, or continue with the statistical prediction below which provides faster results."
+                # Timeout occurred — show diagnostic and stop (no statistical fallback)
+                diagnostic_context = {'model_info': getattr(external_model_loader, 'get_model_info', lambda: {})()}
+                display_diagnostic_error(
+                    reason=f"ML Prediction Timeout after {timeout_seconds}s",
+                    error=FuturesTimeoutError(f"Prediction exceeded {timeout_seconds} seconds"),
+                    context=diagnostic_context
                 )
 
-                result = make_prediction_precision(
-                    year_made, model_id, product_size, state, enclosure,
-                    fi_base_model, coupler_system, tire_size, hydraulics_flow,
-                    grouser_tracks, hydraulics, sale_year, sale_day_of_year
-                )
-
-                # Add fallback method indicator to result
-                result['fallback_reason'] = f"ML Prediction Timeout ({timeout_seconds}s)"
-                result['method'] = 'Statistical Prediction (Fallback)'
+                result = {
+                    'predicted_price': 0,
+                    'confidence': 0,
+                    'method': 'Enhanced ML Model (Timeout)',
+                    'error': f'Prediction exceeded {timeout_seconds} seconds'
+                }
 
                 return result
 
     except Exception as e:
-        # Any other error - display comprehensive fallback notification
+        # Any other error — show diagnostic and stop (no statistical fallback)
         error_details = str(e)
 
-        # Categorize the error for better user understanding
+        # Categorize (for diagnostics context only)
         if "memory" in error_details.lower() or "memoryerror" in error_details.lower():
             technical_cause = "Insufficient system memory for ML model processing"
-            details = "The Enhanced ML Model requires more memory than currently available. This is common on cloud platforms with limited resources."
         elif "timeout" in error_details.lower():
             technical_cause = "ML model processing timeout"
-            details = "The Enhanced ML Model processing took longer than expected, possibly due to system load or complex calculations."
         elif "preprocessing" in error_details.lower():
             technical_cause = "Data preprocessing pipeline error"
-            details = "An error occurred while preparing the input data for the Enhanced ML Model. This may be due to unexpected data formats or missing preprocessing components."
         elif "model" in error_details.lower() and ("load" in error_details.lower() or "file" in error_details.lower()):
             technical_cause = "ML model file loading error"
-            details = "The Enhanced ML Model file could not be loaded properly. This may be due to file corruption, missing files, or incompatible model formats."
         else:
             technical_cause = f"ML prediction system error: {error_details}"
-            details = "An unexpected error occurred in the Enhanced ML Model prediction system. The system will use statistical prediction as a reliable alternative."
 
-        display_fallback_notification(
+        diagnostic_context = {
+            'model_info': getattr(external_model_loader, 'get_model_info', lambda: {})(),
+            'technical_cause': technical_cause
+        }
+        display_diagnostic_error(
             reason="ML Prediction System Error",
-            details=details,
-            technical_cause=technical_cause,
-            user_action="Refresh the page to retry the Enhanced ML Model, or continue with the statistical prediction below. If this issue persists, please contact support."
+            error=e,
+            context=diagnostic_context
         )
 
-        result = make_prediction_precision(
-            year_made, model_id, product_size, state, enclosure,
-            fi_base_model, coupler_system, tire_size, hydraulics_flow,
-            grouser_tracks, hydraulics, sale_year, sale_day_of_year
-        )
-
-        # Add fallback method indicator to result
-        result['fallback_reason'] = f"ML Prediction Error: {error_details}"
-        result['method'] = 'Statistical Prediction (Fallback)'
-
-        return result
+        return {
+            'predicted_price': 0,
+            'confidence': 0,
+            'method': 'Enhanced ML Model (Error)',
+            'error': error_details
+        }
 
 
 def make_prediction(model, year_made, model_id, product_size, state, enclosure,
@@ -4378,13 +4335,20 @@ def make_prediction(model, year_made, model_id, product_size, state, enclosure,
         # This ensures the emergency price ceiling and multiplier fixes are applied
         raise FuturesTimeoutError("Test Scenario 7: Enhanced ML Model forced timeout to apply emergency fixes")
 
-    # If model is None or doesn't have predict method, use fallback
+    # If model is None or doesn't have predict method, show diagnostic and stop
     if model is None or not hasattr(model, 'predict'):
-        result = make_prediction_precision(
-            year_made, model_id, product_size, state, enclosure,
-            fi_base_model, coupler_system, tire_size, hydraulics_flow,
-            grouser_tracks, hydraulics, sale_year, sale_day_of_year
+        diagnostic_context = {'model_info': getattr(external_model_loader, 'get_model_info', lambda: {})()}
+        display_diagnostic_error(
+            reason="Model not loaded or invalid (no predict method)",
+            error=RuntimeError("Model object is None or lacks predict()"),
+            context=diagnostic_context
         )
+        return {
+            'predicted_price': 0,
+            'confidence': 0,
+            'method': 'Enhanced ML Model (Unavailable)',
+            'error': 'Model object invalid or missing predict()'
+        }
 
         # Add fallback method indicator to result
         if model is None:
@@ -5102,18 +5066,21 @@ def make_prediction(model, year_made, model_id, product_size, state, enclosure,
         }
 
     except Exception as e:
-        # If model prediction fails, fall back to statistical estimation
-        result = make_prediction_precision(
-            year_made, model_id, product_size, state, enclosure,
-            fi_base_model, coupler_system, tire_size, hydraulics_flow,
-            grouser_tracks, hydraulics, sale_year, sale_day_of_year
+        # Prediction failure — show diagnostic and stop (no statistical fallback)
+        diagnostic_context = {
+            'model_info': getattr(external_model_loader, 'get_model_info', lambda: {})()
+        }
+        display_diagnostic_error(
+            reason="Enhanced ML Model Prediction Exception",
+            error=e,
+            context=diagnostic_context
         )
-
-        # Add fallback method indicator to result
-        result['fallback_reason'] = f"ML Prediction Exception: {str(e)}"
-        result['method'] = 'Statistical Prediction (Fallback)'
-
-        return result
+        return {
+            'predicted_price': 0,
+            'confidence': 0,
+            'method': 'Enhanced ML Model (Exception)',
+            'error': str(e)
+        }
 
 
 def calculate_size_based_multiplier(product_size, fi_base_model, age):
