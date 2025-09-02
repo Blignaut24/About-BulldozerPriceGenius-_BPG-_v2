@@ -4503,7 +4503,6 @@ def make_prediction(model, year_made, model_id, product_size, state, enclosure,
                 imputer = preprocessing_data['imputer']
             else:
                 # Fallback: try to load from local file system
-                import os
                 preprocessing_path = "src/models/preprocessing_components.pkl"
 
                 # Check if file exists first
