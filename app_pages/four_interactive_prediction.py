@@ -2740,7 +2740,7 @@ def display_diagnostic_error(reason: str, error: Exception | str, context: dict 
         "==============================================\n"
     )
 
-    st.error("❌ Enhanced ML Model Error — diagnostics below (copy/paste into Augment)")
+    st.error("❌ Enhanced ML Model Error — diagnostics below")
     st.code(report, language="text")
 
 def display_fallback_notification(reason, details, technical_cause, user_action):
