@@ -47,20 +47,36 @@ except Exception as e:
     st.error("**Full Error Details:**")
     st.code(traceback.format_exc())
 
-    # Show environment info for debugging
-    st.error("**Environment Information:**")
-    st.write(f"Python version: {sys.version}")
-    st.write(f"Current working directory: {os.getcwd()}")
-    st.write(f"Python path: {sys.path}")
+    # Show environment info for debugging (guarded in production)
+    is_production = os.getenv('STREAMLIT_ENV', '').lower() == 'production'
+    if not is_production:
+        st.error("**Environment Information:**")
+        st.write(f"Python version: {sys.version}")
+        st.write(f"Current working directory: {os.getcwd()}")
+        st.write(f"Python path: {sys.path}")
 
-    # Show available files for debugging
-    st.error("**Available Files:**")
-    try:
-        import os
-        files = []
-        for root, dirs, filenames in os.walk('.'):
-            for filename in filenames:
-                files.append(os.path.join(root, filename))
-        st.write(files[:20])  # Show first 20 files
-    except Exception as file_error:
-        st.write(f"Could not list files: {file_error}")
+        # Show available files for debugging
+        st.error("**Available Files:**")
+        try:
+            import os
+            files = []
+            for root, dirs, filenames in os.walk('.'):
+                for filename in filenames:
+                    files.append(os.path.join(root, filename))
+            st.write(files[:20])  # Show first 20 files
+        except Exception as file_error:
+            st.write(f"Could not list files: {file_error}")
+    else:
+        with st.expander("🔧 Developer Diagnostics", expanded=False):
+            try:
+                st.write(f"Python version: {sys.version}")
+                st.write(f"Current working directory: {os.getcwd()}")
+                st.write(f"Python path: {sys.path}")
+                import os
+                files = []
+                for root, dirs, filenames in os.walk('.'):
+                    for filename in filenames:
+                        files.append(os.path.join(root, filename))
+                st.write(files[:20])
+            except Exception as file_error:
+                st.write(f"Could not list files: {file_error}")

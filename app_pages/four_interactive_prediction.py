@@ -11,6 +11,23 @@ from concurrent.futures import ThreadPoolExecutor, TimeoutError as FuturesTimeou
 from datetime import datetime, date
 warnings.filterwarnings('ignore')
 
+# Utility: mask potentially sensitive IDs for display
+_def_mask_placeholder = object()
+
+def _mask_id(val):
+    try:
+        if val is None:
+            return '<not set>'
+        s = str(val)
+        if not s:
+            return '<not set>'
+        if len(s) <= 10:
+            return s
+        return f"{s[:6]}...{s[-4:]}"
+    except Exception:
+        return '<not set>'
+
+
 # Import JavaScript error fix
 sys.path.append(os.path.dirname(__file__))
 try:
@@ -698,6 +715,17 @@ def interactive_prediction_body():
     if user_prefers_statistical:
         pass  # Precision Price Tool removed
     else:
+
+    # Helper to mask model IDs (first 6, last 4)
+    def _mask_id(val):
+        try:
+            s = str(val) if val is not None else ''
+            if len(s) <= 10:
+                return s if s else '<not set>'
+            return f"{s[:6]}...{s[-4:]}"
+        except Exception:
+            return '<not set>'
+
         st.info("🤖 **Enhanced ML Model selected** - You'll get maximum accuracy predictions using advanced machine learning.")
         prediction_approach = "🤖 Advanced ML Model (User Selected)"
 
@@ -718,7 +746,7 @@ def interactive_prediction_body():
             with col2:
                 if model_info['model_file_id'] != "YOUR_GOOGLE_DRIVE_FILE_ID_HERE":
                     st.success("✅ Model configured")
-                    st.code(f"File ID: {model_info['model_file_id'][:20]}...")
+                    st.code(f"File ID: {_mask_id(model_info['model_file_id'])}")
                 else:
                     st.error("❌ Model not configured")
                     st.info("Set GOOGLE_DRIVE_MODEL_ID environment variable")
@@ -2688,7 +2716,7 @@ def display_diagnostic_error(reason: str, error: Exception | str, context: dict 
             mi = context['model_info']
             model_info_text = (
                 f"Source: {mi.get('model_source','unknown')}\n"
-                f"File ID: {mi.get('model_file_id','unknown')}\n"
+                f"File ID: {_mask_id(mi.get('model_file_id','unknown'))}\n"
                 f"Expected Size: {mi.get('expected_size','unknown')}\n"
                 f"Download Timeout: {mi.get('download_timeout','n/a')}s\n"
                 f"Load Timeout: {mi.get('load_timeout','n/a')}s\n"
@@ -2724,7 +2752,7 @@ def display_diagnostic_error(reason: str, error: Exception | str, context: dict 
         "[4] Model\n"
         f"Status: {reason}\n"
         f"{model_info_text if model_info_text else ''}"
-        f"GOOGLE_DRIVE_MODEL_ID: {os.getenv('GOOGLE_DRIVE_MODEL_ID','<not set>')}\n\n"
+        f"GOOGLE_DRIVE_MODEL_ID: {_mask_id(os.getenv('GOOGLE_DRIVE_MODEL_ID',''))}\n\n"
         "[5] Session\n"
         f"Session Keys: {', '.join(session_keys) if session_keys else 'none'}\n\n"
         "[6] Stack Trace\n"
