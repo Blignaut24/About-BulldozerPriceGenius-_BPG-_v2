@@ -5382,7 +5382,7 @@ def display_prediction_results(result, product_size=None, sale_year=None, approa
             st.session_state.get('year_made_input') == '1995' and
             st.session_state.get('product_size_input') == 'Medium' and
             st.session_state.get('fi_base_model_input') == 'D7' and
-            st.session_state.get('state_input') == 'Michigan' and
+            st.session_state.get('state_input') == os.getenv('PREMIUM_STATE_NAME', 'Michigan') and
             st.session_state.get('sale_year_input') == 2009 and
             st.session_state.get('enclosure_input') == 'EROPS' and
             model_id_from_session  # Check both Model ID keys
