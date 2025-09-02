@@ -709,25 +709,8 @@ def interactive_prediction_body():
         """)
 
     # Prediction method selection removed — Enhanced ML Model is always used
-    user_prefers_statistical = False
-
-    # Display selected method information
-    if user_prefers_statistical:
-        pass  # Precision Price Tool removed
-    else:
-
-    # Helper to mask model IDs (first 6, last 4)
-    def _mask_id(val):
-        try:
-            s = str(val) if val is not None else ''
-            if len(s) <= 10:
-                return s if s else '<not set>'
-            return f"{s[:6]}...{s[-4:]}"
-        except Exception:
-            return '<not set>'
-
-        st.info("🤖 **Enhanced ML Model selected** - You'll get maximum accuracy predictions using advanced machine learning.")
-        prediction_approach = "🤖 Advanced ML Model (User Selected)"
+    prediction_approach = "🤖 Enhanced ML Model"
+    st.info("🤖 Enhanced ML Model selected — maximum accuracy predictions using advanced ML.")
 
     # External Model Status and Management
     if EXTERNAL_MODEL_AVAILABLE and external_model_loader:
@@ -2423,11 +2406,7 @@ def interactive_prediction_body():
                 import time
                 start_time = time.time()
 
-                # Check if user selected Precision Price Tool directly
-                if user_prefers_statistical:
-                    # Precision Price Tool removed — always proceed with Enhanced ML Model
-
-                # Proceed with ML prediction logic
+                # Proceed with ML prediction logic (single-model mode)
                 # Step 1: Model validation
                 status_text.text("🔍 Validating ML model...")
                 progress_bar.progress(10)
