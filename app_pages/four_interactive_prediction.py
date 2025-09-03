@@ -1259,7 +1259,7 @@ def interactive_prediction_body():
         with col_r2:
             if st.button("🔧 Test 9\nAdvanced\n(2014 D8)", key="fill_test9"):
                 st.session_state.update({
-                    'year_made_input': '2014', 'product_size_input': 'Large', 'state_input': 'Colorado',
+                    'year_made_input': '2014', 'product_size_input': 'Large/Medium', 'state_input': 'Colorado',
                     'model_id_input': 4800, 'model_id_input_fallback': 4800, 'enclosure_input': 'EROPS w AC', 'fi_base_model_input': 'D8',
                     'coupler_system_input': 'Hydraulic', 'tire_size_input': '26.5R25', 'hydraulics_flow_input': 'High Flow',
                     'grouser_tracks_input': 'Triple', 'hydraulics_input': '4 Valve', 'sale_year_input': 2015, 'sale_day_of_year_input': 150
