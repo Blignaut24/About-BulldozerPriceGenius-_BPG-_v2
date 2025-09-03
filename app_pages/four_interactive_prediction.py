@@ -2418,7 +2418,17 @@ def interactive_prediction_body():
                     status_text.empty()
 
                     # Show diagnostic report instead of fallback
-                    diagnostic_context = {'model_info': external_model_loader.get_model_info() if external_model_loader else {}}
+                    diagnostic_context = {
+                        'model_info': external_model_loader.get_model_info() if external_model_loader else {},
+                        'technical_cause': 'ML model object is None - model loading failed during initialization',
+                        'prediction_method': 'Enhanced ML Model',
+                        'user_inputs': {
+                            'year_made': selected_year_made,
+                            'product_size': product_size,
+                            'state': state,
+                            'model_id': selected_model_id
+                        }
+                    }
                     display_diagnostic_error(
                         reason="Enhanced ML Model Unavailable",
                         error=RuntimeError("Model is None or failed to load"),
@@ -2442,7 +2452,22 @@ def interactive_prediction_body():
                     status_text.empty()
 
                     # Show diagnostic (no statistical fallback)
-                    diagnostic_context = {'model_info': external_model_loader.get_model_info() if external_model_loader else {}}
+                    diagnostic_context = {
+                        'model_info': external_model_loader.get_model_info() if external_model_loader else {},
+                        'technical_cause': 'Prediction setup phase exceeded 8 second timeout limit',
+                        'prediction_method': 'Enhanced ML Model',
+                        'timeout_details': {
+                            'setup_timeout': '8 seconds',
+                            'elapsed_time': f'{time.time() - start_time:.1f} seconds',
+                            'stage': 'Data preprocessing and validation'
+                        },
+                        'user_inputs': {
+                            'year_made': selected_year_made,
+                            'product_size': product_size,
+                            'state': state,
+                            'model_id': selected_model_id
+                        }
+                    }
                     display_diagnostic_error(
                         reason="Prediction Setup Timeout",
                         error=TimeoutError("Setup exceeded 8 seconds"),
@@ -2498,21 +2523,61 @@ def interactive_prediction_body():
                 progress_bar.empty()
                 status_text.empty()
 
-                if prediction_result['success']:
-                    # Check if this is a fallback result and display appropriate method
-                    if 'fallback_reason' in prediction_result:
-                        display_prediction_results(prediction_result, product_size, sale_year, prediction_result['method'])
-                    else:
-                        display_prediction_results(prediction_result, product_size, sale_year, prediction_approach)
+                # Check if prediction was successful
+                if prediction_result.get('success', False):
+                    try:
+                        # Display successful prediction results
+                        if 'fallback_reason' in prediction_result:
+                            display_prediction_results(prediction_result, product_size, sale_year, prediction_result['method'])
+                        else:
+                            display_prediction_results(prediction_result, product_size, sale_year, prediction_approach)
+
+                        # Show success notification for user confidence
+                        prediction_method = prediction_result.get('method', 'ML Model')
+                        confidence_level = prediction_result.get('confidence_level', 0.85)
+                        confidence_pct = int(confidence_level * 100) if confidence_level <= 1.0 else int(confidence_level)
+
+                        st.success(f"""
+✅ **Prediction completed successfully!**
+
+🎯 **Method**: {prediction_method}
+📊 **Confidence**: {confidence_pct}%
+💰 **Price**: ${prediction_result.get('predicted_price', 0):,.2f}
+
+Your bulldozer price estimate has been generated and is ready for review below.
+                        """)
+
+                    except Exception as display_error:
+                        # If there's an error displaying successful results, show a user-friendly message
+                        st.error("❌ **Display Error**: Prediction was successful but there was an issue showing the results.")
+                        st.error(f"Technical details: {str(display_error)}")
+                        st.info("💡 **What you can do:**")
+                        st.info("• Try clicking the prediction button again")
+                        st.info("• Refresh the page if the problem persists")
+
                 else:
                     # Clear progress indicators
                     progress_bar.empty()
                     status_text.empty()
 
-                    # ML prediction failed completely - display comprehensive fallback notification
+                    # ML prediction failed completely - display comprehensive diagnostic
                     error_details = prediction_result.get('error', 'Unknown error')
 
-                    diagnostic_context = {'model_info': external_model_loader.get_model_info() if external_model_loader else {}, 'technical_cause': f'ML prediction processing error: {error_details}'}
+                    diagnostic_context = {
+                        'model_info': external_model_loader.get_model_info() if external_model_loader else {},
+                        'technical_cause': f'ML prediction processing error: {error_details}',
+                        'prediction_method': prediction_result.get('method', 'Enhanced ML Model'),
+                        'prediction_result': prediction_result,
+                        'user_inputs': {
+                            'year_made': selected_year_made,
+                            'product_size': product_size,
+                            'state': state,
+                            'model_id': selected_model_id,
+                            'enclosure': enclosure,
+                            'fi_base_model': fi_base_model,
+                            'sale_year': sale_year
+                        }
+                    }
                     display_diagnostic_error(
                         reason="ML Prediction Processing Failed",
                         error=RuntimeError(error_details),
@@ -2520,12 +2585,26 @@ def interactive_prediction_body():
                     )
 
             except Exception as e:
-                st.error(f"❌ **System Error During Prediction**")
-                st.error(f"Technical details: {str(e)}")
-                st.info("💡 **What you can do:**")
-                st.info("• Refresh the page and try again")
-                st.info("• Check your input values")
-                st.info("• Contact support if the problem persists")
+                # This should only catch errors in the prediction process itself, not display errors
+                # Use the enhanced diagnostic system for better error analysis
+                diagnostic_context = {
+                    'model_info': external_model_loader.get_model_info() if external_model_loader else {},
+                    'technical_cause': f'Unexpected system error during prediction process: {str(e)}',
+                    'prediction_method': 'Enhanced ML Model',
+                    'error_stage': 'Prediction Process Execution',
+                    'user_inputs': {
+                        'year_made': selected_year_made,
+                        'product_size': product_size,
+                        'state': state,
+                        'model_id': selected_model_id
+                    }
+                }
+
+                display_diagnostic_error(
+                    reason="System Error During Prediction Process",
+                    error=e,
+                    context=diagnostic_context
+                )
 
                 # Clear progress indicators on error
                 try:
@@ -2664,21 +2743,381 @@ def make_prediction_basic_statistical(year_made, product_size, state, sale_year=
 
 def display_diagnostic_error(reason: str, error: Exception | str, context: dict | None = None):
     """
-    Show a comprehensive, copyable diagnostic report when the Enhanced ML Model
-    fails to load or predict. No statistical fallback is used.
+    Show a comprehensive diagnostic error display system with detailed analysis,
+    problem location identification, and actionable troubleshooting information.
     """
     import traceback as _tb
     import os as _os
     from datetime import datetime as _dt
 
+    # Get dark theme colors for consistent styling
+    colors = get_dark_theme_colors()
+
     # Error basics
     err_type = type(error).__name__ if isinstance(error, Exception) else "Error"
     err_msg = str(error)
 
-    # Memory usage (best-effort)
+    # Analyze error stage and root cause
+    error_analysis = _analyze_prediction_error(reason, err_type, err_msg, context)
+
+    # Display main error header with dark theme styling
+    st.markdown(f"""
+    <div style="background: linear-gradient(90deg, {colors['error_bg']} 0%, #7f1d1d 100%);
+                border-left: 5px solid {colors['accent_red']};
+                padding: 20px;
+                border-radius: 10px;
+                margin: 15px 0;
+                border: 1px solid {colors['border_color']};
+                box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);">
+        <h2 style="color: {colors['accent_red']}; margin: 0 0 10px 0; font-size: 24px;">
+            🚨 Prediction System Diagnostic Report
+        </h2>
+        <p style="color: {colors['error_text']}; margin: 0; font-size: 16px; font-weight: 500;">
+            <strong>Issue:</strong> {error_analysis['user_friendly_title']}<br>
+            <strong>Stage:</strong> {error_analysis['failure_stage']}<br>
+            <strong>Impact:</strong> Prediction cannot be completed at this time
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    # Create tabbed interface for organized information
+    tab1, tab2, tab3, tab4 = st.tabs([
+        "🔍 Problem Analysis",
+        "🛠️ Troubleshooting",
+        "📊 Technical Details",
+        "📋 Full Diagnostic Report"
+    ])
+
+    with tab1:
+        _display_problem_analysis(error_analysis, colors)
+
+    with tab2:
+        _display_troubleshooting_guide(error_analysis, colors)
+
+    with tab3:
+        _display_technical_details(reason, error, context, colors)
+
+    with tab4:
+        _display_full_diagnostic_report(reason, error, context, error_analysis)
+
+
+def _analyze_prediction_error(reason: str, err_type: str, err_msg: str, context: dict | None = None) -> dict:
+    """
+    Analyze the prediction error to determine the failure stage, root cause, and appropriate guidance.
+    """
+    error_analysis = {
+        'failure_stage': 'Unknown',
+        'root_cause': 'Unspecified error',
+        'user_friendly_title': 'Prediction System Error',
+        'severity': 'High',
+        'category': 'System Error',
+        'actionable_steps': [],
+        'technical_cause': err_msg,
+        'recovery_possible': True
+    }
+
+    # Analyze based on reason (failure stage)
+    if "Model Unavailable" in reason or "not loaded" in reason:
+        error_analysis.update({
+            'failure_stage': 'Model Loading Phase',
+            'root_cause': 'ML model could not be loaded or accessed',
+            'user_friendly_title': 'Machine Learning Model Unavailable',
+            'category': 'Model Loading Error',
+            'actionable_steps': [
+                'Check internet connection for external model access',
+                'Verify model configuration settings',
+                'Try refreshing the page to reload the model',
+                'Contact support if the issue persists'
+            ]
+        })
+    elif "Timeout" in reason:
+        timeout_stage = "Setup" if "Setup" in reason else "Prediction"
+        error_analysis.update({
+            'failure_stage': f'{timeout_stage} Timeout',
+            'root_cause': f'{timeout_stage} process exceeded time limits',
+            'user_friendly_title': f'{timeout_stage} Process Timeout',
+            'category': 'Performance Issue',
+            'actionable_steps': [
+                'Try again - timeouts can be temporary',
+                'Simplify input configuration if possible',
+                'Check internet connection stability',
+                'Consider using fewer optional fields to speed up processing'
+            ]
+        })
+    elif "Processing Failed" in reason:
+        error_analysis.update({
+            'failure_stage': 'Prediction Execution',
+            'root_cause': 'Error during ML model prediction calculation',
+            'user_friendly_title': 'Prediction Calculation Failed',
+            'category': 'Processing Error',
+            'actionable_steps': [
+                'Verify all input values are valid',
+                'Check for unusual input combinations',
+                'Try different input values',
+                'Refresh the page and try again'
+            ]
+        })
+    elif "Exception" in reason:
+        error_analysis.update({
+            'failure_stage': 'Prediction Execution',
+            'root_cause': 'Unexpected error during prediction process',
+            'user_friendly_title': 'Unexpected System Error',
+            'category': 'System Exception',
+            'actionable_steps': [
+                'Refresh the page and try again',
+                'Check all input values for validity',
+                'Try a simpler configuration first',
+                'Report this error if it continues to occur'
+            ]
+        })
+
+    # Analyze based on error type and message
+    if "memory" in err_msg.lower() or err_type == "MemoryError":
+        error_analysis.update({
+            'root_cause': 'Insufficient system memory for ML processing',
+            'category': 'Resource Limitation',
+            'actionable_steps': [
+                'Try again - memory may be temporarily unavailable',
+                'Use fewer optional input fields',
+                'Refresh the page to clear memory',
+                'Contact support if memory errors persist'
+            ]
+        })
+    elif "timeout" in err_msg.lower() or err_type == "TimeoutError":
+        error_analysis.update({
+            'root_cause': 'Operation exceeded maximum allowed time',
+            'category': 'Performance Issue'
+        })
+    elif "file" in err_msg.lower() or "not found" in err_msg.lower():
+        error_analysis.update({
+            'root_cause': 'Required model files are missing or inaccessible',
+            'category': 'File Access Error',
+            'actionable_steps': [
+                'Check internet connection for external model access',
+                'Try refreshing the page',
+                'Verify system configuration',
+                'Contact support for model availability issues'
+            ]
+        })
+    elif "configuration" in err_msg.lower() or "invalid" in err_msg.lower():
+        error_analysis.update({
+            'root_cause': 'Invalid input configuration detected',
+            'category': 'Input Validation Error',
+            'severity': 'Medium',
+            'actionable_steps': [
+                'Review all input values for correctness',
+                'Use the Quick Fill buttons for validated configurations',
+                'Check that Year Made is not after Sale Year',
+                'Ensure all required fields are properly filled'
+            ]
+        })
+
+    return error_analysis
+
+
+def _display_problem_analysis(error_analysis: dict, colors: dict):
+    """Display detailed problem analysis with visual indicators."""
+    st.markdown(f"""
+    <div style="background: linear-gradient(90deg, {colors['info_bg']} 0%, #1e3a8a 100%);
+                border-left: 5px solid {colors['accent_blue']};
+                padding: 15px;
+                border-radius: 8px;
+                margin: 10px 0;
+                border: 1px solid {colors['border_color']};">
+        <h3 style="color: {colors['accent_blue']}; margin: 0 0 10px 0;">
+            🔍 Problem Analysis
+        </h3>
+        <p style="color: {colors['info_text']}; margin: 0;">
+            <strong>Failure Stage:</strong> {error_analysis['failure_stage']}<br>
+            <strong>Root Cause:</strong> {error_analysis['root_cause']}<br>
+            <strong>Category:</strong> {error_analysis['category']}<br>
+            <strong>Severity:</strong> {error_analysis['severity']}
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    # Visual pipeline diagram showing where failure occurred
+    st.markdown("### 📊 Prediction Pipeline Status")
+
+    stages = [
+        ("Input Validation", "✅" if error_analysis['failure_stage'] != "Input Validation" else "❌"),
+        ("Model Loading", "✅" if "Model Loading" not in error_analysis['failure_stage'] else "❌"),
+        ("Data Preprocessing", "✅" if "Preprocessing" not in error_analysis['failure_stage'] else "❌"),
+        ("Prediction Execution", "✅" if "Execution" not in error_analysis['failure_stage'] else "❌"),
+        ("Result Processing", "✅" if "Processing" not in error_analysis['failure_stage'] else "❌")
+    ]
+
+    cols = st.columns(len(stages))
+    for i, (stage, status) in enumerate(stages):
+        with cols[i]:
+            st.markdown(f"""
+            <div style="text-align: center; padding: 10px;">
+                <div style="font-size: 24px;">{status}</div>
+                <div style="font-size: 12px; margin-top: 5px;">{stage}</div>
+            </div>
+            """, unsafe_allow_html=True)
+
+
+def _display_troubleshooting_guide(error_analysis: dict, colors: dict):
+    """Display actionable troubleshooting steps."""
+    st.markdown(f"""
+    <div style="background: linear-gradient(90deg, {colors['success_bg']} 0%, #059669 100%);
+                border-left: 5px solid {colors['accent_green']};
+                padding: 15px;
+                border-radius: 8px;
+                margin: 10px 0;
+                border: 1px solid {colors['border_color']};">
+        <h3 style="color: {colors['accent_green']}; margin: 0 0 10px 0;">
+            🛠️ Recommended Actions
+        </h3>
+        <p style="color: {colors['success_text']}; margin: 0;">
+            Follow these steps to resolve the issue:
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    # Display actionable steps
+    for i, step in enumerate(error_analysis['actionable_steps'], 1):
+        st.markdown(f"**{i}.** {step}")
+
+    # Additional context-specific guidance
+    if error_analysis['category'] == 'Model Loading Error':
+        with st.expander("🔧 Advanced Model Loading Troubleshooting", expanded=False):
+            st.markdown("""
+            **If model loading continues to fail:**
+
+            - **External Model Issues**: The system may be trying to load a model from external storage (Google Drive)
+            - **Network Connectivity**: Ensure stable internet connection for external model access
+            - **Model Configuration**: Check if the GOOGLE_DRIVE_MODEL_ID environment variable is properly set
+            - **Fallback Options**: The system should automatically use local models if external loading fails
+
+            **Technical Details:**
+            - Model loading timeout: 30 seconds for external models
+            - Local model fallback: Automatic if external loading fails
+            - Cache system: Models are cached after first successful load
+            """)
+
+    elif error_analysis['category'] == 'Performance Issue':
+        with st.expander("⚡ Performance Optimization Tips", expanded=False):
+            st.markdown("""
+            **To improve prediction performance:**
+
+            - **Reduce Input Complexity**: Use fewer optional fields for faster processing
+            - **Network Optimization**: Ensure stable, fast internet connection
+            - **Browser Performance**: Close other browser tabs to free up memory
+            - **Retry Strategy**: Wait a few moments before retrying after timeouts
+
+            **System Limits:**
+            - Setup timeout: 8 seconds
+            - Prediction timeout: 20 seconds (configurable)
+            - Memory optimization: Automatic garbage collection enabled
+            """)
+
+    elif error_analysis['category'] == 'Input Validation Error':
+        with st.expander("📝 Input Validation Guidelines", expanded=False):
+            st.markdown("""
+            **Common input validation issues:**
+
+            - **Year Logic**: Year Made must not be after Sale Year
+            - **Required Fields**: Year Made, Product Size, and State are required
+            - **Value Ranges**: Year Made should be between 1974-2018
+            - **Configuration Compatibility**: Some combinations may not be valid
+
+            **Quick Solutions:**
+            - Use the Quick Fill buttons for validated test scenarios
+            - Check the help section for valid input examples
+            - Ensure all dropdown selections are made properly
+            """)
+
+
+def _display_technical_details(reason: str, error: Exception | str, context: dict | None, colors: dict):
+    """Display technical details for debugging purposes."""
+    import sys
+    import os as _os
+
+    st.markdown(f"""
+    <div style="background: linear-gradient(90deg, {colors['warning_bg']} 0%, #b45309 100%);
+                border-left: 5px solid {colors['accent_orange']};
+                padding: 15px;
+                border-radius: 8px;
+                margin: 10px 0;
+                border: 1px solid {colors['border_color']};">
+        <h3 style="color: {colors['accent_orange']}; margin: 0 0 10px 0;">
+            📊 Technical Information
+        </h3>
+        <p style="color: {colors['warning_text']}; margin: 0;">
+            Detailed technical information for debugging and support.
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    # Error details
+    col1, col2 = st.columns(2)
+
+    with col1:
+        st.markdown("**Error Information:**")
+        st.code(f"""
+Error Type: {type(error).__name__ if isinstance(error, Exception) else "Error"}
+Error Message: {str(error)}
+Failure Reason: {reason}
+        """, language="text")
+
+    with col2:
+        st.markdown("**System Environment:**")
+
+        # Environment detection
+        is_heroku = 'DYNO' in _os.environ or 'HEROKU_APP_NAME' in _os.environ
+        is_render = any(k.startswith('RENDER') for k in _os.environ.keys()) or ('RENDER' in _os.environ)
+        platform = 'Render' if is_render else ('Heroku' if is_heroku else 'Local/Other')
+
+        st.code(f"""
+Platform: {platform}
+Python Version: {sys.version.split()[0]}
+Streamlit Version: {st.__version__}
+        """, language="text")
+
+    # Memory information
+    try:
+        import psutil
+        process = psutil.Process()
+        memory_mb = process.memory_info().rss / (1024 * 1024)
+        st.markdown(f"**Memory Usage:** {memory_mb:.1f} MB")
+    except ImportError:
+        st.markdown("**Memory Usage:** Not available (psutil not installed)")
+
+    # Model information if available
+    if context and 'model_info' in context:
+        st.markdown("**Model Configuration:**")
+        model_info = context['model_info']
+        if isinstance(model_info, dict):
+            st.json(model_info)
+        else:
+            st.text(str(model_info))
+
+    # Additional context
+    if context and 'technical_cause' in context:
+        st.markdown("**Technical Cause:**")
+        st.code(context['technical_cause'], language="text")
+
+
+def _display_full_diagnostic_report(reason: str, error: Exception | str, context: dict | None, error_analysis: dict):
+    """Display the complete diagnostic report for copying and support."""
+    import traceback as _tb
+    import os as _os
+    from datetime import datetime as _dt
+    import sys
+
+    st.markdown("### 📋 Complete Diagnostic Report")
+    st.markdown("*Copy this report when contacting support or reporting issues.*")
+
+    # Generate comprehensive report
+    err_type = type(error).__name__ if isinstance(error, Exception) else "Error"
+    err_msg = str(error)
+
+    # Memory usage
     mem_info = "unknown"
     try:
-        import psutil  # optional
+        import psutil
         p = psutil.Process()
         rss_mb = p.memory_info().rss / (1024 * 1024)
         mem_info = f"RSS={rss_mb:.0f}MB"
@@ -2705,7 +3144,7 @@ def display_diagnostic_error(reason: str, error: Exception | str, context: dict 
     except Exception:
         pass
 
-    # Stack trace (best-effort)
+    # Stack trace
     stack = _tb.format_exc()
 
     # Timestamp & session
@@ -2715,33 +3154,60 @@ def display_diagnostic_error(reason: str, error: Exception | str, context: dict 
     except Exception:
         session_keys = []
 
-    # Compose copyable diagnostic block
+    # Compose comprehensive diagnostic report
     report = (
-        "=== BulldozerPriceGenius Diagnostic Report ===\n"
-        f"Timestamp (UTC): {ts}\n\n"
-        "[1] Error\n"
+        "=== BulldozerPriceGenius Enhanced Diagnostic Report ===\n"
+        f"Timestamp (UTC): {ts}\n"
+        f"Report Version: 2.0 (Enhanced Diagnostic System)\n\n"
+
+        "[1] ERROR ANALYSIS\n"
         f"Type: {err_type}\n"
-        f"Message: {err_msg}\n\n"
-        "[2] Environment\n"
-        f"Platform: {'Render' if is_render else ('Heroku' if is_heroku else 'Other')}\n"
+        f"Message: {err_msg}\n"
+        f"Failure Stage: {error_analysis['failure_stage']}\n"
+        f"Root Cause: {error_analysis['root_cause']}\n"
+        f"Category: {error_analysis['category']}\n"
+        f"Severity: {error_analysis['severity']}\n\n"
+
+        "[2] ENVIRONMENT\n"
+        f"Platform: {'Render' if is_render else ('Heroku' if is_heroku else 'Local/Other')}\n"
         f"Heroku Detected: {is_heroku}\n"
         f"Render Detected: {is_render}\n"
-        f"Python Version: {sys.version}\n\n"
-        "[3] Memory\n"
+        f"Python Version: {sys.version}\n"
+        f"Streamlit Version: {st.__version__}\n\n"
+
+        "[3] SYSTEM RESOURCES\n"
         f"Process Memory: {mem_info}\n\n"
-        "[4] Model\n"
+
+        "[4] MODEL STATUS\n"
         f"Status: {reason}\n"
-        f"{model_info_text if model_info_text else ''}"
-        f"GOOGLE_DRIVE_MODEL_ID: {_mask_id(os.getenv('GOOGLE_DRIVE_MODEL_ID',''))}\n\n"
-        "[5] Session\n"
+        f"{model_info_text if model_info_text else 'No model info available\n'}"
+        f"GOOGLE_DRIVE_MODEL_ID: {_mask_id(_os.getenv('GOOGLE_DRIVE_MODEL_ID',''))}\n\n"
+
+        "[5] SESSION STATE\n"
         f"Session Keys: {', '.join(session_keys) if session_keys else 'none'}\n\n"
-        "[6] Stack Trace\n"
+
+        "[6] TROUBLESHOOTING STEPS TAKEN\n"
+        f"Recommended Actions: {len(error_analysis['actionable_steps'])} steps provided\n"
+        f"Recovery Possible: {error_analysis['recovery_possible']}\n\n"
+
+        "[7] STACK TRACE\n"
         f"{stack if stack and 'Traceback' in stack else 'No traceback available'}\n"
+
+        "[8] ADDITIONAL CONTEXT\n"
+        f"Technical Cause: {context.get('technical_cause', 'Not specified') if context else 'No context provided'}\n"
         "==============================================\n"
     )
 
-    st.error("❌ Enhanced ML Model Error — diagnostics below")
     st.code(report, language="text")
+
+    # Download button for the report
+    st.download_button(
+        label="📥 Download Diagnostic Report",
+        data=report,
+        file_name=f"bulldozer_diagnostic_report_{_dt.utcnow().strftime('%Y%m%d_%H%M%S')}.txt",
+        mime="text/plain"
+    )
+
 
 def display_fallback_notification(reason, details, technical_cause, user_action):
     """
@@ -4220,6 +4686,7 @@ def make_prediction_with_timeout(model, year_made, model_id, product_size, state
                 )
 
                 result = {
+                    'success': False,
                     'predicted_price': 0,
                     'confidence': 0,
                     'method': 'Enhanced ML Model (Timeout)',
@@ -4255,6 +4722,7 @@ def make_prediction_with_timeout(model, year_made, model_id, product_size, state
         )
 
         return {
+            'success': False,
             'predicted_price': 0,
             'confidence': 0,
             'method': 'Enhanced ML Model (Error)',
@@ -4310,6 +4778,7 @@ def make_prediction(model, year_made, model_id, product_size, state, enclosure,
     if is_test_scenario_3_partial_ml and model_id != 3800:
         # Return error result instead of raising exception
         return {
+            'success': False,
             'predicted_price': 0,
             'confidence': 0,
             'method': 'Configuration Error',
@@ -4357,6 +4826,7 @@ def make_prediction(model, year_made, model_id, product_size, state, enclosure,
             context=diagnostic_context
         )
         return {
+            'success': False,
             'predicted_price': 0,
             'confidence': 0,
             'method': 'Enhanced ML Model (Unavailable)',
@@ -5088,6 +5558,7 @@ def make_prediction(model, year_made, model_id, product_size, state, enclosure,
             context=diagnostic_context
         )
         return {
+            'success': False,
             'predicted_price': 0,
             'confidence': 0,
             'method': 'Enhanced ML Model (Exception)',
