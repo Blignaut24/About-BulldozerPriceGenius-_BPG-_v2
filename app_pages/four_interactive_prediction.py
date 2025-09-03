@@ -792,7 +792,7 @@ def display_render_ux_form_sections(model, preprocessing_data):
         - **Technical Specs**: All combinations from basic to premium configurations
         """)
 
-    # Need help section
+    # Need help section with test scenario buttons
     with get_expander("❓ Need help? Examples from our test scenarios!", expanded=False):
         st.markdown("""
         ### 🆘 **Comprehensive Guide with All 12 Precision Price Tool Test Scenarios**
@@ -805,6 +805,154 @@ def display_render_ux_form_sections(model, preprocessing_data):
         - **Small**: D4, D5 models *(Tests 10, 11)*
         - **Compact**: D3 model *(Test 4)*
         """)
+
+        # Add all 12 test scenario buttons
+        st.markdown("#### **🧪 Quick Test Scenario Buttons**")
+        st.caption("Click any button to instantly populate the form with validated test data:")
+
+        # Row 1: Vintage Equipment (Tests 1-4)
+        st.markdown("#### **🏗️ Vintage Equipment (1987-1995)**")
+        col_v1, col_v2, col_v3, col_v4 = get_columns(4)
+
+        with col_v1:
+            if st.button("📋 Test 1\nBaseline\n(1994 D8)", key="render_fill_test1"):
+                st.session_state.update({
+                    'render_year_made_input': 1994, 'render_product_size_input': 'Large', 'render_state_input': 'California',
+                    'render_model_id_input': 4200, 'render_enclosure_input': 'EROPS w AC', 'render_fi_base_model_input': 'D8',
+                    'render_coupler_system_input': 'Hydraulic', 'render_tire_size_input': '26.5R25', 'render_hydraulics_flow_input': 'High Flow',
+                    'render_grouser_tracks_input': 'Double', 'render_hydraulics_input': '4 Valve', 'render_sale_year_input': 2005, 'render_sale_day_input': 180
+                })
+                st.success("✅ Test Scenario 1 (Baseline Compliance) loaded!")
+                if hasattr(st, 'rerun'): st.rerun()
+
+        with col_v2:
+            if st.button("🏛️ Test 2\nUltra-Vintage\n(1987 D9)", key="render_fill_test2"):
+                st.session_state.update({
+                    'render_year_made_input': 1987, 'render_product_size_input': 'Large', 'render_state_input': 'Texas',
+                    'render_model_id_input': 4800, 'render_enclosure_input': 'EROPS w AC', 'render_fi_base_model_input': 'D9',
+                    'render_coupler_system_input': 'Hydraulic', 'render_tire_size_input': '29.5R25', 'render_hydraulics_flow_input': 'High Flow',
+                    'render_grouser_tracks_input': 'Double', 'render_hydraulics_input': '4 Valve', 'render_sale_year_input': 2006, 'render_sale_day_input': 182
+                })
+                st.success("✅ Test Scenario 2 (Ultra-Vintage Premium) loaded!")
+                if hasattr(st, 'rerun'): st.rerun()
+
+        with col_v3:
+            if st.button("📉 Test 3\nCrisis Period\n(1995 D7)", key="render_fill_test3"):
+                st.session_state.update({
+                    'render_year_made_input': 1995, 'render_product_size_input': 'Medium', 'render_state_input': 'Florida',
+                    'render_model_id_input': 3800, 'render_enclosure_input': 'OROPS', 'render_fi_base_model_input': 'D7',
+                    'render_coupler_system_input': 'Manual', 'render_tire_size_input': '23.5R25', 'render_hydraulics_flow_input': 'Standard',
+                    'render_grouser_tracks_input': 'Single', 'render_hydraulics_input': '2 Valve', 'render_sale_year_input': 2008, 'render_sale_day_input': 91
+                })
+                st.success("✅ Test Scenario 3 (Crisis Period Economic Stress) loaded!")
+                if hasattr(st, 'rerun'): st.rerun()
+
+        with col_v4:
+            if st.button("🏗️ Test 4\nVintage Compact\n(1992 D3)", key="render_fill_test4"):
+                st.session_state.update({
+                    'render_year_made_input': 1992, 'render_product_size_input': 'Compact', 'render_state_input': 'Nevada',
+                    'render_model_id_input': 2400, 'render_enclosure_input': 'ROPS', 'render_fi_base_model_input': 'D3',
+                    'render_coupler_system_input': 'Manual', 'render_tire_size_input': '16.9R24', 'render_hydraulics_flow_input': 'Standard',
+                    'render_grouser_tracks_input': 'Single', 'render_hydraulics_input': '2 Valve', 'render_sale_year_input': 2010, 'render_sale_day_input': 274
+                })
+                st.success("✅ Test Scenario 4 (Vintage Compact Specialized) loaded!")
+                if hasattr(st, 'rerun'): st.rerun()
+
+        # Row 2: Modern Equipment (Tests 5-8)
+        st.markdown("#### **🚀 Modern Equipment (2004-2018)**")
+        col_m1, col_m2, col_m3, col_m4 = get_columns(4)
+
+        with col_m1:
+            if st.button("🏗️ Test 5\nConstruction Boom\n(2004 D8)", key="render_fill_test5"):
+                st.session_state.update({
+                    'render_year_made_input': 2004, 'render_product_size_input': 'Large', 'render_state_input': 'California',
+                    'render_model_id_input': 4200, 'render_enclosure_input': 'EROPS w AC', 'render_fi_base_model_input': 'D8',
+                    'render_coupler_system_input': 'Hydraulic', 'render_tire_size_input': '26.5R25', 'render_hydraulics_flow_input': 'High Flow',
+                    'render_grouser_tracks_input': 'Double', 'render_hydraulics_input': '4 Valve', 'render_sale_year_input': 2006, 'render_sale_day_input': 182
+                })
+                st.success("✅ Test Scenario 5 (Construction Boom Premium) loaded!")
+                if hasattr(st, 'rerun'): st.rerun()
+
+        with col_m2:
+            if st.button("🔧 Test 6\nModern Standard\n(2008 D6)", key="render_fill_test6"):
+                st.session_state.update({
+                    'render_year_made_input': 2008, 'render_product_size_input': 'Medium', 'render_state_input': 'Texas',
+                    'render_model_id_input': 3600, 'render_enclosure_input': 'EROPS w AC', 'render_fi_base_model_input': 'D6',
+                    'render_coupler_system_input': 'Hydraulic', 'render_tire_size_input': '23.5R25', 'render_hydraulics_flow_input': 'High Flow',
+                    'render_grouser_tracks_input': 'Double', 'render_hydraulics_input': '3 Valve', 'render_sale_year_input': 2011, 'render_sale_day_input': 136
+                })
+                st.success("✅ Test Scenario 6 (Modern Standard Configuration) loaded!")
+                if hasattr(st, 'rerun'): st.rerun()
+
+        with col_m3:
+            if st.button("💎 Test 7\nPremium Equipment\n(2006 D6)", key="render_fill_test7"):
+                st.session_state.update({
+                    'render_year_made_input': 2006, 'render_product_size_input': 'Large', 'render_state_input': 'California',
+                    'render_model_id_input': 3600, 'render_enclosure_input': 'EROPS w AC', 'render_fi_base_model_input': 'D6',
+                    'render_coupler_system_input': 'Hydraulic', 'render_tire_size_input': '23.5R25', 'render_hydraulics_flow_input': 'High Flow',
+                    'render_grouser_tracks_input': 'Double', 'render_hydraulics_input': '4 Valve', 'render_sale_year_input': 2008, 'render_sale_day_input': 274
+                })
+                st.success("✅ Test Scenario 7 (Premium Equipment Configuration) loaded!")
+                if hasattr(st, 'rerun'): st.rerun()
+
+        with col_m4:
+            if st.button("🌟 Test 8\nUltra-Modern\n(2018 D10)", key="render_fill_test8"):
+                st.session_state.update({
+                    'render_year_made_input': 2018, 'render_product_size_input': 'Large', 'render_state_input': 'Texas',
+                    'render_model_id_input': 5000, 'render_enclosure_input': 'EROPS w AC', 'render_fi_base_model_input': 'D10',
+                    'render_coupler_system_input': 'Hydraulic', 'render_tire_size_input': '35/65-33', 'render_hydraulics_flow_input': 'High Flow',
+                    'render_grouser_tracks_input': 'Double', 'render_hydraulics_input': '4 Valve', 'render_sale_year_input': 2019, 'render_sale_day_input': 45
+                })
+                st.success("✅ Test Scenario 8 (Ultra-Modern Premium) loaded!")
+                if hasattr(st, 'rerun'): st.rerun()
+
+        # Row 3: Advanced Equipment (Tests 9-12)
+        st.markdown("#### **⚡ Advanced Equipment (2010-2016)**")
+        col_a1, col_a2, col_a3, col_a4 = get_columns(4)
+
+        with col_a1:
+            if st.button("🎯 Test 9\nRecent Premium\n(2014 D8)", key="render_fill_test9"):
+                st.session_state.update({
+                    'render_year_made_input': 2014, 'render_product_size_input': 'Large/Medium', 'render_state_input': 'California',
+                    'render_model_id_input': 4200, 'render_enclosure_input': 'EROPS w AC', 'render_fi_base_model_input': 'D8',
+                    'render_coupler_system_input': 'Hydraulic', 'render_tire_size_input': '26.5R25', 'render_hydraulics_flow_input': 'High Flow',
+                    'render_grouser_tracks_input': 'Double', 'render_hydraulics_input': '4 Valve', 'render_sale_year_input': 2016, 'render_sale_day_input': 91
+                })
+                st.success("✅ Test Scenario 9 (Recent Premium Advanced) loaded!")
+                if hasattr(st, 'rerun'): st.rerun()
+
+        with col_a2:
+            if st.button("🔬 Test 10\nCompact Advanced\n(2013 D4)", key="render_fill_test10"):
+                st.session_state.update({
+                    'render_year_made_input': 2013, 'render_product_size_input': 'Small', 'render_state_input': 'Utah',
+                    'render_model_id_input': 2800, 'render_enclosure_input': 'EROPS w AC', 'render_fi_base_model_input': 'D4',
+                    'render_coupler_system_input': 'Hydraulic', 'render_tire_size_input': '18.4R26', 'render_hydraulics_flow_input': 'High Flow',
+                    'render_grouser_tracks_input': 'Double', 'render_hydraulics_input': '3 Valve', 'render_sale_year_input': 2015, 'render_sale_day_input': 228
+                })
+                st.success("✅ Test Scenario 10 (Recent Compact Advanced) loaded!")
+                if hasattr(st, 'rerun'): st.rerun()
+
+        with col_a3:
+            if st.button("⚡ Test 11\nExtreme Config\n(2016 D5)", key="render_fill_test11"):
+                st.session_state.update({
+                    'render_year_made_input': 2016, 'render_product_size_input': 'Small', 'render_state_input': 'Colorado',
+                    'render_model_id_input': 3200, 'render_enclosure_input': 'EROPS w AC', 'render_fi_base_model_input': 'D5',
+                    'render_coupler_system_input': 'Hydraulic', 'render_tire_size_input': '20.5R25', 'render_hydraulics_flow_input': 'Variable',
+                    'render_grouser_tracks_input': 'Triple', 'render_hydraulics_input': 'Auxiliary', 'render_sale_year_input': 2018, 'render_sale_day_input': 319
+                })
+                st.success("✅ Test Scenario 11 (Extreme Configuration Mix) loaded!")
+                if hasattr(st, 'rerun'): st.rerun()
+
+        with col_a4:
+            if st.button("🌍 Test 12\nGeographic Edge\n(2010 D6)", key="render_fill_test12"):
+                st.session_state.update({
+                    'render_year_made_input': 2010, 'render_product_size_input': 'Medium', 'render_state_input': 'Wyoming',
+                    'render_model_id_input': 3600, 'render_enclosure_input': 'EROPS w AC', 'render_fi_base_model_input': 'D6',
+                    'render_coupler_system_input': 'Hydraulic', 'render_tire_size_input': '23.5R25', 'render_hydraulics_flow_input': 'High Flow',
+                    'render_grouser_tracks_input': 'Double', 'render_hydraulics_input': '3 Valve', 'render_sale_year_input': 2012, 'render_sale_day_input': 45
+                })
+                st.success("✅ Test Scenario 12 (Geographic Extreme Edge Case) loaded!")
+                if hasattr(st, 'rerun'): st.rerun()
 
     # Section 1: Required Information
     st.markdown(f"""
@@ -1126,16 +1274,10 @@ def interactive_prediction_body():
     # Get dark theme colors
     colors = get_dark_theme_colors()
 
-    # Check if running on Render platform
-    is_render_platform = os.getenv('RENDER') or 'render.com' in os.getenv('RENDER_EXTERNAL_URL', '')
-
-    if is_render_platform:
-        # Display old UX design for Render platform
-        display_render_ux_design()
-        return
-
-    # Page header with clear prediction focus
-    st.title("🚜 Interactive Bulldozer Price Prediction")
+    # Always display the old UX design for consistent experience across all platforms
+    # This ensures identical interface on both Render deployment and local development
+    display_render_ux_design()
+    return
 
     # ASSESSMENT COMPLIANCE: Clear statement that this page generates price predictions
     st.markdown(f"""
@@ -1511,12 +1653,13 @@ def interactive_prediction_body():
         """Get options for categorical features"""
         # Default options based on common bulldozer data
         return {
-            'ProductSize': ['Large', 'Medium', 'Small', 'Mini', 'Compact'],
+            'ProductSize': ['Large', 'Large/Medium', 'Medium', 'Small', 'Mini', 'Compact'],
             'state': ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'],
             'Enclosure': ['EROPS', 'OROPS', 'ROPS', 'NO ROPS', 'EROPS w AC', 'OROPS w AC', 'None or Unspecified'],
             'fiBaseModel': ['D3', 'D4', 'D5', 'D6', 'D7', 'D8', 'D9', 'D10', 'D11', 'CAT', 'KOMATSU', 'JOHN DEERE'],
             'Coupler_System': ['None or Unspecified', 'Hydraulic', 'Manual', 'Quick Coupler'],
-            'Tire_Size': ['None or Unspecified', '16.9R24', '20.5R25', '23.5R25', '26.5', '28.1R26', '29.5', '35/65-33', '750/65R25'],
+            'Tire_Size': ['None or Unspecified', '16.9R24', '18.4R26', '20.5R25', '23.5R25',
+                          '26.5R25', '28.1R26', '29.5R25', '35/65-33', '750/65R25'],
             'Hydraulics_Flow': ['Standard', 'High Flow', 'Variable', 'Auxiliary', 'None or Unspecified'],
             'Grouser_Tracks': ['None or Unspecified', 'Single', 'Double', 'Triple'],
             'Hydraulics': ['Standard', '2 Valve', '3 Valve', '4 Valve', 'Auxiliary']
