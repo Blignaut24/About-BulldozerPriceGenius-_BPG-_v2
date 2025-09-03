@@ -51,21 +51,32 @@ try:
     from external_model_loader_v2 import external_model_loader_v2 as external_model_loader
     EXTERNAL_MODEL_AVAILABLE = True
     LOADER_VERSION = "V2 Standard"
-except ImportError as e:
+except ImportError:
     try:
         # Fallback to original loader
         from external_model_loader import external_model_loader
         EXTERNAL_MODEL_AVAILABLE = True
         LOADER_VERSION = "V1 Original"
-    except ImportError as e2:
-        # Fallback to optimized loader (V3) - may have compatibility issues
+    except ImportError:
         try:
+            # Fallback to optimized loader (V3) - may have compatibility issues
             from external_model_loader_v3_optimized import external_model_loader_v3_optimized as external_model_loader
             EXTERNAL_MODEL_AVAILABLE = True
             LOADER_VERSION = "V3 Optimized"
-        except ImportError as e3:
-            # Note: Cannot use st.error during import - will be handled in function
-            external_model_loader = None
+        except ImportError:
+            # Create a dummy loader for deployment compatibility
+            class DummyLoader:
+                def get_model_info(self):
+                    return {
+                        'model_source': 'Not Available',
+                        'expected_size': 'N/A',
+                        'cache_enabled': False,
+                        'model_file_id': 'N/A'
+                    }
+                def clear_model_cache(self):
+                    pass
+
+            external_model_loader = DummyLoader()
             EXTERNAL_MODEL_AVAILABLE = False
             LOADER_VERSION = "None"
 
@@ -364,12 +375,28 @@ try:
     MODELID_COMPONENT_AVAILABLE = True
 except ImportError:
     MODELID_COMPONENT_AVAILABLE = False
+    # Create dummy functions for deployment compatibility
+    def create_model_id_input(*args, **kwargs):
+        return st.number_input("Model ID", min_value=1, max_value=9999, value=4800)
+
+    class ModelIDProcessor:
+        @staticmethod
+        def process(*args, **kwargs):
+            return 4800
 
 try:
     from components.year_made_input import create_year_made_input, YearMadeProcessor
     YEARMADE_COMPONENT_AVAILABLE = True
 except ImportError:
     YEARMADE_COMPONENT_AVAILABLE = False
+    # Create dummy functions for deployment compatibility
+    def create_year_made_input(*args, **kwargs):
+        return st.number_input("Year Made", min_value=1974, max_value=2018, value=2000)
+
+    class YearMadeProcessor:
+        @staticmethod
+        def process(*args, **kwargs):
+            return 2000
 
 try:
     from sklearn.impute import SimpleImputer
@@ -377,6 +404,22 @@ try:
     SKLEARN_AVAILABLE = True
 except ImportError:
     SKLEARN_AVAILABLE = False
+    # Create dummy classes for deployment compatibility
+    class SimpleImputer:
+        def __init__(self, *args, **kwargs):
+            pass
+        def fit_transform(self, X):
+            return X
+        def transform(self, X):
+            return X
+
+    class OrdinalEncoder:
+        def __init__(self, *args, **kwargs):
+            pass
+        def fit_transform(self, X):
+            return X
+        def transform(self, X):
+            return X
 
 
 def validate_year_logic(year_made, sale_year):
