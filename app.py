@@ -18,7 +18,7 @@ try:
     from app_pages.one_case_study import case_study_body  # Case Study Page
     from app_pages.two_hypothesis_and_validation import hypothesis_and_validation_body  # Hypothesis & Validation Page
     from app_pages.three_project_framework import project_framework_body  # Project Framework Page
-    from app_pages.four_interactive_prediction import interactive_prediction_body  # Interactive Prediction Page
+    from app_pages.four_interactive_prediction_render import interactive_prediction_body  # Interactive Prediction Page (Render Optimized)
     from app_pages.five_documentation import documentation_body  # Documentation Page
     from app_pages.six_ml_pipeline import ml_pipeline_body  # ML Pipeline Page
 except ImportError as e:
