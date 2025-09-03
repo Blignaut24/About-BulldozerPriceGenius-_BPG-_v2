@@ -12,8 +12,6 @@ from datetime import datetime, date
 warnings.filterwarnings('ignore')
 
 # Utility: mask potentially sensitive IDs for display
-_def_mask_placeholder = object()
-
 def _mask_id(val):
     try:
         if val is None:
@@ -65,7 +63,7 @@ except ImportError as e:
             EXTERNAL_MODEL_AVAILABLE = True
             LOADER_VERSION = "V3 Optimized"
         except ImportError as e3:
-            st.error(f"Could not import any external model loader: {e}, {e2}, {e3}")
+            # Note: Cannot use st.error during import - will be handled in function
             external_model_loader = None
             EXTERNAL_MODEL_AVAILABLE = False
             LOADER_VERSION = "None"
