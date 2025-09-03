@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -280,7 +281,7 @@ def get_dataframe_with_styling(df, use_container_width=False, hide_index=False, 
 
     # If PyArrow is not available, use HTML table fallback immediately
     if not pyarrow_available:
-        st.warning("⚠️ PyArrow not available. Using HTML table display.")
+        st.warning("WARNING: PyArrow not available. Using HTML table display.")
         display_df = df.copy()
         if hide_index:
             display_df = display_df.reset_index(drop=True)
