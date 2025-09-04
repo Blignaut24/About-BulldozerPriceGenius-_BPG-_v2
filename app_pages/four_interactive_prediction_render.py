@@ -117,7 +117,7 @@ def interactive_prediction_body():
     st.header("📝 Enter Bulldozer Information")
     
     # Test Scenario Validation
-    with get_expander("🧪 Test Scenario Validation", expanded=False):
+    with get_expander("🧪 Test Scenario Validation", expanded=True):
         st.markdown("""
         ### 🎯 **Comprehensive Test Coverage**
 
@@ -147,28 +147,49 @@ def interactive_prediction_body():
         st.markdown("### 🧪 **Quick Test Data Input**")
         st.markdown("Click any button below to instantly populate the form with predefined test scenario data:")
 
-        # Custom CSS for test buttons
+        # Custom CSS for test buttons - Render platform compatible
         st.markdown("""
         <style>
-        .stButton > button {
+        /* Test data button styling - compatible with Streamlit 1.28+ */
+        div[data-testid="stButton"] > button,
+        .stButton > button,
+        button[kind="primary"],
+        button[kind="secondary"] {
             background-color: #3b82f6 !important;
             color: white !important;
-            border: none !important;
+            border: 2px solid #3b82f6 !important;
             border-radius: 8px !important;
             padding: 0.5rem 1rem !important;
             font-weight: 500 !important;
             transition: all 0.3s ease !important;
+            width: 100% !important;
+            min-height: 2.5rem !important;
         }
-        .stButton > button:hover {
+
+        div[data-testid="stButton"] > button:hover,
+        .stButton > button:hover,
+        button[kind="primary"]:hover,
+        button[kind="secondary"]:hover {
             background-color: #166534 !important;
-            transform: translateY(-2px) !important;
-            box-shadow: 0 4px 12px rgba(22, 101, 52, 0.3) !important;
+            border-color: #166534 !important;
+            transform: translateY(-1px) !important;
+            box-shadow: 0 2px 8px rgba(22, 101, 52, 0.3) !important;
+        }
+
+        /* Ensure buttons are visible in all themes */
+        div[data-testid="stButton"] > button:focus,
+        .stButton > button:focus {
+            outline: 2px solid #3b82f6 !important;
+            outline-offset: 2px !important;
         }
         </style>
         """, unsafe_allow_html=True)
 
         # Create columns for button layout
         col1, col2, col3 = st.columns(3)
+
+        # Debug info for Render deployment
+        st.info("🔧 Test buttons should appear below. If not visible, please expand this section.")
 
         # Test Scenario Data
         test_scenarios = {
@@ -242,8 +263,7 @@ def interactive_prediction_body():
                 if i < len(button_keys):
                     key = button_keys[i]
                     if st.button(key, key=f"test_btn_{i+1}",
-                               help=f"Load test data for {key}",
-                               use_container_width=True):
+                               help=f"Load test data for {key}"):
                         # Store test data in session state
                         for field, value in test_scenarios[key].items():
                             st.session_state[f"test_{field}"] = value
@@ -255,8 +275,7 @@ def interactive_prediction_body():
                 if i < len(button_keys):
                     key = button_keys[i]
                     if st.button(key, key=f"test_btn_{i+1}",
-                               help=f"Load test data for {key}",
-                               use_container_width=True):
+                               help=f"Load test data for {key}"):
                         # Store test data in session state
                         for field, value in test_scenarios[key].items():
                             st.session_state[f"test_{field}"] = value
@@ -268,8 +287,7 @@ def interactive_prediction_body():
                 if i < len(button_keys):
                     key = button_keys[i]
                     if st.button(key, key=f"test_btn_{i+1}",
-                               help=f"Load test data for {key}",
-                               use_container_width=True):
+                               help=f"Load test data for {key}"):
                         # Store test data in session state
                         for field, value in test_scenarios[key].items():
                             st.session_state[f"test_{field}"] = value
