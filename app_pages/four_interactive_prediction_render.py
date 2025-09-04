@@ -348,7 +348,7 @@ def display_sale_info_and_prediction(colors):
     st.markdown("""
     <style>
     .stButton > button {
-        background-color: #d97706 !important;
+        background-color: #c2410c !important;
         color: white !important;
         border: none !important;
         border-radius: 8px !important;
@@ -358,9 +358,9 @@ def display_sale_info_and_prediction(colors):
         transition: all 0.3s ease !important;
     }
     .stButton > button:hover {
-        background-color: #10b981 !important;
+        background-color: #059669 !important;
         transform: scale(1.02) !important;
-        box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3) !important;
+        box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3) !important;
     }
     </style>
     """, unsafe_allow_html=True)
