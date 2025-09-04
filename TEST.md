@@ -3,6 +3,30 @@
 
 ---
 
+## 📑 **Table of Contents**
+
+- [Introduction: Testing the Price Prediction System](#introduction-testing-the-price-prediction-system)
+- [Test Results Summary Table](#test-results-summary-table)
+- [How to Access the Testing Environment](#how-to-access-the-testing-environment)
+- [12 Comprehensive Test Scenarios](#12-comprehensive-test-scenarios)
+  - [Test Scenario 1: Premium Construction Equipment](#test-scenario-1-premium-construction-equipment)
+  - [Test Scenario 2: Vintage Premium Equipment](#test-scenario-2-vintage-premium-equipment)
+  - [Test Scenario 3: Economic Crisis Period Equipment](#test-scenario-3-economic-crisis-period-equipment)
+  - [Test Scenario 4: Compact Utility Equipment](#test-scenario-4-compact-utility-equipment)
+  - [Test Scenario 5: Modern Construction Equipment](#test-scenario-5-modern-construction-equipment)
+  - [Test Scenario 6: Standard Medium Equipment](#test-scenario-6-standard-medium-equipment)
+  - [Test Scenario 7: Premium Regional Equipment](#test-scenario-7-premium-regional-equipment)
+  - [Test Scenario 8: Ultra-Modern Equipment](#test-scenario-8-ultra-modern-equipment)
+  - [Test Scenario 9: Recent Advanced Equipment](#test-scenario-9-recent-advanced-equipment)
+  - [Test Scenario 10: Compact Advanced Equipment](#test-scenario-10-compact-advanced-equipment)
+  - [Test Scenario 11: Extreme Configuration Equipment](#test-scenario-11-extreme-configuration-equipment)
+  - [Test Scenario 12: Geographic Edge Case](#test-scenario-12-geographic-edge-case)
+- [Manual Testing Instructions for Render Platform](#manual-testing-instructions-for-render-platform)
+- [Business Impact Assessment](#business-impact-assessment)
+- [Support and Troubleshooting](#support-and-troubleshooting)
+
+---
+
 ## 📋 **Introduction: Testing the Price Prediction System**
 
 This document provides a comprehensive manual testing framework for validating the **Page 4 Interactive Bulldozer Price Prediction** functionality on the Render deployment platform. This guide is designed for project managers, business analysts, QA testers, and other non-technical team members to validate the system's accuracy and reliability.
@@ -24,6 +48,27 @@ Our testing validates that the prediction system works reliably for:
 - **Auction Houses**: Reliable pre-sale estimates for bulldozer auctions
 - **Insurance Companies**: Accurate valuations for coverage and claims
 - **Financial Institutions**: Reliable collateral assessments for equipment loans
+
+---
+
+## 📊 **Test Results Summary Table**
+
+Use this table to track your testing progress:
+
+| Test # | Scenario Name | Expected Range | Actual Prediction | Status | Notes |
+|--------|---------------|----------------|-------------------|--------|-------|
+| 1 | [Premium Construction Equipment](#test-scenario-1-premium-construction-equipment) | $160,000 - $240,000 | | | |
+| 2 | [Vintage Premium Equipment](#test-scenario-2-vintage-premium-equipment) | $120,000 - $200,000 | | | |
+| 3 | [Economic Crisis Period Equipment](#test-scenario-3-economic-crisis-period-equipment) | $70,000 - $130,000 | | | |
+| 4 | [Compact Utility Equipment](#test-scenario-4-compact-utility-equipment) | $35,000 - $75,000 | | | |
+| 5 | [Modern Construction Equipment](#test-scenario-5-modern-construction-equipment) | $170,000 - $250,000 | | | |
+| 6 | [Standard Medium Equipment](#test-scenario-6-standard-medium-equipment) | $120,000 - $190,000 | | | |
+| 7 | [Premium Regional Equipment](#test-scenario-7-premium-regional-equipment) | $140,000 - $210,000 | | | |
+| 8 | [Ultra-Modern Equipment](#test-scenario-8-ultra-modern-equipment) | $250,000 - $350,000 | | | |
+| 9 | [Recent Advanced Equipment](#test-scenario-9-recent-advanced-equipment) | $200,000 - $280,000 | | | |
+| 10 | [Compact Advanced Equipment](#test-scenario-10-compact-advanced-equipment) | $80,000 - $140,000 | | | |
+| 11 | [Extreme Configuration Equipment](#test-scenario-11-extreme-configuration-equipment) | $110,000 - $180,000 | | | |
+| 12 | [Geographic Edge Case](#test-scenario-12-geographic-edge-case) | $130,000 - $200,000 | | | |
 
 ---
 
@@ -464,27 +509,6 @@ Each test scenario provides complete input values for all Page 4 form fields. Si
 
 ---
 
-## 📊 **Test Results Summary Table**
-
-Use this table to track your testing progress:
-
-| Test # | Scenario Name | Expected Range | Actual Prediction | Status | Notes |
-|--------|---------------|----------------|-------------------|--------|-------|
-| 1 | Premium Construction Equipment | $160,000 - $240,000 | | | |
-| 2 | Vintage Premium Equipment | $120,000 - $200,000 | | | |
-| 3 | Economic Crisis Period Equipment | $70,000 - $130,000 | | | |
-| 4 | Compact Utility Equipment | $35,000 - $75,000 | | | |
-| 5 | Modern Construction Equipment | $170,000 - $250,000 | | | |
-| 6 | Standard Medium Equipment | $120,000 - $190,000 | | | |
-| 7 | Premium Regional Equipment | $140,000 - $210,000 | | | |
-| 8 | Ultra-Modern Equipment | $250,000 - $350,000 | | | |
-| 9 | Recent Advanced Equipment | $200,000 - $280,000 | | | |
-| 10 | Compact Advanced Equipment | $80,000 - $140,000 | | | |
-| 11 | Extreme Configuration Equipment | $110,000 - $180,000 | | | |
-| 12 | Geographic Edge Case | $130,000 - $200,000 | | | |
-
----
-
 ## 🎯 **Business Impact Assessment**
 
 ### **Why These Tests Matter**
@@ -540,15 +564,4 @@ Use this table to track your testing progress:
    - Try a different web browser
    - Check if JavaScript is enabled
 
-### **Reporting Issues**
-
-When reporting test failures, include:
-- Test scenario number and name
-- Exact input values used
-- Actual prediction result received
-- Error messages (if any)
-- Browser type and version
-- Screenshots of the issue
-
 This comprehensive testing framework ensures the Page 4 Interactive Bulldozer Price Prediction system delivers reliable, accurate results for real-world business applications.
-
