@@ -57,7 +57,12 @@ def interactive_prediction_body():
     # Page header
     st.title("🚜 Interactive Bulldozer Price Prediction")
 
+    # Introduction paragraph for general users
+    st.markdown("""
+    **Welcome to our bulldozer price prediction system!** This page works just like getting an appraisal for your car or a real estate estimate for your home - simply enter details about your bulldozer equipment, and our system will provide you with an instant, accurate price prediction.
 
+    Unlike browsing through historical sales data, this page provides **live price prediction functionality** with **no training data filtering** - meaning you get real, personalized price estimates based on your specific bulldozer's characteristics. Whether you're buying, selling, or simply curious about your equipment's value, our advanced prediction system analyzes your bulldozer's specifications and current market conditions to give you reliable pricing insights in seconds.
+    """)
 
     # Choose Your Prediction Method
     st.header("🎯 Choose Your Prediction Method")
