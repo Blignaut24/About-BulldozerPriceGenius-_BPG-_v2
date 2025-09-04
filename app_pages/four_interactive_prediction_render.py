@@ -57,91 +57,34 @@ def interactive_prediction_body():
     # Page header
     st.title("🚜 Interactive Bulldozer Price Prediction")
 
-    # INTERACTIVE PRICE PREDICTION SYSTEM section
-    st.markdown(f"""
-    <div style="background: linear-gradient(90deg, {colors['success_bg']} 0%, #059669 100%);
-                border-left: 5px solid {colors['accent_green']};
-                padding: 20px; border-radius: 10px; margin: 15px 0;
-                border: 1px solid {colors['border_color']};
-                box-shadow: 0 2px 8px rgba(16, 185, 129, 0.2);">
-        <h3 style="color: {colors['success_text']}; margin: 0 0 10px 0; font-size: 20px;">
-            🎯 INTERACTIVE PRICE PREDICTION SYSTEM
-        </h3>
-        <p style="color: {colors['success_text']}; margin: 0; font-size: 16px; font-weight: 500;">
-            <strong>This page allows users to input bulldozer feature values and receive predicted prices.</strong><br>
-            <strong>💡 For Maximum Accuracy:</strong> Complete all available input fields below. Each specification you provide improves prediction precision and confidence levels.
-        </p>
-    </div>
-    """, unsafe_allow_html=True)
 
-    # PREDICTION SYSTEM SUMMARY section
-    st.markdown(f"""
-    <div style="background: linear-gradient(90deg, {colors['info_bg']} 0%, #1e3a8a 100%);
-                border-left: 5px solid {colors['accent_blue']};
-                padding: 20px; border-radius: 10px; margin: 20px 0;
-                border: 1px solid {colors['border_color']};
-                box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);">
-        <h3 style="color: {colors['accent_blue']}; margin: 0 0 15px 0; font-size: 18px;">
-            📊 PREDICTION SYSTEM SUMMARY
-        </h3>
-        <p style="color: {colors['info_text']}; margin: 0; font-size: 16px; line-height: 1.6;">
-            <strong>✅ This page provides interactive bulldozer price predictions</strong><br>
-            • Users input bulldozer feature values (Year Made, Product Size, State, etc.)<br>
-            • System generates predicted sale prices using ML models or statistical methods<br>
-            • Results include confidence levels, price ranges, and technical insights<br>
-            • No training data filtering - only live price prediction functionality
-        </p>
-    </div>
-    """, unsafe_allow_html=True)
 
     # Choose Your Prediction Method
     st.header("🎯 Choose Your Prediction Method")
     
     # Prediction Method Guide
     with get_expander("📚 Prediction Method Guide", expanded=False):
-        col_guide1, col_guide2 = get_columns(2)
-        
-        with col_guide1:
-            st.markdown("""
-            ### 🤖 Enhanced ML Model
-            **Best for high-stakes decisions requiring maximum accuracy**
+        st.markdown("""
+        ### 🤖 Enhanced ML Model
+        **Best for high-stakes decisions requiring maximum accuracy**
 
-            **✅ Advantages:**
-            - 85-90% accuracy rate
-            - Advanced machine learning algorithms
-            - Complex pattern recognition
-            - Premium feature detection
+        **✅ Advantages:**
+        - 85-90% accuracy rate
+        - Advanced machine learning algorithms
+        - Complex pattern recognition
+        - Premium feature detection
 
-            **⏱️ Performance:**
-            - Response time: 2-15 seconds
-            - Best for important purchase/sale decisions
-            - Ideal when accuracy is more important than speed
-            """)
-
-        with col_guide2:
-            st.markdown("""
-            ### 📊 Precision Price Tool
-            **Best for quick decisions or when speed is critical**
-
-            **✅ Advantages:**
-            - 78.7% accuracy rate (production-ready)
-            - Lightning-fast response (<1 second)
-            - Mathematical precision
-            - 100% reliability
-
-            **⚡ Performance:**
-            - Instant results
-            - Perfect for preliminary estimates
-            - Reliable backup system
-            - Time-sensitive situations
-            """)
+        **⏱️ Performance:**
+        - Response time: 2-15 seconds
+        - Best for important purchase/sale decisions
+        - Ideal when accuracy is more important than speed
+        """)
 
     # Enhanced ML Model selected message
     st.info("🤖 Enhanced ML Model selected — maximum accuracy predictions using advanced ML.")
     
     # Enhanced ML Model Prediction section
     st.header("🤖 Enhanced ML Model Prediction")
-    st.info("🤖 **Using our most accurate machine learning model** for bulldozer price predictions with 85-90% confidence levels.")
     
     # Enhanced ML Model with Premium Recognition
     st.markdown(f"""
@@ -191,15 +134,15 @@ def display_form_sections(colors):
     
     # Section 1: Required Information
     st.markdown(f"""
-    <div style="background: linear-gradient(90deg, {colors['error_bg']} 0%, #dc2626 100%);
-                border-left: 5px solid {colors['accent_red']};
+    <div style="background: linear-gradient(90deg, {colors['warning_bg']} 0%, #d97706 100%);
+                border-left: 5px solid {colors['accent_orange']};
                 padding: 15px; border-radius: 8px; margin: 15px 0;
                 border: 1px solid {colors['border_color']};
-                box-shadow: 0 2px 6px rgba(239, 68, 68, 0.15);">
-        <h4 style="color: {colors['error_text']}; margin: 0 0 10px 0; font-size: 16px;">
+                box-shadow: 0 2px 6px rgba(245, 158, 11, 0.15);">
+        <h4 style="color: {colors['warning_text']}; margin: 0 0 10px 0; font-size: 16px;">
             🔴 Section 1: Required Information
         </h4>
-        <p style="color: {colors['error_text']}; margin: 0; font-size: 14px;">
+        <p style="color: {colors['warning_text']}; margin: 0; font-size: 14px;">
             These 3 fields are essential for any prediction. Complete these first.
         </p>
     </div>
@@ -219,25 +162,22 @@ def display_form_sections(colors):
         """)
     
     # Form inputs
-    col1, col2 = get_columns(2)
-    with col1:
-        st.markdown("**Enter Year Made (1974-2018)**")
-        st.caption("e.g., 1995, 2005, 2010, 2018")
-        year_made = st.number_input(
-            "Year Made",
-            min_value=1974,
-            max_value=2018,
-            value=2000,
-            key="year_made_input"
-        )
-    
-    with col2:
-        product_size = st.selectbox(
-            "⭐ Product Size (REQUIRED)",
-            options=['Large', 'Medium', 'Small', 'Mini', 'Compact'],
-            index=0,
-            key="product_size_input"
-        )
+    st.markdown("**Enter Year Made (1974-2018)**")
+    st.caption("e.g., 1995, 2005, 2010, 2018")
+    year_made = st.number_input(
+        "Year Made",
+        min_value=1974,
+        max_value=2018,
+        value=2000,
+        key="year_made_input"
+    )
+
+    product_size = st.selectbox(
+        "⭐ Product Size (REQUIRED)",
+        options=['Large', 'Medium', 'Small', 'Mini', 'Compact'],
+        index=0,
+        key="product_size_input"
+    )
     
     # State selection
     state_options = ["All States", "California", "Texas", "Florida", "New York", "Pennsylvania"]
@@ -268,15 +208,15 @@ def display_technical_specs(colors):
     
     # Section 2: Technical Specifications
     st.markdown(f"""
-    <div style="background: linear-gradient(90deg, {colors['info_bg']} 0%, #1e40af 100%);
-                border-left: 5px solid {colors['accent_blue']};
+    <div style="background: linear-gradient(90deg, {colors['warning_bg']} 0%, #d97706 100%);
+                border-left: 5px solid {colors['accent_orange']};
                 padding: 15px; border-radius: 8px; margin: 15px 0;
                 border: 1px solid {colors['border_color']};
-                box-shadow: 0 2px 6px rgba(59, 130, 246, 0.15);">
-        <h4 style="color: {colors['accent_blue']}; margin: 0 0 10px 0; font-size: 16px;">
+                box-shadow: 0 2px 6px rgba(245, 158, 11, 0.15);">
+        <h4 style="color: {colors['warning_text']}; margin: 0 0 10px 0; font-size: 16px;">
             🔵 Section 2: Technical Specifications (Accuracy Boosters)
         </h4>
-        <p style="color: {colors['info_text']}; margin: 0; font-size: 14px;">
+        <p style="color: {colors['warning_text']}; margin: 0; font-size: 14px;">
             Each field you complete increases prediction accuracy by 2-5%. Professional appraisers consider these specifications essential for precise valuation.
         </p>
     </div>
@@ -286,33 +226,29 @@ def display_technical_specs(colors):
     st.subheader("🔧 Equipment Specifications")
     st.caption("Choose specifications that match your bulldozer. All fields have intelligent defaults.")
     
-    col1, col2 = get_columns(2)
-    
-    with col1:
-        enclosure = st.selectbox(
-            "🏠 Enclosure (+3% accuracy)",
-            options=['EROPS', 'OROPS', 'ROPS', 'NO ROPS', 'EROPS w AC', 'None or Unspecified'],
-            index=0
-        )
-        
-        base_model = st.selectbox(
-            "🚜 Base Model (+4% accuracy)",
-            options=['D3', 'D4', 'D5', 'D6', 'D7', 'D8', 'D9', 'D10', 'D11'],
-            index=0
-        )
-    
-    with col2:
-        hydraulics = st.selectbox(
-            "⚙️ Hydraulics",
-            options=['Standard', '2 Valve', '3 Valve', '4 Valve', 'Auxiliary'],
-            index=0
-        )
-        
-        tire_size = st.selectbox(
-            "🛞 Tire Size",
-            options=['None or Unspecified', '16.9R24', '20.5R25', '23.5R25', '26.5R25'],
-            index=0
-        )
+    enclosure = st.selectbox(
+        "🏠 Enclosure (+3% accuracy)",
+        options=['EROPS', 'OROPS', 'ROPS', 'NO ROPS', 'EROPS w AC', 'None or Unspecified'],
+        index=0
+    )
+
+    base_model = st.selectbox(
+        "🚜 Base Model (+4% accuracy)",
+        options=['D3', 'D4', 'D5', 'D6', 'D7', 'D8', 'D9', 'D10', 'D11'],
+        index=0
+    )
+
+    hydraulics = st.selectbox(
+        "⚙️ Hydraulics",
+        options=['Standard', '2 Valve', '3 Valve', '4 Valve', 'Auxiliary'],
+        index=0
+    )
+
+    tire_size = st.selectbox(
+        "🛞 Tire Size",
+        options=['None or Unspecified', '16.9R24', '20.5R25', '23.5R25', '26.5R25'],
+        index=0
+    )
     
     # Success message
     st.success("🎯 **Excellent!** Technical specifications completed. Your prediction will have high accuracy (85-90%).")
@@ -343,23 +279,19 @@ def display_sale_info_and_prediction(colors):
     st.subheader("📅 Sale Timing Details")
     st.caption("These fields help account for market conditions and seasonal variations.")
     
-    col1, col2 = get_columns(2)
-    
-    with col1:
-        sale_year = st.number_input(
-            "📅 Sale Year",
-            min_value=1989,
-            max_value=2022,
-            value=2006
-        )
-    
-    with col2:
-        sale_day = st.number_input(
-            "Sale Day of Year",
-            min_value=1,
-            max_value=365,
-            value=182
-        )
+    sale_year = st.number_input(
+        "📅 Sale Year",
+        min_value=1989,
+        max_value=2022,
+        value=2006
+    )
+
+    sale_day = st.number_input(
+        "Sale Day of Year",
+        min_value=1,
+        max_value=365,
+        value=182
+    )
     
     # Understanding Sale Timing Impact section
     with get_expander("📊 Understanding Sale Timing Impact on Price Predictions", expanded=False):
@@ -407,6 +339,27 @@ def display_sale_info_and_prediction(colors):
     • Prediction accuracy: 85-90% (High precision)
     """)
     
+    # Custom CSS for prediction button
+    st.markdown("""
+    <style>
+    .stButton > button {
+        background-color: #d97706 !important;
+        color: white !important;
+        border: none !important;
+        border-radius: 8px !important;
+        padding: 12px 24px !important;
+        font-size: 16px !important;
+        font-weight: bold !important;
+        transition: all 0.3s ease !important;
+    }
+    .stButton > button:hover {
+        background-color: #10b981 !important;
+        transform: scale(1.02) !important;
+        box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3) !important;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
     # Prediction button
     if st.button("🎯 Generate Price Prediction", type="primary"):
         st.success("🎯 **Enhanced ML Model Prediction Generated Successfully!**")
