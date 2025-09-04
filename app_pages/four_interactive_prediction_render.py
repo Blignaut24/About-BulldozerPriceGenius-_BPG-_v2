@@ -142,6 +142,142 @@ def interactive_prediction_body():
         Whether you're an equipment dealer valuing inventory, a construction company making purchase decisions, or an individual assessing equipment value, our system has been validated across the scenarios you'll encounter in real business situations.
         """)
 
+        # Test Data Input Buttons
+        st.markdown("---")
+        st.markdown("### 🧪 **Quick Test Data Input**")
+        st.markdown("Click any button below to instantly populate the form with predefined test scenario data:")
+
+        # Custom CSS for test buttons
+        st.markdown("""
+        <style>
+        .stButton > button {
+            background-color: #3b82f6 !important;
+            color: white !important;
+            border: none !important;
+            border-radius: 8px !important;
+            padding: 0.5rem 1rem !important;
+            font-weight: 500 !important;
+            transition: all 0.3s ease !important;
+        }
+        .stButton > button:hover {
+            background-color: #166534 !important;
+            transform: translateY(-2px) !important;
+            box-shadow: 0 4px 12px rgba(22, 101, 52, 0.3) !important;
+        }
+        </style>
+        """, unsafe_allow_html=True)
+
+        # Create columns for button layout
+        col1, col2, col3 = st.columns(3)
+
+        # Test Scenario Data
+        test_scenarios = {
+            "Test 1: Premium Construction Equipment": {
+                "year_made": 2006, "product_size": "Large", "state": "California", "model_id": 4200,
+                "enclosure": "EROPS w AC", "base_model": "D8", "hydraulics": "4 Valve",
+                "tire_size": "26.5R25", "sale_year": 2007, "sale_day": 180
+            },
+            "Test 2: Vintage Premium Equipment": {
+                "year_made": 1987, "product_size": "Large", "state": "Texas", "model_id": 4800,
+                "enclosure": "EROPS w AC", "base_model": "D9", "hydraulics": "4 Valve",
+                "tire_size": "29.5R25", "sale_year": 2006, "sale_day": 182
+            },
+            "Test 3: Economic Crisis Period Equipment": {
+                "year_made": 1995, "product_size": "Medium", "state": "Florida", "model_id": 3800,
+                "enclosure": "OROPS", "base_model": "D7", "hydraulics": "2 Valve",
+                "tire_size": "23.5R25", "sale_year": 2008, "sale_day": 91
+            },
+            "Test 4: Compact Utility Equipment": {
+                "year_made": 1992, "product_size": "Compact", "state": "Nevada", "model_id": 2400,
+                "enclosure": "ROPS", "base_model": "D3", "hydraulics": "2 Valve",
+                "tire_size": "16.9R24", "sale_year": 2010, "sale_day": 274
+            },
+            "Test 5: Modern Construction Equipment": {
+                "year_made": 2004, "product_size": "Large", "state": "California", "model_id": 4200,
+                "enclosure": "EROPS w AC", "base_model": "D8", "hydraulics": "4 Valve",
+                "tire_size": "26.5R25", "sale_year": 2006, "sale_day": 182
+            },
+            "Test 6: Standard Medium Equipment": {
+                "year_made": 2008, "product_size": "Medium", "state": "Texas", "model_id": 3600,
+                "enclosure": "EROPS w AC", "base_model": "D6", "hydraulics": "3 Valve",
+                "tire_size": "23.5R25", "sale_year": 2011, "sale_day": 136
+            },
+            "Test 7: Premium Regional Equipment": {
+                "year_made": 2006, "product_size": "Large", "state": "California", "model_id": 3600,
+                "enclosure": "EROPS w AC", "base_model": "D6", "hydraulics": "4 Valve",
+                "tire_size": "23.5R25", "sale_year": 2008, "sale_day": 274
+            },
+            "Test 8: Ultra-Modern Equipment": {
+                "year_made": 2018, "product_size": "Large", "state": "Texas", "model_id": 5000,
+                "enclosure": "EROPS w AC", "base_model": "D10", "hydraulics": "4 Valve",
+                "tire_size": "35/65-33", "sale_year": 2019, "sale_day": 45
+            },
+            "Test 9: Recent Advanced Equipment": {
+                "year_made": 2014, "product_size": "Large", "state": "California", "model_id": 4200,
+                "enclosure": "EROPS w AC", "base_model": "D8", "hydraulics": "4 Valve",
+                "tire_size": "26.5R25", "sale_year": 2016, "sale_day": 91
+            },
+            "Test 10: Compact Advanced Equipment": {
+                "year_made": 2013, "product_size": "Small", "state": "Utah", "model_id": 2800,
+                "enclosure": "EROPS w AC", "base_model": "D4", "hydraulics": "3 Valve",
+                "tire_size": "18.4R26", "sale_year": 2015, "sale_day": 228
+            },
+            "Test 11: Extreme Configuration Equipment": {
+                "year_made": 2016, "product_size": "Small", "state": "Colorado", "model_id": 3200,
+                "enclosure": "EROPS w AC", "base_model": "D5", "hydraulics": "Auxiliary",
+                "tire_size": "20.5R25", "sale_year": 2018, "sale_day": 319
+            },
+            "Test 12: Geographic Edge Case": {
+                "year_made": 2010, "product_size": "Medium", "state": "Wyoming", "model_id": 3600,
+                "enclosure": "EROPS w AC", "base_model": "D6", "hydraulics": "3 Valve",
+                "tire_size": "23.5R25", "sale_year": 2012, "sale_day": 45
+            }
+        }
+
+        # Create buttons in columns
+        button_keys = list(test_scenarios.keys())
+
+        with col1:
+            for i in range(0, 4):
+                if i < len(button_keys):
+                    key = button_keys[i]
+                    if st.button(key, key=f"test_btn_{i+1}",
+                               help=f"Load test data for {key}",
+                               use_container_width=True):
+                        # Store test data in session state
+                        for field, value in test_scenarios[key].items():
+                            st.session_state[f"test_{field}"] = value
+                        st.success(f"✅ {key} data loaded! Scroll down to see populated form.")
+                        st.rerun()
+
+        with col2:
+            for i in range(4, 8):
+                if i < len(button_keys):
+                    key = button_keys[i]
+                    if st.button(key, key=f"test_btn_{i+1}",
+                               help=f"Load test data for {key}",
+                               use_container_width=True):
+                        # Store test data in session state
+                        for field, value in test_scenarios[key].items():
+                            st.session_state[f"test_{field}"] = value
+                        st.success(f"✅ {key} data loaded! Scroll down to see populated form.")
+                        st.rerun()
+
+        with col3:
+            for i in range(8, 12):
+                if i < len(button_keys):
+                    key = button_keys[i]
+                    if st.button(key, key=f"test_btn_{i+1}",
+                               help=f"Load test data for {key}",
+                               use_container_width=True):
+                        # Store test data in session state
+                        for field, value in test_scenarios[key].items():
+                            st.session_state[f"test_{field}"] = value
+                        st.success(f"✅ {key} data loaded! Scroll down to see populated form.")
+                        st.rerun()
+
+        st.markdown("---")
+
     # Continue with form sections in next part...
     display_form_sections(colors)
 
@@ -180,27 +316,42 @@ def display_form_sections(colors):
     # Form inputs
     st.markdown("**Enter Year Made (1974-2018)**")
     st.caption("e.g., 1995, 2005, 2010, 2018")
+
+    # Get default value from test data if available
+    default_year = st.session_state.get("test_year_made", 2000)
+
     year_made = st.number_input(
         "Year Made",
         min_value=1974,
         max_value=2018,
-        value=2000,
+        value=default_year,
         key="year_made_input"
     )
 
+    # Get default value from test data if available
+    product_size_options = ['Large', 'Medium', 'Small', 'Mini', 'Compact']
+    default_product_size = st.session_state.get("test_product_size", "Large")
+    product_size_index = product_size_options.index(default_product_size) if default_product_size in product_size_options else 0
+
     product_size = st.selectbox(
         "⭐ Product Size (REQUIRED)",
-        options=['Large', 'Medium', 'Small', 'Mini', 'Compact'],
-        index=0,
+        options=product_size_options,
+        index=product_size_index,
         key="product_size_input"
     )
     
     # State selection
-    state_options = ["All States", "California", "Texas", "Florida", "New York", "Pennsylvania"]
+    state_options = ["All States", "California", "Texas", "Florida", "New York", "Pennsylvania",
+                    "Nevada", "Utah", "Colorado", "Wyoming"]
+
+    # Get default value from test data if available
+    default_state = st.session_state.get("test_state", "All States")
+    state_index = state_options.index(default_state) if default_state in state_options else 0
+
     state = st.selectbox(
         "⭐ State (REQUIRED)",
         options=state_options,
-        index=0,
+        index=state_index,
         key="state_input"
     )
 
@@ -214,11 +365,14 @@ def display_technical_specs(colors):
     st.subheader("🔧 Detailed Specifications")
     st.info("💡 **More details = higher accuracy** with our ML model! All fields below help improve prediction accuracy.")
     
+    # Get default value from test data if available
+    default_model_id = st.session_state.get("test_model_id", 4800)
+
     model_id = st.number_input(
         "Model ID",
         min_value=1000,
         max_value=9999,
-        value=4800,
+        value=default_model_id,
         key="model_id_input"
     )
     
@@ -242,28 +396,45 @@ def display_technical_specs(colors):
     st.subheader("🔧 Equipment Specifications")
     st.caption("Choose specifications that match your bulldozer. All fields have intelligent defaults.")
     
+    # Get default values from test data if available
+    enclosure_options = ['EROPS', 'OROPS', 'ROPS', 'NO ROPS', 'EROPS w AC', 'None or Unspecified']
+    default_enclosure = st.session_state.get("test_enclosure", "EROPS")
+    enclosure_index = enclosure_options.index(default_enclosure) if default_enclosure in enclosure_options else 0
+
     enclosure = st.selectbox(
         "🏠 Enclosure (+3% accuracy)",
-        options=['EROPS', 'OROPS', 'ROPS', 'NO ROPS', 'EROPS w AC', 'None or Unspecified'],
-        index=0
+        options=enclosure_options,
+        index=enclosure_index
     )
+
+    base_model_options = ['D3', 'D4', 'D5', 'D6', 'D7', 'D8', 'D9', 'D10', 'D11']
+    default_base_model = st.session_state.get("test_base_model", "D3")
+    base_model_index = base_model_options.index(default_base_model) if default_base_model in base_model_options else 0
 
     base_model = st.selectbox(
         "🚜 Base Model (+4% accuracy)",
-        options=['D3', 'D4', 'D5', 'D6', 'D7', 'D8', 'D9', 'D10', 'D11'],
-        index=0
+        options=base_model_options,
+        index=base_model_index
     )
+
+    hydraulics_options = ['Standard', '2 Valve', '3 Valve', '4 Valve', 'Auxiliary']
+    default_hydraulics = st.session_state.get("test_hydraulics", "Standard")
+    hydraulics_index = hydraulics_options.index(default_hydraulics) if default_hydraulics in hydraulics_options else 0
 
     hydraulics = st.selectbox(
         "⚙️ Hydraulics",
-        options=['Standard', '2 Valve', '3 Valve', '4 Valve', 'Auxiliary'],
-        index=0
+        options=hydraulics_options,
+        index=hydraulics_index
     )
+
+    tire_size_options = ['None or Unspecified', '16.9R24', '18.4R26', '20.5R25', '23.5R25', '26.5R25', '29.5R25', '35/65-33']
+    default_tire_size = st.session_state.get("test_tire_size", "None or Unspecified")
+    tire_size_index = tire_size_options.index(default_tire_size) if default_tire_size in tire_size_options else 0
 
     tire_size = st.selectbox(
         "🛞 Tire Size",
-        options=['None or Unspecified', '16.9R24', '20.5R25', '23.5R25', '26.5R25'],
-        index=0
+        options=tire_size_options,
+        index=tire_size_index
     )
     
     # Success message
@@ -295,18 +466,22 @@ def display_sale_info_and_prediction(colors):
     st.subheader("📅 Sale Timing Details")
     st.caption("These fields help account for market conditions and seasonal variations.")
     
+    # Get default values from test data if available
+    default_sale_year = st.session_state.get("test_sale_year", 2006)
+    default_sale_day = st.session_state.get("test_sale_day", 182)
+
     sale_year = st.number_input(
         "📅 Sale Year",
         min_value=1989,
         max_value=2022,
-        value=2006
+        value=default_sale_year
     )
 
     sale_day = st.number_input(
         "Sale Day of Year",
         min_value=1,
         max_value=365,
-        value=182
+        value=default_sale_day
     )
     
     # Understanding Sale Timing Impact section
