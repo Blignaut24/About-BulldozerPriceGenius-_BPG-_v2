@@ -5,10 +5,10 @@
 
 ## 📑 **Table of Contents**
 
-- [Introduction: Testing the Price Prediction System](#introduction-testing-the-price-prediction-system)
-- [Test Results Summary Table](#test-results-summary-table)
-- [How to Access the Testing Environment](#how-to-access-the-testing-environment)
-- [12 Comprehensive Test Scenarios](#12-comprehensive-test-scenarios)
+- [Introduction: Testing the Price Prediction System](#-introduction-testing-the-price-prediction-system)
+- [Test Results Summary Table](#-test-results-summary-table)
+- [How to Access the Testing Environment](#-how-to-access-the-testing-environment)
+- [12 Comprehensive Test Scenarios](#-12-comprehensive-test-scenarios)
   - [Test Scenario 1: Premium Construction Equipment](#test-scenario-1-premium-construction-equipment)
   - [Test Scenario 2: Vintage Premium Equipment](#test-scenario-2-vintage-premium-equipment)
   - [Test Scenario 3: Economic Crisis Period Equipment](#test-scenario-3-economic-crisis-period-equipment)
@@ -21,9 +21,9 @@
   - [Test Scenario 10: Compact Advanced Equipment](#test-scenario-10-compact-advanced-equipment)
   - [Test Scenario 11: Extreme Configuration Equipment](#test-scenario-11-extreme-configuration-equipment)
   - [Test Scenario 12: Geographic Edge Case](#test-scenario-12-geographic-edge-case)
-- [Manual Testing Instructions for Render Platform](#manual-testing-instructions-for-render-platform)
-- [Business Impact Assessment](#business-impact-assessment)
-- [Support and Troubleshooting](#support-and-troubleshooting)
+- [Manual Testing Instructions for Render Platform](#-manual-testing-instructions-for-render-platform)
+- [Business Impact Assessment](#-business-impact-assessment)
+- [Support and Troubleshooting](#-support-and-troubleshooting)
 
 ---
 
@@ -49,6 +49,8 @@ Our testing validates that the prediction system works reliably for:
 - **Insurance Companies**: Accurate valuations for coverage and claims
 - **Financial Institutions**: Reliable collateral assessments for equipment loans
 
+🔝 [Back to Table of Contents](#-table-of-contents)
+
 ---
 
 ## 📊 **Test Results Summary Table**
@@ -70,6 +72,8 @@ Use this table to track your testing progress:
 | 11 | [Extreme Configuration Equipment](#test-scenario-11-extreme-configuration-equipment) | $110,000 - $180,000 | | | |
 | 12 | [Geographic Edge Case](#test-scenario-12-geographic-edge-case) | $130,000 - $200,000 | | | |
 
+🔝 [Back to Table of Contents](#-table-of-contents)
+
 ---
 
 ## 🎯 **How to Access the Testing Environment**
@@ -90,6 +94,8 @@ Use this table to track your testing progress:
 - **Orange-colored section boxes** for Required Information, Technical Specifications, and Sale Information
 - **Vertical form layout** with all input fields stacked (not side-by-side)
 - **Dark orange prediction button** that turns green when you hover over it
+
+🔝 [Back to Table of Contents](#-table-of-contents)
 
 ---
 
@@ -153,6 +159,8 @@ Each test scenario provides complete input values for all Page 4 form fields. Si
 - ✅ **PASS**: Prediction between $160,000 - $240,000
 - ❌ **FAIL**: Prediction outside this range or system error
 
+🔝 [Back to Table of Contents](#-table-of-contents)
+
 ---
 
 ## **Test Scenario 2: Vintage Premium Equipment**
@@ -180,6 +188,9 @@ Each test scenario provides complete input values for all Page 4 form fields. Si
 **Pass/Fail Criteria:**
 - ✅ **PASS**: Prediction between $120,000 - $200,000
 - ❌ **FAIL**: Prediction outside this range or system error
+
+🔝 [Back to Table of Contents](#-table-of-contents)
+
 ---
 
 ## **Test Scenario 3: Economic Crisis Period Equipment**
@@ -207,6 +218,8 @@ Each test scenario provides complete input values for all Page 4 form fields. Si
 **Pass/Fail Criteria:**
 - ✅ **PASS**: Prediction between $70,000 - $130,000
 - ❌ **FAIL**: Prediction outside this range or system error
+
+🔝 [Back to Table of Contents](#-table-of-contents)
 
 ---
 
@@ -236,6 +249,8 @@ Each test scenario provides complete input values for all Page 4 form fields. Si
 - ✅ **PASS**: Prediction between $35,000 - $75,000
 - ❌ **FAIL**: Prediction outside this range or system error
 
+🔝 [Back to Table of Contents](#-table-of-contents)
+
 ---
 
 ## **Test Scenario 5: Modern Construction Equipment**
@@ -264,6 +279,8 @@ Each test scenario provides complete input values for all Page 4 form fields. Si
 - ✅ **PASS**: Prediction between $170,000 - $250,000
 - ❌ **FAIL**: Prediction outside this range or system error
 
+🔝 [Back to Table of Contents](#-table-of-contents)
+
 ---
 
 ## **Test Scenario 6: Standard Medium Equipment**
@@ -291,6 +308,9 @@ Each test scenario provides complete input values for all Page 4 form fields. Si
 **Pass/Fail Criteria:**
 - ✅ **PASS**: Prediction between $120,000 - $190,000
 - ❌ **FAIL**: Prediction outside this range or system error
+
+🔝 [Back to Table of Contents](#-table-of-contents)
+
 ---
 
 ## **Test Scenario 7: Premium Regional Equipment**
@@ -318,6 +338,8 @@ Each test scenario provides complete input values for all Page 4 form fields. Si
 **Pass/Fail Criteria:**
 - ✅ **PASS**: Prediction between $140,000 - $210,000
 - ❌ **FAIL**: Prediction outside this range or system error
+
+🔝 [Back to Table of Contents](#-table-of-contents)
 
 ---
 
@@ -347,6 +369,8 @@ Each test scenario provides complete input values for all Page 4 form fields. Si
 - ✅ **PASS**: Prediction between $250,000 - $350,000
 - ❌ **FAIL**: Prediction outside this range or system error
 
+🔝 [Back to Table of Contents](#-table-of-contents)
+
 ---
 
 ## **Test Scenario 9: Recent Advanced Equipment**
@@ -374,6 +398,8 @@ Each test scenario provides complete input values for all Page 4 form fields. Si
 **Pass/Fail Criteria:**
 - ✅ **PASS**: Prediction between $200,000 - $280,000
 - ❌ **FAIL**: Prediction outside this range or system error
+
+🔝 [Back to Table of Contents](#-table-of-contents)
 
 ---
 
@@ -403,6 +429,8 @@ Each test scenario provides complete input values for all Page 4 form fields. Si
 - ✅ **PASS**: Prediction between $80,000 - $140,000
 - ❌ **FAIL**: Prediction outside this range or system error
 
+🔝 [Back to Table of Contents](#-table-of-contents)
+
 ---
 
 ## **Test Scenario 11: Extreme Configuration Equipment**
@@ -431,6 +459,8 @@ Each test scenario provides complete input values for all Page 4 form fields. Si
 - ✅ **PASS**: Prediction between $110,000 - $180,000
 - ❌ **FAIL**: Prediction outside this range or system error
 
+🔝 [Back to Table of Contents](#-table-of-contents)
+
 ---
 
 ## **Test Scenario 12: Geographic Edge Case**
@@ -458,6 +488,8 @@ Each test scenario provides complete input values for all Page 4 form fields. Si
 **Pass/Fail Criteria:**
 - ✅ **PASS**: Prediction between $130,000 - $200,000
 - ❌ **FAIL**: Prediction outside this range or system error
+
+🔝 [Back to Table of Contents](#-table-of-contents)
 
 ---
 
@@ -507,6 +539,8 @@ Each test scenario provides complete input values for all Page 4 form fields. Si
 - System timeout or technical failure
 - User interface malfunction
 
+🔝 [Back to Table of Contents](#-table-of-contents)
+
 ---
 
 ## 🎯 **Business Impact Assessment**
@@ -541,6 +575,8 @@ Each test scenario provides complete input values for all Page 4 form fields. Si
 - System handles edge cases gracefully
 - User experience remains professional and reliable
 
+🔝 [Back to Table of Contents](#-table-of-contents)
+
 ---
 
 ## 📞 **Support and Troubleshooting**
@@ -563,5 +599,7 @@ Each test scenario provides complete input values for all Page 4 form fields. Si
    - Clear browser cache and reload
    - Try a different web browser
    - Check if JavaScript is enabled
+
+🔝 [Back to Table of Contents](#-table-of-contents)
 
 This comprehensive testing framework ensures the Page 4 Interactive Bulldozer Price Prediction system delivers reliable, accurate results for real-world business applications.
