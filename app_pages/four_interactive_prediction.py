@@ -2887,13 +2887,37 @@ Expected for Test Scenario 2:
     # Prediction button and results
     st.header("🎯 Price Prediction")
 
-    # BACKUP DEBUG: Show form values immediately after header
-    st.markdown("### 🔍 **BACKUP DEBUG: Form Values Check**")
-    st.write(f"• Year Made: {selected_year_made} (type: {type(selected_year_made)})")
-    st.write(f"• Product Size: {product_size}")
-    st.write(f"• State: {state}")
-    st.write(f"• Model ID: {selected_model_id}")
-    st.write(f"• Sale Year: {sale_year}")
+    # USER-FRIENDLY: Quick form summary for verification
+    with get_expander("📋 Review Your Information", expanded=False):
+        st.markdown("**Current Selections:**")
+
+        col1, col2 = st.columns(2)
+
+        with col1:
+            st.markdown("**🔴 Required Information:**")
+            year_display = selected_year_made if selected_year_made and str(selected_year_made) != 'None' else "Not entered"
+            size_display = product_size if product_size else "Not selected"
+            state_display = state if state and state != 'All States' else "Not selected"
+
+            st.write(f"📅 Year Made: **{year_display}**")
+            st.write(f"📏 Product Size: **{size_display}**")
+            st.write(f"🗺️ State: **{state_display}**")
+
+        with col2:
+            st.markdown("**🔵 Additional Details:**")
+            model_display = selected_model_id if selected_model_id else "Auto-assigned"
+            sale_year_display = sale_year if sale_year else "Default (2006)"
+
+            st.write(f"🔢 Model ID: **{model_display}**")
+            st.write(f"📆 Sale Year: **{sale_year_display}**")
+            st.write(f"📊 Sale Day: **{sale_day_of_year}**")
+
+        if len(completed_fields) == len(required_fields):
+            st.success("✅ All required information provided - ready for prediction!")
+        else:
+            missing = len(required_fields) - len(completed_fields)
+            st.info(f"📝 {missing} required field{'s' if missing > 1 else ''} still needed")
+
     st.markdown("---")
 
     # Comprehensive Progress Tracker - positioned above input summary for better UX
@@ -3018,42 +3042,112 @@ Expected for Test Scenario 2:
             st.info(f"• {error.replace('🔵 ', '')}")
         st.info("💡 **Note:** These are optional - you can still make a prediction with default values.")
 
-    # DEBUG: Always visible debug section for troubleshooting expandable section issue
+    # UX IMPROVEMENT: Replace technical debug with user-friendly progress indicator
     st.markdown("---")
-    st.markdown("### 🔍 **Debug Information**")
-    st.markdown("**Current Status:**")
-    st.write(f"• Year Made: {selected_year_made}")
-    st.write(f"• Product Size: {product_size}")
-    st.write(f"• Critical Errors: {len(critical_errors)}")
-    st.write(f"• Can Predict: {len(critical_errors) == 0}")
 
-    if critical_errors:
-        st.error("❌ **Critical Errors Preventing Prediction:**")
-        for error in critical_errors:
-            st.write(f"  - {error}")
+    # Calculate completion progress
+    required_fields = ['Year Made', 'Product Size', 'State']
+    completed_fields = []
+
+    if selected_year_made and selected_year_made != 'None':
+        completed_fields.append('Year Made')
+    if product_size and product_size != '':
+        completed_fields.append('Product Size')
+    if state and state != 'All States':
+        completed_fields.append('State')
+
+    completion_percentage = len(completed_fields) / len(required_fields)
+
+    # User-friendly progress section
+    colors = get_dark_theme_colors()
+
+    if len(critical_errors) == 0:
+        # All required fields completed
+        st.markdown(f"""
+        <div style="background: linear-gradient(90deg, {colors['success_bg']} 0%, #059669 100%);
+                    border-left: 5px solid {colors['accent_green']};
+                    padding: 20px;
+                    border-radius: 10px;
+                    margin: 15px 0;
+                    border: 1px solid {colors['border_color']};
+                    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.2);">
+            <h3 style="color: {colors['success_text']}; margin: 0 0 10px 0; font-size: 18px;">
+                ✅ Ready for Prediction!
+            </h3>
+            <p style="color: {colors['success_text']}; margin: 0; font-size: 16px;">
+                All required information has been provided. You can now generate your bulldozer price prediction.
+            </p>
+        </div>
+        """, unsafe_allow_html=True)
     else:
-        st.success("✅ **No Critical Errors - Expandable section should be visible below**")
+        # Show progress and helpful guidance
+        st.markdown(f"""
+        <div style="background: linear-gradient(90deg, {colors['warning_bg']} 0%, #b45309 100%);
+                    border-left: 5px solid {colors['accent_orange']};
+                    padding: 20px;
+                    border-radius: 10px;
+                    margin: 15px 0;
+                    border: 1px solid {colors['border_color']};
+                    box-shadow: 0 2px 8px rgba(245, 158, 11, 0.2);">
+            <h3 style="color: {colors['warning_text']}; margin: 0 0 15px 0; font-size: 18px;">
+                📋 Complete Your Information ({len(completed_fields)}/{len(required_fields)} required fields)
+            </h3>
+        </div>
+        """, unsafe_allow_html=True)
 
-    # DEBUG: Show validation status for troubleshooting
-    with get_expander("🔍 Debug: Validation Status", expanded=False):
-        st.markdown("**Current Variable Values:**")
-        st.write(f"• selected_year_made: {selected_year_made} (type: {type(selected_year_made)})")
-        st.write(f"• product_size: {product_size}")
-        st.write(f"• state: {state}")
+        # Progress bar
+        st.progress(completion_percentage)
 
-        st.markdown("**Validation Errors:**")
-        st.write(f"• Total validation errors: {len(validation_errors)}")
-        st.write(f"• Critical errors (⭐): {len(critical_errors)}")
-        st.write(f"• Warning errors (🔵): {len(warning_errors)}")
+        # Helpful guidance instead of technical errors
+        st.markdown("**📝 Next Steps:**")
+        for error in critical_errors:
+            if "Year Made" in error:
+                st.info("📅 **Year Made**: Please enter the year your bulldozer was manufactured (1974-2018). This is the most important factor for accurate pricing.")
+            elif "Product Size" in error:
+                st.info("📏 **Product Size**: Please select the size category of your bulldozer. This determines the price range and market segment.")
+            elif "State" in error:
+                st.info("🗺️ **Location**: Please select the state where the bulldozer will be sold. Different regions have varying market values.")
+            else:
+                # Fallback for any other errors, but make them user-friendly
+                clean_error = error.replace("⭐", "").replace("🔵", "").strip()
+                st.info(f"💡 {clean_error}")
+
+        st.markdown("💡 **Tip**: Use the Quick Fill test scenario buttons above to automatically populate all fields with validated configurations!")
+
+    # ADVANCED: Technical debug information for developers (collapsed by default)
+    with get_expander("🔧 Advanced Debug Information (For Developers)", expanded=False):
+        st.markdown("**⚠️ Technical Information - For Development and Troubleshooting**")
+
+        col1, col2 = st.columns(2)
+
+        with col1:
+            st.markdown("**📊 Current Values:**")
+            st.code(f"""
+Year Made: {selected_year_made} ({type(selected_year_made).__name__})
+Product Size: {product_size}
+State: {state}
+Model ID: {st.session_state.get('model_id_input', 'Not set')}
+            """, language='text')
+
+        with col2:
+            st.markdown("**🔍 Validation Status:**")
+            st.code(f"""
+Total Errors: {len(validation_errors)}
+Critical Errors: {len(critical_errors)}
+Warning Errors: {len(warning_errors)}
+Can Predict: {len(critical_errors) == 0}
+Completion: {len(completed_fields)}/{len(required_fields)}
+            """, language='text')
 
         if validation_errors:
-            st.markdown("**Error Details:**")
-            for error in validation_errors:
-                st.write(f"  - {error}")
+            st.markdown("**📝 Raw Validation Messages:**")
+            for i, error in enumerate(validation_errors, 1):
+                error_type = "🔴 Critical" if error.startswith("⭐") else "🟡 Warning"
+                st.text(f"{i}. {error_type}: {error}")
         else:
-            st.write("✅ No validation errors")
+            st.success("✅ No validation errors detected")
 
-        st.write(f"• can_predict: {len(critical_errors) == 0}")
+        st.markdown("**💡 Note**: This section is for developers and advanced users. Regular users should focus on the guidance above.")
 
     # Allow prediction if only warnings (no critical errors)
     can_predict = len(critical_errors) == 0
