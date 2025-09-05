@@ -645,103 +645,56 @@ def display_sale_info_and_prediction(colors):
     st.markdown("---")
     st.markdown("**👇 Expand the section below to review all your input values before generating your prediction:**")
 
-    # Enhanced Prediction Input Summary - Render Platform Optimized with Robust Variable Access
+    # Enhanced Prediction Input Summary - FIXED for Render Platform Real-time Value Display
     with get_expander("🔍 Review Selected Values - Complete Input Summary", expanded=False):
         st.markdown("**📋 Comprehensive Input Verification**")
         st.markdown("Review all values that will be passed to the Enhanced ML Model for prediction:")
 
-        # Render-safe value retrieval with multiple fallback layers
-        def get_safe_value(widget_var, session_key, test_key, default_value):
-            """Safely get value with multiple fallback layers for Render compatibility"""
-            try:
-                # Try widget variable first
-                if 'widget_var' in locals() and widget_var is not None:
-                    return widget_var
-            except:
-                pass
+        # FIXED: Direct session state access for real-time user input values
+        def get_current_value(widget_key, test_key, default_value):
+            """Get current user-selected value from session state - FIXED for Render compatibility"""
+            # Priority 1: Current widget value (what user actually selected)
+            if widget_key in st.session_state and st.session_state[widget_key] is not None:
+                return st.session_state[widget_key]
 
-            try:
-                # Try session state widget key
-                if session_key in st.session_state:
-                    return st.session_state[session_key]
-            except:
-                pass
+            # Priority 2: Test scenario data (if test button was clicked)
+            if test_key in st.session_state and st.session_state[test_key] is not None:
+                return st.session_state[test_key]
 
-            try:
-                # Try test data key
-                if test_key in st.session_state:
-                    return st.session_state[test_key]
-            except:
-                pass
-
-            # Return default
+            # Priority 3: Default value
             return default_value
 
-        # Get all values with robust fallbacks - FIXED for Render compatibility
+        # FIXED: Get current user-selected values directly from session state
+        # This ensures we show exactly what the user has selected in the form
+        display_year_made = get_current_value('year_made_input', 'test_year_made', 2000)
+        display_model_id = get_current_value('model_id_input', 'test_model_id', 4800)
+        display_product_size = get_current_value('product_size_input', 'test_product_size', 'Large')
+        display_state = get_current_value('state_input', 'test_state', 'All States')
+        display_enclosure = get_current_value('enclosure_input', 'test_enclosure', 'EROPS')
+        display_base_model = get_current_value('base_model_input', 'test_base_model', 'D3')
+        display_hydraulics = get_current_value('hydraulics_input', 'test_hydraulics', 'Standard')
+        display_tire_size = get_current_value('tire_size_input', 'test_tire_size', 'None or Unspecified')
+        display_sale_year = get_current_value('sale_year_input', 'test_sale_year', 2006)
+        display_sale_day = get_current_value('sale_day_input', 'test_sale_day', 182)
+
+        # Validate and convert data types safely for Render compatibility
+        display_year_made = int(display_year_made) if str(display_year_made).replace('-', '').isdigit() else 2000
+        display_model_id = int(display_model_id) if str(display_model_id).replace('-', '').isdigit() else 4800
+        display_sale_year = int(display_sale_year) if str(display_sale_year).replace('-', '').isdigit() else 2006
+        display_sale_day = int(display_sale_day) if str(display_sale_day).replace('-', '').isdigit() else 182
+
+        # Render-optimized responsive layout with fallback
         try:
-            display_year_made = get_safe_value(
-                locals().get('year_made'), 'year_made_input', 'test_year_made', 2000
-            )
-            display_model_id = get_safe_value(
-                locals().get('model_id'), 'model_id_input', 'test_model_id', 4800
-            )
-            display_product_size = get_safe_value(
-                locals().get('product_size'), 'product_size_input', 'test_product_size', 'Large'
-            )
-            display_state = get_safe_value(
-                locals().get('state'), 'state_input', 'test_state', 'All States'
-            )
-            display_enclosure = get_safe_value(
-                locals().get('enclosure'), 'enclosure_input', 'test_enclosure', 'EROPS'
-            )
-            display_base_model = get_safe_value(
-                locals().get('base_model'), 'base_model_input', 'test_base_model', 'D3'
-            )
-            display_hydraulics = get_safe_value(
-                locals().get('hydraulics'), 'hydraulics_input', 'test_hydraulics', 'Standard'
-            )
-            display_tire_size = get_safe_value(
-                locals().get('tire_size'), 'tire_size_input', 'test_tire_size', 'None or Unspecified'
-            )
-            display_sale_year = get_safe_value(
-                locals().get('sale_year'), 'sale_year_input', 'test_sale_year', 2006
-            )
-            display_sale_day = get_safe_value(
-                locals().get('sale_day'), 'sale_day_input', 'test_sale_day', 182
-            )
+            # Try three-column layout for desktop/tablet
+            col_basic, col_tech, col_features = get_columns(3)
+            use_columns = True
+        except Exception:
+            # Fallback to single-column for maximum Render compatibility
+            use_columns = False
+            st.info("📱 Using mobile-optimized single-column layout")
 
-            # Validate and convert data types safely for Render compatibility
-            display_year_made = int(display_year_made) if str(display_year_made).replace('-', '').isdigit() else 2000
-            display_model_id = int(display_model_id) if str(display_model_id).replace('-', '').isdigit() else 4800
-            display_sale_year = int(display_sale_year) if str(display_sale_year).replace('-', '').isdigit() else 2006
-            display_sale_day = int(display_sale_day) if str(display_sale_day).replace('-', '').isdigit() else 182
-
-        except Exception as e:
-            # Fallback to session state only
-            st.info("🔄 Loading values from session state...")
-            display_year_made = st.session_state.get('test_year_made', st.session_state.get('year_made_input', 2000))
-            display_model_id = st.session_state.get('test_model_id', st.session_state.get('model_id_input', 4800))
-            display_product_size = st.session_state.get('test_product_size', st.session_state.get('product_size_input', 'Large'))
-            display_state = st.session_state.get('test_state', st.session_state.get('state_input', 'All States'))
-            display_enclosure = st.session_state.get('test_enclosure', st.session_state.get('enclosure_input', 'EROPS'))
-            display_base_model = st.session_state.get('test_base_model', st.session_state.get('base_model_input', 'D3'))
-            display_hydraulics = st.session_state.get('test_hydraulics', st.session_state.get('hydraulics_input', 'Standard'))
-            display_tire_size = st.session_state.get('test_tire_size', st.session_state.get('tire_size_input', 'None or Unspecified'))
-            display_sale_year = st.session_state.get('test_sale_year', st.session_state.get('sale_year_input', 2006))
-            display_sale_day = st.session_state.get('test_sale_day', st.session_state.get('sale_day_input', 182))
-
-            # Render-optimized responsive layout with fallback
-            try:
-                # Try three-column layout for desktop/tablet
-                col_basic, col_tech, col_features = get_columns(3)
-                use_columns = True
-            except Exception:
-                # Fallback to single-column for maximum Render compatibility
-                use_columns = False
-                st.info("📱 Using mobile-optimized single-column layout")
-
-            # Render-compatible content display with responsive layout
-            if use_columns:
+        # Render-compatible content display with responsive layout
+        if use_columns:
                 # Three-column layout for desktop/tablet
                 with col_basic:
                     st.markdown("**📋 Required Fields:**")
@@ -795,7 +748,7 @@ def display_sale_info_and_prediction(colors):
                         st.markdown(prediction_info)
                     except Exception:
                         st.markdown("• **Equipment features**: Error retrieving values")
-            else:
+        else:
                 # Single-column fallback layout for maximum Render compatibility
                 st.markdown("**📋 Complete Input Summary:**")
                 try:
