@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# DEPLOYMENT VERIFICATION: Test Scenario 2 Market Logic Overhaul - FORCE DEPLOY 2025-09-05
+# DEPLOYMENT VERIFICATION: Test Scenario 2 Market Logic Overhaul - RENDER FIX 20250905_131458
 import streamlit as st
 import pandas as pd
 import numpy as np
