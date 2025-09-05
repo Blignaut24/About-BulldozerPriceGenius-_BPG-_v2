@@ -322,12 +322,25 @@ def create_year_made_input(sale_year: Optional[int] = None) -> Optional[int]:
         4. Preserves natural ordering relationship with price
         """)
     
+    # CRITICAL FIX: Get session state value and convert to string to prevent TypeError
+    session_value = st.session_state.get("year_made_input")
+    default_value = ""
+
+    if session_value is not None:
+        if isinstance(session_value, (int, float)):
+            # Convert numeric values from Quick Fill buttons to strings
+            default_value = str(int(session_value))  # Convert to int first to remove decimals, then to string
+        else:
+            # Ensure other non-None values are strings
+            default_value = str(session_value)
+
     # Create the input field using compatibility function
     year_input = get_text_input_with_placeholder(
         label="Enter Year Made (1974-2018)",
         placeholder="e.g., 1995, 2005, 2010, 2018",
         help="Enter the year the bulldozer was manufactured (1974-2018). This is the most important factor in price prediction. Supports all test scenarios including ultra-modern equipment.",
-        key="year_made_input"
+        key="year_made_input",
+        value=default_value
     )
     
     # Validate input if provided

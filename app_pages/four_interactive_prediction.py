@@ -1117,22 +1117,24 @@ def display_render_ux_form_sections(model, preprocessing_data):
 
         with col_v1:
             if st.button("📋 Test 1\nPremium Construction\n(2006 D8)", key="render_fill_test1"):
+                # CRITICAL FIX: Use regular session state variables with string conversion for text inputs
                 st.session_state.update({
-                    'render_year_made_input': 2006, 'render_product_size_input': 'Large', 'render_state_input': 'California',
-                    'render_model_id_input': 4200, 'render_enclosure_input': 'EROPS w AC', 'render_fi_base_model_input': 'D8',
-                    'render_coupler_system_input': 'Hydraulic', 'render_tire_size_input': '26.5R25', 'render_hydraulics_flow_input': 'High Flow',
-                    'render_grouser_tracks_input': 'Double', 'render_hydraulics_input': '4 Valve', 'render_sale_year_input': 2007, 'render_sale_day_input': 180
+                    'year_made_input': '2006', 'product_size_input': 'Large', 'state_input': 'California',
+                    'model_id_input': 4200, 'enclosure_input': 'EROPS w AC', 'fi_base_model_input': 'D8',
+                    'coupler_system_input': 'Hydraulic', 'tire_size_input': '26.5R25', 'hydraulics_flow_input': 'High Flow',
+                    'grouser_tracks_input': 'Double', 'hydraulics_input': '4 Valve', 'sale_year_input': 2007, 'sale_day_of_year_input': 180
                 })
                 st.success("✅ Test Scenario 1 (Premium Construction Equipment) loaded!")
                 if hasattr(st, 'rerun'): st.rerun()
 
         with col_v2:
             if st.button("🏛️ Test 2\nUltra-Vintage\n(1987 D9)", key="render_fill_test2"):
+                # CRITICAL FIX: Use regular session state variables with string conversion for text inputs
                 st.session_state.update({
-                    'render_year_made_input': 1987, 'render_product_size_input': 'Large', 'render_state_input': 'Texas',
-                    'render_model_id_input': 4800, 'render_enclosure_input': 'EROPS w AC', 'render_fi_base_model_input': 'D9',
-                    'render_coupler_system_input': 'Hydraulic', 'render_tire_size_input': '29.5R25', 'render_hydraulics_flow_input': 'High Flow',
-                    'render_grouser_tracks_input': 'Double', 'render_hydraulics_input': '4 Valve', 'render_sale_year_input': 2006, 'render_sale_day_input': 182
+                    'year_made_input': '1987', 'product_size_input': 'Large', 'state_input': 'Texas',
+                    'model_id_input': 4800, 'enclosure_input': 'EROPS w AC', 'fi_base_model_input': 'D9',
+                    'coupler_system_input': 'Hydraulic', 'tire_size_input': '29.5R25', 'hydraulics_flow_input': 'High Flow',
+                    'grouser_tracks_input': 'Double', 'hydraulics_input': '4 Valve', 'sale_year_input': 2006, 'sale_day_of_year_input': 182
                 })
                 st.success("✅ Test Scenario 2 (Ultra-Vintage Premium) loaded!")
                 if hasattr(st, 'rerun'): st.rerun()
@@ -1955,7 +1957,7 @@ def interactive_prediction_body():
 
                 # Load Test Scenario 2 configuration (exactly as specified in TEST.md)
                 st.session_state.update({
-                    'year_made_input': 1987,             # Ultra-vintage equipment (integer for proper detection)
+                    'year_made_input': '1987',           # Ultra-vintage equipment (string for text input compatibility)
                     'product_size_input': 'Large',       # Large bulldozer class
                     'state_input': 'Texas',              # Texas market
                     'model_id_input': 4800,              # Model ID per TEST.md
@@ -2190,6 +2192,18 @@ Expected for Test Scenario 2:
 
     with col1:
         # YearMade input (ALWAYS REQUIRED) - Enhanced with test scenario validation
+        # CRITICAL FIX: Check both render_ and regular session state for Year Made
+        render_year_made = st.session_state.get('render_year_made_input')
+        regular_year_made = st.session_state.get('year_made_input')
+
+        # Synchronize between the two form sections and ensure string conversion
+        if render_year_made and not regular_year_made:
+            # Convert to string to prevent TypeError in text_input
+            st.session_state['year_made_input'] = str(render_year_made) if isinstance(render_year_made, (int, float)) else render_year_made
+        elif regular_year_made and not render_year_made:
+            # Convert to string to prevent TypeError in text_input
+            st.session_state['render_year_made_input'] = str(regular_year_made) if isinstance(regular_year_made, (int, float)) else regular_year_made
+
         if YEARMADE_COMPONENT_AVAILABLE:
             selected_year_made = create_year_made_input()
         else:
@@ -2197,7 +2211,7 @@ Expected for Test Scenario 2:
                 "⭐ Year Made (REQUIRED)",
                 min_value=1974,
                 max_value=2018,  # Extended range to support Test Scenario 8 (2018)
-                value=2000,
+                value=st.session_state.get('year_made_input', 2000),
                 key="year_made_input",
                 help="🔴 REQUIRED for prediction: Year the bulldozer was manufactured (1974-2018). This is the most critical factor affecting price - newer equipment typically commands higher prices. Supports all test scenarios from vintage (1987) to ultra-modern (2018)."
             )
