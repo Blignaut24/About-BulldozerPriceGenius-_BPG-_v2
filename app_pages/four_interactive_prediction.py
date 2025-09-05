@@ -4268,7 +4268,7 @@ def _display_full_diagnostic_report(reason: str, error: Exception | str, context
 
         "[4] MODEL STATUS\n"
         f"Status: {reason}\n"
-        f"{model_info_text if model_info_text else 'No model info available\n'}"
+        f"{model_info_text if model_info_text else 'No model info available' + chr(10)}"
         f"GOOGLE_DRIVE_MODEL_ID: {_mask_id(_os.getenv('GOOGLE_DRIVE_MODEL_ID',''))}\n\n"
 
         "[5] SESSION STATE\n"
@@ -4987,7 +4987,8 @@ def make_prediction(model, year_made, model_id, product_size, state, enclosure,
 
             if training_data is None:
                 error_details = "\n".join([f"   • {msg}" for msg in error_messages])
-                raise Exception(f"Could not load training data from {parquet_path} with any available parquet engine.\nDetailed errors:\n{error_details}")
+                newline = "\n"
+                raise Exception(f"Could not load training data from {parquet_path} with any available parquet engine.{newline}Detailed errors:{newline}{error_details}")
 
             training_data = training_data.head(1)  # Only need structure, not all data
             expected_columns = [col for col in training_data.columns if col != 'SalePrice']  # Exclude target
