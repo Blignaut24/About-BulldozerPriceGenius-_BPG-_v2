@@ -1580,10 +1580,9 @@ def interactive_prediction_body():
     # Get dark theme colors
     colors = get_dark_theme_colors()
 
-    # Always display the old UX design for consistent experience across all platforms
-    # This ensures identical interface on both Render deployment and local development
-    display_render_ux_design()
-    # Continue to prediction section (removed early return to enable full functionality)
+    # REMOVED: First duplicate form section to eliminate UI duplication
+    # The orange background section below provides all necessary functionality
+    # This simplifies the user experience and prevents session state conflicts
 
     # ASSESSMENT COMPLIANCE: Clear statement that this page generates price predictions
     st.markdown(f"""
@@ -2192,17 +2191,8 @@ Expected for Test Scenario 2:
 
     with col1:
         # YearMade input (ALWAYS REQUIRED) - Enhanced with test scenario validation
-        # CRITICAL FIX: Check both render_ and regular session state for Year Made
-        render_year_made = st.session_state.get('render_year_made_input')
-        regular_year_made = st.session_state.get('year_made_input')
-
-        # Synchronize between the two form sections and ensure string conversion
-        if render_year_made and not regular_year_made:
-            # Convert to string to prevent TypeError in text_input
-            st.session_state['year_made_input'] = str(render_year_made) if isinstance(render_year_made, (int, float)) else render_year_made
-        elif regular_year_made and not render_year_made:
-            # Convert to string to prevent TypeError in text_input
-            st.session_state['render_year_made_input'] = str(regular_year_made) if isinstance(regular_year_made, (int, float)) else regular_year_made
+        # SIMPLIFIED: No longer need session state synchronization since first duplicate section is removed
+        # Year Made input now uses single session state variable without conflicts
 
         if YEARMADE_COMPONENT_AVAILABLE:
             selected_year_made = create_year_made_input()
