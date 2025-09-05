@@ -654,25 +654,24 @@ def display_sale_info_and_prediction(colors):
 
             # Render-safe session state retrieval with comprehensive fallbacks
             try:
-                # Get current form values from session state with robust error handling
-                year_made = st.session_state.get('year_made_input', 2000)
-                model_id = st.session_state.get('model_id_input', 4800)
-                product_size = st.session_state.get('product_size_input', 'Large')
-                state = st.session_state.get('state_input', 'All States')
-                enclosure = st.session_state.get('enclosure_input', 'EROPS')
-                base_model = st.session_state.get('base_model_input', 'D3')
-                hydraulics = st.session_state.get('hydraulics_input', 'Standard')
-                tire_size = st.session_state.get('tire_size_input', 'None or Unspecified')
-
-                # Get sale information with fallbacks
-                sale_year = st.session_state.get('sale_year_input', 2006)
-                sale_day = st.session_state.get('sale_day_input', 182)
+                # Get current form values - FIXED for Test Scenario compatibility
+                # Use the actual form widget values which already incorporate test data
+                display_year_made = year_made
+                display_model_id = model_id
+                display_product_size = product_size
+                display_state = state
+                display_enclosure = enclosure
+                display_base_model = base_model
+                display_hydraulics = hydraulics
+                display_tire_size = tire_size
+                display_sale_year = sale_year
+                display_sale_day = sale_day
 
                 # Validate data types for Render compatibility
-                year_made = int(year_made) if isinstance(year_made, (int, float, str)) and str(year_made).isdigit() else 2000
-                model_id = int(model_id) if isinstance(model_id, (int, float, str)) and str(model_id).isdigit() else 4800
-                sale_year = int(sale_year) if isinstance(sale_year, (int, float, str)) and str(sale_year).isdigit() else 2006
-                sale_day = int(sale_day) if isinstance(sale_day, (int, float, str)) and str(sale_day).isdigit() else 182
+                display_year_made = int(display_year_made) if isinstance(display_year_made, (int, float, str)) and str(display_year_made).isdigit() else 2000
+                display_model_id = int(display_model_id) if isinstance(display_model_id, (int, float, str)) and str(display_model_id).isdigit() else 4800
+                display_sale_year = int(display_sale_year) if isinstance(display_sale_year, (int, float, str)) and str(display_sale_year).isdigit() else 2006
+                display_sale_day = int(display_sale_day) if isinstance(display_sale_day, (int, float, str)) and str(display_sale_day).isdigit() else 182
 
             except Exception as e:
                 # Ultimate fallback for Render deployment
@@ -698,17 +697,17 @@ def display_sale_info_and_prediction(colors):
                     st.markdown("**📋 Required Fields:**")
                     try:
                         basic_info = f"""
-• **Year Made**: {year_made}
-• **Product Size**: {product_size}
-• **State**: {state}
-• **Sale Year**: {sale_year}
-• **Sale Day of Year**: {sale_day}
+• **Year Made**: {display_year_made}
+• **Product Size**: {display_product_size}
+• **State**: {display_state}
+• **Sale Year**: {display_sale_year}
+• **Sale Day of Year**: {display_sale_day}
 """
                         st.markdown(basic_info)
 
                         # Equipment age calculation with error handling
                         try:
-                            equipment_age = sale_year - year_made
+                            equipment_age = display_sale_year - display_year_made
                             st.markdown(f"• **Equipment Age**: {equipment_age} years")
                         except Exception:
                             st.markdown("• **Equipment Age**: Calculation error")
@@ -720,10 +719,10 @@ def display_sale_info_and_prediction(colors):
                     st.markdown("**🔧 Technical Specifications:**")
                     try:
                         tech_specs = f"""
-• **Model ID**: {model_id}
-• **Enclosure**: {enclosure}
-• **Base Model**: {base_model}
-• **Tire Size**: {tire_size}
+• **Model ID**: {display_model_id}
+• **Enclosure**: {display_enclosure}
+• **Base Model**: {display_base_model}
+• **Tire Size**: {display_tire_size}
 """
                         st.markdown(tech_specs)
                     except Exception:
@@ -733,7 +732,7 @@ def display_sale_info_and_prediction(colors):
                     st.markdown("**⚙️ Equipment Features:**")
                     try:
                         equipment_features = f"""
-• **Hydraulics**: {hydraulics}
+• **Hydraulics**: {display_hydraulics}
 """
                         st.markdown(equipment_features)
 
@@ -751,25 +750,25 @@ def display_sale_info_and_prediction(colors):
                 st.markdown("**📋 Complete Input Summary:**")
                 try:
                     # Calculate equipment age safely
-                    equipment_age = sale_year - year_made if isinstance(sale_year, int) and isinstance(year_made, int) else "Unknown"
+                    equipment_age = display_sale_year - display_year_made if isinstance(display_sale_year, int) and isinstance(display_year_made, int) else "Unknown"
 
                     summary_content = f"""
 **Required Fields:**
-• Year Made: {year_made}
-• Product Size: {product_size}
-• State: {state}
-• Sale Year: {sale_year}
-• Sale Day of Year: {sale_day}
+• Year Made: {display_year_made}
+• Product Size: {display_product_size}
+• State: {display_state}
+• Sale Year: {display_sale_year}
+• Sale Day of Year: {display_sale_day}
 • Equipment Age: {equipment_age} years
 
 **Technical Specifications:**
-• Model ID: {model_id}
-• Enclosure: {enclosure}
-• Base Model: {base_model}
-• Tire Size: {tire_size}
+• Model ID: {display_model_id}
+• Enclosure: {display_enclosure}
+• Base Model: {display_base_model}
+• Tire Size: {display_tire_size}
 
 **Equipment Features:**
-• Hydraulics: {hydraulics}
+• Hydraulics: {display_hydraulics}
 
 **Prediction Info:**
 • Method: Enhanced ML Model
@@ -790,28 +789,28 @@ These defaults are derived from the most common configurations for similar equip
 """
         st.info(defaults_info)
 
-        # Test scenario detection for debugging
+        # Test scenario detection for debugging - FIXED to use display variables
         st.markdown("**🧪 Test Scenario Detection:**")
         detected_scenarios = []
 
         # Test Scenario 1: 1994 D8 Large
-        if (year_made == 1994 and product_size == 'Large' and
-            base_model == 'D8' and 'EROPS' in enclosure):
+        if (display_year_made == 1994 and display_product_size == 'Large' and
+            display_base_model == 'D8' and 'EROPS' in display_enclosure):
             detected_scenarios.append("Test Scenario 1 (1994 D8 Large - Vintage Premium)")
 
-        # Test Scenario 2: 1987 D9 Large
-        if (year_made == 1987 and product_size == 'Large' and
-            base_model == 'D9' and 'EROPS' in enclosure):
+        # Test Scenario 2: 1987 D9 Large - FIXED for correct detection
+        if (display_year_made == 1987 and display_product_size == 'Large' and
+            display_base_model == 'D9' and 'EROPS' in display_enclosure):
             detected_scenarios.append("Test Scenario 2 (1987 D9 Large - Ultra-Vintage)")
 
         # Test Scenario 3: 1995 D7 Medium
-        if (year_made == 1995 and product_size == 'Medium' and
-            base_model == 'D7'):
+        if (display_year_made == 1995 and display_product_size == 'Medium' and
+            display_base_model == 'D7'):
             detected_scenarios.append("Test Scenario 3 (1995 D7 Medium - Standard Vintage)")
 
         # Test Scenario 4: 1992 D3 Compact
-        if (year_made == 1992 and product_size == 'Compact' and
-            base_model == 'D3' and enclosure == 'ROPS'):
+        if (display_year_made == 1992 and display_product_size == 'Compact' and
+            display_base_model == 'D3' and display_enclosure == 'ROPS'):
             detected_scenarios.append("Test Scenario 4 (1992 D3 Compact - Basic Configuration)")
 
         if detected_scenarios:
