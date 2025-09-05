@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# DEPLOYMENT VERIFICATION: Test Scenario 2 Market Logic Overhaul - Version 2025-09-05
 import streamlit as st
 import pandas as pd
 import numpy as np
