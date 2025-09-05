@@ -67,13 +67,13 @@ class TestScenarioValidator:
         return [
             {
                 "id": 1,
-                "name": "Vintage Premium Restoration (1990s High-End)",
-                "description": "Tests the recent price over-correction fix",
+                "name": "Premium Construction Equipment (2006 Construction Boom)",
+                "description": "Tests premium construction equipment pricing during boom period",
                 "config": {
-                    "year_made": 1994,
+                    "year_made": 2006,
                     "product_size": "Large",
                     "state": "California",
-                    "sale_year": 2005,
+                    "sale_year": 2007,
                     "sale_day_of_year": 180,
                     "model_id": 4200,
                     "enclosure": "EROPS w AC",

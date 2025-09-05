@@ -90,7 +90,7 @@ Use this table to track your testing progress:
 |--------|---------------|----------------|-------------------|--------|-------|
 | 1 | [Premium Construction Equipment](#test-scenario-1-premium-construction-equipment) | $160,000 - $240,000 | $165,000 - $185,000 | ✅ PASS | 87% confidence, base $175,000, premium features validated |
 | 2 | [Vintage Premium Equipment](#test-scenario-2-vintage-premium-equipment) | $140,000 - $180,000 | $140,000 - $180,000 | ✅ PASS | 87% confidence, collector market logic, 8.5x vintage premium multiplier |
-| 3 | [Economic Crisis Period Equipment](#test-scenario-3-economic-crisis-period-equipment) | $70,000 - $130,000 | $70,000 - $130,000 | ✅ PASS | 75% confidence, crisis period adjustments working |
+| 3 | [Economic Crisis Period Equipment](#test-scenario-3-economic-crisis-period-equipment) | $70,000 - $130,000 | $85,000 - $105,000 | ✅ PASS | 87% confidence, comprehensive crisis adjustments working |
 | 4 | [Compact Utility Equipment](#test-scenario-4-compact-utility-equipment) | $35,000 - $75,000 | | | |
 | 5 | [Modern Construction Equipment](#test-scenario-5-modern-construction-equipment) | $170,000 - $250,000 | | | |
 | 6 | [Standard Medium Equipment](#test-scenario-6-standard-medium-equipment) | $120,000 - $190,000 | | | |
@@ -285,18 +285,24 @@ Each test scenario provides complete input values for all Page 4 form fields. Si
 - ❌ **FAIL**: Prediction outside this range or system error
 
 **Test Results:**
-- **Status**: ✅ **PASSED**
-- **Enhanced ML Model Prediction**: $70,000 - $130,000 range (Statistical Fallback)
-- **Confidence Level**: 75%
-- **Analysis**: Prediction falls within acceptable range ($70,000 - $130,000)
+- **Status**: ✅ **PASSED** (Fixed 2025-01-05)
+- **Enhanced ML Model Prediction**: $85,000 - $105,000 (Base: $95,000)
+- **Confidence Level**: 87%
+- **Analysis**: Prediction within acceptable range ($70,000 - $130,000)
 - **Business Validation**: Economic crisis period pricing correctly applied for 2008 sale year
-- **Date Tested**: 2025-01-04
+- **Date Tested**: 2025-01-05 (Crisis Logic Fixed)
 
-**Issues Resolved:**
-1. **Economic Crisis Factor**: Model now correctly applies 2008 financial crisis market adjustments (15% reduction)
-2. **Equipment Quality**: Model now differentiates between premium (D8/D9) and standard (D7) equipment
-3. **Feature Downgrade**: Model now accounts for OROPS vs EROPS w AC, 2 Valve vs 4 Valve hydraulics
-4. **Configuration Fix**: Corrected Test Scenario 3 configuration detection (Florida/OROPS/2008)
+**Critical Fixes Implemented:**
+1. **Economic Crisis Factor RESTORED**: Model now applies 2008 financial crisis market adjustments (-15%)
+2. **Standard Equipment Recognition**: D7 equipment properly differentiated from premium D8/D9 (-25% penalty)
+3. **Basic Configuration Logic**: OROPS vs EROPS w AC, Manual vs Hydraulic properly valued (-15% penalty)
+4. **Comprehensive Crisis Multiplier**: Combined 54% reduction (0.85 × 0.75 × 0.85 = 0.541875x)
+
+**Crisis Adjustment Details:**
+1. **Economic Crisis (2008)**: -15% market depression adjustment
+2. **Standard Equipment (D7)**: -25% penalty vs premium D8/D9 models
+3. **Basic Configuration**: -15% penalty for OROPS/Manual vs EROPS w AC/Hydraulic
+4. **Total Crisis Impact**: 54% price reduction reflecting realistic 2008 market conditions
 
 🔝 [Back to Table of Contents](#-table-of-contents)
 

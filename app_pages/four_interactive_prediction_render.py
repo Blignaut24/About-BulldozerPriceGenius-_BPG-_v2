@@ -28,17 +28,54 @@ except ImportError:
 
 # Streamlit compatibility functions
 def get_expander(label, expanded=False):
+    """
+    Create an expander with comprehensive version compatibility.
+
+    Handles different Streamlit versions:
+    - Modern Streamlit (>= 0.89.0): Uses st.expander()
+    - Beta Streamlit (0.65.0-0.88.x): Uses st.beta_expander()
+    - Older Streamlit (< 0.65.0): Falls back to simple section with header
+    """
     if hasattr(st, 'expander'):
+        # Modern Streamlit (>= 0.89.0)
         return st.expander(label, expanded=expanded)
+    elif hasattr(st, 'beta_expander'):
+        # Beta Streamlit (0.65.0-0.88.x)
+        return st.beta_expander(label, expanded=expanded)
     else:
-        st.markdown(f"**{label}**")
-        return st.container()
+        # Fallback for very old Streamlit versions (< 0.65.0)
+        # Create a simple section with a header - always show content for compatibility
+        st.markdown(f"### {label}")
+        st.markdown("---")  # Add a separator line
+
+        # Return a simple context manager that does nothing but allows content to be displayed
+        from contextlib import nullcontext
+        return nullcontext()
 
 def get_columns(num_cols):
+    """
+    Create columns with version compatibility.
+
+    Handles different Streamlit versions:
+    - Modern Streamlit (>= 0.68.0): Uses st.columns()
+    - Beta Streamlit (0.65.0-0.67.x): Uses st.beta_columns()
+    - Older Streamlit (< 0.65.0): Falls back to sequential sections
+    """
     if hasattr(st, 'columns'):
+        # Modern Streamlit (>= 0.68.0)
         return st.columns(num_cols)
+    elif hasattr(st, 'beta_columns'):
+        # Beta Streamlit (0.65.0-0.67.x)
+        return st.beta_columns(num_cols)
     else:
-        return [st.container() for _ in range(num_cols)]
+        # Fallback for very old Streamlit versions
+        # Create simple sequential sections instead of columns
+        from contextlib import nullcontext
+        containers = []
+        for i in range(num_cols):
+            st.markdown(f"**Section {i+1}:**")
+            containers.append(nullcontext())
+        return containers
 
 def get_metric(label, value, help=None):
     if hasattr(st, 'metric'):
@@ -796,10 +833,10 @@ These defaults are derived from the most common configurations for similar equip
         st.markdown("**🧪 Test Scenario Detection:**")
         detected_scenarios = []
 
-        # Test Scenario 1: 1994 D8 Large
-        if (display_year_made == 1994 and display_product_size == 'Large' and
-            display_base_model == 'D8' and 'EROPS' in display_enclosure):
-            detected_scenarios.append("Test Scenario 1 (1994 D8 Large - Vintage Premium)")
+        # Test Scenario 1: 2006 D8 Large - Premium Construction Equipment
+        if (display_year_made == 2006 and display_product_size == 'Large' and
+            display_base_model == 'D8' and 'EROPS' in display_enclosure and display_state == 'California'):
+            detected_scenarios.append("Test Scenario 1 (2006 D8 Large - Premium Construction Equipment)")
 
         # Test Scenario 2: 1987 D9 Large - FIXED for correct detection
         if (display_year_made == 1987 and display_product_size == 'Large' and

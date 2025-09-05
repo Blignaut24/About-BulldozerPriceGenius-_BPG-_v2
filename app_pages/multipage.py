@@ -32,8 +32,7 @@ class MultiPage:
         Configure and run the multi-page application
         Sets up page configuration and renders selected page
         """
-        # Configure page settings
-        st.set_page_config(page_title=self.app_name, page_icon="🚜")
+        # Note: Page configuration moved to app.py to avoid duplicate set_page_config() calls
 
         # Apply dark theme globally
         apply_dark_theme()
