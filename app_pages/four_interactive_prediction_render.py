@@ -645,40 +645,90 @@ def display_sale_info_and_prediction(colors):
     st.markdown("---")
     st.markdown("**👇 Expand the section below to review all your input values before generating your prediction:**")
 
-    # Enhanced Prediction Input Summary - Render Platform Optimized
-    try:
-        # Render-compatible expandable section with robust error handling
-        with get_expander("🔍 Review Selected Values - Complete Input Summary", expanded=False):
-            st.markdown("**📋 Comprehensive Input Verification**")
-            st.markdown("Review all values that will be passed to the Enhanced ML Model for prediction:")
+    # Enhanced Prediction Input Summary - Render Platform Optimized with Robust Variable Access
+    with get_expander("🔍 Review Selected Values - Complete Input Summary", expanded=False):
+        st.markdown("**📋 Comprehensive Input Verification**")
+        st.markdown("Review all values that will be passed to the Enhanced ML Model for prediction:")
 
-            # Render-safe session state retrieval with comprehensive fallbacks
+        # Render-safe value retrieval with multiple fallback layers
+        def get_safe_value(widget_var, session_key, test_key, default_value):
+            """Safely get value with multiple fallback layers for Render compatibility"""
             try:
-                # Get current form values - FIXED for Test Scenario compatibility
-                # Use the actual form widget values which already incorporate test data
-                display_year_made = year_made
-                display_model_id = model_id
-                display_product_size = product_size
-                display_state = state
-                display_enclosure = enclosure
-                display_base_model = base_model
-                display_hydraulics = hydraulics
-                display_tire_size = tire_size
-                display_sale_year = sale_year
-                display_sale_day = sale_day
+                # Try widget variable first
+                if 'widget_var' in locals() and widget_var is not None:
+                    return widget_var
+            except:
+                pass
 
-                # Validate data types for Render compatibility
-                display_year_made = int(display_year_made) if isinstance(display_year_made, (int, float, str)) and str(display_year_made).isdigit() else 2000
-                display_model_id = int(display_model_id) if isinstance(display_model_id, (int, float, str)) and str(display_model_id).isdigit() else 4800
-                display_sale_year = int(display_sale_year) if isinstance(display_sale_year, (int, float, str)) and str(display_sale_year).isdigit() else 2006
-                display_sale_day = int(display_sale_day) if isinstance(display_sale_day, (int, float, str)) and str(display_sale_day).isdigit() else 182
+            try:
+                # Try session state widget key
+                if session_key in st.session_state:
+                    return st.session_state[session_key]
+            except:
+                pass
 
-            except Exception as e:
-                # Ultimate fallback for Render deployment
-                st.warning(f"⚠️ Session state access issue (Render compatibility mode): Using default values")
-                year_made, model_id, product_size, state = 2000, 4800, 'Large', 'All States'
-                enclosure, base_model, hydraulics, tire_size = 'EROPS', 'D3', 'Standard', 'None or Unspecified'
-                sale_year, sale_day = 2006, 182
+            try:
+                # Try test data key
+                if test_key in st.session_state:
+                    return st.session_state[test_key]
+            except:
+                pass
+
+            # Return default
+            return default_value
+
+        # Get all values with robust fallbacks - FIXED for Render compatibility
+        try:
+            display_year_made = get_safe_value(
+                locals().get('year_made'), 'year_made_input', 'test_year_made', 2000
+            )
+            display_model_id = get_safe_value(
+                locals().get('model_id'), 'model_id_input', 'test_model_id', 4800
+            )
+            display_product_size = get_safe_value(
+                locals().get('product_size'), 'product_size_input', 'test_product_size', 'Large'
+            )
+            display_state = get_safe_value(
+                locals().get('state'), 'state_input', 'test_state', 'All States'
+            )
+            display_enclosure = get_safe_value(
+                locals().get('enclosure'), 'enclosure_input', 'test_enclosure', 'EROPS'
+            )
+            display_base_model = get_safe_value(
+                locals().get('base_model'), 'base_model_input', 'test_base_model', 'D3'
+            )
+            display_hydraulics = get_safe_value(
+                locals().get('hydraulics'), 'hydraulics_input', 'test_hydraulics', 'Standard'
+            )
+            display_tire_size = get_safe_value(
+                locals().get('tire_size'), 'tire_size_input', 'test_tire_size', 'None or Unspecified'
+            )
+            display_sale_year = get_safe_value(
+                locals().get('sale_year'), 'sale_year_input', 'test_sale_year', 2006
+            )
+            display_sale_day = get_safe_value(
+                locals().get('sale_day'), 'sale_day_input', 'test_sale_day', 182
+            )
+
+            # Validate and convert data types safely for Render compatibility
+            display_year_made = int(display_year_made) if str(display_year_made).replace('-', '').isdigit() else 2000
+            display_model_id = int(display_model_id) if str(display_model_id).replace('-', '').isdigit() else 4800
+            display_sale_year = int(display_sale_year) if str(display_sale_year).replace('-', '').isdigit() else 2006
+            display_sale_day = int(display_sale_day) if str(display_sale_day).replace('-', '').isdigit() else 182
+
+        except Exception as e:
+            # Fallback to session state only
+            st.info("🔄 Loading values from session state...")
+            display_year_made = st.session_state.get('test_year_made', st.session_state.get('year_made_input', 2000))
+            display_model_id = st.session_state.get('test_model_id', st.session_state.get('model_id_input', 4800))
+            display_product_size = st.session_state.get('test_product_size', st.session_state.get('product_size_input', 'Large'))
+            display_state = st.session_state.get('test_state', st.session_state.get('state_input', 'All States'))
+            display_enclosure = st.session_state.get('test_enclosure', st.session_state.get('enclosure_input', 'EROPS'))
+            display_base_model = st.session_state.get('test_base_model', st.session_state.get('base_model_input', 'D3'))
+            display_hydraulics = st.session_state.get('test_hydraulics', st.session_state.get('hydraulics_input', 'Standard'))
+            display_tire_size = st.session_state.get('test_tire_size', st.session_state.get('tire_size_input', 'None or Unspecified'))
+            display_sale_year = st.session_state.get('test_sale_year', st.session_state.get('sale_year_input', 2006))
+            display_sale_day = st.session_state.get('test_sale_day', st.session_state.get('sale_day_input', 182))
 
             # Render-optimized responsive layout with fallback
             try:
@@ -819,12 +869,6 @@ These defaults are derived from the most common configurations for similar equip
             st.info("🎯 **Test Scenario Detected**: This configuration matches a TEST.md validation scenario.")
         else:
             st.markdown("ℹ️ **Custom Configuration**: No specific test scenario detected - using standard prediction logic.")
-
-    except Exception as e:
-        # Ultimate fallback for Render deployment if expandable section fails
-        st.error("⚠️ **Input Summary Unavailable**: Expandable section encountered an error on Render platform")
-        st.info("📋 **Basic Summary**: Your input values have been received and the prediction system is ready to proceed.")
-        st.markdown("**Note**: This is a Render compatibility fallback. All functionality remains available.")
 
     # Custom CSS for prediction button
     st.markdown("""
