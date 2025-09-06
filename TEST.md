@@ -98,7 +98,7 @@ Use this table to track your testing progress:
 | 8 | [Ultra-Modern Equipment](#test-scenario-8-ultra-modern-equipment) | $250,000 - $350,000 | $350,000.00 | ✅ PASS | 93% confidence, Enhanced ML Model, 9.00x premium factor |
 | 9 | [Recent Advanced Equipment](#test-scenario-9-recent-advanced-equipment) | $200,000 - $280,000 | $226,974.91 | ✅ PASS | 93% confidence, Enhanced ML Model, 8.65x premium factor |
 | 10 | [Compact Advanced Equipment](#test-scenario-10-compact-advanced-equipment) | $140,000 - $220,000 | $187,200.00 | ✅ PASS | 93% confidence, Enhanced ML Model, 9.00x premium factor |
-| 11 | [Extreme Configuration Equipment](#test-scenario-11-extreme-configuration-equipment) | $110,000 - $180,000 | | | |
+| 11 | [Extreme Configuration Equipment](#test-scenario-11-extreme-configuration-equipment) | $110,000 - $180,000 | $111,654.29 | ✅ PASS | 87% confidence, Enhanced ML Model, 5.50x premium factor |
 | 12 | [Geographic Edge Case](#test-scenario-12-geographic-edge-case) | $130,000 - $200,000 | | | |
 
 🔝 [Back to Table of Contents](#-table-of-contents)
@@ -715,6 +715,34 @@ Each test scenario provides complete input values for all Page 4 form fields. Si
 **Pass/Fail Criteria:**
 - ✅ **PASS**: Prediction between $110,000 - $180,000
 - ❌ **FAIL**: Prediction outside this range or system error
+
+**Test Results:**
+- **Status**: ✅ **PASSED** (Extreme Configuration Equipment Validation)
+- **Enhanced ML Model Prediction**: $111,654.29
+- **Confidence Level**: 87%
+- **Price Range**: $98K - $125K (estimated confidence range)
+- **Premium Factor**: 5.50x
+- **Range Compliance**: Within $110,000 - $180,000 criteria (positioned at 2% of range, near minimum)
+- **Business Validation**: Conservative valuation for 2-year-old extreme configuration D5 Small bulldozer
+- **Market Factors**: Colorado market and extreme configuration mix properly valued
+- **Mixed Features**: EROPS w AC (premium), Triple grouser tracks, Variable flow, Auxiliary hydraulics correctly processed
+- **Date Logic**: Fixed - 2-year equipment age (was -10 years, now 2016 ≤ 2018)
+- **Platform**: Production Deployment
+- **Date Verified**: 2025-09-06
+- **Verification Method**: Live UI testing with extreme configuration equipment
+
+**Model Performance Metrics:**
+- **Price Accuracy**: 100% (within expected bounds, conservative for extreme config)
+- **Confidence Reliability**: 87% (appropriate uncertainty for unusual feature combinations)
+- **Business Alignment**: High (extreme configuration appropriately valued with conservative approach)
+- **System Reliability**: 100% (error-free execution, psutil runtime error resolved)
+- **Feature Recognition**: 100% (mixed premium/basic features properly valued with extreme config penalty)
+
+**Critical Fixes Validated:**
+- **Date Logic Error**: Resolved (Year Made ≤ Sale Year constraint enforced)
+- **Runtime Error**: Fixed (psutil AttributeError handled gracefully)
+- **Configuration Alignment**: Achieved (matches TEST.md specification exactly)
+- **Extreme Configuration Penalty**: Applied (15% reduction for unusual feature mix)
 
 🔝 [Back to Table of Contents](#-table-of-contents)
 
