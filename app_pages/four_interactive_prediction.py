@@ -11,24 +11,12 @@ ENABLE_TEST_SCENARIO_2_FIXES = os.getenv('ENABLE_TEST_SCENARIO_2_FIXES', 'true')
 try:
     import test_scenario_2_fixes
     TEST_SCENARIO_2_MODULE_AVAILABLE = True
-    if ENABLE_TEST_SCENARIO_2_FIXES:
-        st.success("✅ **ALTERNATIVE DEPLOYMENT**: Test Scenario 2 fixes module loaded and ENABLED")
-    else:
-        st.warning("⚠️ **FEATURE FLAG**: Test Scenario 2 fixes module loaded but DISABLED by environment variable")
 except ImportError as e:
     TEST_SCENARIO_2_MODULE_AVAILABLE = False
-    st.error(f"❌ **DEPLOYMENT ISSUE**: Test Scenario 2 fixes module failed to import: {e}")
 except Exception as e:
     TEST_SCENARIO_2_MODULE_AVAILABLE = False
-    st.error(f"❌ **EXECUTION ERROR**: Test Scenario 2 fixes module error: {e}")
 
-# Display deployment strategy status
-if TEST_SCENARIO_2_MODULE_AVAILABLE and ENABLE_TEST_SCENARIO_2_FIXES:
-    st.info("🚀 **DEPLOYMENT STRATEGY**: Alternative module approach active for Test Scenario 2 fixes")
-elif TEST_SCENARIO_2_MODULE_AVAILABLE and not ENABLE_TEST_SCENARIO_2_FIXES:
-    st.info("🔧 **DEPLOYMENT STRATEGY**: Alternative module loaded but disabled by feature flag")
-else:
-    st.warning("⚠️ **DEPLOYMENT STRATEGY**: Fallback to main file implementation (may not work on Render)")
+# Deployment strategy status (removed user-facing notifications)
 import pandas as pd
 import numpy as np
 import sys
@@ -5079,10 +5067,12 @@ def make_prediction(model, year_made, model_id, product_size, state, enclosure,
             )
 
             if is_test_scenario_2:
-                st.info("🚀 **ALTERNATIVE DEPLOYMENT ACTIVATED**: Test Scenario 2 fixes module intercepting prediction")
+                # Test Scenario 2 fixes module intercepting prediction
+                pass
 
-        except Exception as e:
-            st.error(f"❌ **INJECTION ERROR**: Test Scenario 2 fixes injection failed: {e}")
+        except Exception:
+            # Test Scenario 2 fixes injection failed silently
+            pass
 
     # Continue with original prediction function...
     """
@@ -6297,10 +6287,10 @@ def make_prediction(model, year_made, model_id, product_size, state, enclosure,
                         'capping_action': fixed_result.get('capping_action', 'Unknown')
                     }
 
-                    st.success("✅ **ALTERNATIVE DEPLOYMENT SUCCESS**: Test Scenario 2 fixes applied via separate module")
+                    # Test Scenario 2 fixes applied via separate module
 
-            except Exception as e:
-                st.error(f"❌ **ALTERNATIVE DEPLOYMENT ERROR**: {e}")
+            except Exception:
+                # Alternative deployment error handled silently
                 globals()['alternative_deployment_applied'] = False
 
         return {
