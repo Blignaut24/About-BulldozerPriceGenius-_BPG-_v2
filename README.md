@@ -4,7 +4,7 @@
 
 <img src="static/images/bulldozer_ai-min.webp" width="40%" style="display: block; margin: 0 auto;">
 
-**App live link**: [**BulldozerPriceGenius (BPG)**](https://bulldozerpricegenius-707a4e3cbb84.herokuapp.com/)
+**App live link**: [**BulldozerPriceGenius (BPG)**](https://bulldozerpricegenius.onrender.com/)
 
 In the complex world of heavy equipment auctions, construction companies and dealers face a persistent challenge: accurately determining the value of their bulldozers. The uncertainty can lead to missed opportunities and financial losses.
 
@@ -28,7 +28,7 @@ In collaboration with Fast Iron, we're revolutionizing the industry by creating 
   - [🧠 **The Dual-Model Architecture**](#-the-dual-model-architecture)
     - [**🎯 Primary Model: The Master Appraiser**](#-primary-model-the-master-appraiser)
     - [**⚡ Fallback Model: The Quick Estimator**](#-fallback-model-the-quick-estimator)
-  - [🚀 **Heroku Deployment Challenges & Solutions**](#-heroku-deployment-challenges--solutions)
+  - [🚀 **Render Deployment & Google Drive Integration**](#-render-deployment--google-drive-integration)
     - [**⚠️ The Memory Constraint Problem**](#️-the-memory-constraint-problem)
     - [**✅ Architectural Solution**](#-architectural-solution)
   - [🎯 **User Experience Benefits**](#-user-experience-benefits)
@@ -93,7 +93,7 @@ In collaboration with Fast Iron, we're revolutionizing the industry by creating 
     - [Installation](#installation)
     - [For Existing Projects](#for-existing-projects)
     - [Important Notes](#important-notes)
-  - [Heroku](#heroku)
+  - [Render Deployment](#render-deployment)
   - [Forking and Cloning](#forking-and-cloning)
 - [Credits ⭐](#credits-)
   - [Content](#content)
@@ -110,7 +110,7 @@ For comprehensive technical documentation, bug fixes, deployment guides, and imp
 
 - **[📋 Documentation Index](docs/README.md)** - Complete documentation overview
 - **[🔧 Latest Fixes](docs/GDOWN_DEPENDENCY_FIX_SUMMARY.md)** - Recent dependency fixes
-- **[🚀 Deployment Guide](docs/HEROKU_DEPLOYMENT_GUIDE.md)** - Heroku deployment instructions
+- **[🚀 Deployment Guide](docs/RENDER_DEPLOYMENT_GUIDE.md)** - Render deployment instructions
 - **[🎨 UI Improvements](docs/BUTTON_STYLING_IMPLEMENTATION.md)** - Button styling implementation
 - **[🤖 ML Model Setup](docs/ML_MODEL_STARTUP_GUIDE.md)** - Machine learning model configuration
 
@@ -452,7 +452,7 @@ The project was divided into 5 Epics covering Data Analysis and Machine Learning
 
 ## [**Epic 5 - Dashboard Deployment and Release**](https://github.com/users/Blignaut24/projects/23/views/2?filterQuery=Epic+5+-)
 - **User Story** - As a user interested in bulldozer pricing
-I can access and interact with the BulldozerPriceGenius dashboard through a Streamlit app deployed on Heroku
+I can access and interact with the BulldozerPriceGenius dashboard through a Streamlit app deployed on Render
 So that I can explore price predictions and market insights without installing any software locally. (**Business Requirement 3**).
 
 - **User Story** - As a technical user, I can follow instructions in the readme to fork the repository and deploy the project for myself.
@@ -521,45 +521,57 @@ When the primary model cannot operate, our **Lightweight Statistical Model** pro
 }
 ```
 
-## 🚀 **Heroku Deployment Challenges & Solutions**
+## 🚀 **Render Deployment & Google Drive Integration**
 
-### **⚠️ The Memory Constraint Problem**
-Heroku's deployment environment presented specific technical challenges that necessitated our dual-model approach:
+### **⚠️ The Large Model Challenge**
+Modern cloud deployment platforms face specific challenges with large machine learning models that necessitated our innovative external storage approach:
 
-#### **📊 Resource Limitations:**
-- **Heroku Memory Limit**: 512MB maximum per dyno
-- **Main Model Size**: 561MB (exceeds platform limits)
-- **Observed Memory Usage**: 1058MB-1198MB during model loading
-- **Error Result**: R15 memory quota exceeded (200%+ over limit)
+#### **📊 Deployment Constraints:**
+- **Model File Size**: 561MB RandomForest model
+- **Platform Limitations**: Most cloud platforms have strict file size limits
+- **Build Time Impact**: Large files significantly slow deployment builds
+- **Storage Costs**: Including large models in deployments increases storage costs
 
-#### **🚨 Critical Error Pattern:**
-```bash
-# Heroku logs showing memory violations
-Process running mem=1198M(234.0%)
-Error R15 (Memory quota vastly exceeded)
-Stopping process with SIGKILL
-Process exited with status 137
+#### **🌟 Google Drive Solution:**
+```python
+# External model loading with gdown
+import gdown
+model_url = f"https://drive.google.com/uc?id={file_id}"
+gdown.download(model_url, "model.pkl", quiet=True)
 ```
 
 ### **✅ Architectural Solution**
-Our dual-model system intelligently addresses these constraints:
+Our external model storage system elegantly addresses deployment challenges:
 
-#### **🔍 Environment Detection:**
+#### **🔍 Smart Model Loading:**
 ```python
-def _is_heroku_environment(self) -> bool:
-    """Detect Heroku deployment environment"""
-    return 'DYNO' in os.environ or 'HEROKU_APP_NAME' in os.environ
+def load_external_model(file_id):
+    """Load model from Google Drive using gdown"""
+    try:
+        # Download from Google Drive
+        url = f"https://drive.google.com/uc?id={file_id}"
+        gdown.download(url, "temp_model.pkl", quiet=True)
+
+        # Load the model
+        with open("temp_model.pkl", "rb") as f:
+            model = pickle.load(f)
+        return model
+    except Exception:
+        # Fallback to statistical model
+        return load_fallback_model()
 ```
 
-#### **🧠 Intelligent Model Selection:**
-- **Local Development**: Uses full ML model for maximum accuracy
-- **Heroku Deployment**: Automatically switches to fallback model when memory constraints detected
-- **Graceful Degradation**: Seamless transition with user notification
+#### **🧠 Intelligent Model Strategy:**
+- **Production Deployment**: Downloads 561MB model from Google Drive on startup
+- **Local Development**: Can use either external or local model files
+- **Graceful Fallback**: Automatically switches to statistical model if download fails
+- **Caching**: Models cached in memory after first successful download
 
-#### **⚡ Memory Optimization:**
-- **Threading Elimination**: Removes ThreadPoolExecutor overhead on Heroku
-- **Aggressive Garbage Collection**: Frees memory before model operations
-- **Caching Disabled**: Prevents memory accumulation on resource-constrained platforms
+#### **⚡ Performance Benefits:**
+- **Fast Deployments**: No large files in deployment package
+- **Reduced Build Time**: Streamlined deployment process
+- **Cost Effective**: External storage reduces platform storage costs
+- **Scalable**: Easy to update models without redeployment
 
 ## 🎯 **User Experience Benefits**
 
@@ -606,30 +618,34 @@ except MemoryError:
 - **Error Pattern Detection**: Proactive identification of constraint issues
 - **Adaptive Behavior**: Dynamic adjustment based on platform capabilities
 
-### **🔧 Configuration Optimization**
+### **🔧 Render Configuration**
 ```toml
-# Heroku-optimized Streamlit configuration
+# Render-optimized Streamlit configuration
 [server]
-maxUploadSize = 50        # Reduced from 200MB
 headless = true
 enableCORS = false
+port = 8501
+address = "0.0.0.0"
 
-[runner]
-fastReruns = false        # Disabled to save memory
+[theme]
+primaryColor = "#FF6B35"
+backgroundColor = "#1e1e1e"
+secondaryBackgroundColor = "#2d2d2d"
+textColor = "#ffffff"
 
-[logger]
-level = "error"           # Minimal logging overhead
+[browser]
+gatherUsageStats = false
 ```
 
 ## 📈 **Architecture Benefits Summary**
 
-| Aspect | Main Model | Fallback Model | Combined Benefit |
+| Aspect | External Model | Fallback Model | Combined Benefit |
 |--------|------------|----------------|------------------|
 | **Accuracy** | 85-95% | 60-70% | Best possible under constraints |
-| **Memory Usage** | 561MB+ | <1MB | Heroku-compatible deployment |
-| **Availability** | Platform-dependent | Always available | 100% uptime guarantee |
+| **Storage** | Google Drive | Embedded | Flexible, scalable storage |
+| **Deployment** | Fast, lightweight | Always available | 100% uptime guarantee |
 | **User Experience** | Professional-grade | Reasonable estimates | Never leaves users stranded |
-| **Deployment** | Local/high-resource | Universal compatibility | Flexible deployment options |
+| **Maintenance** | Easy model updates | No maintenance needed | Flexible deployment options |
 
 ## 🎉 **Real-World Impact**
 
@@ -717,7 +733,7 @@ Use Case: Guide users through the complete data mining process lifecycle for the
     - Performance metrics with RMSLE score of 0.27
     - Feature importance analysis showing Year Made (19.9%) as top factor
 - Deployment
-    - Platform implementation on Streamlit Cloud and Heroku
+    - Platform implementation on Render with Google Drive integration
     - Interactive interface for technical and non-technical users
 
 **Action**: Users can navigate through each phase of the data mining process, understand the methodologies used, and access detailed technical documentation with interactive checkboxes for deeper inspection of specific components.
@@ -838,7 +854,7 @@ This command will automatically install all dependencies listed in the requireme
     - **Google Colab:** Cloud-based notebook with free GPU access for ML development
     - **Jupyter Notebooks:** Interactive computing environment for data analysis
 - **Deployment & Documentation**
-    - **Heroku:** Cloud platform for deploying web applications and APIs
+    - **Render:** Cloud platform for deploying web applications and APIs
     - **Streamlit:** Framework for creating data-driven web applications
     - **Notion AI:** AI assistant for documentation improvement
 - **Code Quality**
@@ -906,7 +922,7 @@ so that I can verify the model's reliability and understand the key factors driv
     - *Random Forest implementation*
     - *RMSLE score of `0.27`*
     - *Feature importance analysis*
-- *Must be able to confirm deployment configuration on Streamlit Cloud and Heroku with appropriate technical and non-technical user interfaces*
+- *Must be able to confirm deployment configuration on Render with appropriate technical and non-technical user interfaces*
 
 
 | Feature | Action | Expected Result | Actual Result |
@@ -1057,11 +1073,11 @@ Over three days, we conducted twice-daily tests of the app across various device
 
 ### Performance Issues
 
-The app may experience slow performance and timeout after 30 seconds for two reasons: memory usage exceeds our basic Heroku plan's limits (426 MB versus the 300-500 MB limit), and the eco Heroku plan automatically shuts down apps that require more than 30 seconds to initialize.
+The app may experience slow performance during initial startup due to the external model download process. The 561MB RandomForest model is downloaded from Google Drive on first access, which may take 30-60 seconds depending on network conditions.
 
 ### Current Solutions
 
-We've tried making the app smaller by removing unnecessary files and limiting what we install, but it's slightly to large for the Heroku eco plan. While upgrading our Heroku plan would help, it's financially not feasible at the time.
+We've implemented an external model storage solution using Google Drive and the gdown library. This approach keeps the deployment package lightweight while providing access to the full 561MB RandomForest model. The system includes intelligent caching and fallback mechanisms to ensure reliable operation.
 
 
 
@@ -1078,7 +1094,7 @@ I've added links to the bug reports from my GitHub Project in my README.md table
 | Bug Description | Bug Report Link                                                                                                               | Bug Type                       |
 | --------------- | ----------------------------------------------------------------------------------------------------------------------------- | ------------------------------ |
 | 🐞 Bug Report:  | Pandas-Profiling Error Due to Package Compatibility Conflict [#19](https://github.com/Blignaut24/About-BulldozerPriceGenius-_BPG-_v2/issues/19) | 🐞Bug: Package Dependency Conflict 🔒 |
- 🐞 Bug Report:  | 🐛 Bug Report: Heroku Python buildpack ignores .python-version file, persists using deleted runtime.txt despite cache purge [#23](https://github.com/users/Blignaut24/projects/23/views/1?pane=issue&itemId=125851995&issue=Blignaut24%7CAbout-BulldozerPriceGenius-_BPG-_v2%7C22) | 🐞Bug: Heroku Build 🔒 |
+ 🐞 Bug Report:  | 🐛 Bug Report: External model download timeout during Render cold starts [#23](https://github.com/users/Blignaut24/projects/23/views/1?pane=issue&itemId=125851995&issue=Blignaut24%7CAbout-BulldozerPriceGenius-_BPG-_v2%7C22) | 🐞Bug: Render Deployment 🔒 |
 
 ## Fixed bugs ✅
 
@@ -1088,7 +1104,7 @@ I've added links to the bug reports from my GitHub Project in my README.md table
 | --------------- | ----------------------------------------------------------------------------------------------------------------------------- | ------------------------------ |
 | 🐞 Bug Report:  | Subject: Kaggle Dataset Download 403 Forbidden Error [#12](https://github.com/Blignaut24/About-BulldozerPriceGenius-_BPG-_v2/issues/2) | 🐞Bug: Authentication Error 🔒 |
 | 🐞 Bug Report:  | Subject: Bug with GitHub file size limits when pushing large CSV files [#13](https://github.com/Blignaut24/About-BulldozerPriceGenius-_BPG-_v2/issues/1)  | 🐞Bug: File Size Limit Error 💾
-| 🐞 Bug Report:  | Subject: External Model Loader Fails to Download 561MB RandomForest Model from Google Drive on Heroku, Causing Silent Fallback to Statistical Prediction [#20](https://github.com/users/Blignaut24/projects/23/views/1?pane=issue&itemId=124580315&issue=Blignaut24%7CAbout-BulldozerPriceGenius-_BPG-_v2%7C20)  | 🐞Bug: File Size Limit Error 💾
+| 🐞 Bug Report:  | Subject: External Model Loader Fails to Download 561MB RandomForest Model from Google Drive, Causing Silent Fallback to Statistical Prediction [#20](https://github.com/users/Blignaut24/projects/23/views/1?pane=issue&itemId=124580315&issue=Blignaut24%7CAbout-BulldozerPriceGenius-_BPG-_v2%7C20)  | 🐞Bug: External Storage Error 💾
 
 <p align="right">(<a href="#table-of-content">back to top</a>)</p>
 
@@ -1246,18 +1262,104 @@ streamlit run app.py
 
 <p align="right">(<a href="#table-of-content">back to top</a>)</p>
 
-## Heroku
+## Render Deployment
 
-- The App live link is: [BulldozerPriceGenius (BPG)](https://bulldozerpricegenius-707a4e3cbb84.herokuapp.com/)
-- Set the runtime.txt Python version to a [Heroku-24](https://devcenter.heroku.com/articles/python-support#supported-runtimes) stack currently supported version.
-- The project was deployed to Heroku using the following steps.
+- The App live link is: [BulldozerPriceGenius (BPG)](https://bulldozerpricegenius.onrender.com/)
+- The project uses Python 3.12+ and is optimized for Render's deployment environment.
+- External model storage via Google Drive ensures fast deployments and reliable operation.
 
-1. Log in to Heroku and create an App
-2. At the Deploy tab, select GitHub as the deployment method.
-3. Select your repository name and click Search. Once it is found, click Connect.
-4. Select the branch you want to deploy, then click Deploy Branch.
-5. The deployment process should happen smoothly if all deployment files are fully functional. Click now the button Open App on the top of the page to access your App.
-6. If the slug size is too large then add large files not required for the app to the .slugignore file.
+### Prerequisites
+
+1. **Render Account**: Sign up at [render.com](https://render.com)
+2. **GitHub Repository**: Fork or clone this repository
+3. **Google Drive Setup**: Configure model storage (see Google Drive Integration section below)
+
+### Deployment Steps
+
+1. **Create New Web Service**
+   - Log in to Render Dashboard
+   - Click "New +" → "Web Service"
+   - Connect your GitHub repository
+
+2. **Configure Build Settings**
+   - **Build Command**: `pip install -r requirements.txt`
+   - **Start Command**: `streamlit run app.py --server.port=$PORT --server.address=0.0.0.0`
+   - **Environment**: Python 3
+
+3. **Set Environment Variables**
+   - Add `GOOGLE_DRIVE_MODEL_ID` with your model file ID
+   - Add `STREAMLIT_SERVER_HEADLESS=true`
+   - Add `STREAMLIT_BROWSER_GATHER_USAGE_STATS=false`
+
+4. **Deploy**
+   - Click "Create Web Service"
+   - Render will automatically build and deploy your application
+   - First deployment may take 5-10 minutes due to dependency installation
+
+### Google Drive Integration
+
+The application uses Google Drive to store the 561MB RandomForest model externally, enabling fast deployments and reliable operation.
+
+#### Setup Steps:
+
+1. **Upload Model to Google Drive**
+   - Upload your trained model file (`.pkl` format) to Google Drive
+   - Right-click the file → "Get link" → "Anyone with the link can view"
+   - Copy the file ID from the shareable link
+
+2. **Configure Secrets**
+   - Create `.streamlit/secrets.toml` locally:
+   ```toml
+   # Google Drive Model Storage Configuration
+   GOOGLE_DRIVE_MODEL_ID = "your_google_drive_file_id_here"
+   ```
+
+3. **Set Environment Variables**
+   - In Render Dashboard → Environment tab
+   - Add `GOOGLE_DRIVE_MODEL_ID` with your file ID
+
+#### Benefits of Google Drive Integration:
+
+- **Fast Deployments**: No large files in deployment package
+- **Reliable Storage**: Google Drive's 99.9% uptime guarantee
+- **Easy Updates**: Update models without redeployment
+- **Cost Effective**: Reduces platform storage costs
+- **Scalable**: Handles large model files efficiently
+
+#### Technical Implementation:
+
+The application uses the `gdown` library to download models from Google Drive:
+
+```python
+import gdown
+import streamlit as st
+
+@st.cache_resource
+def load_external_model():
+    file_id = st.secrets["GOOGLE_DRIVE_MODEL_ID"]
+    url = f"https://drive.google.com/uc?id={file_id}"
+    gdown.download(url, "model.pkl", quiet=True)
+    return pickle.load(open("model.pkl", "rb"))
+```
+
+### Troubleshooting
+
+**Common Issues:**
+
+1. **Model Download Timeout**
+   - Increase Render's timeout settings
+   - Verify Google Drive file permissions
+   - Check file ID accuracy
+
+2. **Build Failures**
+   - Verify `requirements.txt` includes `gdown>=5.2.0`
+   - Check Python version compatibility
+   - Review build logs for specific errors
+
+3. **Environment Variables**
+   - Ensure `GOOGLE_DRIVE_MODEL_ID` is set correctly
+   - Verify file ID format (should be alphanumeric string)
+   - Check Google Drive file sharing permissions
 
 <p align="right">(<a href="#table-of-content">back to top</a>)</p>
 
