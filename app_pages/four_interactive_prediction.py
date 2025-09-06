@@ -1595,10 +1595,7 @@ def interactive_prediction_body():
     Allows users to choose between different prediction approaches and input feature values.
     """
 
-    # EMERGENCY DEBUG: Verify function is being called
-    st.markdown("### 🚨 **EMERGENCY DEBUG: Function Called Successfully**")
-    st.write("If you see this message, the interactive_prediction_body() function is running.")
-    st.markdown("---")
+
 
     # Apply JavaScript error fixes for Heroku deployment
     if JS_ERROR_FIX_AVAILABLE:
