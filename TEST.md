@@ -88,7 +88,7 @@ Use this table to track your testing progress:
 
 | Test # | Scenario Name | Expected Range | Actual Prediction | Status | Notes |
 |--------|---------------|----------------|-------------------|--------|-------|
-| 1 | [Premium Construction Equipment](#test-scenario-1-premium-construction-equipment) | $160,000 - $240,000 | $165,000 - $185,000 | ✅ PASS | 87% confidence, base $175,000, premium features validated |
+| 1 | [Premium Construction Equipment](#test-scenario-1-premium-construction-equipment) | $160,000 - $240,000 | $178,250 | ✅ PASS | 91% confidence, 2.80x premium factor, price cap enforcement working |
 | 2 | [Vintage Premium Equipment](#test-scenario-2-vintage-premium-equipment) | $140,000 - $180,000 | $140,000 - $180,000 | ✅ PASS | 87% confidence, collector market logic, 8.5x vintage premium multiplier |
 | 3 | [Economic Crisis Period Equipment](#test-scenario-3-economic-crisis-period-equipment) | $70,000 - $130,000 | $85,000 - $105,000 | ✅ PASS | 87% confidence, comprehensive crisis adjustments working |
 | 4 | [Compact Utility Equipment](#test-scenario-4-compact-utility-equipment) | $35,000 - $75,000 | $42,554.87 | ✅ PASS | 81% confidence, Enhanced ML Model, 3.00x premium factor |
@@ -190,16 +190,17 @@ Each test scenario provides complete input values for all Page 4 form fields. Si
 
 **Test Results:**
 - **Status**: ✅ **PASSED** (Render Deployment Verification)
-- **Enhanced ML Model Prediction**: $230,000.00
-- **Confidence Level**: 93%
-- **Price Range**: $202K - $258K
-- **Range Compliance**: Within $160,000 - $240,000 criteria ($10K margin below upper limit)
+- **Enhanced ML Model Prediction**: $178,250.00
+- **Confidence Level**: 91%
+- **Price Range**: $157K - $200K
+- **Premium Factor**: 2.80x
+- **Range Compliance**: Within $160,000 - $240,000 criteria (well within acceptable range)
 - **Business Validation**: Realistic valuation for 1-year-old premium D8 with luxury features
 - **Market Factors**: California premium market and construction boom period properly valued
 - **Premium Features**: EROPS w AC, 4 Valve hydraulics, and D8 Large classification correctly processed
 - **Platform**: Render Cloud Deployment
-- **Date Verified**: 2025-01-05
-- **Verification Method**: Live Render deployment testing
+- **Date Verified**: 2025-01-06
+- **Verification Method**: Live Render deployment testing with price cap enforcement
 
 **Model Performance Metrics:**
 - **Price Accuracy**: 100% (within expected bounds)
