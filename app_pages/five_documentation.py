@@ -39,7 +39,7 @@ def documentation_body():
     core_tech = [
         "**Streamlit** - Web application framework that creates the user interface you see",
         "**Python** - Programming language that powers all the logic and calculations",
-        "**Heroku** - Cloud platform that hosts the application online",
+        "**Render** - Cloud platform that hosts the application online",
         "**Git/GitHub** - Version control system for managing code changes"
     ]
 
@@ -116,7 +116,7 @@ def documentation_body():
         "**Safe Data Loading** - Handles missing files gracefully with sample data",
         "**Image Management** - Robust display with fallback content",
         "**Error Recovery** - Continues working even when some files are missing",
-        "**Memory Optimization** - Efficient processing for cloud deployment"
+        "**Memory Optimization** - Efficient processing for Render cloud deployment"
     ]
 
     for component in data_components:
@@ -178,10 +178,10 @@ def documentation_body():
     # Deployment Constraints
     st.write("### Deployment Constraints")
     deployment_limits = [
-        "**Heroku Memory Limits** - 512MB RAM limit affects large dataset processing",
+        "**Render Memory Limits** - 512MB RAM limit affects large dataset processing",
         "**File Size Restrictions** - Large model files excluded to meet deployment size limits",
         "**Startup Time** - Cold starts may take 10-15 seconds when app hasn't been used recently",
-        "**Session Limits** - Heroku may sleep the app after 30 minutes of inactivity"
+        "**Session Limits** - Render may sleep the app after periods of inactivity"
     ]
 
     for limit in deployment_limits:
