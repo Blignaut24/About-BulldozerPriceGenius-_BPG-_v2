@@ -44,7 +44,7 @@
   - [**Test Scenario 11: Extreme Configuration Equipment**](#test-scenario-11-extreme-configuration-equipment)
     - [**Business Context:** Unusual feature combination testing system flexibility](#business-context-unusual-feature-combination-testing-system-flexibility)
   - [**Test Scenario 12: Geographic Edge Case**](#test-scenario-12-geographic-edge-case)
-    - [**Business Context:** Remote geographic market testing regional variations](#business-context-remote-geographic-market-testing-regional-variations)
+    - [**Business Context:** Alaska remote market testing regional variations](#business-context-alaska-remote-market-testing-regional-variations)
   - [📋 **Manual Testing Instructions for Render Platform**](#-manual-testing-instructions-for-render-platform)
     - [**Step-by-Step Testing Process**](#step-by-step-testing-process)
     - [**What Constitutes a Successful Test**](#what-constitutes-a-successful-test)
@@ -749,9 +749,9 @@ Each test scenario provides complete input values for all Page 4 form fields. Si
 ---
 
 ## **Test Scenario 12: Geographic Edge Case**
-### **Business Context:** Remote geographic market testing regional variations
+### **Business Context:** Alaska remote market testing regional variations
 
-**Equipment Profile:** 2010 Caterpillar D6 bulldozer sold in Wyoming representing geographic edge case market.
+**Equipment Profile:** 2010 Caterpillar D6 bulldozer sold in Alaska representing geographic edge case market.
 
 **Complete Input Values:**
 - **Year Made**: 2010
@@ -767,8 +767,8 @@ Each test scenario provides complete input values for all Page 4 form fields. Si
 
 **Expected Business Outcome:**
 - **Price Range**: $150,000 - $180,000
-- **Market Segment**: Geographic edge case market
-- **Business Impact**: Remote market testing requiring accurate regional pricing
+- **Market Segment**: Alaska remote market
+- **Business Impact**: Alaska remote market testing requiring accurate regional pricing for extreme geographic conditions
 
 **Pass/Fail Criteria:**
 - ✅ **PASS**: Prediction between $130,000 - $200,000
