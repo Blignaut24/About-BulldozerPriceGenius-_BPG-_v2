@@ -24,7 +24,6 @@ In collaboration with Fast Iron, we're revolutionizing the industry by creating 
 
 - [BulldozerPriceGenuis (BPG)](#bulldozerpricegenuis-bpg)
       - ["**BulldozerPriceGenuis (BPG)**: _Know Your Equipment's Worth, Make Smarter Auction Decisions_](#bulldozerpricegenuis-bpg-know-your-equipments-worth-make-smarter-auction-decisions)
-      - [_"Stop leaving money on the table. Let BulldozerPriceGenius transform your uncertain pricing decisions into data-driven success stories."_](#stop-leaving-money-on-the-table-let-bulldozerpricegenius-transform-your-uncertain-pricing-decisions-into-data-driven-success-stories)
 - [🤖 **Understanding the Two 'Brains' Behind BulldozerPriceGenius**](#-understanding-the-two-brains-behind-bulldozerpricegenius)
   - [🧠 **The Dual-Model Architecture**](#-the-dual-model-architecture)
     - [**🎯 Primary Model: The Master Appraiser**](#-primary-model-the-master-appraiser)
