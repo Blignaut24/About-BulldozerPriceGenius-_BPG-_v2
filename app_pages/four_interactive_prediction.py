@@ -2024,16 +2024,7 @@ def interactive_prediction_body():
                    "• **Expected Result**: 72% confidence (within required 65-80% range)\n" +
                    "• Ready for Enhanced ML Model validation testing")
 
-            # MOVED: Debug expander moved outside parent to fix nesting error
-            # Store debug info in session state for display after parent expander
-            st.session_state['test_scenario_2_debug_info'] = {
-                'year_made_input': st.session_state.get('year_made_input', 'NOT SET'),
-                'product_size_input': st.session_state.get('product_size_input', 'NOT SET'),
-                'fi_base_model_input': st.session_state.get('fi_base_model_input', 'NOT SET'),
-                'enclosure_input': st.session_state.get('enclosure_input', 'NOT SET'),
-                'state_input': st.session_state.get('state_input', 'NOT SET'),
-                'model_id_input': st.session_state.get('model_id_input', 'NOT SET')
-            }
+
 
             if hasattr(st, 'rerun'): st.rerun()
 
@@ -2158,59 +2149,7 @@ def interactive_prediction_body():
         st.markdown("---")
         st.info("💡 **Pro Tip**: These Quick Fill buttons populate the form with exact test scenario configurations from our validation framework. Each configuration has been tested with the Precision Price Tool for reliable predictions!")
 
-    # FIXED: Test Scenario 2 debug expander moved outside parent to prevent nesting error
-    if 'test_scenario_2_debug_info' in st.session_state:
-        with get_expander("🔍 Test Scenario 2 Configuration Debug", expanded=True):
-            st.subheader("📋 Session State Values")
-            debug_info = st.session_state['test_scenario_2_debug_info']
-            debug_config = f"""Test Scenario 2 Configuration Loaded:
-   year_made_input: {debug_info['year_made_input']}
-   product_size_input: {debug_info['product_size_input']}
-   fi_base_model_input: {debug_info['fi_base_model_input']}
-   enclosure_input: {debug_info['enclosure_input']}
-   state_input: {debug_info['state_input']}
-   model_id_input: {debug_info['model_id_input']}
 
-Expected for Test Scenario 2:
-   year_made_input: 1987 (string)
-   product_size_input: 'Large'
-   fi_base_model_input: 'D9'
-   enclosure_input: 'EROPS w AC'
-   state_input: 'Texas'
-   model_id_input: 4800"""
-            st.code(debug_config, language='text')
-
-            # Manual detection test
-            year_made_val = st.session_state.get('year_made_input')
-            product_size_val = st.session_state.get('product_size_input')
-            fi_base_model_val = st.session_state.get('fi_base_model_input')
-            enclosure_val = st.session_state.get('enclosure_input', '')
-            state_val = st.session_state.get('state_input')
-
-            year_made_int = int(year_made_val) if isinstance(year_made_val, str) else year_made_val
-            detection_result = (
-                year_made_int == 1987 and
-                product_size_val == 'Large' and
-                fi_base_model_val == 'D9' and
-                'EROPS' in enclosure_val and
-                state_val == 'Texas'
-            )
-
-            st.subheader("🧪 Detection Logic Test")
-            detection_debug = f"""Manual Detection Test:
-   year_made_int == 1987: {year_made_int == 1987} (actual: {year_made_int})
-   product_size == 'Large': {product_size_val == 'Large'} (actual: '{product_size_val}')
-   fi_base_model == 'D9': {fi_base_model_val == 'D9'} (actual: '{fi_base_model_val}')
-   'EROPS' in enclosure: {'EROPS' in enclosure_val} (actual: '{enclosure_val}')
-   state == 'Texas': {state_val == 'Texas'} (actual: '{state_val}')
-
-   🎯 DETECTION RESULT: {'✅ SHOULD DETECT' if detection_result else '❌ WILL NOT DETECT'}
-
-   If detection result is ❌, the confidence fix will not apply!"""
-            st.code(detection_debug, language='text')
-
-            # Clear the debug info after displaying to prevent repeated display
-            del st.session_state['test_scenario_2_debug_info']
 
     # Enhanced Form Organization with Visual Separation - Dark Theme
     st.markdown("---")
@@ -3688,53 +3627,7 @@ These defaults are derived from the most common configurations for similar equip
                         else:
                             display_prediction_results(prediction_result, product_size, sale_year, prediction_approach)
 
-                        # Show debug information if available
-                        debug_keys = ['always_show_debug', 'timeout_function_called_debug', 'function_called_debug', 'prediction_input_debug', 'manual_test_debug', 'debug_info', 'confidence_debug', 'test_scenario_2_confidence_set', 'final_confidence_debug']
-                        debug_available = any(key in globals() for key in debug_keys)
-                        if debug_available:
-                            with get_expander("🔍 Debug Information (Test Scenario 2)", expanded=True):
-                                if 'always_show_debug' in globals():
-                                    st.subheader("🔍 Debug Status")
-                                    st.code(globals()['always_show_debug'], language='text')
-                                if 'timeout_function_called_debug' in globals():
-                                    st.subheader("🚨 Timeout Function Call")
-                                    st.code(globals()['timeout_function_called_debug'], language='text')
-                                if 'function_called_debug' in globals():
-                                    st.subheader("🚨 Function Call Verification")
-                                    st.code(globals()['function_called_debug'], language='text')
-                                if 'prediction_input_debug' in globals():
-                                    st.subheader("📥 Input Parameters")
-                                    st.code(globals()['prediction_input_debug'], language='text')
-                                if 'manual_test_debug' in globals():
-                                    st.subheader("🧪 Manual Detection Test")
-                                    st.code(globals()['manual_test_debug'], language='text')
-                                if 'debug_info' in globals():
-                                    st.subheader("🔍 Detection Logic")
-                                    st.code(globals()['debug_info'], language='text')
-                                if 'confidence_debug' in globals():
-                                    st.subheader("🔧 Confidence Override")
-                                    st.code(globals()['confidence_debug'], language='text')
-                                if 'test_scenario_2_confidence_set' in globals():
-                                    st.subheader("✅ Confidence Set Verification")
-                                    st.code(globals()['test_scenario_2_confidence_set'], language='text')
-                                if 'final_confidence_debug' in globals():
-                                    st.subheader("🎯 Final Confidence")
-                                    st.code(globals()['final_confidence_debug'], language='text')
 
-                        # Show success notification for user confidence
-                        prediction_method = prediction_result.get('method', 'ML Model')
-                        confidence_level = prediction_result.get('confidence_level', 0.85)
-                        confidence_pct = int(confidence_level * 100) if confidence_level <= 1.0 else int(confidence_level)
-
-                        st.success(f"""
-✅ **Prediction completed successfully!**
-
-🎯 **Method**: {prediction_method}
-📊 **Confidence**: {confidence_pct}%
-💰 **Price**: ${prediction_result.get('predicted_price', 0):,.2f}
-
-Your bulldozer price estimate has been generated and is ready for review below.
-                        """)
 
                     except Exception as display_error:
                         # If there's an error displaying successful results, show a user-friendly message
@@ -6575,56 +6468,7 @@ def display_prediction_results(result, product_size=None, sale_year=None, approa
     </div>
     """, unsafe_allow_html=True)
 
-    # DEBUG PANEL: Show debug information for Test Scenario 2
-    debug_info_available = any([
-        'debug_price_capping_info' in globals(),
-        'debug_age_segmentation_info' in globals(),
-        'debug_test_scenario_2_info' in globals()
-    ])
 
-    if debug_info_available:
-        with get_expander("🔍 **DEBUG INFORMATION (Test Scenario 2 Systematic Debugging)**", expanded=True):
-            st.markdown("### 🎯 **SYSTEMATIC DEBUGGING FOR TEST SCENARIO 2 DEPLOYMENT FAILURE**")
-            st.markdown("**This debug panel shows execution status of critical fixes to identify deployment issues.**")
-
-            if 'debug_test_scenario_2_info' in globals():
-                st.info(f"**Test Scenario 2 Detection**: {globals()['debug_test_scenario_2_info']}")
-
-            if 'debug_age_segmentation_info' in globals():
-                st.info(f"**Age-Based Segmentation**: {globals()['debug_age_segmentation_info']}")
-
-            if 'debug_price_capping_info' in globals():
-                st.info(f"**Price Capping Logic**: {globals()['debug_price_capping_info']}")
-
-            # Show expected vs actual results for Test Scenario 2
-            if 'debug_test_scenario_2_info' in globals() and 'Detected=True' in globals()['debug_test_scenario_2_info']:
-                st.markdown("### 📊 **TEST SCENARIO 2 EXPECTED vs ACTUAL**")
-                col_expected, col_actual = get_columns(2)
-
-                with col_expected:
-                    st.markdown("""
-                    **✅ EXPECTED (if fixes work):**
-                    - Price Range: $140,000 - $180,000
-                    - Market Logic: Collector market applied
-                    - Vintage Premium: 8.5x (7.5x-11.0x)
-                    - Upper Bound: ≤ $180,000
-                    """)
-
-                with col_actual:
-                    st.markdown(f"""
-                    **🔍 ACTUAL (current results):**
-                    - Price Range: ${result.get('confidence_lower', 0):,.0f} - ${result.get('confidence_upper', 0):,.0f}
-                    - Market Logic: {result.get('market_factors', 'Unknown')}
-                    - Value Multiplier: {result.get('value_multiplier', 0):.1f}x
-                    - Upper Bound: ${result.get('confidence_upper', 0):,.0f}
-                    """)
-
-                # Status assessment
-                upper_bound = result.get('confidence_upper', 0)
-                if upper_bound > 180000:
-                    st.error(f"❌ **PRICE CAPPING FAILED**: Upper bound ${upper_bound:,.0f} exceeds $180,000 limit by ${upper_bound - 180000:,.0f}")
-                else:
-                    st.success(f"✅ **PRICE CAPPING WORKING**: Upper bound ${upper_bound:,.0f} within $180,000 limit")
 
     # CRITICAL: Test Scenario 3 validation success message
     # Extract configuration from result object if available
