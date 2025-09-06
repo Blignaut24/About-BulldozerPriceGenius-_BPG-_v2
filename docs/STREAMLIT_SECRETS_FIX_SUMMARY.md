@@ -33,7 +33,7 @@ Created `.streamlit/secrets.toml` with the proper Google Drive configuration:
 
 # Google Drive Model Storage Configuration
 # File ID for the 561MB RandomForest model hosted on Google Drive
-GOOGLE_DRIVE_MODEL_ID = "1mSIR9TnJvP4zpVHlrsMGm11WS-DWyyTp"
+GOOGLE_DRIVE_MODEL_ID = "YOUR_GOOGLE_DRIVE_FILE_ID_HERE"
 
 # Model Information:
 # - Size: ~561MB RandomForest model

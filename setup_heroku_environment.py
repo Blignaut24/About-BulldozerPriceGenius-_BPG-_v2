@@ -104,8 +104,13 @@ def main():
     print("🚀 Heroku Environment Setup for BulldozerPriceGenius")
     print("=" * 60)
     
-    # Your specific Google Drive file ID
-    file_id = "1mSIR9TnJvP4zpVHlrsMGm11WS-DWyyTp"
+    # Get Google Drive file ID from environment variable
+    file_id = os.getenv('GOOGLE_DRIVE_MODEL_ID')
+    if not file_id:
+        print("❌ GOOGLE_DRIVE_MODEL_ID environment variable not set")
+        print("Please set it before running this script:")
+        print("export GOOGLE_DRIVE_MODEL_ID=your_file_id_here")
+        return False
     
     print(f"""
 📋 Configuration Details:

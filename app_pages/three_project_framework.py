@@ -720,7 +720,7 @@ def project_framework_body():
     st.header("6. Deployment")
     st.write(
         """
-        The application is deployed and hosted on both [Streamlit](https://streamlit.io/) Cloud and [Heroku](https://www.heroku.com/?utm_source=google&utm_medium=paid_search&utm_campaign=emea_heraw&utm_content=general-branded-search-rsa&utm_term=heroku&utm_source_platform=GoogleAds&gad_source=1&gclid=CjwKCAjwnPS-BhBxEiwAZjMF0s32zmesSen1_nAdsUsoJls9kZQ89I_Rn-alHDSfSWniSlB03TYbfxoCCF8QAvD_BwE) platforms
+        The application is deployed and hosted on both [Streamlit](https://streamlit.io/) Cloud and [Render](https://render.com/) platforms
         """
     )
     st.write("---")

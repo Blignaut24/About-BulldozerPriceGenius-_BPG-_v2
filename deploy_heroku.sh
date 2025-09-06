@@ -108,10 +108,15 @@ echo ""
 echo "📋 Step 4: Environment Variables Setup"
 echo "--------------------------------------"
 
-# Set Google Drive Model ID
-FILE_ID="1mSIR9TnJvP4zpVHlrsMGm11WS-DWyyTp"
+# Set Google Drive Model ID (must be provided as environment variable)
+if [ -z "$GOOGLE_DRIVE_MODEL_ID" ]; then
+    print_error "GOOGLE_DRIVE_MODEL_ID environment variable not set"
+    echo "Please set it before running this script:"
+    echo "export GOOGLE_DRIVE_MODEL_ID=your_file_id_here"
+    exit 1
+fi
 print_info "Setting GOOGLE_DRIVE_MODEL_ID environment variable..."
-heroku config:set GOOGLE_DRIVE_MODEL_ID="$FILE_ID" --app "$APP_NAME"
+heroku config:set GOOGLE_DRIVE_MODEL_ID="$GOOGLE_DRIVE_MODEL_ID" --app "$APP_NAME"
 
 if [ $? -eq 0 ]; then
     print_status "Environment variable set successfully"

@@ -58,8 +58,11 @@ class ExternalModelLoaderV2:
         if file_id:
             return file_id
         
-        # Default file ID for the BulldozerPriceGenius model
-        return "1mSIR9TnJvP4zpVHlrsMGm11WS-DWyyTp"
+        # No fallback - require environment variable for security
+        raise ValueError(
+            "GOOGLE_DRIVE_MODEL_ID environment variable not set. "
+            "Please configure this in your deployment environment or .streamlit/secrets.toml"
+        )
     
     def load_model_from_google_drive(_self) -> Tuple[Optional[Any], Optional[dict], Optional[str]]:
         """

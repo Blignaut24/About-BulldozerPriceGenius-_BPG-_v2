@@ -6,8 +6,14 @@
 echo "🔧 Fixing Heroku Configuration for BulldozerPriceGenius"
 echo "=" * 60
 
-# Your Google Drive file ID
-FILE_ID="1mSIR9TnJvP4zpVHlrsMGm11WS-DWyyTp"
+# Get Google Drive file ID from environment variable
+if [ -z "$GOOGLE_DRIVE_MODEL_ID" ]; then
+    echo "❌ GOOGLE_DRIVE_MODEL_ID environment variable not set"
+    echo "Please set it before running this script:"
+    echo "export GOOGLE_DRIVE_MODEL_ID=your_file_id_here"
+    exit 1
+fi
+FILE_ID="$GOOGLE_DRIVE_MODEL_ID"
 
 echo "📋 Configuration Details:"
 echo "   Google Drive File ID: $FILE_ID"

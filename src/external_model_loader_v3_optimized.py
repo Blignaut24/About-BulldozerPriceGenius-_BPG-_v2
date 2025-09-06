@@ -72,8 +72,11 @@ class ExternalModelLoaderV3Optimized:
         if file_id:
             return file_id
         
-        # Default file ID for the BulldozerPriceGenius model
-        return "1mSIR9TnJvP4zpVHlrsMGm11WS-DWyyTp"
+        # No fallback - require environment variable for security
+        raise ValueError(
+            "GOOGLE_DRIVE_MODEL_ID environment variable not set. "
+            "Please configure this in your deployment environment or .streamlit/secrets.toml"
+        )
     
     def _is_cache_valid(self) -> bool:
         """Check if the current cache is still valid."""

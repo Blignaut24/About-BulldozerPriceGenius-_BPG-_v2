@@ -44,9 +44,11 @@ class ExternalModelLoader:
         if file_id:
             return file_id
         
-        # Production file ID for BulldozerPriceGenius model (561MB RandomForest)
-        # This is the public Google Drive file ID for the trained model
-        return "1mSIR9TnJvP4zpVHlrsMGm11WS-DWyyTp"
+        # No fallback - require environment variable for security
+        raise ValueError(
+            "GOOGLE_DRIVE_MODEL_ID environment variable not set. "
+            "Please configure this in your deployment environment or .streamlit/secrets.toml"
+        )
     
     def _get_cache_decorator(self):
         """Get the appropriate caching decorator based on Streamlit version"""
