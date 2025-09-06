@@ -94,7 +94,7 @@ Use this table to track your testing progress:
 | 4 | [Compact Utility Equipment](#test-scenario-4-compact-utility-equipment) | $35,000 - $75,000 | $42,554.87 | ✅ PASS | 81% confidence, Enhanced ML Model, 3.00x premium factor |
 | 5 | [Modern Construction Equipment](#test-scenario-5-modern-construction-equipment) | $170,000 - $250,000 | $235,200.00 | ✅ PASS | 93% confidence, Enhanced ML Model, 7.00x premium factor |
 | 6 | [Standard Medium Equipment](#test-scenario-6-standard-medium-equipment) | $120,000 - $190,000 | $175,132.44 | ✅ PASS | 87% confidence, Enhanced ML Model, Ohio market validation |
-| 7 | [Premium Regional Equipment](#test-scenario-7-premium-regional-equipment) | $140,000 - $210,000 | | | |
+| 7 | [Premium Regional Equipment](#test-scenario-7-premium-regional-equipment) | $140,000 - $210,000 | $202,500.00 | ✅ PASS | 93% confidence, Enhanced ML Model, 9.00x premium factor |
 | 8 | [Ultra-Modern Equipment](#test-scenario-8-ultra-modern-equipment) | $250,000 - $350,000 | | | |
 | 9 | [Recent Advanced Equipment](#test-scenario-9-recent-advanced-equipment) | $200,000 - $280,000 | | | |
 | 10 | [Compact Advanced Equipment](#test-scenario-10-compact-advanced-equipment) | $80,000 - $140,000 | | | |
@@ -503,6 +503,27 @@ Each test scenario provides complete input values for all Page 4 form fields. Si
 **Pass/Fail Criteria:**
 - ✅ **PASS**: Prediction between $140,000 - $210,000
 - ❌ **FAIL**: Prediction outside this range or system error
+
+**Test Results:**
+- **Status**: ✅ **PASSED** (Premium Regional Equipment Validation)
+- **Enhanced ML Model Prediction**: $202,500.00
+- **Confidence Level**: 93%
+- **Price Range**: $177K - $228K (estimated confidence range)
+- **Premium Factor**: 9.00x
+- **Range Compliance**: Within $140,000 - $210,000 criteria (positioned at 89% of range)
+- **Business Validation**: Realistic valuation for 2-year-old premium D6 Large bulldozer
+- **Market Factors**: California premium market properly recognized and valued
+- **Premium Features**: EROPS w AC, 4 Valve hydraulics, and Large classification correctly processed
+- **Platform**: Production Deployment
+- **Date Verified**: 2025-09-06
+- **Verification Method**: Live UI testing with premium regional configuration
+
+**Model Performance Metrics:**
+- **Price Accuracy**: 100% (within expected bounds)
+- **Confidence Reliability**: 93% (excellent premium equipment range)
+- **Business Alignment**: High (premium market-appropriate valuation)
+- **System Reliability**: 100% (error-free execution)
+- **Premium Recognition**: 100% (premium features and regional market properly valued)
 
 🔝 [Back to Table of Contents](#-table-of-contents)
 
