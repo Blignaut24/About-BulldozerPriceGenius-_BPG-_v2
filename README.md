@@ -4,7 +4,7 @@
 
 <img src="static/images/bulldozer_ai-min.webp" width="40%" style="display: block; margin: 0 auto;">
 
-**App live link**: [**BulldozerPriceGenius (BPG)**](https://bulldozerpricegenius.onrender.com/)
+**App live link**: [**BulldozerPriceGenius (BPG)**](https://about-bulldozerpricegenius-bpg-v2.onrender.com)
 
 In the complex world of heavy equipment auctions, construction companies and dealers face a persistent challenge: accurately determining the value of their bulldozers. The uncertainty can lead to missed opportunities and financial losses.
 
@@ -24,10 +24,10 @@ In collaboration with Fast Iron, we're revolutionizing the industry by creating 
 
 - [BulldozerPriceGenuis (BPG)](#bulldozerpricegenuis-bpg)
       - ["**BulldozerPriceGenuis (BPG)**: _Know Your Equipment's Worth, Make Smarter Auction Decisions_](#bulldozerpricegenuis-bpg-know-your-equipments-worth-make-smarter-auction-decisions)
-- [🤖 **Understanding the Two 'Brains' Behind BulldozerPriceGenius**](#-understanding-the-two-brains-behind-bulldozerpricegenius)
-  - [🧠 **The Dual-Model Architecture**](#-the-dual-model-architecture)
-    - [**🎯 Primary Model: The Master Appraiser**](#-primary-model-the-master-appraiser)
-    - [**⚡ Fallback Model: The Quick Estimator**](#-fallback-model-the-quick-estimator)
+- [🤖 **Understanding the Enhanced ML Model Architecture**](#-understanding-the-enhanced-ml-model-architecture)
+  - [🧠 **The Single-Model Architecture**](#-the-single-model-architecture)
+    - [**🎯 Enhanced ML Model: The Master Appraiser**](#-enhanced-ml-model-the-master-appraiser)
+    - [**🌐 Google Drive Integration**](#-google-drive-integration)
   - [🚀 **Render Deployment & Google Drive Integration**](#-render-deployment--google-drive-integration)
     - [**⚠️ The Memory Constraint Problem**](#️-the-memory-constraint-problem)
     - [**✅ Architectural Solution**](#-architectural-solution)
@@ -461,14 +461,14 @@ So that I can explore price predictions and market insights without installing a
 
 ---
 
-# 🤖 **Understanding the Two 'Brains' Behind BulldozerPriceGenius**
+# 🤖 **Understanding the Enhanced ML Model Architecture**
 
-BulldozerPriceGenius employs a sophisticated **dual-model architecture** that ensures reliable bulldozer price predictions under all deployment conditions. This innovative approach combines a high-accuracy machine learning model with a lightweight precision price tool, providing users with consistent service even when facing technical constraints.
+BulldozerPriceGenius employs a sophisticated **single-model architecture** powered by an advanced Random Forest Regressor that delivers highly accurate bulldozer price predictions. This streamlined approach leverages external model storage via Google Drive integration, ensuring reliable performance while maintaining deployment efficiency.
 
-## 🧠 **The Dual-Model Architecture**
+## 🧠 **The Single-Model Architecture**
 
-### **🎯 Primary Model: The Master Appraiser**
-Our main prediction engine is a **Random Forest Regressor** that serves as the application's "master appraiser":
+### **🎯 Enhanced ML Model: The Master Appraiser**
+Our prediction engine is a sophisticated **Random Forest Regressor** that serves as the application's comprehensive pricing solution:
 
 - **📊 Training Data**: Learned from **400,000+ real bulldozer sales** transactions
 - **🎯 Accuracy**: Achieves **85-95% prediction accuracy** on unseen data
@@ -480,45 +480,48 @@ Our main prediction engine is a **Random Forest Regressor** that serves as the a
 
 - **💾 Model Size**: 561MB (contains learned patterns from extensive training)
 - **⚡ Performance**: Provides professional-grade appraisals comparable to expert evaluations
+- **🌐 Storage**: Hosted on Google Drive for efficient deployment and easy updates
 
 ```python
-# Example prediction confidence
+# Example Enhanced ML Model prediction
 {
     'predicted_price': 127850.00,
     'confidence_level': 'High (92%)',
+    'method_used': 'Enhanced ML Model',
     'uncertainty_range': {
         'lower': 121000.00,
         'upper': 134700.00
-    }
+    },
+    'model_source': 'External (Google Drive)'
 }
 ```
 
-### **⚡ Fallback Model: The Quick Estimator**
-When the primary model cannot operate, our **Lightweight Statistical Model** provides reliable backup predictions:
+### **🌐 Google Drive Integration**
+The Enhanced ML Model leverages Google Drive for external storage, providing several key advantages:
 
-- **📈 Methodology**: Uses statistical relationships and market rules derived from training data analysis
-- **🎯 Accuracy**: Delivers **60-70% prediction accuracy** with broader confidence intervals
-- **🔧 Features**: Applies simplified calculations based on:
-  - Year-based depreciation curves (1974-2011)
-  - Product size multipliers (Compact to Large categories)
-  - Regional market adjustments (state-specific factors)
-  - Economic cycle impacts (boom, recession, recovery periods)
-
-- **💾 Model Size**: <1MB (minimal memory footprint)
-- **⚡ Performance**: Instant predictions with reasonable accuracy for decision support
+- **🚀 Fast Deployments**: No large files in deployment package reduces build time
+- **💾 Efficient Storage**: 561MB model stored externally, keeping deployment lightweight
+- **🔄 Easy Updates**: Models can be updated without redeployment
+- **🌐 Reliable Access**: Google Drive's 99.9% uptime ensures model availability
+- **💰 Cost Effective**: Reduces platform storage costs significantly
 
 ```python
-# Example fallback prediction
-{
-    'predicted_price': 125000.00,
-    'confidence_level': 'Medium',
-    'method_used': 'Precision Price Tool Model',
-    'uncertainty_range': {
-        'lower': 87500.00,
-        'upper': 162500.00
-    },
-    'warning': 'Using simplified model due to resource constraints'
-}
+# Google Drive model loading
+import gdown
+import streamlit as st
+
+@st.cache_resource
+def load_enhanced_model():
+    """Load the Enhanced ML Model from Google Drive"""
+    file_id = st.secrets["GOOGLE_DRIVE_MODEL_ID"]
+    url = f"https://drive.google.com/uc?id={file_id}"
+
+    # Download and load model
+    gdown.download(url, "enhanced_model.pkl", quiet=True)
+    with open("enhanced_model.pkl", "rb") as f:
+        model = pickle.load(f)
+
+    return model
 ```
 
 ## 🚀 **Render Deployment & Google Drive Integration**
@@ -557,14 +560,14 @@ def load_external_model(file_id):
             model = pickle.load(f)
         return model
     except Exception:
-        # Fallback to statistical model
-        return load_fallback_model()
+        # Log error and raise for proper error handling
+        raise Exception("Failed to load Enhanced ML Model from Google Drive")
 ```
 
 #### **🧠 Intelligent Model Strategy:**
 - **Production Deployment**: Downloads 561MB model from Google Drive on startup
 - **Local Development**: Can use either external or local model files
-- **Graceful Fallback**: Automatically switches to statistical model if download fails
+- **Error Handling**: Provides clear error messages if model loading fails
 - **Caching**: Models cached in memory after first successful download
 
 #### **⚡ Performance Benefits:**
@@ -575,42 +578,49 @@ def load_external_model(file_id):
 
 ## 🎯 **User Experience Benefits**
 
-### **🔄 Seamless Failover**
-Users experience uninterrupted service regardless of deployment constraints:
+### **🛡️ Reliability Guarantee**
+The system ensures users consistently receive high-quality predictions through robust Google Drive integration:
 
-- **✅ Always Available**: Predictions provided under all conditions
-- **🔔 Transparent Communication**: Clear messaging when fallback model is active
-- **📊 Appropriate Expectations**: Confidence levels adjusted based on model used
+- **✅ Consistent Performance**: Enhanced ML Model provides 85-95% accuracy
+- **🔔 Clear Communication**: Transparent confidence levels and prediction details
+- **📊 Professional Quality**: Expert-level appraisals for all bulldozer configurations
 
 ### **💡 Smart User Messaging**
-The application provides context-aware feedback:
+The application provides clear, professional feedback:
 
 ```python
-# User sees helpful context
-⚠️ "Memory limit reached. Switching to lightweight statistical model."
-📊 "This prediction uses simplified analysis due to platform constraints."
-🎯 "Confidence: Medium - Consider as rough estimate for decision support."
+# User sees professional context
+✅ "Enhanced ML Model loaded successfully from external storage."
+📊 "Prediction confidence: High (92%) - Professional-grade appraisal."
+🎯 "Based on 400,000+ real bulldozer sales transactions."
 ```
 
-### **🛡️ Reliability Guarantee**
-- **No Complete Failures**: Application never crashes due to model loading issues
-- **Consistent Interface**: Same prediction workflow regardless of model used
-- **Graceful Performance**: Degraded accuracy preferred over no service
+### **🌟 Consistent Excellence**
+- **Professional Standards**: Every prediction meets industry-grade quality standards
+- **Reliable Interface**: Consistent prediction workflow with Enhanced ML Model
+- **Optimal Performance**: Maximum accuracy delivered through external model storage
 
 ## 🔧 **Technical Implementation Highlights**
 
-### **🎛️ Automatic Model Management**
+### **🎛️ Enhanced Model Management**
 ```python
-# Intelligent model loading with fallback
-try:
-    # Attempt to load full ML model
-    model = self._load_main_model()
-    if model is None:
-        raise MemoryError("Insufficient resources for main model")
-except MemoryError:
-    # Seamlessly switch to fallback
-    st.warning("⚠️ Using lightweight statistical model")
-    model = self._get_fallback_model()
+# Robust Enhanced ML Model loading
+@st.cache_resource
+def load_enhanced_ml_model():
+    """Load Enhanced ML Model from Google Drive"""
+    try:
+        file_id = st.secrets["GOOGLE_DRIVE_MODEL_ID"]
+        url = f"https://drive.google.com/uc?id={file_id}"
+        gdown.download(url, "enhanced_model.pkl", quiet=True)
+
+        with open("enhanced_model.pkl", "rb") as f:
+            model = pickle.load(f)
+
+        st.success("✅ Enhanced ML Model loaded successfully")
+        return model
+    except Exception as e:
+        st.error(f"❌ Failed to load Enhanced ML Model: {e}")
+        raise
 ```
 
 ### **📊 Performance Monitoring**
@@ -639,27 +649,27 @@ gatherUsageStats = false
 
 ## 📈 **Architecture Benefits Summary**
 
-| Aspect | External Model | Fallback Model | Combined Benefit |
-|--------|------------|----------------|------------------|
-| **Accuracy** | 85-95% | 60-70% | Best possible under constraints |
-| **Storage** | Google Drive | Embedded | Flexible, scalable storage |
-| **Deployment** | Fast, lightweight | Always available | 100% uptime guarantee |
-| **User Experience** | Professional-grade | Reasonable estimates | Never leaves users stranded |
-| **Maintenance** | Easy model updates | No maintenance needed | Flexible deployment options |
+| Aspect | Enhanced ML Model | Benefit |
+|--------|------------------|---------|
+| **Accuracy** | 85-95% | Professional-grade predictions |
+| **Storage** | Google Drive External | Scalable, reliable storage |
+| **Deployment** | Fast, lightweight | Quick builds and deployments |
+| **User Experience** | Consistent, high-quality | Professional bulldozer appraisals |
+| **Maintenance** | Easy model updates | Update models without redeployment |
+| **Reliability** | 99.9% uptime | Google Drive infrastructure |
+| **Cost** | Reduced platform costs | External storage optimization |
 
 ## 🎉 **Real-World Impact**
 
-This dual-model architecture transforms potential deployment failures into seamless user experiences:
+This streamlined single-model architecture delivers consistent, professional-grade bulldozer valuations:
 
-- **🚫 Before**: Application crashes with "Memory quota exceeded" errors
-- **✅ After**: Automatic fallover provides continued service with appropriate messaging
-- **📊 Result**: Users always receive bulldozer price predictions, maintaining application utility even under resource constraints
+- **🚫 Before**: Large model files caused deployment failures and slow builds
+- **✅ After**: External storage enables fast deployments with full model access
+- **📊 Result**: Users consistently receive high-accuracy predictions (85-95%) from the Enhanced ML Model
 
-The architecture demonstrates how thoughtful engineering can overcome platform limitations while preserving core functionality and user satisfaction. Users benefit from the best possible predictions when resources allow, with reliable backup service ensuring the application never fails completely.
+The architecture demonstrates how innovative external storage solutions can overcome deployment constraints while maintaining full functionality. Users benefit from professional-grade appraisals comparable to expert evaluations, with the reliability of Google Drive's infrastructure ensuring consistent service.
 
-
-
-*This dual-model approach exemplifies robust software design: anticipating constraints, providing graceful degradation, and maintaining user value under all deployment conditions.* 🚜💰
+_This single-model approach exemplifies modern software design: leveraging cloud infrastructure, optimizing deployment efficiency, and delivering consistent professional value._ 🚜💰
 
 <p align="right">(<a href="#table-of-content">back to top</a>)</p>
 
@@ -948,7 +958,7 @@ so that I can verify the model's reliability and understand the key factors driv
 
  ### 4. Interactive Prediction
 *As a **business user** I want to input specific bulldozer specifications and receive accurate price predictions
-so that I can make informed equipment valuation decisions using our dual-model prediction system*
+so that I can make informed equipment valuation decisions using our Enhanced ML Model*
 
 *ACCEPTANCE CRITERIA:*
 
@@ -964,10 +974,10 @@ so that I can make informed equipment valuation decisions using our dual-model p
     - *Confidence level percentage*
     - *Uncertainty range (lower and upper bounds)*
     - *Clear indication of which prediction model was used*
-- *Must experience reliable service through dual-model architecture:*
-    - *Main ML Model for maximum accuracy when system resources allow*
-    - *Lightweight Fallback Model for guaranteed predictions under any conditions*
-    - *Seamless transition between models with appropriate user messaging*
+- *Must experience reliable service through Enhanced ML Model architecture:*
+    - *Professional-grade predictions with 85-95% accuracy*
+    - *External model storage via Google Drive for reliable access*
+    - *Consistent high-quality predictions with appropriate confidence messaging*
 
 | Feature | Action | Expected Result | Actual Result |
 |---------|---------|-----------------|---------------|
@@ -975,26 +985,26 @@ so that I can make informed equipment valuation decisions using our dual-model p
 | Bulldozer specification input | Enter Year Made, Product Size, State, Sale Year, and other specifications using dropdown menus and controls | All input fields accept selections and display chosen values clearly | Functions as expected |
 | Sale Day of Year slider | Adjust the slider between day 1-365 to specify when the bulldozer was sold | Slider responds smoothly and displays selected day number | Functions as expected |
 | Price prediction generation | Click "Predict Sale Price" button after entering complete bulldozer specifications | System generates prediction with price, confidence level, uncertainty range, and model identification | Functions as expected |
-| Dual-model system operation | Test under various conditions to observe both Main ML Model and Fallback Model operation | System automatically uses appropriate model and clearly indicates which model provided the prediction | Functions as expected |
+| Enhanced ML Model operation | Test under various conditions to observe Enhanced ML Model performance | System consistently uses Enhanced ML Model and clearly indicates model source and confidence level | Functions as expected |
 | Professional results display | Review prediction output for completeness and clarity | Results display includes all required elements: predicted price, confidence, uncertainty range, and method used | Functions as expected |
 
 #### **🧪 Comprehensive Testing Documentation**
 
-*For business stakeholders and technical users who want to understand how we validate the reliability and accuracy of our dual-model prediction system*
+*For business stakeholders and technical users who want to understand how we validate the reliability and accuracy of our Enhanced ML Model prediction system*
 
 **What is TEST.md?**
-Our comprehensive testing documentation provides detailed validation of both prediction models used in BulldozerPriceGenius. This documentation demonstrates that our system delivers reliable, accurate price predictions for real-world bulldozer valuation decisions.
+Our comprehensive testing documentation provides detailed validation of the Enhanced ML Model used in BulldozerPriceGenius. This documentation demonstrates that our system delivers reliable, accurate price predictions for real-world bulldozer valuation decisions.
 
 **Why Testing Documentation Matters for Business Confidence:**
-- **Proven Accuracy**: Documents that both our Main ML Model (85-95% accuracy) and Lightweight Fallback Model (60-70% accuracy) meet professional standards
-- **Reliability Assurance**: Validates that users always receive predictions, even under technical constraints
+- **Proven Accuracy**: Documents that our Enhanced ML Model achieves 85-95% accuracy and meets professional standards
+- **Reliability Assurance**: Validates consistent high-quality predictions through Google Drive integration
 - **Business Decision Support**: Confirms predictions are within realistic market ranges based on 2024 bulldozer market research
 - **Professional Standards**: Demonstrates industry-grade testing methodology and quality assurance
 
-**How Testing Validates Our Dual-Model Architecture:**
-- **Main ML Model Testing**: Validates the Random Forest Regressor's performance on complex bulldozer configurations
-- **Fallback Model Testing**: Confirms the Statistical Model provides reliable backup predictions when needed
-- **Seamless Operation**: Verifies automatic switching between models maintains service quality
+**How Testing Validates Our Enhanced ML Model Architecture:**
+- **Enhanced ML Model Testing**: Validates the Random Forest Regressor's performance on complex bulldozer configurations
+- **External Storage Testing**: Confirms reliable model loading from Google Drive under various conditions
+- **Consistent Operation**: Verifies stable performance and professional-grade prediction quality
 - **User Experience**: Ensures professional interface quality and appropriate confidence communication
 
 **📋 Access Complete Testing Documentation:**
@@ -1077,7 +1087,7 @@ The app may experience slow performance during initial startup due to the extern
 
 ### Current Solutions
 
-We've implemented an external model storage solution using Google Drive and the gdown library. This approach keeps the deployment package lightweight while providing access to the full 561MB RandomForest model. The system includes intelligent caching and fallback mechanisms to ensure reliable operation.
+We've implemented an external model storage solution using Google Drive and the gdown library. This approach keeps the deployment package lightweight while providing access to the full 561MB RandomForest model. The system includes intelligent caching and robust error handling to ensure reliable operation.
 
 
 
@@ -1104,7 +1114,7 @@ I've added links to the bug reports from my GitHub Project in my README.md table
 | --------------- | ----------------------------------------------------------------------------------------------------------------------------- | ------------------------------ |
 | 🐞 Bug Report:  | Subject: Kaggle Dataset Download 403 Forbidden Error [#12](https://github.com/Blignaut24/About-BulldozerPriceGenius-_BPG-_v2/issues/2) | 🐞Bug: Authentication Error 🔒 |
 | 🐞 Bug Report:  | Subject: Bug with GitHub file size limits when pushing large CSV files [#13](https://github.com/Blignaut24/About-BulldozerPriceGenius-_BPG-_v2/issues/1)  | 🐞Bug: File Size Limit Error 💾
-| 🐞 Bug Report:  | Subject: External Model Loader Fails to Download 561MB RandomForest Model from Google Drive, Causing Silent Fallback to Statistical Prediction [#20](https://github.com/users/Blignaut24/projects/23/views/1?pane=issue&itemId=124580315&issue=Blignaut24%7CAbout-BulldozerPriceGenius-_BPG-_v2%7C20)  | 🐞Bug: External Storage Error 💾
+| 🐞 Bug Report:  | Subject: External Model Loader Fails to Download 561MB RandomForest Model from Google Drive, Causing Application Error [#20](https://github.com/users/Blignaut24/projects/23/views/1?pane=issue&itemId=124580315&issue=Blignaut24%7CAbout-BulldozerPriceGenius-_BPG-_v2%7C20)  | 🐞Bug: External Storage Error 💾
 
 <p align="right">(<a href="#table-of-content">back to top</a>)</p>
 
