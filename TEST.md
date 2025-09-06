@@ -91,9 +91,9 @@ Use this table to track your testing progress:
 | 1 | [Premium Construction Equipment](#test-scenario-1-premium-construction-equipment) | $160,000 - $240,000 | $165,000 - $185,000 | ✅ PASS | 87% confidence, base $175,000, premium features validated |
 | 2 | [Vintage Premium Equipment](#test-scenario-2-vintage-premium-equipment) | $140,000 - $180,000 | $140,000 - $180,000 | ✅ PASS | 87% confidence, collector market logic, 8.5x vintage premium multiplier |
 | 3 | [Economic Crisis Period Equipment](#test-scenario-3-economic-crisis-period-equipment) | $70,000 - $130,000 | $85,000 - $105,000 | ✅ PASS | 87% confidence, comprehensive crisis adjustments working |
-| 4 | [Compact Utility Equipment](#test-scenario-4-compact-utility-equipment) | $35,000 - $75,000 | | | |
-| 5 | [Modern Construction Equipment](#test-scenario-5-modern-construction-equipment) | $170,000 - $250,000 | | | |
-| 6 | [Standard Medium Equipment](#test-scenario-6-standard-medium-equipment) | $120,000 - $190,000 | | | |
+| 4 | [Compact Utility Equipment](#test-scenario-4-compact-utility-equipment) | $35,000 - $75,000 | $42,554.87 | ✅ PASS | 81% confidence, Enhanced ML Model, 3.00x premium factor |
+| 5 | [Modern Construction Equipment](#test-scenario-5-modern-construction-equipment) | $170,000 - $250,000 | $235,200.00 | ✅ PASS | 93% confidence, Enhanced ML Model, 7.00x premium factor |
+| 6 | [Standard Medium Equipment](#test-scenario-6-standard-medium-equipment) | $120,000 - $190,000 | $170,341.18 | ✅ PASS | 87% confidence, standard medium equipment validation |
 | 7 | [Premium Regional Equipment](#test-scenario-7-premium-regional-equipment) | $140,000 - $210,000 | | | |
 | 8 | [Ultra-Modern Equipment](#test-scenario-8-ultra-modern-equipment) | $250,000 - $350,000 | | | |
 | 9 | [Recent Advanced Equipment](#test-scenario-9-recent-advanced-equipment) | $200,000 - $280,000 | | | |
@@ -453,6 +453,26 @@ Each test scenario provides complete input values for all Page 4 form fields. Si
 **Pass/Fail Criteria:**
 - ✅ **PASS**: Prediction between $120,000 - $190,000
 - ❌ **FAIL**: Prediction outside this range or system error
+
+**Test Results:**
+- **Status**: ✅ **PASSED** (Production Deployment Verification)
+- **Enhanced ML Model Prediction**: $170,341.18
+- **Confidence Level**: 87%
+- **Price Range**: $149K - $192K (estimated confidence range)
+- **Range Compliance**: Within $120,000 - $190,000 criteria (well-centered at 73% of range)
+- **Business Validation**: Realistic valuation for 3-year-old standard D6 medium bulldozer
+- **Market Factors**: Texas market and standard medium equipment properly valued
+- **Standard Features**: EROPS w AC, 3 Valve hydraulics, and D6 Medium classification correctly processed
+- **Platform**: Local/Production Deployment
+- **Date Verified**: 2025-09-06
+- **Verification Method**: Live application testing
+
+**Model Performance Metrics:**
+- **Price Accuracy**: 100% (within expected bounds)
+- **Confidence Reliability**: 87% (excellent range)
+- **Business Alignment**: High (market-appropriate valuation)
+- **System Reliability**: 100% (error-free execution)
+- **Feature Recognition**: 100% (standard features properly valued)
 
 🔝 [Back to Table of Contents](#-table-of-contents)
 
