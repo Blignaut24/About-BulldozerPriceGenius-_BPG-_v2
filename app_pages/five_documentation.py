@@ -96,7 +96,7 @@ def documentation_body():
     for component in web_components:
         st.markdown(f"- {component}")
 
-    # Machine Learning Layer
+    # Machine Learning Laye ar
     st.write("### Machine Learning Layer")
     ml_components = [
         "**Enhanced ML Model** - Single, powerful prediction system using Advanced Random Forest algorithm",
